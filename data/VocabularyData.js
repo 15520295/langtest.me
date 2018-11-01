@@ -10,7 +10,7 @@ const flatListData = [
         'img': 'https://i.ytimg.com/vi/FreV-974exc/maxresdefault.jpg'
     },{
         'word': 'canncellation',
-        'pronoun': '/a\'/',               
+        'pronoun': 'ˌkansə\'lāSHən',               
         'img': 'https://pbs.twimg.com/profile_images/680332549529427968/kIgKrHWI_400x400.jpg'
     },{
         'word': 'c',
