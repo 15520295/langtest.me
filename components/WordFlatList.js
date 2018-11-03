@@ -22,6 +22,15 @@ const styles = StyleSheet.create({
 });
 
 export default class WordFlatList extends Component {
+    static navigationOptions = {
+        title:'Home',
+        drawerIcon:(
+          <Image source={require('../assets/images/home.png')}
+            style={{height:24, width:24}}
+          />
+        )
+      };
+
     render() {
         return (
             <View style={{ flex: 1,
