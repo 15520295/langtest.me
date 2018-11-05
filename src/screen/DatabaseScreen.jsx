@@ -10,10 +10,8 @@ export default class DatabaseScreen extends Component{
         super(props);
 
         this.state = {
-            items: 'Fucqwk you'
+            items: 'Simple this'
         };
-
-        this.makeSQLiteDirAsync = this.makeSQLiteDirAsync.bind(this);
     }
 
     makeSQLiteDirAsync() {
@@ -26,8 +24,8 @@ export default class DatabaseScreen extends Component{
         }
     }
 
-    componentDidMount(){
-        var items = null;
+    componentDidMount = () => {
+        var that = this;
         this.makeSQLiteDirAsync();
         FS.downloadAsync(
             Asset.fromModule(require('./../../assets/db/toiec.db')).uri,
@@ -35,12 +33,12 @@ export default class DatabaseScreen extends Component{
         ).then(function(){
             let db = SQLite.openDatabase('toiec.db');
             db.transaction(tx => {
-                tx.executeSql('select * from QuestionPart5;', null, (_, resultSet) => {console.log(resultSet);});
+                tx.executeSql('select * from QuestionPart5;', null, (_, resultSet) => {console.log(resultSet.rows._array); that.setState({items :resultSet.rows._array}); });
             });
         });
     }
 
     render(){
-        return(<Text>{this.state.items}</Text>);
+        return(<Text>{JSON.stringify(this.state.items)}</Text>);
     }
 }
