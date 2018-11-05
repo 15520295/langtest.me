@@ -23,6 +23,9 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "packagerOpts": {
+      "assetExts": ["db"]
+    },
     "ios": {
       "supportsTablet": true
     }

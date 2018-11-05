@@ -7,9 +7,9 @@ import AboutScreen from './screen/AboutScreen';
 
 import {DrawerNavigator, DrawerItems} from 'react-navigation';
 import { Container, Header, Body, Content } from 'native-base';
+import DatabaseScreen from './screen/DatabaseScreen';
 
 export default class App extends React.Component {
-
     render() {
         return (
         // <View style={styles.container}>
@@ -47,8 +47,11 @@ const MyApp = DrawerNavigator({
     About:{
         screen: AboutScreen
     },
+    Database:{
+        screen: DatabaseScreen
+    }
 },{
-    initialRouteName:'Home',
+    initialRouteName:'Database',
     drawerPosition: 'center',
     contentComponent: CustomDrawerContentComponent,
     drawerOpenRoute:'DrawerOpen',
