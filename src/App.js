@@ -12,8 +12,8 @@ export default class App extends React.Component {
 
     render() {
         return (
-            // <View style={styles.container}>
-            //     <WordFlatList>
+        // <View style={styles.container}>
+        //     <WordFlatList>
 
             //     </WordFlatList>
             // </View>
@@ -24,29 +24,29 @@ export default class App extends React.Component {
 
 const CustomDrawerContentComponent = (props) => (
     <Container>
-      <Header style={{height: 200, backgroundColor:'white'}}>
-        <Body>
-          <Image 
-            style={styles.drawImage}
-            source={require('./../assets/images/joychou.jpg')}/>
-        </Body>
-      </Header>
-      <Content>
-        <DrawerItems {...props}/>
-      </Content>
+        <Header style={{height: 200, backgroundColor:'white'}}>
+            <Body>
+                <Image 
+                    style={styles.drawImage}
+                    source={require('./../assets/images/joychou.jpg')}/>
+            </Body>
+        </Header>
+        <Content>
+            <DrawerItems {...props}/>
+        </Content>
     </Container>
-  )
+);
 
 const MyApp = DrawerNavigator({
     Home:{
         screen: WordFlatList
-      },
-      Setting: {
+    },
+    Setting: {
         screen: SettingsScreen
-      },
-      About:{
-          screen: AboutScreen
-      },
+    },
+    About:{
+        screen: AboutScreen
+    },
 },{
     initialRouteName:'Home',
     drawerPosition: 'center',
@@ -54,8 +54,8 @@ const MyApp = DrawerNavigator({
     drawerOpenRoute:'DrawerOpen',
     drawerCloseRoute:'DrawerClose',
     drawerToggleRoute:'DrawerToggle'
-  }
-)
+}
+);
 
 const styles = StyleSheet.create({
     container: {
@@ -68,5 +68,5 @@ const styles = StyleSheet.create({
         borderRadius:75,
         alignItems: 'center',
         justifyContent: 'center',
-      },
+    },
 });

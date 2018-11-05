@@ -7,9 +7,9 @@ export default class SettingsScreen extends React.Component{
         title: 'Setting',
         drawerIcon:(
             <Image source={require('../../assets/images/settings.png')}
-              style={{height:24, width:24}}
+                style={{height:24, width:24}}
             />
-          )
+        )
     };
 
     render(){
