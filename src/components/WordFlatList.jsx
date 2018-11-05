@@ -25,7 +25,7 @@ export default class WordFlatList extends Component {
     static navigationOptions = {
         title:'Home',
         drawerIcon:(
-          <Image source={require('../assets/images/home.png')}
+          <Image source={require('../../assets/images/home.png')}
             style={{height:24, width:24}}
           />
         )

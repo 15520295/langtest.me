@@ -6,7 +6,7 @@ export default class SettingsScreen extends React.Component{
     static navigationOptions ={
         title: 'Setting',
         drawerIcon:(
-            <Image source={require('../assets/images/settings.png')}
+            <Image source={require('../../assets/images/settings.png')}
               style={{height:24, width:24}}
             />
           )
