@@ -3,10 +3,10 @@
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "eject": "expo eject"
+    "start": "rimraf node_modules/.bin/expo* && expo start",
+    "android": "rimraf node_modules/.bin/expo* && expo start --android",
+    "ios": "rimraf node_modules/.bin/expo* && expo start --ios",
+    "eject": "rimraf node_modules/.bin/expo* && expo eject"
   },
   "dependencies": {
     "expo": "^30.0.1",
@@ -23,6 +23,7 @@
     "eslint": "^5.7.0",
     "eslint-plugin-json": "^1.2.1",
     "eslint-plugin-react": "^7.11.1",
-    "eslint-plugin-react-native": "^3.5.0"
+    "eslint-plugin-react-native": "^3.5.0",
+    "rimraf": "^2.6.2"
   }
 }
