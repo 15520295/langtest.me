@@ -20,11 +20,12 @@ export default class App extends React.Component {
             loading: true
         };
     }
-    async componentWillMount(){
+    async componentDidMount(){
         await Font.loadAsync({
             'Roboto': require('native-base/Fonts/Roboto.ttf'),
             'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
-            Ionicons: require('@expo/vector-icons/fonts/Ionicons.ttf')
+            'Roboto_light': require('./../assets/fonts/Roboto-Light.ttf'),
+            'Ionicons': require('@expo/vector-icons/fonts/Ionicons.ttf')
         });
         this.setState({loading: false});
     }
