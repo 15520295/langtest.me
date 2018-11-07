@@ -4,7 +4,84 @@ import {StyleSheet, TouchableOpacity} from 'react-native';
 import AnswerButton from '../components/AnswerButton';
 import {robotoWeights} from 'react-native-typography';
 
+
+const QuestionData = [
+    {
+        id: 1,
+        question: 'Thank you for your ------ in the Foxdale Apartments community enhancement survey',
+        answer1: 'participant',
+        answer2: 'participation',
+        answer3: 'participate',
+        answer4: 'participated',
+        correct: 2
+    },
+    {
+        id: 2,
+        question: 'Company officials must disclose their own ------ affairs.',
+        answer1: 'finance',
+        answer2: 'financing',
+        answer3: 'financial',
+        answer4: 'financed',
+        correct: 3
+    },
+    {
+        id: 3,
+        question: 'Ms. Kim asks that the marketing team e-mail the final draft to ------ before 5 p.m.',
+        answer1: 'her',
+        answer2: 'she',
+        answer3: 'hers',
+        answer4: 'herself',
+        correct: 1
+    }
+];
+
 export default class QuestionScreen extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            correctAnswer: 0,
+            incorrectAnswer: 0,
+            currentQuestion: 0,
+            answerState: [0, 0, 0, 0],
+            isWaiting: false
+        };
+    }
+
+    nextQuestion = () => {
+        this.setState({
+            isWaiting: false,
+            answerState: [0, 0, 0, 0],
+            currentQuestion: (this.state.currentQuestion + 1) % QuestionData.length
+        });
+    }
+
+    prevQuestion = () => {
+        this.setState({
+            isWaiting: false,
+            answerState: [0, 0, 0, 0],
+            currentQuestion: (this.state.currentQuestion - 1) % QuestionData.length
+        });
+    }
+
+    chooseAnswer = (idAnswer) => {
+        if(this.state.isWaiting){
+            return;
+        }
+        this.setState({isWaiting: true});
+        if(idAnswer === QuestionData[this.state.currentQuestion].correct){
+            let answerState = this.state.answerState;
+            answerState[idAnswer] = 1;
+            this.setState({answerState: answerState, correctAnswer: this.state.correctAnswer + 1});
+        }
+        else
+        {
+            let answerState = this.state.answerState;
+            answerState[idAnswer] = 2;
+            this.setState({answerState: answerState, incorrectAnswer: this.state.incorrectAnswer + 1});
+        }
+        setTimeout(() => {this.nextQuestion();}, 3000);
+    }
+
     render() {
         return (
             <Container style={styles.container}>
@@ -19,11 +96,11 @@ export default class QuestionScreen extends React.Component {
                     </Body>
                     <Right>
                         <Button transparent>
-                            <Title style={{paddingRight: 10}}>1</Title>
+                            <Title style={{paddingRight: 10}}>{this.state.correctAnswer}</Title>
                             <Icon android='md-thumbs-up' ios='ios-thumbs-up'/>
                         </Button>
                         <Button transparent>
-                            <Title style={{paddingRight: 10}}>2</Title>
+                            <Title style={{paddingRight: 10}}>{this.state.incorrectAnswer}</Title>
                             <Icon android='md-thumbs-down' ios='ios-thumbs-down'/>
                         </Button>
                     </Right>
@@ -33,7 +110,7 @@ export default class QuestionScreen extends React.Component {
                         <Icon style={{color: '#019AE8'}} android="md-arrow-back" ios="ios-arrow-back" /> 
                         <View style={{flexDirection: 'row'}}>
                             <TouchableOpacity>
-                                <Text style={{fontSize: 18,color: '#019AE8'}}>1</Text>
+                                <Text style={{fontSize: 18,color: '#019AE8'}}>{this.state.currentQuestion + 1}</Text>
                             </TouchableOpacity>
                             <Text style={{fontSize: 18}}>/3</Text>
                         </View>
@@ -41,24 +118,37 @@ export default class QuestionScreen extends React.Component {
                     </View>
                     <View style={styles.questionView}>
                         <Text adjustsFontSizeToFit minimumFontScale={.5} style={styles.questionText}>
-                    4?. In the hope of finding fresh ideas he used the internet to help him by using as many search ....... as he could
-    discover  using as many search ....... as he could discover
+                            {
+                                QuestionData[this.state.currentQuestion].question
+                            }
                         </Text>
                     </View>
                     <View style={styles.answerButton}>
-                        <AnswerButton text="Aaas dsadasdass"/>
+                        <AnswerButton correctAnswer={this.state.answerState[0] === 1} 
+                            incorrectAnswer={this.state.answerState[0] === 2} 
+                            onPress = {() => {this.chooseAnswer(0);}}
+                            text={QuestionData[this.state.currentQuestion].answer1}/>
                     </View>
 
                     <View style={styles.answerButton}>
-                        <AnswerButton text="Aa asdasds"/>
+                        <AnswerButton correctAnswer={this.state.answerState[1] === 1} 
+                            incorrectAnswer={this.state.answerState[1] === 2} 
+                            onPress = {() => {this.chooseAnswer(1);}}
+                            text={QuestionData[this.state.currentQuestion].answer2}/>
                     </View>
                     
                     <View style={styles.answerButton}>
-                        <AnswerButton text="Aas asdas das"/>
+                        <AnswerButton correctAnswer={this.state.answerState[2] === 1} 
+                            incorrectAnswer={this.state.answerState[2] === 2} 
+                            onPress = {() => {this.chooseAnswer(2);}}
+                            text={QuestionData[this.state.currentQuestion].answer3}/>
                     </View>
 
                     <View style={styles.answerButton}>
-                        <AnswerButton text="Aas asdas das asdas das dasd as asd asdasdas dasd asdasdas das dasd asdasd asdasdas Aas asdas das asdas das dasd as asd asdasdas dasd asdasdas das dasd asdasd asdasdac  asd asdasd asdasdac"/>
+                        <AnswerButton correctAnswer={this.state.answerState[3] === 1} 
+                            incorrectAnswer={this.state.answerState[3] === 2} 
+                            onPress = {() => {this.chooseAnswer(3);}}
+                            text={QuestionData[this.state.currentQuestion].answer4}/>
                     </View>
                 </Content>
             </Container>

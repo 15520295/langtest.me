@@ -4,7 +4,7 @@ import { Button, Container, Text, View, Icon } from 'native-base';
 import {robotoWeights} from 'react-native-typography';
 export default class AnswerButton extends React.Component{
     render(){
-        if(false){
+        if(this.props.correctAnswer){
             const style = stylesCorrect;
             return (            
                 <Button light style={style.answerButton} onPress={this.props.onPress}>
@@ -15,7 +15,7 @@ export default class AnswerButton extends React.Component{
                 </Button>);
         }
 
-        if(true){
+        if(this.props.incorrectAnswer){
             const style = stylesIncorrect;
             return (            
                 <Button light style={style.answerButton} onPress={this.props.onPress}>
@@ -28,7 +28,7 @@ export default class AnswerButton extends React.Component{
 
         const style = stylesNormal;
         return (
-            <Button border light style={style.answerButton} onPress={this.props.onPress}>
+            <Button light style={style.answerButton} onPress={this.props.onPress}>
                 <View style={style.answerCircle}></View>
                 <Text uppercase={false} allowFontScaling={true} style={style.answerText}>{this.props.text}</Text>
             </Button>);
@@ -44,6 +44,7 @@ const stylesNormal = StyleSheet.create({
         borderTopWidth: 1,
         borderBottomWidth: 1,
         borderColor: '#B3B3B3',
+        backgroundColor: '#FFFFFF',
         shadowRadius: 0
     },
     answerText: {
