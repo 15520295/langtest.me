@@ -29,6 +29,7 @@
     "react-native-elements": "^0.19.1",
     "react-native-flip-card": "^3.5.2",
     "react-native-super-grid": "^2.4.3",
+    "react-native-typography": "^1.4.0",
     "react-navigation": "^2.18.2",
     "unstated": "^2.1.1"
   },
