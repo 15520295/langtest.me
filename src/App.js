@@ -1,23 +1,45 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
+import {Root} from 'native-base';
+import {Font} from 'expo';
+import Expo from 'expo';
 import WordFlatList from './components/WordFlatList';
 import HomeScreen from './screen/HomeScreen';
 import SettingsScreen from './screen/SettingsScreen';
 import AboutScreen from './screen/AboutScreen';
 
-import {DrawerNavigator, DrawerItems} from 'react-navigation';
+import {DrawerNavigator, DrawerItems, createDrawerNavigator} from 'react-navigation';
 import { Container, Header, Body, Content } from 'native-base';
 import DatabaseScreen from './screen/DatabaseScreen';
+import QuestionScreen from './screen/QuestionScreen';
 
 export default class App extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            loading: true
+        };
+    }
+    async componentWillMount(){
+        await Font.loadAsync({
+            'Roboto': require('native-base/Fonts/Roboto.ttf'),
+            'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
+            Ionicons: require('@expo/vector-icons/fonts/Ionicons.ttf')
+        });
+        this.setState({loading: false});
+    }
+
     render() {
+        if(this.state.loading){
+            return (<Expo.AppLoading/>);
+        }
         return (
         // <View style={styles.container}>
         //     <WordFlatList>
 
             //     </WordFlatList>
             // </View>
-            <MyApp/>
+            <QuestionScreen/>
         );
     }
 }
@@ -37,7 +59,7 @@ const CustomDrawerContentComponent = (props) => (
     </Container>
 );
 
-const MyApp = DrawerNavigator({
+const MyApp = createDrawerNavigator({
     Home:{
         screen: WordFlatList
     },
@@ -47,16 +69,17 @@ const MyApp = DrawerNavigator({
     About:{
         screen: AboutScreen
     },
-    Database:{
-        screen: DatabaseScreen
+    Question:{
+        screen: QuestionScreen
     }
 },{
-    initialRouteName:'Database',
+    initialRouteName:'Question',
     drawerPosition: 'center',
     contentComponent: CustomDrawerContentComponent,
     drawerOpenRoute:'DrawerOpen',
     drawerCloseRoute:'DrawerClose',
-    drawerToggleRoute:'DrawerToggle'
+    drawerToggleRoute:'DrawerToggle',
+    headerMode: 'none'
 }
 );
 

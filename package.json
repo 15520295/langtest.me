@@ -20,6 +20,7 @@
     "buildAndStart": "yarn run build && yarn run watchAndStart "
   },
   "dependencies": {
+    "@expo/vector-icons": "^8.0.0",
     "expo": "^30.0.1",
     "native-base": "^2.8.1",
     "prop-types": "^15.6.2",
