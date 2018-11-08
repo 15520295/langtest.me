@@ -1,37 +1,41 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Animated} from 'react-native';
 import { Button, Container, Text, View, Icon } from 'native-base';
 import {robotoWeights} from 'react-native-typography';
 export default class AnswerButton extends React.Component{
     render(){
+        let result = null;
+
+        result = (<Button light style={stylesNormal.answerButton} onPress={this.props.onPress}>
+            <View style={stylesNormal.answerCircle}></View>
+            <Text uppercase={false} allowFontScaling={true} style={stylesNormal.answerText}>{this.props.text}</Text>
+        </Button>);
+
         if(this.props.correctAnswer){
-            const style = stylesCorrect;
-            return (            
-                <Button light style={style.answerButton} onPress={this.props.onPress}>
-                    <View style={style.answerCircle}>
-                        <Icon style={style.checkIcon} android='md-checkmark' ios='ios-checkmark'/>
+            result = (
+                <Button light style={stylesCorrect.answerButton} onPress={this.props.onPress}>
+                    <View style={stylesCorrect.answerCircle}>
+                        <Icon style={stylesCorrect.checkIcon} android='md-checkmark' ios='ios-checkmark'/>
                     </View>
-                    <Text uppercase={false} allowFontScaling={true} style={style.answerText}>{this.props.text}</Text>
+                    <Text uppercase={false} allowFontScaling={true} style={stylesCorrect.answerText}>{this.props.text}</Text>
                 </Button>);
         }
 
         if(this.props.incorrectAnswer){
-            const style = stylesIncorrect;
-            return (            
-                <Button light style={style.answerButton} onPress={this.props.onPress}>
-                    <View style={style.answerCircle}>
-                        <Icon style={style.checkIcon} type="FontAwesome" android="remove" ios="remove" />   
+            result =  (            
+                <Button style={stylesIncorrect.answerButton}  light onPress={this.props.onPress}>
+                    <View style={stylesIncorrect.answerCircle}>
+                        <Icon style={stylesIncorrect.checkIcon} type="FontAwesome" android="remove" ios="remove" />   
                     </View>
-                    <Text uppercase={false} allowFontScaling={true} style={style.answerText}>{this.props.text}</Text>
+                    <Text uppercase={false} allowFontScaling={true} style={stylesIncorrect.answerText}>{this.props.text}</Text>
                 </Button>);
         }
 
-        const style = stylesNormal;
         return (
-            <Button light style={style.answerButton} onPress={this.props.onPress}>
-                <View style={style.answerCircle}></View>
-                <Text uppercase={false} allowFontScaling={true} style={style.answerText}>{this.props.text}</Text>
-            </Button>);
+            <Animated.View style={stylesNormal.answerButton} >
+                {result}
+            </Animated.View>
+        );
     }
 }
 
