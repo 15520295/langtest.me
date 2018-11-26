@@ -9,6 +9,7 @@
       "ios",
       "android"
     ],
+    "primaryColor": "#019AE8",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,8 +24,14 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "packagerOpts": {
+      "assetExts": ["db"]
+    },
     "ios": {
       "supportsTablet": true
+    },
+    "androidStatusBar": {
+      "backgroundColor": "#000000"
     }
   }
 }
