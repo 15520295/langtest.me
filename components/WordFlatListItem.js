@@ -21,34 +21,10 @@ export default class WordFlatListItem extends Component {
         this.state = {
         };
     }
-
-    // componentWillMount(){
-    //     this.animatedValue = new Animated.Value(0);
-
-    //     this.frontInterpolate = this.animatedValue.interpolate({
-    //         inputRange: [0, 180],
-    //         outputRange: ['0deg', '180deg'],
-    //     });
-    //     this.backInterpolate = this.animatedValue.interpolate({
-    //         inputRange: [0, 180],
-    //         outputRange: ['180deg', '360deg'],
-    //     });
-    // }
-
     render() {
-        // const frontAnimatedStyle ={
-        //     transfrom:[
-        //         { rotateX: this.frontInterpolate}
-        //     ]
-        // };
-        // const backAnimatedStyle ={
-        //     transfrom:[
-        //         { rotateX: this.backInterpolate}
-        //     ]
-        // };
 
         return (
-            <View style={styles.ItemContainer}>
+            <View style={styles.vc_component}>
                 <FlipCard
                     style={styles.flip}
                     friction={1000}
@@ -70,16 +46,7 @@ export default class WordFlatListItem extends Component {
                                         type='MaterialIcons'
                                         size={30}
                                         color='#517fa4'
-                                        onPress={() => {Alert.alert(
-                                            'Alert Title',
-                                            'My Alert Msg',
-                                            [
-                                                {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
-                                                {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                                                {text: 'OK', onPress: () => console.log('OK Pressed')},
-                                            ],
-                                            { cancelable: false }
-                                        );}}
+                                        onPress={() => {}}
                                     />
                                 </View>
                                 <View style={styles.vc_exampleTitle}>
@@ -102,42 +69,6 @@ export default class WordFlatListItem extends Component {
                     </Card>
                 </FlipCard>
                 
-                {/* <Animated.View style={[frontAnimatedStyle, styles.cardFront]}>
-                    <Card containerStyle={styles.cardView}
-                        wrapperStyle={styles.vc_card}>
-                        <View style={styles.vc_top}>
-                            <View style={styles.vc_topLeft}>
-                                <View style={styles.vc_wordDes}>
-                                    <Text style={styles.txt_word}>{this.props.item.word}</Text>
-                                    <Text style={styles.txt_pronun}>{this.props.item.pronoun}</Text>
-                                    <Icon
-                                        name='volume-up'
-                                        type='MaterialIcons'
-                                        size={30}
-                                        color='#517fa4'
-                                    />
-                                </View>
-                                <View style={styles.vc_exampleTitle}>
-                                    <Text style={styles.txt_exTitle}>Example:</Text>
-                                </View>
-                            </View>
-                            <View style={styles.vc_topRight}>
-                                <Image style={styles.img} 
-                                    source={{ uri: this.props.item.img }}/>
-                            </View>
-                        </View>
-                        <View style={styles.vc_bottom}>
-                            <Text style={styles.txt_ex}>Hello every body</Text>
-                        </View>
-
-                    </Card>
-                </Animated.View>
-                <Animated.View style={[backAnimatedStyle, styles.vc_cardBack]}>
-                    <Card>
-                        <Text>back</Text>
-                    </Card>
-                </Animated.View> */}
-                
             </View>
         );
     }
@@ -150,11 +81,11 @@ const styles = StyleSheet.create({
         padding: 0,
         margin:0
     },
-    ItemContainer: {
+    vc_component: {
         flex: 0,
         justifyContent: 'center',
         marginHorizontal: 10,
-        marginVertical: 8
+        marginVertical: 4
     },
     cardView: {
         borderRadius: 3,
