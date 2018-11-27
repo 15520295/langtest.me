@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Header, Left, Body, Right, Button, Icon, Title, View, Text, Content} from 'native-base';
-import {StyleSheet, TouchableOpacity, Platform} from 'react-native';
+import {StyleSheet, TouchableOpacity, Platform, PanResponder, Dimensions} from 'react-native';
 import AnswerButton from '../components/AnswerButton';
 import {systemWeights} from 'react-native-typography';
 import posed, { Transition } from 'react-native-pose';
@@ -60,10 +60,17 @@ const QuestionData = [
     }
 ];
 
+const { width } = Dimensions.get('window');
+const touchThreshold = 20;
+const swipeThreshold = 30;
+const quadrantThreshold = 30;
+
 export default class QuestionScreen extends React.Component {
     constructor(props){
         super(props);
+
         this.state = {
+            quadrants: this.calculateQuadrants(quadrantThreshold),
             correctAnswer: 0,
             incorrectAnswer: 0,
             currentQuestion: 0,
@@ -71,6 +78,53 @@ export default class QuestionScreen extends React.Component {
             isWaiting: false,
             isAnimation: false
         };
+
+
+        this._panResponder = PanResponder.create({
+            onStartShouldSetPanResponder: () => false,
+            onMoveShouldSetPanResponder: (evt, gestureState) =>{
+                const {dx, dy} = gestureState;
+                return (Math.abs(dx) > touchThreshold) || (Math.abs(dy) > touchThreshold);
+            },
+            onPanResponderRelease: (...args) => this.handleSwipe(...args)
+        });
+
+        this.calculateQuadrants = this.calculateQuadrants.bind(this);
+        this.handleSwipe = this.handleSwipe.bind(this);
+    }
+
+
+    calculateQuadrants (threshold) {
+        return {
+            right: [0 + threshold, 0 - threshold],
+            up: [-90 + threshold, -90 - threshold],
+            down: [90 + threshold, 90 - threshold],
+            topLeft: [-180 + threshold, -180],
+            bottomLeft: [180, 180 - threshold]
+        };
+    }
+
+    isInsideQuadrant (quadrants, direction, angle) {
+        return angle >= quadrants[direction][1] && angle <= quadrants[direction][0];
+    }
+
+    handleSwipe (pan, gesture) {
+        const angle = Math.atan2(gesture.dy, gesture.dx) * (180 / Math.PI);
+        const distance = Math.sqrt(Math.pow(gesture.dx, 2) + Math.pow(gesture.dy, 2));
+
+        console.log('handle swipe');
+        if (distance > swipeThreshold) {
+            console.log('large the swipe threshold');
+            console.log(angle);
+            console.log(this.state.quadrants);
+            if (this.isInsideQuadrant(this.state.quadrants, 'right', angle)) {
+                this.nextQuestion();
+            } else if (this.isInsideQuadrant(this.state.quadrants, 'topLeft', angle)) {
+                this.prevQuestion();
+            } else if (this.isInsideQuadrant(this.state.quadrants, 'bottomLeft', angle)) {
+                this.prevQuestion();
+            } 
+        } 
     }
 
     nextQuestion = () => {
@@ -184,10 +238,8 @@ export default class QuestionScreen extends React.Component {
                         </Button>
                     </Right>
                 </Header>
-                <Content scrollEnabled={false}>
-                    <GestureView onSwipeUp={() => {this.nextQuestion();}}>
-                        {this.renderAnswerQuestion()}
-                    </GestureView>
+                <Content scrollEnabled={false} {...this._panResponder.panHandlers}>
+                    {this.renderAnswerQuestion()}
                 </Content>
             </Container>
         );
