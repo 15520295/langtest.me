@@ -11,7 +11,7 @@ import AboutScreen from './screen/AboutScreen';
 import {DrawerNavigator, DrawerItems, createDrawerNavigator} from 'react-navigation';
 import { Container, Header, Body, Content } from 'native-base';
 import DatabaseScreen from './screen/DatabaseScreen';
-import QuestionScreen from './screen/QuestionScreen';
+import QuestionScreenDumb from './screen/QuestionScreen/QuestionScreenDumb';
 
 export default class App extends React.Component {
     constructor(props){
@@ -40,7 +40,7 @@ export default class App extends React.Component {
 
             //     </WordFlatList>
             // </View>
-            <QuestionScreen/>
+            <QuestionScreenDumb/>
         );
     }
 }
@@ -71,7 +71,7 @@ const MyApp = createDrawerNavigator({
         screen: AboutScreen
     },
     Question:{
-        screen: QuestionScreen
+        screen: QuestionScreenDumb
     }
 },{
     initialRouteName:'Question',

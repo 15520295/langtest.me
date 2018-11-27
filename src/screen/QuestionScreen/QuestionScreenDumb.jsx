@@ -1,10 +1,9 @@
 import React from 'react';
 import { Container, Header, Left, Body, Right, Button, Icon, Title, View, Text, Content} from 'native-base';
 import {StyleSheet, TouchableOpacity, Platform, PanResponder, Dimensions} from 'react-native';
-import AnswerButton from '../components/AnswerButton';
+import AnswerButton from '../../components/AnswerButton';
 import {systemWeights} from 'react-native-typography';
 import posed, { Transition } from 'react-native-pose';
-import GestureView from '../components/GestureView';
 
 
 //TODO: Fix pre-enter pose
@@ -65,7 +64,7 @@ const touchThreshold = 20;
 const swipeThreshold = 30;
 const quadrantThreshold = 30;
 
-export default class QuestionScreen extends React.Component {
+export default class QuestionScreenDumb extends React.Component {
     constructor(props){
         super(props);
 
@@ -112,11 +111,7 @@ export default class QuestionScreen extends React.Component {
         const angle = Math.atan2(gesture.dy, gesture.dx) * (180 / Math.PI);
         const distance = Math.sqrt(Math.pow(gesture.dx, 2) + Math.pow(gesture.dy, 2));
 
-        console.log('handle swipe');
         if (distance > swipeThreshold) {
-            console.log('large the swipe threshold');
-            console.log(angle);
-            console.log(this.state.quadrants);
             if (this.isInsideQuadrant(this.state.quadrants, 'right', angle)) {
                 this.nextQuestion();
             } else if (this.isInsideQuadrant(this.state.quadrants, 'topLeft', angle)) {
