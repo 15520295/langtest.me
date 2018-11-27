@@ -1,9 +1,11 @@
 import React from 'react';
 import { Container, Header, Left, Body, Right, Button, Icon, Title, View, Text, Content} from 'native-base';
-import {StyleSheet, TouchableOpacity, Platform, PanResponder, Dimensions} from 'react-native';
+import {StyleSheet, TouchableOpacity, Platform, PanResponder, ViewStyle, PanResponderGestureState, PanResponderInstance} from 'react-native';
 import AnswerButton from '../../components/AnswerButton';
 import {systemWeights} from 'react-native-typography';
 import posed, { Transition } from 'react-native-pose';
+import QuizStore from '../../store/quizStore';
+
 
 
 //TODO: Fix pre-enter pose
@@ -28,51 +30,28 @@ const Box = posed.View({
     }
 });
 
-
-const QuestionData = [
-    {
-        id: 1,
-        question: 'Thank you for your ------ in the Foxdale Apartments community enhancement survey',
-        answer1: 'participant',
-        answer2: 'participation',
-        answer3: 'participate',
-        answer4: 'participated',
-        correct: 2
-    },
-    {
-        id: 2,
-        question: 'Company officials must disclose their own ------ affairs.',
-        answer1: 'finance',
-        answer2: 'financing',
-        answer3: 'financial',
-        answer4: 'financed',
-        correct: 3
-    },
-    {
-        id: 3,
-        question: 'Ms. Kim asks that the marketing team e-mail the final draft to ------ before 5 p.m.',
-        answer1: 'her',
-        answer2: 'she',
-        answer3: 'hers',
-        answer4: 'herself',
-        correct: 1
-    }
-];
-
-const { width } = Dimensions.get('window');
 const touchThreshold = 20;
 const swipeThreshold = 30;
 const quadrantThreshold = 30;
 
-export default class QuestionScreenDumb extends React.Component {
-    constructor(props){
+export interface Props{
+    quizStore: QuizStore
+}
+
+interface States{
+    quadrants: any,
+    answerState: number[],
+    isWaiting: boolean,
+    isAnimation: boolean
+}
+
+export default class QuestionScreenContainer extends React.Component<Props, States>{
+    _panResponder: PanResponderInstance;
+    constructor(props: Props){
         super(props);
 
         this.state = {
             quadrants: this.calculateQuadrants(quadrantThreshold),
-            correctAnswer: 0,
-            incorrectAnswer: 0,
-            currentQuestion: 0,
             answerState: [0, 0, 0, 0],
             isWaiting: false,
             isAnimation: false
@@ -81,19 +60,18 @@ export default class QuestionScreenDumb extends React.Component {
 
         this._panResponder = PanResponder.create({
             onStartShouldSetPanResponder: () => false,
-            onMoveShouldSetPanResponder: (evt, gestureState) =>{
+            onMoveShouldSetPanResponder: (_, gestureState) =>{
                 const {dx, dy} = gestureState;
                 return (Math.abs(dx) > touchThreshold) || (Math.abs(dy) > touchThreshold);
             },
-            onPanResponderRelease: (...args) => this.handleSwipe(...args)
+            onPanResponderRelease: (_, gestureState) => this.handleSwipe(gestureState)
         });
 
         this.calculateQuadrants = this.calculateQuadrants.bind(this);
         this.handleSwipe = this.handleSwipe.bind(this);
     }
 
-
-    calculateQuadrants (threshold) {
+    calculateQuadrants (threshold: number): any {
         return {
             right: [0 + threshold, 0 - threshold],
             up: [-90 + threshold, -90 - threshold],
@@ -103,11 +81,11 @@ export default class QuestionScreenDumb extends React.Component {
         };
     }
 
-    isInsideQuadrant (quadrants, direction, angle) {
+    isInsideQuadrant (quadrants: any, direction: string, angle: number): boolean {
         return angle >= quadrants[direction][1] && angle <= quadrants[direction][0];
     }
 
-    handleSwipe (pan, gesture) {
+    handleSwipe (gesture:PanResponderGestureState): void {
         const angle = Math.atan2(gesture.dy, gesture.dx) * (180 / Math.PI);
         const distance = Math.sqrt(Math.pow(gesture.dx, 2) + Math.pow(gesture.dy, 2));
 
@@ -125,66 +103,87 @@ export default class QuestionScreenDumb extends React.Component {
     nextQuestion = () => {
         //Wait a bit for disapperance animation
         this.setState({isAnimation: true});
-        this.forceUpdate();
         setTimeout(() => {
             this.setState({
                 isWaiting: false,
                 isAnimation: false,
-                answerState: [0, 0, 0, 0],
-                currentQuestion: (this.state.currentQuestion + 1) % QuestionData.length
+                answerState: [0, 0, 0, 0]
             });
+            this.props.quizStore.nextQuestion();
         }, 50);
     }
 
     prevQuestion = () => {
         this.setState({isAnimation: true});
-        this.forceUpdate();
         setTimeout(() => {
             this.setState({
                 isWaiting: false,
                 isAnimation: false,
-                answerState: [0, 0, 0, 0],
-                currentQuestion: (this.state.currentQuestion + QuestionData.length- 1) % QuestionData.length
+                answerState: [0, 0, 0, 0]
             });
+            this.props.quizStore.prevQuestion();
         }, 50);
     }
 
-    chooseAnswer = (idAnswer) => {
+    chooseAnswer = (idAnswer: number) => {
         //Avoid click on mutlyply answer
         if(this.state.isWaiting){
             return;
         }
         this.setState({isWaiting: true});
-        if(idAnswer === QuestionData[this.state.currentQuestion].correct){
+        let questionInfo = this.props.quizStore.getCurrentQuestionInfo();
+        if(this.props.quizStore.answerQuestion(idAnswer)){
             let answerState = this.state.answerState;
             answerState[idAnswer - 1] = 1;
-            this.setState({answerState: answerState, correctAnswer: this.state.correctAnswer + 1});
+            this.setState({answerState: answerState});
         }
         else
         {
             let answerState = this.state.answerState;
-            answerState[QuestionData[this.state.currentQuestion].correct - 1] = 1;
+            answerState[questionInfo.correctAnswer - 1] = 1;
             answerState[idAnswer - 1] = 2;
-            this.setState({answerState: answerState, incorrectAnswer: this.state.incorrectAnswer + 1});
+            this.setState({answerState: answerState});
         }
         setTimeout(() => {this.nextQuestion();}, 500);
     }
 
+    renderQuestion () {
+        const {quizStore} = this.props;
+
+        return (
+            <View>
+            {
+                quizStore.getCurrentQuestionInfo().answer.map((value, index) => 
+                <View key={index} style={styles.answerButton}>
+                    <AnswerButton correctAnswer={this.state.answerState[index] === 1} 
+                        incorrectAnswer={this.state.answerState[index] === 2} 
+                        onPress = {() => {this.chooseAnswer(index + 1);}}
+                        text={value}/>
+                </View>)
+            }
+            </View>
+
+        )
+    }
+
     renderAnswerQuestion () {
+        const {quizStore} = this.props;
+        console.log('Current question info');
+        console.log(quizStore.getCurrentQuestionInfo());
         return (
             <View>
                 <View style={styles.navigationView}>
                     <TouchableOpacity onPress={() => {this.prevQuestion();}}>
-                        <Icon style={{color: '#019AE8'}} android="md-arrow-back" ios="ios-arrow-back" /> 
+                        <Icon name='arrow-back' style={{color: '#019AE8'}} android="md-arrow-back" ios="ios-arrow-back" /> 
                     </TouchableOpacity>
                     <View style={{flexDirection: 'row'}}>
                         <TouchableOpacity>
-                            <Text style={{fontSize: 18,color: '#019AE8'}}>{this.state.currentQuestion + 1}</Text>
+                            <Text style={{fontSize: 18,color: '#019AE8'}}>{quizStore.getCurrentQuestionNumber() + 1}</Text>
                         </TouchableOpacity>
-                        <Text style={{fontSize: 18}}>/{QuestionData.length}</Text>
+                        <Text style={{fontSize: 18}}>/{quizStore.getTotalQuestionNumber()}</Text>
                     </View>
                     <TouchableOpacity onPress={() => {this.nextQuestion();}}>
-                        <Icon style={{color: '#019AE8'}} android="md-arrow-forward" ios="ios-arrow-forward" /> 
+                        <Icon name='arrow-forward' style={{color: '#019AE8'}} android="md-arrow-forward" ios="ios-arrow-forward" /> 
                     </TouchableOpacity>
                 </View>
                 <Transition preEnterPose='before' exitPose='exit'>
@@ -192,18 +191,10 @@ export default class QuestionScreenDumb extends React.Component {
             <Box preEnterPose='before' key='question'>
                 <View key='question' style={styles.questionView}>
                     <Text adjustsFontSizeToFit minimumFontScale={.5} style={styles.questionText}>
-                        {
-                            QuestionData[this.state.currentQuestion].question
-                        }
+                        {quizStore.getCurrentQuestionInfo().question}
                     </Text>
                 </View>
-
-                <View key='answer1' style={styles.answerButton}>
-                    <AnswerButton correctAnswer={this.state.answerState[0] === 1} 
-                        incorrectAnswer={this.state.answerState[0] === 2} 
-                        onPress = {() => {this.chooseAnswer(1);}}
-                        text={QuestionData[this.state.currentQuestion].answer1}/>
-                </View>
+                {this.renderQuestion()}
             </Box>
                     }
                 </Transition>
@@ -211,12 +202,14 @@ export default class QuestionScreenDumb extends React.Component {
         );
     }
     render() {
+        const {quizStore} = this.props;
+
         return (
-            <Container style={styles.container}>
+            <Container style={[styles.container as ViewStyle]}>
                 <Header androidStatusBarColor="#0076BF" style={{backgroundColor: Platform.OS ==='android' ? '#019AE8' : '#FFFFFF'}}>
                     <Left>
                         <Button transparent>
-                            <Icon android='md-arrow-back' ios='ios-arrow-back' />
+                            <Icon name='arrow-back' android='md-arrow-back' ios='ios-arrow-back' />
                         </Button>
                     </Left>
                     <Body>
@@ -224,12 +217,12 @@ export default class QuestionScreenDumb extends React.Component {
                     </Body>
                     <Right>
                         <Button transparent>
-                            <Title style={{paddingRight: 10}}>{this.state.correctAnswer}</Title>
-                            <Icon android='md-thumbs-up' ios='ios-thumbs-up'/>
+                            <Title style={{paddingRight: 10}}>{quizStore.state.correctedAnswer}</Title>
+                            <Icon name ='thumb-up' android='md-thumbs-up' ios='ios-thumbs-up'/>
                         </Button>
                         <Button transparent>
-                            <Title style={{paddingRight: 10}}>{this.state.incorrectAnswer}</Title>
-                            <Icon android='md-thumbs-down' ios='ios-thumbs-down'/>
+                            <Title style={{paddingRight: 10}}>{quizStore.state.uncorrectedAnswer}</Title>
+                            <Icon name = 'thumb-down' android='md-thumbs-down' ios='ios-thumbs-down'/>
                         </Button>
                     </Right>
                 </Header>

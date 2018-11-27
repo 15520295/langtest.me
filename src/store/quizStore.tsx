@@ -10,16 +10,11 @@ export interface quizStoreInterface {
     currentQuestion: number
 }
 
-export interface currentQuestionInterface {
-    question: Question,
-    selectedAnswer?: number
-}
-
 export default class QuizStore extends Container<quizStoreInterface>{
     constructor(){
         super();
         this.state = {
-            questionList: [],
+            questionList: QuestionDataPart5,
             correctedAnswer: 0,
             uncorrectedAnswer: 0,
             selectedAnswer: new Map<string, number>(),
@@ -57,17 +52,19 @@ export default class QuizStore extends Container<quizStoreInterface>{
         })
     }
 
-    answerQuestion(answer: number) : void{
+    answerQuestion(answer: number) : boolean{
         var currentQuestion = this.state.questionList[this.state.currentQuestion];
         var selectedAnswer : Map<string, number> = this.state.selectedAnswer;
         selectedAnswer.set(currentQuestion.id, answer);
 
         if(answer === currentQuestion.correctAnswer){
             this.setState({correctedAnswer: this.state.correctedAnswer + 1});
+            return true;
         }
         else
         {
             this.setState({uncorrectedAnswer: this.state.uncorrectedAnswer + 1});
+            return false;
         }
     }
 
@@ -75,11 +72,15 @@ export default class QuizStore extends Container<quizStoreInterface>{
         return this.state.questionList.length === this.state.selectedAnswer.size;
     }
 
-    getCurrentQuestionInfo() : currentQuestionInterface {
-        var info: currentQuestionInterface;
-        info.question = this.state.questionList[this.state.currentQuestion];
-        info.selectedAnswer = this.state.selectedAnswer.get(info.question.id);
+    getCurrentQuestionInfo() : Question {
+        return this.state.questionList[this.state.currentQuestion];
+    }
 
-        return info;
+    getCurrentQuestionNumber(): number {
+        return this.state.currentQuestion;
+    }
+
+    getTotalQuestionNumber(): number {
+        return this.state.questionList.length;
     }
 }
