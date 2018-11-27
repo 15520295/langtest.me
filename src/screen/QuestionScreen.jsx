@@ -3,6 +3,31 @@ import { Container, Header, Left, Body, Right, Button, Icon, Title, View, Text, 
 import {StyleSheet, TouchableOpacity, Platform} from 'react-native';
 import AnswerButton from '../components/AnswerButton';
 import {systemWeights} from 'react-native-typography';
+import posed, { Transition } from 'react-native-pose';
+import GestureView from '../components/GestureView';
+
+
+//TODO: Fix pre-enter pose
+const Box = posed.View({
+    before: {
+        x: 50,
+        y: 0,
+        opacity: 0,
+        scale: 0.9
+    },
+    enter: {
+        x: 0,
+        y: 0,
+        scale: 1,
+        opacity: 1
+    },
+    exit: {
+        x: -50,
+        y: 0,
+        scale: 0.9,
+        opacity: 0
+    }
+});
 
 
 const QuestionData = [
@@ -43,27 +68,40 @@ export default class QuestionScreen extends React.Component {
             incorrectAnswer: 0,
             currentQuestion: 0,
             answerState: [0, 0, 0, 0],
-            isWaiting: false
+            isWaiting: false,
+            isAnimation: false
         };
     }
 
     nextQuestion = () => {
-        this.setState({
-            isWaiting: false,
-            answerState: [0, 0, 0, 0],
-            currentQuestion: (this.state.currentQuestion + 1) % QuestionData.length
-        });
+        //Wait a bit for disapperance animation
+        this.setState({isAnimation: true});
+        this.forceUpdate();
+        setTimeout(() => {
+            this.setState({
+                isWaiting: false,
+                isAnimation: false,
+                answerState: [0, 0, 0, 0],
+                currentQuestion: (this.state.currentQuestion + 1) % QuestionData.length
+            });
+        }, 50);
     }
 
     prevQuestion = () => {
-        this.setState({
-            isWaiting: false,
-            answerState: [0, 0, 0, 0],
-            currentQuestion: (this.state.currentQuestion + QuestionData.length- 1) % QuestionData.length
-        });
+        this.setState({isAnimation: true});
+        this.forceUpdate();
+        setTimeout(() => {
+            this.setState({
+                isWaiting: false,
+                isAnimation: false,
+                answerState: [0, 0, 0, 0],
+                currentQuestion: (this.state.currentQuestion + QuestionData.length- 1) % QuestionData.length
+            });
+        }, 50);
     }
 
     chooseAnswer = (idAnswer) => {
+        //Avoid click on mutlyply answer
         if(this.state.isWaiting){
             return;
         }
@@ -80,9 +118,49 @@ export default class QuestionScreen extends React.Component {
             answerState[idAnswer - 1] = 2;
             this.setState({answerState: answerState, incorrectAnswer: this.state.incorrectAnswer + 1});
         }
-        setTimeout(() => {this.nextQuestion();}, 2000);
+        setTimeout(() => {this.nextQuestion();}, 500);
     }
 
+    renderAnswerQuestion () {
+        return (
+            <View>
+                <View style={styles.navigationView}>
+                    <TouchableOpacity onPress={() => {this.prevQuestion();}}>
+                        <Icon style={{color: '#019AE8'}} android="md-arrow-back" ios="ios-arrow-back" /> 
+                    </TouchableOpacity>
+                    <View style={{flexDirection: 'row'}}>
+                        <TouchableOpacity>
+                            <Text style={{fontSize: 18,color: '#019AE8'}}>{this.state.currentQuestion + 1}</Text>
+                        </TouchableOpacity>
+                        <Text style={{fontSize: 18}}>/{QuestionData.length}</Text>
+                    </View>
+                    <TouchableOpacity onPress={() => {this.nextQuestion();}}>
+                        <Icon style={{color: '#019AE8'}} android="md-arrow-forward" ios="ios-arrow-forward" /> 
+                    </TouchableOpacity>
+                </View>
+                <Transition preEnterPose='before' exitPose='exit'>
+                    {!this.state.isAnimation && 
+            <Box preEnterPose='before' key='question'>
+                <View key='question' style={styles.questionView}>
+                    <Text adjustsFontSizeToFit minimumFontScale={.5} style={styles.questionText}>
+                        {
+                            QuestionData[this.state.currentQuestion].question
+                        }
+                    </Text>
+                </View>
+
+                <View key='answer1' style={styles.answerButton}>
+                    <AnswerButton correctAnswer={this.state.answerState[0] === 1} 
+                        incorrectAnswer={this.state.answerState[0] === 2} 
+                        onPress = {() => {this.chooseAnswer(1);}}
+                        text={QuestionData[this.state.currentQuestion].answer1}/>
+                </View>
+            </Box>
+                    }
+                </Transition>
+            </View>
+        );
+    }
     render() {
         return (
             <Container style={styles.container}>
@@ -106,55 +184,10 @@ export default class QuestionScreen extends React.Component {
                         </Button>
                     </Right>
                 </Header>
-                <Content>
-                    <View style={styles.navigationView}>
-                        <TouchableOpacity onPress={() => {this.prevQuestion();}}>
-                            <Icon style={{color: '#019AE8'}} android="md-arrow-back" ios="ios-arrow-back" /> 
-                        </TouchableOpacity>
-                        <View style={{flexDirection: 'row'}}>
-                            <TouchableOpacity>
-                                <Text style={{fontSize: 18,color: '#019AE8'}}>{this.state.currentQuestion + 1}</Text>
-                            </TouchableOpacity>
-                            <Text style={{fontSize: 18}}>/{QuestionData.length}</Text>
-                        </View>
-                        <TouchableOpacity onPress={() => {this.nextQuestion();}}>
-                            <Icon style={{color: '#019AE8'}} android="md-arrow-forward" ios="ios-arrow-forward" /> 
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.questionView}>
-                        <Text adjustsFontSizeToFit minimumFontScale={.5} style={styles.questionText}>
-                            {
-                                QuestionData[this.state.currentQuestion].question
-                            }
-                        </Text>
-                    </View>
-                    <View style={styles.answerButton}>
-                        <AnswerButton correctAnswer={this.state.answerState[0] === 1} 
-                            incorrectAnswer={this.state.answerState[0] === 2} 
-                            onPress = {() => {this.chooseAnswer(1);}}
-                            text={QuestionData[this.state.currentQuestion].answer1}/>
-                    </View>
-
-                    <View style={styles.answerButton}>
-                        <AnswerButton correctAnswer={this.state.answerState[1] === 1} 
-                            incorrectAnswer={this.state.answerState[1] === 2} 
-                            onPress = {() => {this.chooseAnswer(2);}}
-                            text={QuestionData[this.state.currentQuestion].answer2}/>
-                    </View>
-                    
-                    <View style={styles.answerButton}>
-                        <AnswerButton correctAnswer={this.state.answerState[2] === 1} 
-                            incorrectAnswer={this.state.answerState[2] === 2} 
-                            onPress = {() => {this.chooseAnswer(3);}}
-                            text={QuestionData[this.state.currentQuestion].answer3}/>
-                    </View>
-
-                    <View style={styles.answerButton}>
-                        <AnswerButton correctAnswer={this.state.answerState[3] === 1} 
-                            incorrectAnswer={this.state.answerState[3] === 2} 
-                            onPress = {() => {this.chooseAnswer(4);}}
-                            text={QuestionData[this.state.currentQuestion].answer4}/>
-                    </View>
+                <Content scrollEnabled={false}>
+                    <GestureView onSwipeUp={() => {this.nextQuestion();}}>
+                        {this.renderAnswerQuestion()}
+                    </GestureView>
                 </Content>
             </Container>
         );
