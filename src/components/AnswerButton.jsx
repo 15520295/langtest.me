@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Animated} from 'react-native';
 import { Button, Container, Text, View, Icon } from 'native-base';
-import {robotoWeights} from 'react-native-typography';
+import {systemWeights} from 'react-native-typography';
 export default class AnswerButton extends React.Component{
     render(){
         let result = null;
@@ -55,7 +55,7 @@ const stylesNormal = StyleSheet.create({
         color: '#4F4F4F',
         fontSize: 16,
         flex: 1,
-        ...robotoWeights.light
+        ...systemWeights.light
     },
     answerCircle: {
         height: '70%',
@@ -82,7 +82,7 @@ const stylesCorrect = StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 16,
         flex: 1,
-        ...robotoWeights.regular
+        ...systemWeights.regular
     },
     answerCircle: {
         height: '70%',
@@ -113,7 +113,7 @@ const stylesIncorrect = StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 16,
         flex: 1,
-        ...robotoWeights.regular
+        ...systemWeights.regular
     },
     answerCircle: {
         height: '70%',

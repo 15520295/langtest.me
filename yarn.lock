@@ -513,6 +513,11 @@
     pouchdb-collections "^1.0.1"
     tiny-queue "^0.2.1"
 
+"@popmotion/easing@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@popmotion/easing/-/easing-1.0.1.tgz#48336aea29542113df10aeb81b4fd10f0b95f937"
+  integrity sha512-NbIEz9mZAem0F0sjg2v57LbU9Y2Xc50QEX434jYrwEQzXJuJipyUV48Qz4hjHqbB/8xiUj0JMQfRvP8K9nUbxg==
+
 "@types/expo@^30.0.0":
   version "30.0.0"
   resolved "https://registry.yarnpkg.com/@types/expo/-/expo-30.0.0.tgz#fb19a1148b8d3136bf31cdc2ea09baa81b282a36"
@@ -527,6 +532,11 @@
   resolved "https://registry.yarnpkg.com/@types/fbemitter/-/fbemitter-2.0.32.tgz#8ed204da0f54e9c8eaec31b1eec91e25132d082c"
   integrity sha1-jtIE2g9U6cjq7DGx7skeJRMtCCw=
 
+"@types/invariant@^2.2.29":
+  version "2.2.29"
+  resolved "https://registry.yarnpkg.com/@types/invariant/-/invariant-2.2.29.tgz#aa845204cd0a289f65d47e0de63a6a815e30cc66"
+  integrity sha512-lRVw09gOvgviOfeUrKc/pmTiRZ7g7oDOU6OAutyuSHpm1/o2RaBQvRhgK8QEdu+FFuw/wnWb29A/iuxv9i8OpQ==
+
 "@types/jest@^23.3.9":
   version "23.3.9"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.3.9.tgz#c16b55186ee73ae65e001fbee69d392c51337ad1"
@@ -536,6 +546,11 @@
   version "10.12.2"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.2.tgz#d77f9faa027cadad9c912cd47f4f8b07b0fb0864"
   integrity sha512-53ElVDSnZeFUUFIYzI8WLQ25IhWzb6vbddNp8UHlXQyU0ET2RhV5zg0NfubzU7iNMh5bBXb0htCzfvrSVNgzaQ==
+
+"@types/node@^10.0.5":
+  version "10.12.10"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.10.tgz#4fa76e6598b7de3f0cb6ec3abacc4f59e5b3a2ce"
+  integrity sha512-8xZEYckCbUVgK8Eg7lf5Iy4COKJ5uXlnIOnePN0WUwSQggy9tolM+tDJf7wMOnT/JT/W9xDYIaYggt3mRV2O5w==
 
 "@types/prop-types@*":
   version "15.5.6"
@@ -630,6 +645,15 @@ ajv@^6.5.3:
     fast-json-stable-stringify "^2.0.0"
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
+
+animated-pose@^1.0.0, animated-pose@^1.2.0:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/animated-pose/-/animated-pose-1.2.1.tgz#63ee9d2af7c6b1d74e136646312c8b88f346f2b7"
+  integrity sha512-WIRPDuEnss19NUrc/t2aP+SV59Qv9csjyFTwgnShzruL+35YjLKDW0X01EVKeqpDwUO8lAg/JgT6lNXxjYI/aw==
+  dependencies:
+    "@popmotion/easing" "^1.0.1"
+    hey-listen "^1.0.5"
+    pose-core "^2.0.0"
 
 ansi-colors@^1.0.1:
   version "1.1.0"
@@ -3576,6 +3600,11 @@ hasha@^2.2.0:
     is-stream "^1.0.1"
     pinkie-promise "^2.0.0"
 
+hey-listen@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/hey-listen/-/hey-listen-1.0.5.tgz#6d0a3a2f60177f65bc4404d571a00025bf5dc20e"
+  integrity sha512-O2iCNxBBGb4hOxL9tUdnoPwDYmZhQ29t5xKV74BVZNdvwCDXCpVYTJ4yoaibc1V0I8Yw3K3nwmvDpoyjnCqUaw==
+
 hoist-non-react-statics@^1.0.5:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-1.2.0.tgz#aa448cf0986d55cc40773b17174b7dd066cb7cfb"
@@ -5397,6 +5426,16 @@ pluralize@^7.0.0:
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-7.0.0.tgz#298b89df8b93b0221dbf421ad2b1b1ea23fc6777"
   integrity sha512-ARhBOdzS3e41FbkW/XWrTEtukqqLoK5+Z/4UeDaLuSW+39JPeFgs4gCGqsrJHVZX0fUrx//4OF0K1CUGwlIFow==
 
+pose-core@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/pose-core/-/pose-core-2.0.0.tgz#1a1497a18a25ed2556d92dd728e909e96df6d67e"
+  integrity sha512-RJcDqYADmuXKQ+uP59oh+EIeRhsuAkKLeVrT25ak57q8TXkEKh8pjL99AHNQLktLUI97erpdNnOp+McK3d/CUQ==
+  dependencies:
+    "@types/invariant" "^2.2.29"
+    "@types/node" "^10.0.5"
+    hey-listen "^1.0.5"
+    tslib "^1.9.1"
+
 posix-character-classes@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/posix-character-classes/-/posix-character-classes-0.1.1.tgz#01eac0fe3b5af71a2a6c02feabb8c1fef7e00eab"
@@ -5650,6 +5689,14 @@ react-native-maps@0.21.0:
     babel-plugin-module-resolver "^2.3.0"
     babel-preset-react-native "1.9.0"
 
+react-native-pose@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/react-native-pose/-/react-native-pose-0.9.0.tgz#890be7da8853c89e22ee078922375ab8a04590c4"
+  integrity sha512-zpWf/p44W7+oJD1+Ku9wb21DCtTSmuBfLut6GBi/L3Ik1kYrEgC91Yg211/jqnhpp5PaI+kqP/GvBqhPJgtKFQ==
+  dependencies:
+    animated-pose "^1.2.0"
+    react-pose-core "^0.5.0"
+
 react-native-reanimated@1.0.0-alpha.6:
   version "1.0.0-alpha.6"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-1.0.0-alpha.6.tgz#169d23b3b39d1c88e509ddc97027b1c8cc066da8"
@@ -5846,6 +5893,14 @@ react-navigation@^2.18.2:
     react-navigation-drawer "0.5.0"
     react-navigation-stack "0.7.0"
     react-navigation-tabs "0.8.4"
+
+react-pose-core@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/react-pose-core/-/react-pose-core-0.5.0.tgz#1f362cae5eb6331f430cde75c662879017681da3"
+  integrity sha512-vzpeO0G47gDBxTQ2DZMKIbbz3BdEPT6dr3LoaxyZQWaPMBqYNY2hdi0cRLqqy5EWmvqorLY/vl/q3arNGBmUeg==
+  dependencies:
+    animated-pose "^1.0.0"
+    hey-listen "^1.0.5"
 
 react-proxy@^1.1.7:
   version "1.1.8"
@@ -6766,7 +6821,7 @@ ts-jest@^23.10.4:
     semver "^5.5"
     yargs-parser "10.x"
 
-tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0:
+tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.1:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.3.tgz#d7e4dd79245d85428c4d7e4822a79917954ca286"
   integrity sha512-4krF8scpejhaOgqzBEcGM7yDIEfi0/8+8zDRZhNZZ2kjmHJ4hv3zCbQWxoJGz1iw5U0Jl0nma13xzHXcncMavQ==

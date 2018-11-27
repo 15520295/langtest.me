@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Header, Left, Body, Right, Button, Icon, Title, View, Text, Content} from 'native-base';
 import {StyleSheet, TouchableOpacity, Platform} from 'react-native';
 import AnswerButton from '../components/AnswerButton';
-import {robotoWeights} from 'react-native-typography';
+import {systemWeights} from 'react-native-typography';
 
 
 const QuestionData = [
@@ -185,9 +185,9 @@ const styles = StyleSheet.create({
     },
     questionText: {
         color: '#4F4F4F',
-        fontWeight: '200',
+        fontSize: 20,
         textAlign: 'justify',
-        ...robotoWeights.light
+        ...systemWeights.light
     },
     answerButton: {
         flex: 1,
