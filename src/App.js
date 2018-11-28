@@ -62,7 +62,7 @@ const CustomDrawerContentComponent = (props) => (
 
 const MyApp = createDrawerNavigator({
     Home:{
-        screen: WordFlatList
+        screen: HomeScreen
     },
     Setting: {
         screen: SettingsScreen
