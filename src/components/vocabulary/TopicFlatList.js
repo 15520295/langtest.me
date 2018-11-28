@@ -10,9 +10,9 @@ import {
     Text
 } from 'react-native';
 
-import flatListData from '../data/TopicData';
+import flatListData from '../../data/TopicData';
 import TopicFlatListItem from './TopicFlatListItem';
-import topicFlatListData from '../data/TopicData';
+import topicFlatListData from '../../data/TopicData';
 
 const styles = StyleSheet.create({
     flatListItem: {
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     }
 });
 
-export default class TopicFlatlist extends Component {
+export default class TopicFlatList extends Component {
     render() {
         return (
             <View style={{ flex: 1,

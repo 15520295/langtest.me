@@ -1,4 +1,9 @@
 import React, {Component} from 'react';
+
+import {
+    DrawerItems, createDrawerNavigator,createStackNavigator,createAppContainer,getNavigation,withNavigation
+} from 'react-navigation';
+
 import {
     AppRegistry,
     FlatList,
@@ -18,15 +23,16 @@ import {
 
 
 import * as Progress from 'react-native-progress';
+import TopicScreen from '../../screen/TopicScreen';
+import WordScreen from '../../screen/WordScreen';
 
-export default class TopicFlatListItem extends Component {
+class TopicFlatListItem extends Component {
     constructor(props) {
         super(props);
         this.state = {};
     }
 
     render() {
-
         return (
             <View style={styles.vc_component}>
                 <Card containerStyle={styles.cardView}
@@ -68,7 +74,14 @@ export default class TopicFlatListItem extends Component {
                         <View style={styles.vc_icArrow}>
                             <Icon type="Ionicons"
                                   name="ios-arrow-forward"
-                                  style={{color: '#A6A6A6'}} />
+                                  style={{color: '#A6A6A6'}}
+                                  onPress={() =>
+                                      this.props.navigation.navigate('Word' ,
+                                          {
+                                              topicName:this.props.item.name
+                                          })
+                                  }
+                            />
                         </View>
                     </View>
 
@@ -77,6 +90,9 @@ export default class TopicFlatListItem extends Component {
         );
     }
 }
+
+
+export default withNavigation(TopicFlatListItem);
 
 const styles = StyleSheet.create({
     // View
@@ -109,7 +125,7 @@ const styles = StyleSheet.create({
         flex: 0,
         justifyContent: 'center',
         alignItems: 'center',
-        padding:0,
+        padding: 0,
         // backgroundColor: 'blue',
     },
     vc_topic: {
@@ -132,16 +148,16 @@ const styles = StyleSheet.create({
     vc_progress: {
         flex: 20,
         justifyContent: 'center',
-        paddingHorizontal:10,
+        paddingHorizontal: 10,
         // backgroundColor: 'red',
     },
     vc_progressValue: {
-        flex:1,
+        flex: 1,
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
         position: 'absolute',
-        marginLeft:10,
+        marginLeft: 10,
         // backgroundColor: 'gray',
     },
 
@@ -161,7 +177,7 @@ const styles = StyleSheet.create({
         // backgroundColor: 'grey',
     },
     txt_topicName: {
-        fontSize: 24,
+        fontSize: 22,
         fontFamily: 'System',
         color: '#00BCD4',
         paddingLeft: 14,
