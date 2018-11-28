@@ -9,9 +9,13 @@ import {
 } from 'react-native';
 
 import {
-    Card,
-    Icon
+    Card
 } from 'react-native-elements';
+
+import {
+    Icon
+} from 'native-base';
+
 
 import * as Progress from 'react-native-progress';
 
@@ -34,36 +38,37 @@ export default class TopicFlatListItem extends Component {
                     <View style={styles.vc_right}>
                         <View style={styles.vc_topic}>
                             <View style={styles.vc_topicName}>
-                                <Text style={styles.txt_word}>
+                                <Text style={styles.txt_topicName}>
                                     {this.props.item.name}</Text>
 
                             </View>
                             <View style={styles.vc_topicDetail}>
-                                <Text style={styles.txt_word}>
-                                    {this.props.item.count} words</Text>
-                                <Text style={styles.txt_word}>
+                                <Text style={styles.txt_topicCount}>
+                                    {this.props.item.count} words | </Text>
+                                <Text style={styles.txt_topicDetail}>
                                     More Detail</Text>
 
                             </View>
                             <View style={styles.vc_progress}>
                                 <Progress.Bar
-                                    progress={0.3}
+                                    progress={0.5}
                                     borderWidth={0}
-                                    unfilledColor={'#C4C4C4'}
+                                    unfilledColor={'#E1E1E1'}
                                     color={'#78E589'}
-                                    height={7}
-                                    // width={null}
+                                    height={14}
+                                    borderRadius={10}
+                                    width={null}
                                 />
+                                <View style={styles.vc_progressValue}>
+                                    <Text style={styles.txt_progressValue}>
+                                        30%</Text>
+                                </View>
                             </View>
                         </View>
                         <View style={styles.vc_icArrow}>
-                            <Icon
-                                name='volume-up'
-                                type='MaterialIcons'
-                                size={30}
-                                color='#517fa4'
-                                onPress={() => {}}
-                            />
+                            <Icon type="Ionicons"
+                                  name="ios-arrow-forward"
+                                  style={{color: '#A6A6A6'}} />
                         </View>
                     </View>
 
@@ -91,51 +96,61 @@ const styles = StyleSheet.create({
         flex: 0,
         height: 100,
         width: 100,
-        padding:8,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'red'
+        // backgroundColor: 'red'
     },
     vc_right: {
         flex: 80,
         flexDirection: 'row',
-        backgroundColor: 'gray',
+        // backgroundColor: 'gray',
     },
     vc_icArrow: {
-        flex: 8,
-        width: 20,
+        flex: 0,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'blue',
+        padding:0,
+        // backgroundColor: 'blue',
     },
     vc_topic: {
         flex: 72,
         flexDirection: 'column',
-        backgroundColor: 'green',
+        // backgroundColor: 'green',
     },
     vc_topicName: {
         flex: 20,
-        backgroundColor: 'yellow',
+        justifyContent: 'center',
+        // backgroundColor: 'yellow',
 
     },
     vc_topicDetail: {
         flex: 20,
         flexDirection: 'row',
-        backgroundColor: 'white',
+        // backgroundColor: 'white',
 
     },
     vc_progress: {
         flex: 20,
         justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'gray',
-
+        paddingHorizontal:10,
+        // backgroundColor: 'red',
     },
-    // Compoent
+    vc_progressValue: {
+        flex:1,
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        marginLeft:10,
+        // backgroundColor: 'gray',
+    },
+
+    /////// Compoent
+
     cardView: {
-        borderRadius: 3,
-        paddingHorizontal: 8,
-        paddingVertical: 10
+        borderRadius: 8,
+        paddingHorizontal: 16,
+        paddingVertical: 14
     },
     img: {
         width: '100%',
@@ -143,7 +158,35 @@ const styles = StyleSheet.create({
         minWidth: 50,
         resizeMode: 'cover',
         borderRadius: 3,
-        backgroundColor: 'grey',
+        // backgroundColor: 'grey',
+    },
+    txt_topicName: {
+        fontSize: 24,
+        fontFamily: 'System',
+        color: '#00BCD4',
+        paddingLeft: 14,
+
+    },
+    txt_topicCount: {
+        fontSize: 14,
+        fontFamily: 'System',
+        color: '#737373',
+        paddingLeft: 14,
+
+    },
+    txt_topicDetail: {
+        fontSize: 14,
+        fontFamily: 'System',
+        color: '#78E589',
+        textDecorationLine: 'underline',
+        // paddingLeft: 8,
+
+    },
+    txt_progressValue: {
+        fontSize: 10,
+        fontFamily: 'System',
+        color: '#737373',
+
     },
 
 
@@ -156,7 +199,6 @@ const styles = StyleSheet.create({
     txt_word: {
         fontSize: 5,
         fontFamily: 'System',
-        fontWeight: 'bold',
         color: '#00BCD4',
         paddingRight: 8,
         // backgroundColor:'white'
