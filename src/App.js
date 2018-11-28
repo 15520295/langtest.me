@@ -1,17 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import {StyleSheet, Text, View, Image, Platform, StatusBar} from 'react-native';
 import {Root} from 'native-base';
 import {Font} from 'expo';
 import Expo from 'expo';
+import {DrawerNavigator, DrawerItems, createDrawerNavigator} from 'react-navigation';
+import {Container, Header, Body, Content} from 'native-base';
+
 import WordFlatList from './components/WordFlatList';
 import HomeScreen from './screen/HomeScreen';
 import SettingsScreen from './screen/SettingsScreen';
 import AboutScreen from './screen/AboutScreen';
-
-import {DrawerNavigator, DrawerItems, createDrawerNavigator} from 'react-navigation';
-import { Container, Header, Body, Content } from 'native-base';
 import DatabaseScreen from './screen/DatabaseScreen';
 import QuestionScreen from './screen/QuestionScreen';
+import AppNavigator from './navigation/AppNavigator';
 
 export default class App extends React.Component {
     constructor(props){
@@ -40,7 +41,11 @@ export default class App extends React.Component {
 
             //     </WordFlatList>
             // </View>
-            <QuestionScreen/>
+            //<QuestionScreen/>
+            <View style={styles.container}>
+                {Platform.OS === 'ios' && <StatusBar barStyle="default"/>}
+                <AppNavigator/>
+            </View>
         );
     }
 }
