@@ -1,10 +1,11 @@
 import React from 'react';
-import { Container, Header, Left, Body, Right, Button, Icon, Title, View, Text, Content} from 'native-base';
-import {StyleSheet, TouchableOpacity, Platform, PanResponder, ViewStyle, PanResponderGestureState, PanResponderInstance} from 'react-native';
-import AnswerButton from '../../components/AnswerButton';
+import { Container, Icon, View, Text, Content} from 'native-base';
+import {StyleSheet, TouchableOpacity, PanResponder, ViewStyle, PanResponderGestureState, PanResponderInstance} from 'react-native';
+import AnswerButton from './AnswerButton';
 import {systemWeights} from 'react-native-typography';
 import posed, { Transition } from 'react-native-pose';
 import QuizStore from '../../store/quizStore';
+import QuizScreenHeader from './QuestionScreenHeader';
 
 
 
@@ -206,26 +207,10 @@ export default class QuestionScreenContainer extends React.Component<Props, Stat
 
         return (
             <Container style={[styles.container as ViewStyle]}>
-                <Header androidStatusBarColor="#0076BF" style={{backgroundColor: Platform.OS ==='android' ? '#019AE8' : '#FFFFFF'}}>
-                    <Left>
-                        <Button transparent>
-                            <Icon name='arrow-back' android='md-arrow-back' ios='ios-arrow-back' />
-                        </Button>
-                    </Left>
-                    <Body>
-                        <Title>Part 5</Title>
-                    </Body>
-                    <Right>
-                        <Button transparent>
-                            <Title style={{paddingRight: 10}}>{quizStore.state.correctedAnswer}</Title>
-                            <Icon name ='thumb-up' android='md-thumbs-up' ios='ios-thumbs-up'/>
-                        </Button>
-                        <Button transparent>
-                            <Title style={{paddingRight: 10}}>{quizStore.state.uncorrectedAnswer}</Title>
-                            <Icon name = 'thumb-down' android='md-thumbs-down' ios='ios-thumbs-down'/>
-                        </Button>
-                    </Right>
-                </Header>
+                <QuizScreenHeader
+                    correctAnswer={quizStore.state.correctedAnswer}
+                    uncorrectedAnswer={quizStore.state.uncorrectedAnswer}
+                />
                 <Content scrollEnabled={false} {...this._panResponder.panHandlers}>
                     {this.renderAnswerQuestion()}
                 </Content>
