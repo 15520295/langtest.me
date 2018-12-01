@@ -12,6 +12,7 @@ import {DrawerNavigator, DrawerItems, createDrawerNavigator} from 'react-navigat
 import { Container, Header, Body, Content } from 'native-base';
 import DatabaseScreen from './screen/DatabaseScreen';
 import QuestionScreen from './screen/QuestionScreen/QuestionScreen';
+import AudioPlayer from './screen/QuestionScreen/AudioPlayer';
 
 export default class App extends React.Component {
     constructor(props){
@@ -40,7 +41,7 @@ export default class App extends React.Component {
 
             //     </WordFlatList>
             // </View>
-            <QuestionScreen/>
+            <AudioPlayer/>
         );
     }
 }
