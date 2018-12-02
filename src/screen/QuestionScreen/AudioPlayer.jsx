@@ -49,8 +49,8 @@ export default class AudioPlayer extends Component {
 	        playThroughEarpieceAndroid: true
 	    });
 	    this._loadNewPlaybackInstance(false);
-    }
-
+	}
+	
     async _loadNewPlaybackInstance(playing) {
 	    if (this.playbackInstance != null) {
 	        await this.playbackInstance.unloadAsync();

@@ -6,8 +6,10 @@ import {systemWeights} from 'react-native-typography';
 import posed, { Transition } from 'react-native-pose';
 import QuizStore from '../../store/quizStore';
 import QuizScreenHeader from './QuestionScreenHeader';
-import AudioPlayer from './AudioPlayer';
 import QuestionType1Component from './QuestionType1Component';
+import AudioPlayer from './AudioPlayer';
+import { QuestionType } from '../../entity/Question';
+import QuestionType2Component from './QuestionType2Component';
 
 
 
@@ -154,6 +156,20 @@ export default class QuestionScreenContainer extends React.Component<Props, Stat
         const {quizStore} = this.props;
         const question = quizStore.getCurrentQuestionInfo();
         switch(question.type){
+            case QuestionType.part1:
+                return (
+                    <QuestionType1Component 
+                        question={question} 
+                        answerState={this.state.answerState} 
+                        onChooseAnswer={(index) => this.chooseAnswer(index)}/>
+                )
+            case QuestionType.part2:
+                return (
+                    <QuestionType2Component
+                        question={question} 
+                        answerState={this.state.answerState} 
+                        onChooseAnswer={(index) => this.chooseAnswer(index)}/>
+                )
             default:
                 return (
                     <QuestionType1Component 
@@ -207,8 +223,8 @@ export default class QuestionScreenContainer extends React.Component<Props, Stat
                     <Content scrollEnabled={false} {...this._panResponder.panHandlers}>
                         {this.renderAnswerQuestion()}
                     </Content>
+                    <AudioPlayer uri={require('./../../../assets/audio/doraemon.mp3')} name="'Doraemon - Mao'" styles = {{width: 40}}/>
                 </View>
-                <AudioPlayer uri={require('./../../../assets/audio/doraemon.mp3')} name="'Doraemon - Mao'" styles = {{width: 40}}/>
             </Container>
         );
     }

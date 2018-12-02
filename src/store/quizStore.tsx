@@ -1,6 +1,7 @@
 import {Container} from 'unstated';
 import IQuestion from '../entity/Question';
-import QuestionDataPart5 from '../data/QuestionDataPart5';
+import QuestionDataPart1 from '../data/QuestionDataPart1';
+import QuestionDataPart2 from '../data/QuestionDataPart2';
 
 export interface quizStoreInterface {
     questionList: IQuestion[],
@@ -14,7 +15,7 @@ export default class QuizStore extends Container<quizStoreInterface>{
     constructor(){
         super();
         this.state = {
-            questionList: QuestionDataPart5,
+            questionList: QuestionDataPart1.concat(QuestionDataPart2),
             correctedAnswer: 0,
             uncorrectedAnswer: 0,
             selectedAnswer: new Map<string, number>(),
@@ -26,7 +27,7 @@ export default class QuizStore extends Container<quizStoreInterface>{
     init() : void{
         this.reset();
         this.setState({
-            questionList: QuestionDataPart5
+            questionList: QuestionDataPart1
         });
     }
 
