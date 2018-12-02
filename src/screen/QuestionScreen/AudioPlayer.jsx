@@ -10,32 +10,7 @@ import {
 import Slider from 'react-native-slider';
 import { Asset, Audio, Font } from 'expo';
 import { MaterialIcons } from '@expo/vector-icons';
-
-class PlaylistItem {
-    constructor(name, uri, image) {
-        this.name = name;
-        this.uri = uri;
-        this.image = image;
-    }
-}
-
-const PLAYLIST = [
-    new PlaylistItem(
-        'Comfort Fit - “Sorry”',
-        'https://s3.amazonaws.com/exp-us-standard/audio/playlist-example/Comfort_Fit_-_03_-_Sorry.mp3',
-        'https://facebook.github.io/react/img/logo_og.png'
-    ),
-    new PlaylistItem(
-        'Mildred Bailey – “All Of Me”',
-        'https://ia800304.us.archive.org/34/items/PaulWhitemanwithMildredBailey/PaulWhitemanwithMildredBailey-AllofMe.mp3',
-        'https://facebook.github.io/react/img/logo_og.png'
-    ),
-    new PlaylistItem(
-        'Podington Bear - “Rubber Robot”',
-        'https://s3.amazonaws.com/exp-us-standard/audio/playlist-example/Podington_Bear_-_Rubber_Robot.mp3',
-        'https://facebook.github.io/react/img/logo_og.png'
-    ),
-];
+import {PLAYLIST} from './PlayList';
 
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get('window');
 const BACKGROUND_COLOR = '#FFFFFF';
@@ -73,6 +48,7 @@ export default class AudioPlayer extends Component {
             playsInSilentModeIOS: true,
             shouldDuckAndroid: true,
             interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+            playThroughEarpieceAndroid: true
         });
         this._loadNewPlaybackInstance(false);
     }
@@ -84,7 +60,7 @@ export default class AudioPlayer extends Component {
             this.playbackInstance = null;
         }
 
-        const source = { uri: PLAYLIST[this.index].uri };
+        const source = PLAYLIST[this.index].uri;
         const initialStatus = {
             shouldPlay: playing,
             rate: this.state.rate,
