@@ -246,106 +246,8 @@ export default class AudioPlayer extends Component {
 	render() {
 	    return(
 	        <View style={styles.container}>
-	           {this.props.showPortrait && 
-				<View style={styles.portraitContainer}>
-	                <Image
-	                    style={styles.portrait}
-	                    source={{
-	                        uri: this.state.portrait,
-	                    }}
-	                />
-	            </View>}
-	            <View style={styles.detailsContainer}>
-	                <Text style={[styles.text]}>
-	                    {this.state.playbackInstanceName}
-	                </Text>
-	                <Text style={[styles.text]}>
-	                    {this.state.isBuffering ? (
-	                        BUFFERING_STRING
-	                    ) : (
-	                        this._getTimestamp()
-	                    )}
-	                </Text>
-	            </View>
-	            <View
+				            <View
 	                style={[
-	                    styles.buttonsContainerBase,
-	                    styles.buttonsContainerTopRow,
-	                    {
-	                        opacity: this.state.isLoading
-	                            ? DISABLED_OPACITY
-	                            : 1.0,
-	                    },
-	                ]}
-	            >
-	                <TouchableHighlight
-	                    underlayColor={BACKGROUND_COLOR}
-	                    style={styles.wrapper}
-	                    onPress={this._onBackPressed}
-	                    disabled={this.state.isLoading}
-	                >
-	                    <View>
-	                        <MaterialIcons
-	                            name="fast-rewind"
-	                            size={40}
-	                            color="#56D5FA"
-	                        />
-	                    </View>
-	                </TouchableHighlight>
-	                <TouchableHighlight
-	                    underlayColor={BACKGROUND_COLOR}
-	                    style={styles.wrapper}
-	                    onPress={this._onPlayPausePressed}
-	                    disabled={this.state.isLoading}
-	                >
-	                    <View>
-	                        {this.state.isPlaying ? (
-	                            <MaterialIcons
-	                                name="pause"
-	                                size={40}
-	                                color="#56D5FA"
-	                            />
-	                        ) : (
-	                            <MaterialIcons
-	                                name="play-arrow"
-	                                size={40}
-	                                color="#56D5FA"
-	                            />
-	                        )}
-	                    </View>
-	                </TouchableHighlight>
-	                <TouchableHighlight
-	                    underlayColor={BACKGROUND_COLOR}
-	                    style={styles.wrapper}
-	                    onPress={this._onStopPressed}
-	                    disabled={this.state.isLoading}
-	                >
-	                    <View>
-	                        <MaterialIcons
-	                            name="stop"
-	                            size={40}
-	                            color="#56D5FA"
-	                        />
-	                    </View>
-	                </TouchableHighlight>
-	                <TouchableHighlight
-	                    underlayColor={BACKGROUND_COLOR}
-	                    style={styles.wrapper}
-	                    onPress={this._onForwardPressed}
-	                    disabled={this.state.isLoading}
-	                >
-	                    <View>
-	                        <MaterialIcons
-	                            name="fast-forward"
-	                            size={40}
-	                            color="#56D5FA"
-	                        />
-	                    </View>
-	                </TouchableHighlight>
-	            </View>
-	            <View
-	                style={[
-	                    styles.playbackContainer,
 	                    {
 	                        opacity: this.state.isLoading
 	                            ? DISABLED_OPACITY
@@ -363,68 +265,54 @@ export default class AudioPlayer extends Component {
 	                    disabled={this.state.isLoading}
 	                />
 	            </View>
-	            {this.props.showVolume &&
-					<View
-	                style={[
-	                    styles.buttonsContainerBase,
-	                    styles.buttonsContainerMiddleRow,
-	                ]}
-	            >
-	                <View style={styles.volumeContainer}>
-	                    <View>
-	                        <MaterialIcons
-	                            name="volume-down"
-	                            size={40}
-	                            color="#56D5FA"
-	                        />
-	                    </View>
-	                    <Slider
-	                        style={styles.volumeSlider}
-	                        value={1}
-	                        onValueChange={this._onVolumeSliderValueChange}
-	                        thumbTintColor="#000000"
-	                        minimumTrackTintColor="#4CCFF9"
-	                    />
-	                    <View>
-	                        <MaterialIcons
-	                            name="volume-up"
-	                            size={40}
-	                            color="#56D5FA"
-	                        />
-	                    </View>
+	            <View style={styles.infoContainer}>
+	                <View
+	                    style={[
+	                        styles.buttonsContainerBase,
+	                        styles.buttonsContainerTopRow,
+	                        {
+	                            opacity: this.state.isLoading
+	                                ? DISABLED_OPACITY
+	                                : 1.0,
+	                        },
+	                    ]}
+	                >
+	                    <TouchableHighlight
+	                        underlayColor={BACKGROUND_COLOR}
+	                        style={styles.wrapper}
+	                        onPress={this._onPlayPausePressed}
+	                        disabled={this.state.isLoading}
+	                    >
+	                        <View>
+	                            {this.state.isPlaying ? (
+	                                <MaterialIcons
+	                                    name="pause"
+	                                    size={40}
+	                                    color="#56D5FA"
+	                                />
+	                            ) : (
+	                                <MaterialIcons
+	                                    name="play-arrow"
+	                                    size={40}
+	                                    color="#56D5FA"
+	                                />
+	                            )}
+	                        </View>
+	                    </TouchableHighlight>
+	                </View>
+	                <View style={styles.detailsContainer}>
+	                    <Text style={[styles.text]}>
+	                        {this.state.playbackInstanceName}
+	                    </Text>
+	                    <Text style={[styles.text]}>
+	                        {this.state.isBuffering ? (
+	                            BUFFERING_STRING
+	                        ) : (
+	                            this._getTimestamp()
+	                        )}
+	                    </Text>
 	                </View>
 	            </View>
-	            }
-	            {this.props.showScale &&
-					<View
-	                style={[
-	                    styles.buttonsContainerBase,
-	                    styles.buttonsContainerBottomRow,
-	                ]}
-	            >
-	                <View>
-	                    <MaterialIcons
-	                        name="call-received"
-	                        size={40}
-	                        color="#56D5FA"
-	                    />
-	                </View>
-	                <Slider
-	                    style={styles.rateSlider}
-	                    value={this.state.rate / RATE_SCALE}
-	                    onSlidingComplete={this._onRateSliderSlidingComplete}
-	                    thumbTintColor="#000000"
-	                    minimumTrackTintColor="#4CCFF9"
-	                />
-	                <View>
-	                    <MaterialIcons
-	                        name="call-made"
-	                        size={40}
-	                        color="#56D5FA"
-	                    />
-	                </View>
-	            </View>
-	            }
 	        </View>
 	    );
 	}
@@ -434,29 +322,22 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        alignSelf: 'stretch',
         backgroundColor: BACKGROUND_COLOR,
     },
-    portraitContainer: {
-        marginTop: 80,
-    },
-    portrait: {
-        height: 200,
-        width: 200,
+    infoContainer: {
+        flex: 1,
+        flexDirection: 'row'
     },
     detailsContainer: {
         height: 40,
-        marginTop: 40,
+        flex: 1,
         alignItems: 'center',
+        justifyContent: 'center'
     },
     playbackContainer: {
         flex: 1,
         flexDirection: 'column',
-        justifyContent: 'space-between',
         alignItems: 'center',
-        alignSelf: 'stretch',
     },
     playbackSlider: {
         alignSelf: 'stretch',
@@ -466,38 +347,14 @@ const styles = StyleSheet.create({
     text: {
         fontSize: FONT_SIZE,
         minHeight: FONT_SIZE,
+        textAlign: 'center'
     },
     buttonsContainerBase: {
         flex: 1,
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
     },
     buttonsContainerTopRow: {
         maxHeight: 40,
-        minWidth: DEVICE_WIDTH / 2.0,
-        maxWidth: DEVICE_WIDTH / 2.0,
-    },
-    buttonsContainerMiddleRow: {
-        maxHeight: 40,
-        alignSelf: 'stretch',
-        paddingRight: 20,
-    },
-    volumeContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        minWidth: DEVICE_WIDTH - 40,
-        maxWidth: DEVICE_WIDTH - 40,
-    },
-    volumeSlider: {
-        width: DEVICE_WIDTH - 80,
-    },
-    buttonsContainerBottomRow: {
-        alignSelf: 'stretch',
-    },
-    rateSlider: {
-        width: DEVICE_WIDTH - 80,
-    },
+        maxWidth: 40,
+    }
 });
