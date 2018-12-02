@@ -12,7 +12,6 @@ import {
 
 import flatListData from '../../data/TopicData';
 import TopicFlatListItem from './TopicFlatListItem';
-import topicFlatListData from '../../data/TopicData';
 
 const styles = StyleSheet.create({
     flatListItem: {

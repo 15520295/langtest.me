@@ -19,6 +19,7 @@ import {
     Platform
 } from 'react-native';
 import TopicFlatList from '../components/vocabulary/TopicFlatList';
+import UserScore from '../components/vocabulary/UserScore';
 
 export default class TopicScreen extends React.Component {
     constructor(props) {
@@ -82,6 +83,7 @@ export default class TopicScreen extends React.Component {
                     </Right>
                 </Header>
                 <Content>
+                    <UserScore/>
                     <TopicFlatList/>
                 </Content>
             </Container>
