@@ -1,6 +1,6 @@
-import AssetFile from "./AssetFile";
+import IAssetFile from "./AssetFile";
 
-export default interface Question {
+export default interface IQuestion {
     id: string,
     type: QuestionType, 
     question: string,
@@ -8,7 +8,7 @@ export default interface Question {
     correctAnswer: number,
     explain?: string,
     help?: string,
-    assets?: AssetFile[], // As the new format some audio question have i picture
+    assets?: IAssetFile[], // As the new format some audio question have i picture
     comeWith? : string[] // There are some question that come together xD
 }
 

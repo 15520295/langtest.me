@@ -1,9 +1,9 @@
 import {Container} from 'unstated';
-import Question from '../entity/Question';
+import IQuestion from '../entity/Question';
 import QuestionDataPart5 from '../data/QuestionDataPart5';
 
 export interface quizStoreInterface {
-    questionList: Question[],
+    questionList: IQuestion[],
     correctedAnswer: number,
     uncorrectedAnswer: number,
     selectedAnswer: Map<string, number>, //Array with id and selected answer
@@ -72,7 +72,7 @@ export default class QuizStore extends Container<quizStoreInterface>{
         return this.state.questionList.length === this.state.selectedAnswer.size;
     }
 
-    getCurrentQuestionInfo() : Question {
+    getCurrentQuestionInfo() : IQuestion {
         return this.state.questionList[this.state.currentQuestion];
     }
 

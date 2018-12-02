@@ -41,7 +41,7 @@ export default class App extends React.Component {
 
             //     </WordFlatList>
             // </View>
-            <AudioPlayer/>
+            <QuestionScreen/>
         );
     }
 }

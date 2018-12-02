@@ -10,8 +10,7 @@ import {
 import Slider from 'react-native-slider';
 import { Asset, Audio, Font } from 'expo';
 import { MaterialIcons } from '@expo/vector-icons';
-import {PLAYLIST} from './PlayList';
-
+import PropTypes from 'prop-types';
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get('window');
 const BACKGROUND_COLOR = '#FFFFFF';
 const DISABLED_OPACITY = 0.5;
@@ -37,62 +36,60 @@ export default class AudioPlayer extends Component {
             isLoading: true,
             volume: 1.0,
             rate: 1.0,
-            portrait: '',
         };
     }
-
+	
     componentDidMount() {
-        Audio.setAudioModeAsync({
-            allowsRecordingIOS: false,
-            interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
-            playsInSilentModeIOS: true,
-            shouldDuckAndroid: true,
-            interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
-            playThroughEarpieceAndroid: true
-        });
-        this._loadNewPlaybackInstance(false);
+	    Audio.setAudioModeAsync({
+	        allowsRecordingIOS: false,
+	        interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+	        playsInSilentModeIOS: true,
+	        shouldDuckAndroid: true,
+	        interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+	        playThroughEarpieceAndroid: true
+	    });
+	    this._loadNewPlaybackInstance(false);
     }
 
     async _loadNewPlaybackInstance(playing) {
-        if (this.playbackInstance != null) {
-            await this.playbackInstance.unloadAsync();
-            this.playbackInstance.setOnPlaybackStatusUpdate(null);
-            this.playbackInstance = null;
-        }
+	    if (this.playbackInstance != null) {
+	        await this.playbackInstance.unloadAsync();
+	        this.playbackInstance.setOnPlaybackStatusUpdate(null);
+	        this.playbackInstance = null;
+	    }
 
-        const source = PLAYLIST[this.index].uri;
-        const initialStatus = {
-            shouldPlay: playing,
-            rate: this.state.rate,
-            volume: this.state.volume,
-        };
+	    const source = this.props.uri;
+	    const initialStatus = {
+	        shouldPlay: playing,
+	        rate: this.state.rate,
+	        volume: this.state.volume,
+	    };
 
-        const { sound, status } = await Audio.Sound.create(
-            source,
-            initialStatus,
-            this._onPlaybackStatusUpdate
-        );
-        this.playbackInstance = sound;
+	    const { sound, status } = await Audio.Sound.create(
+	        source,
+	        initialStatus,
+	        this._onPlaybackStatusUpdate
+	    );
+	    this.playbackInstance = sound;
 
-        this._updateScreenForLoading(false);
+	    this._updateScreenForLoading(false);
     }
 
     _updateScreenForLoading(isLoading) {
-        if (isLoading) {
-            this.setState({
-                isPlaying: false,
-                playbackInstanceName: LOADING_STRING,
-                playbackInstanceDuration: null,
-                playbackInstancePosition: null,
-                isLoading: true,
-            });
-        } else {
-            this.setState({
-                playbackInstanceName: PLAYLIST[this.index].name,
-                portrait: PLAYLIST[this.index].image,
-                isLoading: false,
-            });
-        }
+	    if (isLoading) {
+	        this.setState({
+	            isPlaying: false,
+	            playbackInstanceName: LOADING_STRING,
+	            playbackInstanceDuration: null,
+	            playbackInstancePosition: null,
+	            isLoading: true,
+	        });
+	    } else {
+	        this.setState({
+	            playbackInstanceName: this.props.name,
+	            isLoading: false,
+	        });
+	    }
     }
 
 	_onPlaybackStatusUpdate = status => {
@@ -118,14 +115,11 @@ export default class AudioPlayer extends Component {
 	};
 
 	_advanceIndex(forward) {
-	    this.index =
-			(this.index + (forward ? 1 : PLAYLIST.length - 1)) %
-			PLAYLIST.length;
+	    this.playbackInstance.stopAsync();
 	}
 
 	async _updatePlaybackInstanceForIndex(playing) {
 	    this._updateScreenForLoading(true);
-
 	    this._loadNewPlaybackInstance(playing);
 	}
 
@@ -323,6 +317,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         backgroundColor: BACKGROUND_COLOR,
+        maxHeight: 90
     },
     infoContainer: {
         flex: 1,
@@ -358,3 +353,8 @@ const styles = StyleSheet.create({
         maxWidth: 40,
     }
 });
+
+AudioPlayer.propTypes = {
+    uri: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired
+};

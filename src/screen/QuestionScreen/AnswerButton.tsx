@@ -1,31 +1,41 @@
 import React from 'react';
-import {StyleSheet, Animated} from 'react-native';
-import { Button, Container, Text, View, Icon } from 'native-base';
+import {StyleSheet, Animated, ViewStyle} from 'react-native';
+import { Button, Text, View, Icon } from 'native-base';
 import {systemWeights} from 'react-native-typography';
-export default class AnswerButton extends React.Component{
+
+
+export enum AnswerState{'normal', 'selected', 'corrected', 'uncorrected'}
+
+export interface Props {
+    onPress: () => void,
+    answerState: AnswerState, 
+    text: string
+}
+
+export default class AnswerButton extends React.Component<Props>{
     render(){
         let result = null;
 
-        result = (<Button light style={stylesNormal.answerButton} onPress={this.props.onPress}>
+        result = (<Button light style={stylesNormal.answerButton as ViewStyle} onPress={this.props.onPress}>
             <View style={stylesNormal.answerCircle}></View>
             <Text uppercase={false} allowFontScaling={true} style={stylesNormal.answerText}>{this.props.text}</Text>
         </Button>);
 
-        if(this.props.correctAnswer){
+        if(this.props.answerState === AnswerState.corrected){
             result = (
-                <Button light style={stylesCorrect.answerButton} onPress={this.props.onPress}>
+                <Button light style={stylesCorrect.answerButton as ViewStyle} onPress={this.props.onPress}>
                     <View style={stylesCorrect.answerCircle}>
-                        <Icon style={stylesCorrect.checkIcon} android='md-checkmark' ios='ios-checkmark'/>
+                        <Icon style={stylesCorrect.checkIcon as ViewStyle} name='check-mark' android='md-checkmark' ios='ios-checkmark'/>
                     </View>
                     <Text uppercase={false} allowFontScaling={true} style={stylesCorrect.answerText}>{this.props.text}</Text>
                 </Button>);
         }
 
-        if(this.props.incorrectAnswer){
+        if(this.props.answerState === AnswerState.uncorrected){
             result =  (            
-                <Button style={stylesIncorrect.answerButton}  light onPress={this.props.onPress}>
+                <Button style={stylesIncorrect.answerButton as ViewStyle}  light onPress={this.props.onPress}>
                     <View style={stylesIncorrect.answerCircle}>
-                        <Icon style={stylesIncorrect.checkIcon} type="FontAwesome" android="remove" ios="remove" />   
+                        <Icon style={stylesIncorrect.checkIcon as ViewStyle} name='remove' type="FontAwesome" android="remove" ios="remove" />   
                     </View>
                     <Text uppercase={false} allowFontScaling={true} style={stylesIncorrect.answerText}>{this.props.text}</Text>
                 </Button>);

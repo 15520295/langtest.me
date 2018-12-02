@@ -1,4 +1,4 @@
-export default interface AssetFile {
+export default interface IAssetFile {
     id: string,
     type: AssetType,
     path: string

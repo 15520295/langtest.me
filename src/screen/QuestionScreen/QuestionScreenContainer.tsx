@@ -1,11 +1,13 @@
 import React from 'react';
 import { Container, Icon, View, Text, Content} from 'native-base';
-import {StyleSheet, TouchableOpacity, PanResponder, ViewStyle, PanResponderGestureState, PanResponderInstance} from 'react-native';
-import AnswerButton from './AnswerButton';
+import {StyleSheet, TouchableOpacity, PanResponder, PanResponderGestureState, PanResponderInstance} from 'react-native';
+import { AnswerState } from './AnswerButton';
 import {systemWeights} from 'react-native-typography';
 import posed, { Transition } from 'react-native-pose';
 import QuizStore from '../../store/quizStore';
 import QuizScreenHeader from './QuestionScreenHeader';
+import AudioPlayer from './AudioPlayer';
+import QuestionType1Component from './QuestionType1Component';
 
 
 
@@ -41,7 +43,7 @@ export interface Props{
 
 interface States{
     quadrants: any,
-    answerState: number[],
+    answerState: AnswerState[],
     isWaiting: boolean,
     isAnimation: boolean
 }
@@ -53,7 +55,7 @@ export default class QuestionScreenContainer extends React.Component<Props, Stat
 
         this.state = {
             quadrants: this.calculateQuadrants(quadrantThreshold),
-            answerState: [0, 0, 0, 0],
+            answerState: [AnswerState.normal, AnswerState.normal, AnswerState.normal, AnswerState.normal],
             isWaiting: false,
             isAnimation: false
         };
@@ -108,7 +110,7 @@ export default class QuestionScreenContainer extends React.Component<Props, Stat
             this.setState({
                 isWaiting: false,
                 isAnimation: false,
-                answerState: [0, 0, 0, 0]
+                answerState: [AnswerState.normal, AnswerState.normal, AnswerState.normal, AnswerState.normal]
             });
             this.props.quizStore.nextQuestion();
         }, 50);
@@ -120,7 +122,7 @@ export default class QuestionScreenContainer extends React.Component<Props, Stat
             this.setState({
                 isWaiting: false,
                 isAnimation: false,
-                answerState: [0, 0, 0, 0]
+                answerState: [AnswerState.normal, AnswerState.normal, AnswerState.normal, AnswerState.normal]
             });
             this.props.quizStore.prevQuestion();
         }, 50);
@@ -135,14 +137,14 @@ export default class QuestionScreenContainer extends React.Component<Props, Stat
         let questionInfo = this.props.quizStore.getCurrentQuestionInfo();
         if(this.props.quizStore.answerQuestion(idAnswer)){
             let answerState = this.state.answerState;
-            answerState[idAnswer - 1] = 1;
+            answerState[idAnswer] = AnswerState.corrected;
             this.setState({answerState: answerState});
         }
         else
         {
             let answerState = this.state.answerState;
-            answerState[questionInfo.correctAnswer - 1] = 1;
-            answerState[idAnswer - 1] = 2;
+            answerState[questionInfo.correctAnswer] = AnswerState.corrected;
+            answerState[idAnswer] = AnswerState.uncorrected;
             this.setState({answerState: answerState});
         }
         setTimeout(() => {this.nextQuestion();}, 500);
@@ -150,21 +152,16 @@ export default class QuestionScreenContainer extends React.Component<Props, Stat
 
     renderQuestion () {
         const {quizStore} = this.props;
-
-        return (
-            <View>
-            {
-                quizStore.getCurrentQuestionInfo().answer.map((value, index) => 
-                <View key={index} style={styles.answerButton}>
-                    <AnswerButton correctAnswer={this.state.answerState[index] === 1} 
-                        incorrectAnswer={this.state.answerState[index] === 2} 
-                        onPress = {() => {this.chooseAnswer(index + 1);}}
-                        text={value}/>
-                </View>)
-            }
-            </View>
-
-        )
+        const question = quizStore.getCurrentQuestionInfo();
+        switch(question.type){
+            default:
+                return (
+                    <QuestionType1Component 
+                        question={question} 
+                        answerState={this.state.answerState} 
+                        onChooseAnswer={(index) => this.chooseAnswer(index)}/>
+                )
+        }
     }
 
     renderAnswerQuestion () {
@@ -190,11 +187,6 @@ export default class QuestionScreenContainer extends React.Component<Props, Stat
                 <Transition preEnterPose='before' exitPose='exit'>
                     {!this.state.isAnimation && 
             <Box preEnterPose='before' key='question'>
-                <View key='question' style={styles.questionView}>
-                    <Text adjustsFontSizeToFit minimumFontScale={.5} style={styles.questionText}>
-                        {quizStore.getCurrentQuestionInfo().question}
-                    </Text>
-                </View>
                 {this.renderQuestion()}
             </Box>
                     }
@@ -206,14 +198,17 @@ export default class QuestionScreenContainer extends React.Component<Props, Stat
         const {quizStore} = this.props;
 
         return (
-            <Container style={[styles.container as ViewStyle]}>
-                <QuizScreenHeader
-                    correctAnswer={quizStore.state.correctedAnswer}
-                    uncorrectedAnswer={quizStore.state.uncorrectedAnswer}
-                />
-                <Content scrollEnabled={false} {...this._panResponder.panHandlers}>
-                    {this.renderAnswerQuestion()}
-                </Content>
+            <Container>
+                <View style={styles.container}>
+                    <QuizScreenHeader
+                        correctAnswer={quizStore.state.correctedAnswer}
+                        uncorrectedAnswer={quizStore.state.uncorrectedAnswer}
+                    />
+                    <Content scrollEnabled={false} {...this._panResponder.panHandlers}>
+                        {this.renderAnswerQuestion()}
+                    </Content>
+                </View>
+                <AudioPlayer uri={require('./../../../assets/audio/doraemon.mp3')} name="'Doraemon - Mao'" styles = {{width: 40}}/>
             </Container>
         );
     }
@@ -246,13 +241,5 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textAlign: 'justify',
         ...systemWeights.light
-    },
-    answerButton: {
-        flex: 1,
-        marginLeft: 30,
-        marginRight: 30,
-        marginBottom: 10,
-        height: 60,
-        shadowRadius: 0
     }
 });
