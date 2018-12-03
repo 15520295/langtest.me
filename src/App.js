@@ -37,30 +37,31 @@ const CustomDrawerContentComponent = (props) => (
     </Container>
 );
 
-const AppNavigator = createStackNavigator(
-    {
-        App: {
-            screen: HomeScreen,
-        },
-        Topic: {
-            screen: TopicScreen,
-        },
-        Word: {
-            screen: WordScreen
-        },
-    },
-    {
-        initialRouteName:'App',
-        drawerPosition: 'center',
-        contentComponent: CustomDrawerContentComponent,
-        drawerOpenRoute:'DrawerOpen',
-        drawerCloseRoute:'DrawerClose',
-        drawerToggleRoute:'DrawerToggle',
-        headerMode: 'none'
-    }
-);
+// const AppNavigator = createStackNavigator(
+//     {
+//         App: {
+//             screen: HomeScreen,
+//         },
+//         Topic: {
+//             screen: TopicScreen,
+//         },
+//         Word: {
+//             screen: WordScreen
+//         },
+//     },
+//     {
+//         initialRouteName:'App',
+//         drawerPosition: 'center',
+//         contentComponent: CustomDrawerContentComponent,
+//         drawerOpenRoute:'DrawerOpen',
+//         drawerCloseRoute:'DrawerClose',
+//         drawerToggleRoute:'DrawerToggle',
+//         headerMode: 'none'
+//     }
+// );
 
 
+import AppNavigator from './navigation/AppNavigator';
 const AppContainer = createAppContainer(AppNavigator);
 
 export default class App extends React.Component {
@@ -91,11 +92,10 @@ export default class App extends React.Component {
             //     </WordFlatList>
             // </View>
             //<QuestionScreen/>
-            <AppContainer
-            ref={nav => {
-              this.navigator = nav;
-            }}
-          />
+        <View style={styles.container}>
+            {Platform.OS === 'ios' && <StatusBar barStyle="default"/>}
+            <AppContainer/>
+        </View>
         );
     }
 }

@@ -5,7 +5,7 @@ import {createStackNavigator, createBottomTabNavigator} from 'react-navigation';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screen/HomeScreen';
 import QuizScreen from '../screen/QuestionScreen/QuestionScreen';
-import SettingsScreen from '../screen/SettingsScreen';
+import TopicScreen from '../screen/TopicScreen';
 import ChartScreen from '../screen/ChartScreen';
 
 const HomeStack = createStackNavigator({
@@ -40,12 +40,12 @@ QuestionStack.navigationOptions = {
     ),
 };
 
-const SettingsStack = createStackNavigator({
-    Settings: SettingsScreen,
+const TopicStack = createStackNavigator({
+    Topic: TopicScreen,
 });
 
-SettingsStack.navigationOptions = {
-    tabBarLabel: 'Settings',
+TopicStack.navigationOptions = {
+    tabBarLabel: 'Topic',
     tabBarIcon: ({focused}) => (
         <TabBarIcon
             focused={focused}
@@ -63,7 +63,7 @@ ChartStack.navigationOptions = {
     tabBarIcon: ({focused}) => (
         <TabBarIcon
             focused={focused}
-            name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+            name={Platform.OS === 'ios' ? 'ios-options' : 'md-heart'}
         />
     ),
 };
@@ -71,6 +71,6 @@ ChartStack.navigationOptions = {
 export default createBottomTabNavigator({
     HomeStack,
     QuestionStack,
-    SettingsStack,
+    TopicStack,
     ChartStack,
 });
