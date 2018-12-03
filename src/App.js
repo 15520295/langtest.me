@@ -3,19 +3,65 @@ import {StyleSheet, Text, View, Image, Platform, StatusBar} from 'react-native';
 import {Root} from 'native-base';
 import {AppLoading, Asset, Font, Icon} from 'expo';
 import Expo from 'expo';
-import WordFlatList from './components/WordFlatList';
-import HomeScreen from './screen/HomeScreen';
-import SettingsScreen from './screen/SettingsScreen';
-import AboutScreen from './screen/AboutScreen';
 
-import {DrawerNavigator, DrawerItems, createDrawerNavigator} from 'react-navigation';
-import { Container, Header, Body, Content } from 'native-base';
-import DatabaseScreen from './screen/DatabaseScreen';
-import QuestionScreen from './screen/QuestionScreen/QuestionScreen';
-import AudioPlayer from './screen/QuestionScreen/AudioPlayer';
+import {
+    StyleSheet, Text, View, Image
+} from 'react-native';
+
+import {
+    DrawerItems, createDrawerNavigator,createStackNavigator,createAppContainer,withNavigation
+} from 'react-navigation';
+
+import {
+    Container, Header, Body, Content
+} from 'native-base';
+
+import TopicScreen from './screen/TopicScreen';
+import WordScreen from './screen/WordScreen';
+import QuizScreen from './screen/QuestionScreen/QuestionScreen';
 
 //huy
 import AppNavigator from './navigation/AppNavigator';
+import HomeScreen from './screen/HomeScreen';
+
+const CustomDrawerContentComponent = (props) => (
+    <Container>
+        <Header style={{height: 200, backgroundColor:'gray'}}>
+            <Body>
+
+            </Body>
+        </Header>
+        <Content>
+            <DrawerItems {...props}/>
+        </Content>
+    </Container>
+);
+
+const AppNavigator = createStackNavigator(
+    {
+        App: {
+            screen: HomeScreen,
+        },
+        Topic: {
+            screen: TopicScreen,
+        },
+        Word: {
+            screen: WordScreen
+        },
+    },
+    {
+        initialRouteName:'App',
+        drawerPosition: 'center',
+        contentComponent: CustomDrawerContentComponent,
+        drawerOpenRoute:'DrawerOpen',
+        drawerCloseRoute:'DrawerClose',
+        drawerToggleRoute:'DrawerToggle',
+        headerMode: 'none'
+    }
+);
+
+
+const AppContainer = createAppContainer(AppNavigator);
 
 export default class App extends React.Component {
     constructor(props){
@@ -28,7 +74,7 @@ export default class App extends React.Component {
         await Font.loadAsync({
             'Roboto': require('native-base/Fonts/Roboto.ttf'),
             'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
-            'Roboto_light': require('./../assets/fonts/Roboto-Light.ttf'),
+            // 'Roboto_light': require('./../assets/fonts/Roboto-Light.ttf'),
             'Ionicons': require('@expo/vector-icons/fonts/Ionicons.ttf')
         });
         this.setState({loading: false});
@@ -45,52 +91,14 @@ export default class App extends React.Component {
             //     </WordFlatList>
             // </View>
             //<QuestionScreen/>
-            <View style={styles.container}>
-                {Platform.OS === 'ios' && <StatusBar barStyle="default"/>}
-                <AppNavigator/>
-            </View>
+            <AppContainer
+            ref={nav => {
+              this.navigator = nav;
+            }}
+          />
         );
     }
 }
-
-const CustomDrawerContentComponent = (props) => (
-    <Container>
-        <Header style={{height: 200, backgroundColor:'white'}}>
-            <Body>
-                <Image 
-                    style={styles.drawImage}
-                    source={require('./../assets/images/joychou.jpg')}/>
-            </Body>
-        </Header>
-        <Content>
-            <DrawerItems {...props}/>
-        </Content>
-    </Container>
-);
-
-const MyApp = createDrawerNavigator({
-    Home:{
-        screen: WordFlatList
-    },
-    Setting: {
-        screen: SettingsScreen
-    },
-    About:{
-        screen: AboutScreen
-    },
-    Question:{
-        screen: QuestionScreen
-    }
-},{
-    initialRouteName:'Question',
-    drawerPosition: 'center',
-    contentComponent: CustomDrawerContentComponent,
-    drawerOpenRoute:'DrawerOpen',
-    drawerCloseRoute:'DrawerClose',
-    drawerToggleRoute:'DrawerToggle',
-    headerMode: 'none'
-}
-);
 
 const styles = StyleSheet.create({
     container: {
@@ -105,3 +113,4 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 });
+

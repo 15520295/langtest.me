@@ -34,8 +34,9 @@
     "react-native-slider": "^0.11.0",
     "react-native-super-grid": "^2.4.3",
     "react-native-typography": "^1.4.0",
-    "react-navigation": "^2.18.2",
-    "unstated": "^2.1.1"
+    "unstated": "^2.1.1",
+    "react-native-progress": "^3.5.0",
+    "react-navigation": "^3.0.2"
   },
   "devDependencies": {
     "@types/expo": "^30.0.0",
@@ -47,6 +48,7 @@
     "@types/react-test-renderer": "^16.0.3",
     "babel-eslint": "^10.0.1",
     "concurrently": "^4.0.1",
+    "babel-plugin-module-resolver": "^3.1.1",
     "eslint": "^5.7.0",
     "eslint-plugin-json": "^1.2.1",
     "eslint-plugin-react": "^7.11.1",
