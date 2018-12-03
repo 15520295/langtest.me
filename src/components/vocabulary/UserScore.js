@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
     txt_totalScore: {
         fontSize: 22,
         fontFamily: 'System',
+        fontWeight: 'bold',
         color: '#4F4F4F',
         // paddingLeft: 8,
 

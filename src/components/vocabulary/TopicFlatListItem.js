@@ -10,7 +10,8 @@ import {
     StyleSheet,
     View,
     Image,
-    Text
+    Text,
+    TouchableOpacity
 } from 'react-native';
 
 import {
@@ -35,57 +36,63 @@ class TopicFlatListItem extends Component {
     render() {
         return (
             <View style={styles.vc_component}>
-                <Card containerStyle={styles.cardView}
-                      wrapperStyle={styles.vc_card}>
-                    <View style={styles.vc_left}>
-                        <Image style={styles.img}
-                               source={{uri: this.props.item.img}}/>
-                    </View>
-                    <View style={styles.vc_right}>
-                        <View style={styles.vc_topic}>
-                            <View style={styles.vc_topicName}>
-                                <Text style={styles.txt_topicName}>
-                                    {this.props.item.name}</Text>
+                <TouchableOpacity
+                    activeOpacity={.7}
+                    onPress={() =>
+                        this.props.navigation.navigate('Word' ,
+                            {
+                                topicName:this.props.item.name
+                            })
+                    }
+                >
+                    <Card containerStyle={styles.cardView}
+                          wrapperStyle={styles.vc_card}
+                    >
+                        <View style={styles.vc_left}>
+                            <Image style={styles.img}
+                                   source={{uri: this.props.item.img}}/>
+                        </View>
+                        <View style={styles.vc_right}>
+                            <View style={styles.vc_topic}>
+                                <View style={styles.vc_topicName}>
+                                    <Text style={styles.txt_topicName}>
+                                        {this.props.item.name}</Text>
 
-                            </View>
-                            <View style={styles.vc_topicDetail}>
-                                <Text style={styles.txt_topicCount}>
-                                    {this.props.item.count} words | </Text>
-                                <Text style={styles.txt_topicDetail}>
-                                    More Detail</Text>
+                                </View>
+                                <View style={styles.vc_topicDetail}>
+                                    <Text style={styles.txt_topicCount}>
+                                        {this.props.item.count} words | </Text>
+                                    <Text style={styles.txt_topicDetail}>
+                                        More Detail</Text>
 
-                            </View>
-                            <View style={styles.vc_progress}>
-                                <Progress.Bar
-                                    progress={0.5}
-                                    borderWidth={0}
-                                    unfilledColor={'#E1E1E1'}
-                                    color={'#78E589'}
-                                    height={14}
-                                    borderRadius={10}
-                                    width={null}
-                                />
-                                <View style={styles.vc_progressValue}>
-                                    <Text style={styles.txt_progressValue}>
-                                        30%</Text>
+                                </View>
+                                <View style={styles.vc_progress}>
+                                    <Progress.Bar
+                                        progress={0.5}
+                                        borderWidth={0}
+                                        unfilledColor={'#E1E1E1'}
+                                        color={'#78E589'}
+                                        height={14}
+                                        borderRadius={10}
+                                        width={null}
+                                    />
+                                    <View style={styles.vc_progressValue}>
+                                        <Text style={styles.txt_progressValue}>
+                                            30%</Text>
+                                    </View>
                                 </View>
                             </View>
+                            <View style={styles.vc_icArrow}>
+                                <Icon type="Ionicons"
+                                      name="ios-arrow-forward"
+                                      style={{color: '#A6A6A6'}}
+                                />
+                            </View>
                         </View>
-                        <View style={styles.vc_icArrow}>
-                            <Icon type="Ionicons"
-                                  name="ios-arrow-forward"
-                                  style={{color: '#A6A6A6'}}
-                                  onPress={() =>
-                                      this.props.navigation.navigate('Word' ,
-                                          {
-                                              topicName:this.props.item.name
-                                          })
-                                  }
-                            />
-                        </View>
-                    </View>
 
-                </Card>
+                    </Card>
+                </TouchableOpacity>
+
             </View>
         );
     }

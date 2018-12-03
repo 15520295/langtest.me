@@ -9,7 +9,7 @@ import {
     Image,
     Text
 } from 'react-native';
-import flatListData from '../../data/VocabularyData';
+import flatListData from '../../data/VocabularyList';
 import WordFlatListItem from './WordFlatListItem';
 
 

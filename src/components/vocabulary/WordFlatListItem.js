@@ -22,31 +22,11 @@ export default class WordFlatListItem extends Component {
         };
     }
 
-    // componentWillMount(){
-    //     this.animatedValue = new Animated.Value(0);
-
-    //     this.frontInterpolate = this.animatedValue.interpolate({
-    //         inputRange: [0, 180],
-    //         outputRange: ['0deg', '180deg'],
-    //     });
-    //     this.backInterpolate = this.animatedValue.interpolate({
-    //         inputRange: [0, 180],
-    //         outputRange: ['180deg', '360deg'],
-    //     });
-    // }
-
     render() {
-        // const frontAnimatedStyle ={
-        //     transfrom:[
-        //         { rotateX: this.frontInterpolate}
-        //     ]
-        // };
-        // const backAnimatedStyle ={
-        //     transfrom:[
-        //         { rotateX: this.backInterpolate}
-        //     ]
-        // };
-
+        // const path = Expo.Asset.fromModule(require('./images/hello.jpg')).uri;
+        // let path = 'assets:/vocabulary/word/img/t1w1.png';
+        // let path = 'file://'+pathToResources+'/t1w1.png'
+        // let result = `imgPath/${this.props.item.id}.jpg`;
         return (
             <View style={styles.ItemContainer}>
                 <FlipCard
@@ -64,7 +44,7 @@ export default class WordFlatListItem extends Component {
                             <View style={styles.vc_topLeft}>
                                 <View style={styles.vc_wordDes}>
                                     <Text style={styles.txt_word}>{this.props.item.word}</Text>
-                                    <Text style={styles.txt_pronun}>{this.props.item.pronoun}</Text>
+                                    <Text style={styles.txt_pronun}>/{this.props.item.pronoun}/</Text>
                                     <Icon
                                         name='volume-up'
                                         type='MaterialIcons'
@@ -80,58 +60,20 @@ export default class WordFlatListItem extends Component {
                             <View style={styles.vc_topRight}>
                                 <Image style={styles.img} 
                                     // source={{ uri: this.props.item.img }}
-                                    source={require('imgPath/canncelation.jpg')}
-                                    //    source={{uri: 'asset:/canncelation.jpg'}} //--> Android assets folder
+                                    source={this.props.item.img}
                                 />
                             </View>
                         </View>
                         <View style={styles.vc_bottom}>
-                            <Text style={styles.txt_ex}>Hello every body</Text>
+                            <Text style={styles.txt_ex}>Example line</Text>
                         </View>
 
                     </Card>
                     {/* Back Side */}
                     <Card >
-                        <Text style={styles.txt_wordTranslate}>back</Text>
+                        <Text style={styles.txt_wordTranslate}>{this.props.item.translate}</Text>
                     </Card>
                 </FlipCard>
-                
-                {/* <Animated.View style={[frontAnimatedStyle, styles.cardFront]}>
-                    <Card containerStyle={styles.cardView}
-                        wrapperStyle={styles.vc_card}>
-                        <View style={styles.vc_top}>
-                            <View style={styles.vc_topLeft}>
-                                <View style={styles.vc_wordDes}>
-                                    <Text style={styles.txt_word}>{this.props.item.word}</Text>
-                                    <Text style={styles.txt_pronun}>{this.props.item.pronoun}</Text>
-                                    <Icon
-                                        name='volume-up'
-                                        type='MaterialIcons'
-                                        size={30}
-                                        color='#517fa4'
-                                    />
-                                </View>
-                                <View style={styles.vc_exampleTitle}>
-                                    <Text style={styles.txt_exTitle}>Example:</Text>
-                                </View>
-                            </View>
-                            <View style={styles.vc_topRight}>
-                                <Image style={styles.img} 
-                                    source={{ uri: this.props.item.img }}/>
-                            </View>
-                        </View>
-                        <View style={styles.vc_bottom}>
-                            <Text style={styles.txt_ex}>Hello every body</Text>
-                        </View>
-
-                    </Card>
-                </Animated.View>
-                <Animated.View style={[backAnimatedStyle, styles.vc_cardBack]}>
-                    <Card>
-                        <Text>back</Text>
-                    </Card>
-                </Animated.View> */}
-                
             </View>
         );
     }
