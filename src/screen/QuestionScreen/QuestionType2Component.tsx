@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {View} from 'native-base';
-import {StyleSheet, ViewStyle, Dimensions, , ImageStyle} from "react-native";
+import {StyleSheet, ViewStyle, Dimensions} from "react-native";
 import IQuestion, { QuestionType } from '../../entity/Question';
 import { systemWeights } from 'react-native-typography';
 import AnswerButton, { AnswerState } from './AnswerButton';
@@ -10,7 +10,7 @@ export interface Props{
     onChooseAnswer: (index: number) => void,
 }
 
-const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT} = Dimensions.get('window');
+const {height: DEVICE_HEIGHT} = Dimensions.get('window');
 
 export default class QuestionType2Component extends React.Component<Props>{
     constructor(prop: Props){

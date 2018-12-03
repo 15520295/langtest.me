@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {View} from 'native-base';
-import {StyleSheet, ViewStyle, Dimensions, Image, ImageStyle} from "react-native";
+import {StyleSheet, ViewStyle, Dimensions} from "react-native";
 import IQuestion, { QuestionType } from '../../entity/Question';
 import { systemWeights } from 'react-native-typography';
 import AnswerButton, { AnswerState } from './AnswerButton';
@@ -10,14 +10,14 @@ export interface Props{
     onChooseAnswer: (index: number) => void,
 }
 
-const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT} = Dimensions.get('window');
+const {height: DEVICE_HEIGHT} = Dimensions.get('window');
 
-export default class QuestionType1Component extends React.Component<Props>{
+export default class QuestionType3Component extends React.Component<Props>{
     constructor(prop: Props){
         super(prop);
 
-        if(prop.question.type !== QuestionType.part1){
-            throw new TypeError('The question is not type1 question')
+        if(prop.question.type !== QuestionType.part3){
+            throw new TypeError('The question is not type3 question')
         }
     }
     renderAnswerButton(index: number, value: string) {
@@ -35,19 +35,10 @@ export default class QuestionType1Component extends React.Component<Props>{
 
         return (
             <View style={styles.container}>
-                <Image style={styles.imageView as ImageStyle}
-                     source={question.imageAsset}/>
                 <View style={styles.answerContainer}>
                     {this.renderAnswerButton(0, question.answer[0])}
                     {this.renderAnswerButton(1, question.answer[1])}
-                </View>
-
-                <View style={styles.answerContainer}>
                     {this.renderAnswerButton(2, question.answer[2])}
-                    {this.renderAnswerButton(3, question.answer[3])}
-                </View>
-                <View>
-                   
                 </View>
             </View>
         );
@@ -58,9 +49,7 @@ export default class QuestionType1Component extends React.Component<Props>{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
+        flexDirection: 'column'
     },
     imageView: {
         flex: 1,
@@ -69,8 +58,6 @@ const styles = StyleSheet.create({
         marginTop: 20,
         marginBottom: 10,
         maxHeight: DEVICE_HEIGHT / 3,
-        justifyContent: 'center',
-        alignItems: 'stretch'
     },
     questionText: {
         color: '#4F4F4F',
@@ -80,16 +67,14 @@ const styles = StyleSheet.create({
     },
     answerContainer: {
         flex: 1,
-        flexDirection: 'row',
+        flexDirection: 'column',
         marginLeft: 30,
         marginRight: 30,
-        justifyContent: 'center',
-        alignItems: 'stretch'
     },
     answerButton: {
         flex: 1,
+        marginBottom: 10,
         height: 60,
-        shadowRadius: 0,
-        width: DEVICE_WIDTH / 2
+        shadowRadius: 0
     }
 });

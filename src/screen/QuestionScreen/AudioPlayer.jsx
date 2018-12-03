@@ -46,7 +46,7 @@ export default class AudioPlayer extends Component {
 	        playsInSilentModeIOS: true,
 	        shouldDuckAndroid: true,
 	        interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
-	        playThroughEarpieceAndroid: true
+	        playThroughEarpieceAndroid: false
 	    });
 	    this._loadNewPlaybackInstance(false);
 	}
