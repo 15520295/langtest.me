@@ -4,5 +4,17 @@
     "development": {
       "plugins": ["transform-react-jsx-source"]
     }
-  }
+  },
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": ["./src"],
+        "alias": {
+          "imgPath": "./assets/vocabulary/word/img",
+          "underscore": "lodash"
+        }
+      }
+    ]
+  ]
 }

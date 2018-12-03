@@ -70,16 +70,7 @@ export default class WordFlatListItem extends Component {
                                         type='MaterialIcons'
                                         size={30}
                                         color='#517fa4'
-                                        onPress={() => {Alert.alert(
-                                            'Alert Title',
-                                            'My Alert Msg',
-                                            [
-                                                {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
-                                                {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                                                {text: 'OK', onPress: () => console.log('OK Pressed')},
-                                            ],
-                                            { cancelable: false }
-                                        );}}
+                                        onPress={() => {}}
                                     />
                                 </View>
                                 <View style={styles.vc_exampleTitle}>
@@ -88,7 +79,10 @@ export default class WordFlatListItem extends Component {
                             </View>
                             <View style={styles.vc_topRight}>
                                 <Image style={styles.img} 
-                                    source={{ uri: this.props.item.img }}/>
+                                    // source={{ uri: this.props.item.img }}
+                                    source={require('imgPath/canncelation.jpg')}
+                                    //    source={{uri: 'asset:/canncelation.jpg'}} //--> Android assets folder
+                                />
                             </View>
                         </View>
                         <View style={styles.vc_bottom}>
