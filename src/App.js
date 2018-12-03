@@ -1,7 +1,7 @@
 import React from 'react';
-
+import {StyleSheet, Text, View, Image, Platform, StatusBar} from 'react-native';
 import {Root} from 'native-base';
-import {Font} from 'expo';
+import {AppLoading, Asset, Font, Icon} from 'expo';
 import Expo from 'expo';
 
 import {
@@ -20,8 +20,51 @@ import TopicScreen from './screen/TopicScreen';
 import WordScreen from './screen/WordScreen';
 import QuizScreen from './screen/QuestionScreen/QuestionScreen';
 
+//huy
+import AppNavigator from './navigation/AppNavigator';
+import HomeScreen from './screen/HomeScreen';
 
-class App extends React.Component {
+const CustomDrawerContentComponent = (props) => (
+    <Container>
+        <Header style={{height: 200, backgroundColor:'gray'}}>
+            <Body>
+
+            </Body>
+        </Header>
+        <Content>
+            <DrawerItems {...props}/>
+        </Content>
+    </Container>
+);
+
+// const AppNavigator = createStackNavigator(
+//     {
+//         App: {
+//             screen: HomeScreen,
+//         },
+//         Topic: {
+//             screen: TopicScreen,
+//         },
+//         Word: {
+//             screen: WordScreen
+//         },
+//     },
+//     {
+//         initialRouteName:'App',
+//         drawerPosition: 'center',
+//         contentComponent: CustomDrawerContentComponent,
+//         drawerOpenRoute:'DrawerOpen',
+//         drawerCloseRoute:'DrawerClose',
+//         drawerToggleRoute:'DrawerToggle',
+//         headerMode: 'none'
+//     }
+// );
+
+
+import AppNavigator from './navigation/AppNavigator';
+const AppContainer = createAppContainer(AppNavigator);
+
+export default class App extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -43,64 +86,19 @@ class App extends React.Component {
             return (<Expo.AppLoading/>);
         }
         return (
-            <QuizScreen/>
+        // <View style={styles.container}>
+        //     <WordFlatList>
+
+            //     </WordFlatList>
+            // </View>
+            //<QuestionScreen/>
+        <View style={styles.container}>
+            {Platform.OS === 'ios' && <StatusBar barStyle="default"/>}
+            <AppContainer/>
+        </View>
         );
     }
 }
-
-const CustomDrawerContentComponent = (props) => (
-    <Container>
-        <Header style={{height: 200, backgroundColor:'gray'}}>
-            <Body>
-
-            </Body>
-        </Header>
-        <Content>
-            <DrawerItems {...props}/>
-        </Content>
-    </Container>
-);
-
-const AppNavigator = createStackNavigator(
-    {
-        App: {
-            screen: App,
-        },
-        Topic: {
-            screen: TopicScreen,
-        },
-        Word: {
-            screen: WordScreen
-        },
-    },
-    {
-        initialRouteName:'App',
-        drawerPosition: 'center',
-        contentComponent: CustomDrawerContentComponent,
-        drawerOpenRoute:'DrawerOpen',
-        drawerCloseRoute:'DrawerClose',
-        drawerToggleRoute:'DrawerToggle',
-        headerMode: 'none'
-    }
-);
-
-export default createAppContainer(AppNavigator);
-
-//
-// const MyApp = createDrawerNavigator({
-//         Topic:{
-//             screen: TopicScreen
-//         }
-//     },{
-//         initialRouteName:'Topic',
-//         drawerPosition: 'center',
-//         contentComponent: CustomDrawerContentComponent,
-//         drawerOpenRoute:'DrawerOpen',
-//         drawerCloseRoute:'DrawerClose',
-//         drawerToggleRoute:'DrawerToggle',
-//         headerMode: 'none'
-//     }
-// );
 
 const styles = StyleSheet.create({
     container: {

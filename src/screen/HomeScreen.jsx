@@ -26,7 +26,7 @@ export default class HomeScreen extends React.Component {
       title:'Home',
       drawerIcon:(
           <Image source={require('../../assets/images/home.png')}
-              style={{height:24, width:24}}
+                 style={{height: 12, width: 12}}
           />
       )
   };
