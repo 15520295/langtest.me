@@ -6,7 +6,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screen/HomeScreen';
 import QuizScreen from '../screen/QuestionScreen/QuestionScreen';
 import SettingsScreen from '../screen/SettingsScreen';
-import ChartScreen from '../screens/ChartScreen';
+import ChartScreen from '../screen/ChartScreen';
 
 const HomeStack = createStackNavigator({
     Home: HomeScreen,
@@ -54,22 +54,23 @@ SettingsStack.navigationOptions = {
     ),
 };
 
-// const ChartStack = createStackNavigator({
-//     Charts: ChartScreen,
-// });
-//
-// ChartStack.navigationOptions = {
-//     tabBarLabel: 'Charts',
-//     tabBarIcon: ({ focused }) => (
-//         <TabBarIcon
-//             focused={focused}
-//             name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
-//         />
-//     ),
-// };
+const ChartStack = createStackNavigator({
+    Charts: ChartScreen,
+});
+
+ChartStack.navigationOptions = {
+    tabBarLabel: 'Charts',
+    tabBarIcon: ({focused}) => (
+        <TabBarIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+        />
+    ),
+};
 
 export default createBottomTabNavigator({
     HomeStack,
     QuestionStack,
     SettingsStack,
+    ChartStack,
 });
