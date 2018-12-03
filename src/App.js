@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import {StyleSheet, Text, View, Image, Platform, StatusBar} from 'react-native';
 import {Root} from 'native-base';
-import {Font} from 'expo';
+import {AppLoading, Asset, Font, Icon} from 'expo';
 import Expo from 'expo';
 import WordFlatList from './components/WordFlatList';
 import HomeScreen from './screen/HomeScreen';
@@ -13,6 +13,9 @@ import { Container, Header, Body, Content } from 'native-base';
 import DatabaseScreen from './screen/DatabaseScreen';
 import QuestionScreen from './screen/QuestionScreen/QuestionScreen';
 import AudioPlayer from './screen/QuestionScreen/AudioPlayer';
+
+//huy
+import AppNavigator from './navigation/AppNavigator';
 
 export default class App extends React.Component {
     constructor(props){
@@ -41,7 +44,11 @@ export default class App extends React.Component {
 
             //     </WordFlatList>
             // </View>
-            <QuestionScreen/>
+            //<QuestionScreen/>
+            <View style={styles.container}>
+                {Platform.OS === 'ios' && <StatusBar barStyle="default"/>}
+                <AppNavigator/>
+            </View>
         );
     }
 }
