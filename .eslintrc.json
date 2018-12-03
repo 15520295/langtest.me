@@ -23,9 +23,6 @@
         "react-native"
     ],
     "rules": {
-        "indent": [
-            "error"
-        ],
         "quotes": [
             "error",
             "single"
