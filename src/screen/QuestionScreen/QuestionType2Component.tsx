@@ -1,16 +1,15 @@
 import * as React from 'react';
-import {View} from 'native-base';
-import {StyleSheet, ViewStyle, Dimensions} from "react-native";
+import {View, Text} from 'native-base';
+import {StyleSheet, ViewStyle} from "react-native";
 import IQuestion, { QuestionType } from '../../entity/Question';
 import { systemWeights } from 'react-native-typography';
 import AnswerButton, { AnswerState } from './AnswerButton';
+import { heightPercentageToDP, widthPercentageToDP } from '../../helper/ratioHelper';
 export interface Props{
     question: IQuestion,
     answerState: AnswerState[],
     onChooseAnswer: (index: number) => void,
 }
-
-const {height: DEVICE_HEIGHT} = Dimensions.get('window');
 
 export default class QuestionType2Component extends React.Component<Props>{
     constructor(prop: Props){
@@ -35,6 +34,9 @@ export default class QuestionType2Component extends React.Component<Props>{
 
         return (
             <View style={styles.container}>
+                <Text adjustsFontSizeToFit minimumFontScale={.5} style={styles.questionText}>	
+                        "Choose the best response"	
+                </Text>
                 <View style={styles.answerContainer}>
                     {this.renderAnswerButton(0, question.answer[0])}
                     {this.renderAnswerButton(1, question.answer[1])}
@@ -51,30 +53,25 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column'
     },
-    imageView: {
-        flex: 1,
-        marginLeft: 30,
-        marginRight: 30,
-        marginTop: 20,
-        marginBottom: 10,
-        maxHeight: DEVICE_HEIGHT / 3,
-    },
     questionText: {
         color: '#4F4F4F',
         fontSize: 20,
-        textAlign: 'justify',
+        marginLeft: widthPercentageToDP(8),
+        justifyContent: 'center',
+        alignItems: 'stretch',
+        height: heightPercentageToDP(15),
         ...systemWeights.light
     },
     answerContainer: {
         flex: 1,
         flexDirection: 'column',
-        marginLeft: 30,
-        marginRight: 30,
+        marginLeft: widthPercentageToDP(8),
+        marginRight: widthPercentageToDP(8),
     },
     answerButton: {
         flex: 1,
-        marginBottom: 10,
-        height: 60,
+        marginBottom: heightPercentageToDP(2),
+        height: heightPercentageToDP(9.3),
         shadowRadius: 0
     }
 });

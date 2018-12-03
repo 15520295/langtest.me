@@ -2,7 +2,6 @@ import React from 'react';
 import { Container, Icon, View, Text, Content} from 'native-base';
 import {StyleSheet, TouchableOpacity, PanResponder, PanResponderGestureState, PanResponderInstance} from 'react-native';
 import { AnswerState } from './AnswerButton';
-import {systemWeights} from 'react-native-typography';
 import posed, { Transition } from 'react-native-pose';
 import QuizStore from '../../store/quizStore';
 import QuizScreenHeader from './QuestionScreenHeader';
@@ -10,6 +9,7 @@ import QuestionType1Component from './QuestionType1Component';
 import AudioPlayer from './AudioPlayer';
 import { QuestionType } from '../../entity/Question';
 import QuestionType2Component from './QuestionType2Component';
+import { widthPercentageToDP, heightPercentageToDP } from '../../helper/ratioHelper';
 
 
 
@@ -182,8 +182,6 @@ export default class QuestionScreenContainer extends React.Component<Props, Stat
 
     renderAnswerQuestion () {
         const {quizStore} = this.props;
-        console.log('Current question info');
-        console.log(quizStore.getCurrentQuestionInfo());
         return (
             <View>
                 <View style={styles.navigationView}>
@@ -212,7 +210,6 @@ export default class QuestionScreenContainer extends React.Component<Props, Stat
     }
     render() {
         const {quizStore} = this.props;
-
         return (
             <Container>
                 <View style={styles.container}>
@@ -240,22 +237,8 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'space-between',
         flexDirection: 'row',
-        marginLeft: 30,
-        marginRight: 30,
-        marginTop: 15
-    },
-    questionView: {
-        flex: 1,
-        marginLeft: 30,
-        marginRight: 30,
-        marginTop: 20,
-        marginBottom: 10,
-        height: 120
-    },
-    questionText: {
-        color: '#4F4F4F',
-        fontSize: 20,
-        textAlign: 'justify',
-        ...systemWeights.light
+        marginLeft: widthPercentageToDP(8),
+        marginRight: widthPercentageToDP(8),
+        marginTop: heightPercentageToDP(2)
     }
 });
