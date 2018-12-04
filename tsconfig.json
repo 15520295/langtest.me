@@ -6,7 +6,7 @@
         "rootDir": "src",
         "outDir": "build",
         "allowSyntheticDefaultImports": true,
-        "noImplicitAny": true,
+        "noImplicitAny": false, //Fix to TRUE
         "sourceMap": true,
         "experimentalDecorators": true,
         "preserveConstEnums": true,
