@@ -11,6 +11,7 @@ import { QuestionType } from '../../entity/Question';
 import QuestionType2Component from './QuestionType2Component';
 import { widthPercentageToDP, heightPercentageToDP } from '../../helper/ratioHelper';
 import QuestionType5Component from './QuestionType5Component';
+import QuestionType3Component from './QuestionType3Component';
 
 
 
@@ -171,6 +172,13 @@ export default class QuestionScreenContainer extends React.Component<Props, Stat
                         answerState={this.state.answerState} 
                         onChooseAnswer={(index) => this.chooseAnswer(index)}/>
                 )
+            case QuestionType.part3: case QuestionType.part4 : case QuestionType.part6 : case QuestionType.part7 :
+                return (
+                    <QuestionType3Component
+                        question={question} 
+                        answerState={this.state.answerState} 
+                        onChooseAnswer={(index) => this.chooseAnswer(index)}/>
+                )
             case QuestionType.part5:
                 return (
                     <QuestionType5Component
@@ -180,7 +188,7 @@ export default class QuestionScreenContainer extends React.Component<Props, Stat
                 )
             default:
                 return (
-                    <QuestionType1Component 
+                    <QuestionType3Component 
                         question={question} 
                         answerState={this.state.answerState} 
                         onChooseAnswer={(index) => this.chooseAnswer(index)}/>
@@ -216,6 +224,7 @@ export default class QuestionScreenContainer extends React.Component<Props, Stat
             </View>
         );
     }
+     //TODO: Add not swipeable, zoomable image
     render() {
         const {quizStore} = this.props;
         const question = quizStore.getCurrentQuestionInfo();
@@ -223,9 +232,11 @@ export default class QuestionScreenContainer extends React.Component<Props, Stat
             <Container>
                 <View style={styles.container}>
                     <QuizScreenHeader
+                        title={question.type}
                         correctAnswer={quizStore.state.correctedAnswer}
                         uncorrectedAnswer={quizStore.state.uncorrectedAnswer}
                     />
+                   
                     <Content scrollEnabled={false} {...this._panResponder.panHandlers}>
                         {this.renderAnswerQuestion()}
                     </Content>
