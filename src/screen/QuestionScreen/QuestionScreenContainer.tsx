@@ -107,50 +107,47 @@ export default class QuestionScreenContainer extends React.Component<Props, Stat
         } 
     }
 
-    nextQuestion = () => {
+    nextQuestion = async () => {
+        const {quizStore} = this.props;
         //Wait a bit for disapperance animation
-        this.setState({isAnimation: true});
-        setTimeout(() => {
-            this.setState({
+        await this.setState({isAnimation: true});
+        setTimeout(async() => {
+            await this.setState({
                 isWaiting: false,
                 isAnimation: false,
-                answerState: [AnswerState.normal, AnswerState.normal, AnswerState.normal, AnswerState.normal]
             });
-            this.props.quizStore.nextQuestion();
+            await quizStore.nextQuestion();
+            await this.setState({
+                answerState: quizStore.getCurrentAnswerState()
+            })
         }, 50);
     }
 
-    prevQuestion = () => {
-        this.setState({isAnimation: true});
-        setTimeout(() => {
-            this.setState({
+    prevQuestion = async () => {
+        const {quizStore} = this.props;
+        await this.setState({isAnimation: true});
+        setTimeout(async() => {
+            await this.setState({
                 isWaiting: false,
                 isAnimation: false,
-                answerState: [AnswerState.normal, AnswerState.normal, AnswerState.normal, AnswerState.normal]
             });
-            this.props.quizStore.prevQuestion();
+            await quizStore.prevQuestion();
+            await this.setState({
+                answerState: quizStore.getCurrentAnswerState()
+            })
         }, 50);
     }
 
     chooseAnswer = (idAnswer: number) => {
         //Avoid click on mutlyply answer
-        if(this.state.isWaiting){
+        if(this.state.isWaiting || this.props.quizStore.isCurrentQuestionAnswered()){
             return;
         }
         this.setState({isWaiting: true});
-        let questionInfo = this.props.quizStore.getCurrentQuestionInfo();
-        if(this.props.quizStore.answerQuestion(idAnswer)){
-            let answerState = this.state.answerState;
-            answerState[idAnswer] = AnswerState.corrected;
-            this.setState({answerState: answerState});
-        }
-        else
-        {
-            let answerState = this.state.answerState;
-            answerState[questionInfo.correctAnswer] = AnswerState.corrected;
-            answerState[idAnswer] = AnswerState.uncorrected;
-            this.setState({answerState: answerState});
-        }
+        this.props.quizStore.answerQuestion(idAnswer);
+        this.setState({
+            answerState: this.props.quizStore.getCurrentAnswerState()
+        })
         setTimeout(() => {this.nextQuestion();}, 500);
     }
 
@@ -237,10 +234,7 @@ export default class QuestionScreenContainer extends React.Component<Props, Stat
                         uncorrectedAnswer={quizStore.state.uncorrectedAnswer}
                     />
                    
-                    {/* <Content {...this._panResponder.panHandlers}>
-                        {this.renderAnswerQuestion()}
-                    </Content> */}
-                    <Content>
+                    <Content {...this._panResponder.panHandlers}>
                         {this.renderAnswerQuestion()}
                     </Content>
                     {question.audioAsset && 

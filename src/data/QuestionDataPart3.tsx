@@ -10,7 +10,7 @@ const QuestionDataPart3 : IQuestion[] = [{
     help: "Arimasen",
     audioAsset: require('./../../assets/audio/doraemon.mp3'),
 }, {
-    id: 'p3_001',
+    id: 'p3_002',
     type: QuestionType.part3,
     question: 'Look at the graphic. What size screen will the man order? ',
     answer: ['11 inches', '13 inches', '15 inches', '17 inches'],

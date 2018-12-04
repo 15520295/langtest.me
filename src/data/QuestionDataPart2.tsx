@@ -1,7 +1,7 @@
 import IQuestion, { QuestionType } from "../entity/Question";
 
 const QuestionDataPart2 : IQuestion[] = [{
-    id: 'p1_002',
+    id: 'p2_001',
     type: QuestionType.part2,
     question: '',
     answer: ['A', 'B', 'C'],
@@ -11,7 +11,7 @@ const QuestionDataPart2 : IQuestion[] = [{
     audioAsset: require('./../../assets/audio/doraemon.mp3')
 },
 {
-    id: 'p1_002',
+    id: 'p2_002',
     type: QuestionType.part2,
     question: '',
     answer: ['A', 'B', 'C'],
