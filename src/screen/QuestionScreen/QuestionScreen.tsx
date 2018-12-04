@@ -6,6 +6,10 @@ import QuestionScreenContainer from "./QuestionScreenContainer";
   
 
 export default class QuizScreen extends React.Component{
+    static navigationOptions = {
+        header: null
+    };
+    
     constructor(props: any){
         super(props);
     }

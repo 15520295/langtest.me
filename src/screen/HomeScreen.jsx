@@ -23,6 +23,7 @@ export default class HomeScreen extends React.Component {
     }
 
   static navigationOptions = {
+      header: null,
       title:'Home',
       drawerIcon:(
           <Image source={require('../../assets/images/home.png')}
