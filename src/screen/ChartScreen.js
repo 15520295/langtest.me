@@ -4,9 +4,17 @@ import {ScrollView, StyleSheet, Text, requireNativeComponent} from 'react-native
 import PureChart from 'react-native-pure-chart';
 
 export default class ChartScreen extends React.Component {
-    // static navigationOptions = {
-    //     title: 'Links',
-    // };
+
+    static navigationOptions = {
+        header: null // !!! Hide Header
+        // title:'Home 1',
+        // // header: { visible:false },
+        // drawerIcon:(
+        //     <Image source={require('../../assets/images/home.png')}
+        //            style={{height: 24, width: 24}}
+        //     />
+        // )
+    };
 
     render() {
         let sampleData = [

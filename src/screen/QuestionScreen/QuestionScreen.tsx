@@ -5,12 +5,23 @@ import QuestionScreenContainer from "./QuestionScreenContainer";
 
   
 
-export default class QuizScreen extends React.Component{
-    constructor(props: any){
+export default class QuizScreen extends React.Component {
+
+    static navigationOptions = {
+        header: null // !!! Hide Header
+        // title:'Question',
+        // // header: { visible:false },
+        // drawerIcon:(
+        //     <Image source={require('../../assets/images/home.png')}
+        //            style={{height: 24, width: 24}}
+        //     />
+        // )
+    };
+    constructor(props: any) {
         super(props);
     }
 
-    render(){
+    render() {
         return(
             <Provider>
                  <Subscribe to={[QuizStore]}>
