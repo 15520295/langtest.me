@@ -10,6 +10,7 @@ import AudioPlayer from './AudioPlayer';
 import { QuestionType } from '../../entity/Question';
 import QuestionType2Component from './QuestionType2Component';
 import { widthPercentageToDP, heightPercentageToDP } from '../../helper/ratioHelper';
+import QuestionType5Component from './QuestionType5Component';
 
 
 
@@ -170,6 +171,13 @@ export default class QuestionScreenContainer extends React.Component<Props, Stat
                         answerState={this.state.answerState} 
                         onChooseAnswer={(index) => this.chooseAnswer(index)}/>
                 )
+            case QuestionType.part5:
+                return (
+                    <QuestionType5Component
+                        question={question} 
+                        answerState={this.state.answerState} 
+                        onChooseAnswer={(index) => this.chooseAnswer(index)}/>
+                )
             default:
                 return (
                     <QuestionType1Component 
@@ -210,6 +218,7 @@ export default class QuestionScreenContainer extends React.Component<Props, Stat
     }
     render() {
         const {quizStore} = this.props;
+        const question = quizStore.getCurrentQuestionInfo();
         return (
             <Container>
                 <View style={styles.container}>
@@ -220,7 +229,9 @@ export default class QuestionScreenContainer extends React.Component<Props, Stat
                     <Content scrollEnabled={false} {...this._panResponder.panHandlers}>
                         {this.renderAnswerQuestion()}
                     </Content>
-                    <AudioPlayer uri={require('./../../../assets/audio/doraemon.mp3')} name="'Doraemon - Mao'" styles = {{width: 40}}/>
+                    {question.audioAsset && 
+                        <AudioPlayer uri={question.audioAsset} name={question.id} styles = {{width: widthPercentageToDP(100)}}/>
+                    }
                 </View>
             </Container>
         );

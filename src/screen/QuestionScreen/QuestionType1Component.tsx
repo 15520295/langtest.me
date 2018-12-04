@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {View} from 'native-base';
-import {StyleSheet, ViewStyle, Dimensions, Image, ImageStyle} from "react-native";
+import {StyleSheet, ViewStyle, Image, ImageStyle} from "react-native";
 import IQuestion, { QuestionType } from '../../entity/Question';
 import { systemWeights } from 'react-native-typography';
 import AnswerButton, { AnswerState } from './AnswerButton';
