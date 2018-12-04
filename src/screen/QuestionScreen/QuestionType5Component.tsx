@@ -11,12 +11,12 @@ export interface Props{
     onChooseAnswer: (index: number) => void,
 }
 
-export default class QuestionType2Component extends React.Component<Props>{
+export default class QuestionType5Component extends React.Component<Props>{
     constructor(prop: Props){
         super(prop);
 
-        if(prop.question.type !== QuestionType.part2){
-            throw new TypeError('The question is not type2 question')
+        if(prop.question.type !== QuestionType.part5){
+            throw new TypeError('The question is not type5 question')
         }
     }
     renderAnswerButton(index: number, value: string) {
@@ -35,12 +35,13 @@ export default class QuestionType2Component extends React.Component<Props>{
         return (
             <View style={styles.container}>
                 <Text adjustsFontSizeToFit minimumFontScale={.5} style={styles.questionText}>	
-                        "Choose the best response"	
+                        {question.question}
                 </Text>
                 <View style={styles.answerContainer}>
                     {this.renderAnswerButton(0, question.answer[0])}
                     {this.renderAnswerButton(1, question.answer[1])}
                     {this.renderAnswerButton(2, question.answer[2])}
+                    {this.renderAnswerButton(3, question.answer[3])}
                 </View>
             </View>
         );

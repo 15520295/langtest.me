@@ -2,7 +2,6 @@ import React from 'react';
 import { Container, Icon, View, Text, Content} from 'native-base';
 import {StyleSheet, TouchableOpacity, PanResponder, PanResponderGestureState, PanResponderInstance} from 'react-native';
 import { AnswerState } from './AnswerButton';
-import {systemWeights} from 'react-native-typography';
 import posed, { Transition } from 'react-native-pose';
 import QuizStore from '../../store/quizStore';
 import QuizScreenHeader from './QuestionScreenHeader';
@@ -10,6 +9,9 @@ import QuestionType1Component from './QuestionType1Component';
 import AudioPlayer from './AudioPlayer';
 import { QuestionType } from '../../entity/Question';
 import QuestionType2Component from './QuestionType2Component';
+import { widthPercentageToDP, heightPercentageToDP } from '../../helper/ratioHelper';
+import QuestionType5Component from './QuestionType5Component';
+import QuestionType3Component from './QuestionType3Component';
 
 
 
@@ -170,9 +172,23 @@ export default class QuestionScreenContainer extends React.Component<Props, Stat
                         answerState={this.state.answerState} 
                         onChooseAnswer={(index) => this.chooseAnswer(index)}/>
                 )
+            case QuestionType.part3: case QuestionType.part4 : case QuestionType.part6 : case QuestionType.part7 :
+                return (
+                    <QuestionType3Component
+                        question={question} 
+                        answerState={this.state.answerState} 
+                        onChooseAnswer={(index) => this.chooseAnswer(index)}/>
+                )
+            case QuestionType.part5:
+                return (
+                    <QuestionType5Component
+                        question={question} 
+                        answerState={this.state.answerState} 
+                        onChooseAnswer={(index) => this.chooseAnswer(index)}/>
+                )
             default:
                 return (
-                    <QuestionType1Component 
+                    <QuestionType3Component 
                         question={question} 
                         answerState={this.state.answerState} 
                         onChooseAnswer={(index) => this.chooseAnswer(index)}/>
@@ -182,8 +198,6 @@ export default class QuestionScreenContainer extends React.Component<Props, Stat
 
     renderAnswerQuestion () {
         const {quizStore} = this.props;
-        console.log('Current question info');
-        console.log(quizStore.getCurrentQuestionInfo());
         return (
             <View>
                 <View style={styles.navigationView}>
@@ -210,20 +224,25 @@ export default class QuestionScreenContainer extends React.Component<Props, Stat
             </View>
         );
     }
+     //TODO: Add not swipeable, zoomable image
     render() {
         const {quizStore} = this.props;
-
+        const question = quizStore.getCurrentQuestionInfo();
         return (
             <Container>
                 <View style={styles.container}>
                     <QuizScreenHeader
+                        title={question.type}
                         correctAnswer={quizStore.state.correctedAnswer}
                         uncorrectedAnswer={quizStore.state.uncorrectedAnswer}
                     />
+                   
                     <Content scrollEnabled={false} {...this._panResponder.panHandlers}>
                         {this.renderAnswerQuestion()}
                     </Content>
-                    <AudioPlayer uri={require('./../../../assets/audio/doraemon.mp3')} name="'Doraemon - Mao'" styles = {{width: 40}}/>
+                    {question.audioAsset && 
+                        <AudioPlayer uri={question.audioAsset} name={question.id} styles = {{width: widthPercentageToDP(100)}}/>
+                    }
                 </View>
             </Container>
         );
@@ -240,22 +259,8 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'space-between',
         flexDirection: 'row',
-        marginLeft: 30,
-        marginRight: 30,
-        marginTop: 15
-    },
-    questionView: {
-        flex: 1,
-        marginLeft: 30,
-        marginRight: 30,
-        marginTop: 20,
-        marginBottom: 10,
-        height: 120
-    },
-    questionText: {
-        color: '#4F4F4F',
-        fontSize: 20,
-        textAlign: 'justify',
-        ...systemWeights.light
+        marginLeft: widthPercentageToDP(8),
+        marginRight: widthPercentageToDP(8),
+        marginTop: heightPercentageToDP(2)
     }
 });

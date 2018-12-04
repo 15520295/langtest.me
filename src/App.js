@@ -5,10 +5,6 @@ import {AppLoading, Asset, Font, Icon} from 'expo';
 import Expo from 'expo';
 
 import {
-    StyleSheet, Text, View, Image
-} from 'react-native';
-
-import {
     DrawerItems, createDrawerNavigator,createStackNavigator,createAppContainer,withNavigation
 } from 'react-navigation';
 
@@ -21,8 +17,6 @@ import WordScreen from './screen/WordScreen';
 import QuizScreen from './screen/QuestionScreen/QuestionScreen';
 
 //huy
-import AppNavigator from './navigation/AppNavigator';
-import HomeScreen from './screen/HomeScreen';
 
 const CustomDrawerContentComponent = (props) => (
     <Container>
@@ -60,7 +54,6 @@ const CustomDrawerContentComponent = (props) => (
 //     }
 // );
 
-
 import AppNavigator from './navigation/AppNavigator';
 const AppContainer = createAppContainer(AppNavigator);
 
@@ -94,7 +87,7 @@ export default class App extends React.Component {
             //<QuestionScreen/>
         <View style={styles.container}>
             {Platform.OS === 'ios' && <StatusBar barStyle="default"/>}
-            <AppContainer/>
+            <AppContainer />
         </View>
         );
     }

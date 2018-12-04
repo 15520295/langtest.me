@@ -28,7 +28,11 @@
       "assetExts": ["db"]
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.rabbit.toeicfast"
+    },
+    "android":{
+      "package": "com.rabbit.toeicfast"
     },
     "androidStatusBar": {
       "backgroundColor": "#000000"

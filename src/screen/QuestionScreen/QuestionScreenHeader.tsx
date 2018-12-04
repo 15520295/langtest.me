@@ -3,13 +3,14 @@ import {Header, Left, Body, Right, Button, Icon, Title} from 'native-base';
 import { Platform } from "react-native";
 
 export interface Props{
+    title: String,
     correctAnswer: number,
     uncorrectedAnswer : number;
 }
 
 export default class QuizScreenHeader extends React.Component<Props>{
     render() {
-        const {correctAnswer, uncorrectedAnswer} = this.props;
+        const {correctAnswer, uncorrectedAnswer, title} = this.props;
 
         return (
             <Header androidStatusBarColor="#0076BF" style={{backgroundColor: Platform.OS ==='android' ? '#019AE8' : '#FFFFFF'}}>
@@ -19,7 +20,7 @@ export default class QuizScreenHeader extends React.Component<Props>{
                 </Button>
             </Left>
             <Body>
-                <Title>Part 5</Title>
+                <Title>{title}</Title>
             </Body>
             <Right>
                 <Button transparent>
