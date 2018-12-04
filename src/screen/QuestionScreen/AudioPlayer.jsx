@@ -51,6 +51,10 @@ export default class AudioPlayer extends Component {
 	    this._loadNewPlaybackInstance(false);
 	}
 	
+	componentWillUnmount() {
+		this._onStopPressed();
+	}
+	
     async _loadNewPlaybackInstance(playing) {
 	    if (this.playbackInstance != null) {
 	        await this.playbackInstance.unloadAsync();
