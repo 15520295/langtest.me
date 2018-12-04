@@ -14,7 +14,7 @@ import GridView from 'react-native-super-grid';
 import {Icon, Button, Header, Content, Left, Container} from 'native-base';
 
 
-var imageGrid = require('../../assets/images/joychou.jpg');
+var imageGrid = require('../../assets/images/reading.jpg');
 
 export default class HomeScreen extends React.Component {
     _onPressCard(){
@@ -23,13 +23,14 @@ export default class HomeScreen extends React.Component {
     }
 
   static navigationOptions = {
-      header: null,
-      title:'Home',
-      drawerIcon:(
-          <Image source={require('../../assets/images/home.png')}
-                 style={{height: 12, width: 12}}
-          />
-      )
+      header: null // !!! Hide Header
+      // title:'Home 1',
+      // // header: { visible:false },
+      // drawerIcon:(
+      //     <Image source={require('../../assets/images/home.png')}
+      //            style={{height: 24, width: 24}}
+      //     />
+      // )
   };
 
   render() {
@@ -200,5 +201,9 @@ const styles = StyleSheet.create({
         height:100,
         width: 100,
         borderRadius:75,
+    },
+    navBar:{
+        height:100,
+        width: 100,
     },
 });

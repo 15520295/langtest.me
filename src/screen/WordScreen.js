@@ -22,6 +22,10 @@ import TopicFlatList from '../components/vocabulary/TopicFlatList';
 import WordFlatList from '../components/vocabulary/WordFlatList';
 
 export default class WordScreen extends React.Component {
+    static navigationOptions = {
+        header: null // !!! Hide Header
+    };
+
     constructor(props) {
         super(props);
         this.state = {

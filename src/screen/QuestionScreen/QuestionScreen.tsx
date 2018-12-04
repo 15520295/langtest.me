@@ -14,7 +14,7 @@ export default class QuizScreen extends React.Component{
         super(props);
     }
 
-    render(){
+    render() {
         return(
             <Provider>
                  <Subscribe to={[QuizStore]}>

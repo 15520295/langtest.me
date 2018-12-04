@@ -237,7 +237,7 @@ export default class QuestionScreenContainer extends React.Component<Props, Stat
                         uncorrectedAnswer={quizStore.state.uncorrectedAnswer}
                     />
                    
-                    <Content scrollEnabled={false} {...this._panResponder.panHandlers}>
+                    <Content {...this._panResponder.panHandlers}>
                         {this.renderAnswerQuestion()}
                     </Content>
                     {question.audioAsset && 

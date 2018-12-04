@@ -1,12 +1,20 @@
 import React from 'react';
-import {ScrollView, StyleSheet, Text, requireNativeComponent} from 'react-native';
+import {ScrollView, StyleSheet, Text, requireNativeComponent, View} from 'react-native';
 // import { ExpoLinksView } from '@expo/samples';
 import PureChart from 'react-native-pure-chart';
 
 export default class ChartScreen extends React.Component {
-    // static navigationOptions = {
-    //     title: 'Links',
-    // };
+
+    static navigationOptions = {
+        header: null // !!! Hide Header
+        // title:'Home 1',
+        // // header: { visible:false },
+        // drawerIcon:(
+        //     <Image source={require('../../assets/images/home.png')}
+        //            style={{height: 24, width: 24}}
+        //     />
+        // )
+    };
 
     render() {
         let sampleData = [
@@ -31,21 +39,35 @@ export default class ChartScreen extends React.Component {
                     {x: '2018-02-05', y: 40}
                 ],
                 color: '#b1af31'
+            },
+            {
+                seriesName: 'series3',
+                data: [
+                    {x: '2018-03-01', y: 20},
+                    {x: '2018-03-02', y: 50},
+                    {x: '2018-03-03', y: 550},
+                    {x: '2018-03-04', y: 200},
+                    {x: '2018-03-05', y: 140}
+                ],
+                color: '#f1ae31'
             }
         ]
 
         return (
-            <PureChart type={'line'}
+            <View style={{flex:1, justifyContent:'center',alignContent:'center'}}>
+                <PureChart type={'line'}
                        style={styles.container}
                        data={sampleData}
-                       width={'50%'}
-                       height={100}
+                       width={'100%'}
+                        height={200}
                        customValueRenderer={(index, point) => {
-                           if (index % 2 === 0) return null
+                           if (index % 2 === 0) return null;
                            return (
                                <Text style={{textAlign: 'center'}}>{point.y}</Text>
-                           )
+                           );
                        }}/>
+            </View>
+            
         );
     }
 }
