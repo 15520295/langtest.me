@@ -1,16 +1,16 @@
 import * as React from 'react';
 import {View} from 'native-base';
-import {StyleSheet, ViewStyle, Dimensions, Image, ImageStyle} from "react-native";
+import {StyleSheet, ViewStyle, Image, ImageStyle} from "react-native";
 import IQuestion, { QuestionType } from '../../entity/Question';
 import { systemWeights } from 'react-native-typography';
 import AnswerButton, { AnswerState } from './AnswerButton';
+import { widthPercentageToDP, heightPercentageToDP } from '../../helper/ratioHelper';
 export interface Props{
     question: IQuestion,
     answerState: AnswerState[],
     onChooseAnswer: (index: number) => void,
 }
 
-const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT} = Dimensions.get('window');
 
 export default class QuestionType1Component extends React.Component<Props>{
     constructor(prop: Props){
@@ -32,7 +32,6 @@ export default class QuestionType1Component extends React.Component<Props>{
     }
     render() {
         const {question} = this.props;
-
         return (
             <View style={styles.container}>
                 <Image style={styles.imageView as ImageStyle}
@@ -64,11 +63,11 @@ const styles = StyleSheet.create({
     },
     imageView: {
         flex: 1,
-        marginLeft: 30,
-        marginRight: 30,
-        marginTop: 20,
-        marginBottom: 10,
-        maxHeight: DEVICE_HEIGHT / 3,
+        marginLeft: widthPercentageToDP(8),
+        marginRight: widthPercentageToDP(8),
+        marginTop: heightPercentageToDP(2),
+        marginBottom: heightPercentageToDP(2),
+        maxHeight: heightPercentageToDP(33),
         justifyContent: 'center',
         alignItems: 'stretch'
     },
@@ -81,15 +80,15 @@ const styles = StyleSheet.create({
     answerContainer: {
         flex: 1,
         flexDirection: 'row',
-        marginLeft: 30,
-        marginRight: 30,
+        marginLeft: widthPercentageToDP(8),
+        marginRight: widthPercentageToDP(8),
         justifyContent: 'center',
         alignItems: 'stretch'
     },
     answerButton: {
         flex: 1,
-        height: 60,
+        height: heightPercentageToDP(9.3),
         shadowRadius: 0,
-        width: DEVICE_WIDTH / 2
+        width: widthPercentageToDP(50)
     }
 });
