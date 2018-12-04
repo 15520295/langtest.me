@@ -12,6 +12,7 @@
         "root": ["./src"],
         "alias": {
           "imgPath": "./assets/vocabulary/word/img",
+          "soundPath": "./assets/vocabulary/word/sound",
           "underscore": "lodash"
         }
       }

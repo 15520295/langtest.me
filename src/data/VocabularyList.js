@@ -5,6 +5,7 @@ const vocabularyListData = [
         'pronoun': 'əˈbaɪd',
         'translate': 'tuân theo, tuân thủ',
         'img': require('imgPath/t1w1.jpg'),
+        'sound': require('soundPath/t1w1.mp3'),
         'ex': '',
     },
     {
@@ -12,16 +13,18 @@ const vocabularyListData = [
         'word': 'Agreement',
         'pronoun': 'ə’gri:mənt',
         'translate': 'hợp đồng, giao kèo',
-        'img': require('imgPath/t1w1.jpg'),
         'ex': '',
+        'img': require('imgPath/t1w2.jpg'),
+        'sound': require('soundPath/t1w2.mp3'),
     },
     {
         'id':'t1w3',
         'word': 'Assurance',
         'pronoun': 'ə’ʃuərəns',
         'translate': 'sự chắc chắn,sự tin chắc',
-        'img': require('imgPath/t1w1.jpg'),
         'ex': '',
+        'img': require('imgPath/t1w3.jpg'),
+        'sound': require('soundPath/t1w3.mp3'),
     },
     {
         'id':'t1w4',
@@ -29,6 +32,8 @@ const vocabularyListData = [
         'pronoun': 'ˈkæn.səl',
         'translate': 'sự hủy bỏ',
         'ex': '',
+        'img': require('imgPath/t1w4.jpg'),
+        'sound': require('soundPath/t1w4.mp3'),
     },
     {
         'id':'t1w5',
@@ -36,6 +41,8 @@ const vocabularyListData = [
         'pronoun': 'di’tə:min',
         'translate': 'xác định, định rõ',
         'ex': '',
+        'img': require('imgPath/t1w5.jpg'),
+        'sound': require('soundPath/t1w5.mp3'),
     },
     {
         'id':'t1w6',
@@ -43,6 +50,8 @@ const vocabularyListData = [
         'pronoun': 'in’geidʒ',
         'translate': 'tuyển dụng một người; thuê một người',
         'ex': '',
+        'img': require('imgPath/t1w6.jpg'),
+        'sound': require('soundPath/t1w6.mp3'),
     },
     {
         'id':'t1w7',
@@ -50,6 +59,8 @@ const vocabularyListData = [
         'pronoun': 'is’tæbli∫',
         'translate': 'thành lập, thiết lập',
         'ex': '',
+        'img': require('imgPath/t1w7.jpg'),
+        'sound': require('soundPath/t1w7.mp3'),
     },
     {
         'id':'t1w8',
@@ -57,6 +68,8 @@ const vocabularyListData = [
         'pronoun': '‘ɔbligei',
         'translate': 'bắt buộc, ép buộc',
         'ex': '',
+        'img': require('imgPath/t1w8.jpg'),
+        'sound': require('soundPath/t1w8.mp3'),
     },
     {
         'id':'t1w9',
@@ -64,6 +77,8 @@ const vocabularyListData = [
         'pronoun': 'ˈpɑːr.t̬i',
         'translate': '1 người hoặc 1 nhóm tham gia',
         'ex': '',
+        'img': require('imgPath/t1w9.jpg'),
+        'sound': require('soundPath/t1w9.mp3'),
     },
     {
         'id':'t1w10',
@@ -71,6 +86,8 @@ const vocabularyListData = [
         'pronoun': 'prəˈvɪʒ.ən',
         'translate': 'điều khoản',
         'ex': '',
+        'img': require('imgPath/t1w10.jpg'),
+        'sound': require('soundPath/t1w10.mp3'),
     },
     {
         'id':'t1w11',
@@ -78,6 +95,8 @@ const vocabularyListData = [
         'pronoun': 'ri’zɔlv',
         'translate': 'quyết tâm, ý kiên quyết',
         'ex': '',
+        'img': require('imgPath/t1w11.jpg'),
+        'sound': require('soundPath/t1w11.mp3'),
     },
     {
         'id':'t1w12',
@@ -85,6 +104,8 @@ const vocabularyListData = [
         'pronoun': 'spəˈsɪf.ɪk',
         'translate': 'rõ ràng, rành mạch',
         'ex': '',
+        'img': require('imgPath/t1w12.jpg'),
+        'sound': require('soundPath/t1w12.mp3'),
     },
 ];
 export default vocabularyListData;

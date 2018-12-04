@@ -21,12 +21,18 @@ export default class WordFlatListItem extends Component {
         this.state = {
         };
     }
+    playSound = async () => {
+        const soundObject = new Expo.Audio.Sound();
+        try {
+            await soundObject.loadAsync(this.props.item.sound);
+            await soundObject.playAsync();
+            // Your sound is playing!
+        } catch (error) {
+            // An error occurred!
+        }
+    };
 
     render() {
-        // const path = Expo.Asset.fromModule(require('./images/hello.jpg')).uri;
-        // let path = 'assets:/vocabulary/word/img/t1w1.png';
-        // let path = 'file://'+pathToResources+'/t1w1.png'
-        // let result = `imgPath/${this.props.item.id}.jpg`;
         return (
             <View style={styles.ItemContainer}>
                 <FlipCard
@@ -50,7 +56,7 @@ export default class WordFlatListItem extends Component {
                                         type='MaterialIcons'
                                         size={30}
                                         color='#517fa4'
-                                        onPress={() => {}}
+                                        onPress={this.playSound}
                                     />
                                 </View>
                                 <View style={styles.vc_exampleTitle}>
