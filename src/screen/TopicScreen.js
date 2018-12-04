@@ -30,6 +30,17 @@ export default class TopicScreen extends React.Component {
         };
     }
 
+    static navigationOptions = {
+        header: null // !!! Hide Header
+        // title:'Home 1',
+        // // header: { visible:false },
+        // drawerIcon:(
+        //     <Image source={require('../../assets/images/home.png')}
+        //            style={{height: 24, width: 24}}
+        //     />
+        // )
+    };
+
     nextQuestion = () => {
         this.setState({
             // isWaiting: false,
