@@ -4,7 +4,7 @@ import {StyleSheet, TouchableOpacity, PanResponder, PanResponderGestureState, Pa
 import { AnswerState } from './AnswerButton';
 import posed, { Transition } from 'react-native-pose';
 import QuizStore from '../../store/quizStore';
-import QuizScreenHeader from './QuestionScreenHeader';
+import QuizScreenHeader from './QuizScreenHeader';
 import QuestionType1Component from './QuestionType1Component';
 import AudioPlayer from './AudioPlayer';
 import { QuestionType } from '../../entity/Question';
@@ -12,6 +12,7 @@ import QuestionType2Component from './QuestionType2Component';
 import { widthPercentageToDP, heightPercentageToDP } from '../../helper/ratioHelper';
 import QuestionType5Component from './QuestionType5Component';
 import QuestionType3Component from './QuestionType3Component';
+import QuizScreenTimer from './QuizScreenTimer';
 
 
 
@@ -52,7 +53,7 @@ interface States{
     isAnimation: boolean
 }
 
-export default class QuestionScreenContainer extends React.Component<Props, States>{
+export default class QuizScreenContainer extends React.Component<Props, States>{
     _panResponder: PanResponderInstance;
     constructor(props: Props){
         super(props);
@@ -221,7 +222,7 @@ export default class QuestionScreenContainer extends React.Component<Props, Stat
             </View>
         );
     }
-     //TODO: Add not swipeable, zoomable image
+
     render() {
         const {quizStore} = this.props;
         const question = quizStore.getCurrentQuestionInfo();
@@ -233,7 +234,14 @@ export default class QuestionScreenContainer extends React.Component<Props, Stat
                         correctAnswer={quizStore.state.correctedAnswer}
                         uncorrectedAnswer={quizStore.state.uncorrectedAnswer}
                     />
-                   
+                    <QuizScreenTimer interval={500} 
+                    totalTime={5 * 60 * 1000} 
+                    style={styles.timer} 
+                    height={heightPercentageToDP(0.75)} 
+                    width={widthPercentageToDP(100)}
+                    color="#019AE8"
+                    borderColor="white"
+                    borderRadius={0}/>
                     <Content {...this._panResponder.panHandlers}>
                         {this.renderAnswerQuestion()}
                     </Content>
@@ -251,6 +259,9 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         justifyContent: 'center'
+    },
+    timer: {
+        marginTop: heightPercentageToDP(0),
     },
     navigationView: {
         flex: 1,

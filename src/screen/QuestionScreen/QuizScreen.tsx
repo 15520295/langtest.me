@@ -1,7 +1,7 @@
 import QuizStore from "../../store/quizStore";
 import React from 'react';
 import { Subscribe, Provider } from "unstated";
-import QuestionScreenContainer from "./QuestionScreenContainer";
+import QuizScreenContainer from "./QuizScreenContainer";
 
   
 
@@ -19,7 +19,7 @@ export default class QuizScreen extends React.Component{
             <Provider>
                  <Subscribe to={[QuizStore]}>
           {(quizStore) => (
-            <QuestionScreenContainer
+            <QuizScreenContainer
               quizStore={quizStore as QuizStore}
             />
           )}
