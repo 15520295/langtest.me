@@ -8,6 +8,7 @@ import QuizScreen from '../screen/QuestionScreen/QuizScreen';
 import TopicScreen from '../screen/TopicScreen';
 import ChartScreen from '../screen/ChartScreen';
 import WordScreen from '../screen/WordScreen';
+import ResultScreen from '../screen/QuestionScreen/ResultScreen';
 
 const HomeStack = createStackNavigator({
     Home: HomeScreen,
@@ -28,7 +29,9 @@ HomeStack.navigationOptions = {
 };
 
 const QuestionStack = createStackNavigator({
-    Questions: QuizScreen,
+    Questions: ResultScreen,
+}, {
+    headerMode: 'none'
 });
 
 QuestionStack.navigationOptions = {
