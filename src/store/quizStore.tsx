@@ -7,6 +7,7 @@ import QuestionDataPart4 from '../data/QuestionDataPart4';
 import QuestionDataPart3 from '../data/QuestionDataPart3';
 import QuestionDataPart7 from '../data/QuestionDataPart7';
 import { AnswerState } from '../screen/QuestionScreen/AnswerButton';
+import IQuizService from '../services/IQuizService';
 
 export interface quizStoreInterface {
     questionList: IQuestion[],
@@ -17,6 +18,7 @@ export interface quizStoreInterface {
 }
 
 export default class QuizStore extends Container<quizStoreInterface>{
+    _quizService: IQuizService = null;
     constructor(){
         super();
         this.state = {
@@ -26,6 +28,7 @@ export default class QuizStore extends Container<quizStoreInterface>{
             selectedAnswer: new Map<string, number>(),
             currentQuestion: 0
         }
+
     }
 
     //TODO: Add order init method

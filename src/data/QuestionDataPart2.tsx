@@ -8,7 +8,8 @@ const QuestionDataPart2 : IQuestion[] = [{
     correctAnswer: 2,
     explain: "Nothing at all",
     help: "No thing at all",
-    audioAsset: require('./../../assets/audio/doraemon.mp3')
+    audioAsset: require('./../../assets/audio/doraemon.mp3'),
+    difficultLevel: 3
 },
 {
     id: 'p2_002',
@@ -18,7 +19,8 @@ const QuestionDataPart2 : IQuestion[] = [{
     correctAnswer: 2,
     explain: "Nothing at all",
     help: "No thing at all",
-    audioAsset: require('./../../assets/audio/doraemon.mp3')
+    audioAsset: require('./../../assets/audio/doraemon.mp3'),
+    difficultLevel: 3
 }]
 
 export default QuestionDataPart2;
