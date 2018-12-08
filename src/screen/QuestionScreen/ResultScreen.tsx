@@ -51,35 +51,35 @@ class ResultScreen extends React.Component<ResultScreenProps, ResultScreenState>
                         showsText={true}
                         progress={this.state.progress}
                         borderWidth={0}
-                        thickness={5}
+                        thickness={7}
                         fill="white"
                         style={{marginLeft: widthPercentageToDP(30)}}>
                         </Progress.Circle>
                     <View style={styles.colorContainer}>
                         <View style={styles.textContainer}>
                             <View style={styles.labelContainer}>
-                                <Text style={styles.labelText}>TOTAL QUESTION</Text>
-                                <Text style={styles.labelText}>CORRECT ANSWER</Text>
-                                <Text style={styles.labelText}>WRONG ANSWER</Text>
+                                <Text style={styles.labelLeftText}>TOTAL QUESTION</Text>
+                                <Text style={styles.labelLeftText}>CORRECT ANSWER</Text>
+                                <Text style={styles.labelLeftText}>WRONG ANSWER</Text>
                             </View>
-                            <View style={styles.labelContainer}>
-                                <Text style={styles.labelText}>{this.props.totalAnswer}</Text>
-                                <Text style={styles.labelText}>{this.props.correctAnswer}</Text>
-                                <Text style={styles.labelText}>{this.props.uncorrectedAnswer}</Text>
+                            <View style={styles.numberContainer}>
+                                <Text style={styles.numberText}>{this.props.totalAnswer}</Text>
+                                <Text style={[styles.numberText, {color: '#46C00D'}]}>{this.props.correctAnswer}</Text>
+                                <Text style={[styles.numberText, {color: '#EF2121'}]}>{this.props.uncorrectedAnswer}</Text>
                             </View>
                         </View>
                     </View>
                 </View>
                 <View style={styles.buttonContainer}> 
-                    <Button info onPress={this.props.leftButtonClick} style={styles.button as ViewStyle}>
+                    <Button onPress={this.props.leftButtonClick} style={[styles.button as ViewStyle, {backgroundColor: '#FF5252'}]}>
                         <Text>{this.props.leftButtonText}</Text>
                     </Button>
-                    <Button bordered onPress={this.props.leftButtonClick} style={styles.button as ViewStyle}>
+                    <Button info bordered onPress={this.props.leftButtonClick} style={[styles.button as ViewStyle, {borderWidth: 3}]}>
                         <Text style={{textAlign: "center"}}>{this.props.leftButtonText}</Text>
                     </Button>
                 </View>
             </View>
-        )
+        );
     }
 }
 
@@ -91,7 +91,7 @@ const styles  = StyleSheet.create({
     infoContainer: {
         flex: 1,
         flexDirection: 'column',
-        marginTop: heightPercentageToDP(28),
+        marginTop: heightPercentageToDP(20),
         justifyContent: 'flex-start',
         alignContent: 'stretch'
     },
@@ -107,22 +107,39 @@ const styles  = StyleSheet.create({
         zIndex: -1
     },
     textContainer: {
-        marginTop: heightPercentageToDP(12),
+        marginTop: heightPercentageToDP(16),
         marginLeft: widthPercentageToDP(8),
         marginRight: widthPercentageToDP(8),
+        marginBottom: heightPercentageToDP(5),
         flex : 1,
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        backgroundColor: 'white'
     },
     labelContainer: {
-        flex: 1,
+        flex: 2,
+        marginLeft: widthPercentageToDP(8),
+        marginTop: heightPercentageToDP(4),
+        marginBottom: heightPercentageToDP(4),
+        justifyContent: 'space-between'
     },
-    labelText: {
-        fontSize: 12,
-        ...systemWeights.bold
+    labelLeftText: {
+        fontSize: 15,
+        textAlign: 'left',
+        ...systemWeights.semibold
+    },
+    numberText: {
+        fontSize: 15,
+        textAlign: 'right',
+        ...systemWeights.semibold
     },
     numberContainer: {
-        flex: 1
+        flex: 1,
+        marginRight: widthPercentageToDP(8),
+        marginTop: heightPercentageToDP(4),
+        marginBottom: heightPercentageToDP(4),
+        alignContent: 'flex-end',
+        justifyContent: 'space-between'
     },
     buttonContainer: {
         marginTop: heightPercentageToDP(2),
@@ -135,8 +152,9 @@ const styles  = StyleSheet.create({
         justifyContent: 'space-between'
     },
     button: {
-        width: widthPercentageToDP(40),
-        justifyContent: 'center'
+        borderRadius: 10,
+        width: widthPercentageToDP(37),
+        justifyContent: 'center',
     }
 
 
