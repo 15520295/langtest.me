@@ -29,7 +29,8 @@ HomeStack.navigationOptions = {
 };
 
 const QuestionStack = createStackNavigator({
-    Questions: ResultScreen,
+    Questions: QuizScreen,
+    Results: ResultScreen
 }, {
     headerMode: 'none'
 });

@@ -1,13 +1,8 @@
 import {Container} from 'unstated';
 import IQuestion from '../entity/Question';
-import QuestionDataPart1 from '../data/QuestionDataPart1';
-import QuestionDataPart2 from '../data/QuestionDataPart2';
-import QuestionDataPart5 from '../data/QuestionDataPart5';
-import QuestionDataPart4 from '../data/QuestionDataPart4';
-import QuestionDataPart3 from '../data/QuestionDataPart3';
-import QuestionDataPart7 from '../data/QuestionDataPart7';
 import { AnswerState } from '../screen/QuestionScreen/AnswerButton';
 import IQuizService from '../services/IQuizService';
+import sharedQuizService from '../services/QuizService';
 
 export interface quizStoreInterface {
     questionList: IQuestion[],
@@ -19,10 +14,17 @@ export interface quizStoreInterface {
 
 export default class QuizStore extends Container<quizStoreInterface>{
     _quizService: IQuizService = null;
-    constructor(){
+    constructor(quizService?: IQuizService){
         super();
+
+        if(quizService){
+            this._quizService = quizService;
+        } else {
+            this._quizService = sharedQuizService;
+        }
+
         this.state = {
-            questionList: QuestionDataPart1.concat(QuestionDataPart2).concat(QuestionDataPart3).concat(QuestionDataPart4).concat(QuestionDataPart5).concat(QuestionDataPart7),
+            questionList: null,
             correctedAnswer: 0,
             uncorrectedAnswer: 0,
             selectedAnswer: new Map<string, number>(),
@@ -31,11 +33,11 @@ export default class QuizStore extends Container<quizStoreInterface>{
 
     }
 
-    //TODO: Add order init method
-    async init() : Promise<void>{
+    async init(numberOfQuestion: number = 5, difficultLevel: number = 3) : Promise<void>{
         this.reset();
+        this._quizService.initQuickTest(numberOfQuestion, difficultLevel);
         await this.setState({
-            questionList: QuestionDataPart1
+            questionList: this._quizService.getQuestion()
         });
     }
 

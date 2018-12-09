@@ -69,7 +69,7 @@ export default class AudioPlayer extends Component {
 	        volume: this.state.volume,
 	    };
 
-	    const { sound, status } = await Audio.Sound.create(
+	    const { sound, status } = await Audio.Sound.createAsync(
 	        source,
 	        initialStatus,
 	        this._onPlaybackStatusUpdate

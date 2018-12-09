@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Icon, View, Text, Content} from 'native-base';
 import {StyleSheet, TouchableOpacity, PanResponder, PanResponderGestureState, PanResponderInstance} from 'react-native';
+import {AppLoading} from 'expo';
 import { AnswerState } from './AnswerButton';
 import posed, { Transition } from 'react-native-pose';
 import QuizStore from '../../store/quizStore';
@@ -13,6 +14,7 @@ import { widthPercentageToDP, heightPercentageToDP } from '../../helper/ratioHel
 import QuestionType5Component from './QuestionType5Component';
 import QuestionType3Component from './QuestionType3Component';
 import QuizScreenTimer from './QuizScreenTimer';
+import { NavigationScreenProps } from 'react-navigation';
 
 
 
@@ -42,27 +44,31 @@ const touchThreshold = 20;
 const swipeThreshold = 30;
 const quadrantThreshold = 30;
 
-export interface Props{
-    quizStore: QuizStore
+export interface QuizScreenContainerProps extends NavigationScreenProps<{}>{ 
+    quizStore: QuizStore,
 }
 
 interface States{
     quadrants: any,
     answerState: AnswerState[],
     isWaiting: boolean,
-    isAnimation: boolean
+    isAnimation: boolean,
+    isLoading: boolean,
+    isOver: boolean
 }
 
-export default class QuizScreenContainer extends React.Component<Props, States>{
+export default class QuizScreenContainer extends React.Component<QuizScreenContainerProps, States>{
     _panResponder: PanResponderInstance;
-    constructor(props: Props){
+    constructor(props: QuizScreenContainerProps){
         super(props);
-
+        
         this.state = {
             quadrants: this.calculateQuadrants(quadrantThreshold),
             answerState: [AnswerState.normal, AnswerState.normal, AnswerState.normal, AnswerState.normal],
             isWaiting: false,
-            isAnimation: false
+            isAnimation: false,
+            isLoading: true,
+            isOver: false
         };
 
 
@@ -77,6 +83,10 @@ export default class QuizScreenContainer extends React.Component<Props, States>{
 
         this.calculateQuadrants = this.calculateQuadrants.bind(this);
         this.handleSwipe = this.handleSwipe.bind(this);
+    }
+    async componentDidMount(){
+        await this.props.quizStore.init();
+        this.setState({isLoading: false});
     }
 
     calculateQuadrants (threshold: number): any {
@@ -149,7 +159,21 @@ export default class QuizScreenContainer extends React.Component<Props, States>{
         this.setState({
             answerState: this.props.quizStore.getCurrentAnswerState()
         })
-        setTimeout(() => {this.nextQuestion();}, 500);
+        if(this.props.quizStore.isOver()){
+            setTimeout(() => {this.quizOver();}, 500);
+        } else {
+            setTimeout(() => {this.nextQuestion();}, 500);
+        }
+        
+    }
+
+    quizOver = () => {
+        const {quizStore} = this.props;
+        this.props.navigation.navigate('Results', {totalAnswer: quizStore.getTotalQuestionNumber(),
+            correctAnswer: quizStore.state.correctedAnswer,
+            uncorrectedAnswer: quizStore.state.uncorrectedAnswer,
+            leftButtonText: "LET DO AGAIN",
+            rightButtonText: "Go Home",})
     }
 
     renderQuestion () {
@@ -224,6 +248,10 @@ export default class QuizScreenContainer extends React.Component<Props, States>{
     }
 
     render() {
+        if(this.state.isLoading || this.state.isOver){
+            return <AppLoading/>
+        };
+
         const {quizStore} = this.props;
         const question = quizStore.getCurrentQuestionInfo();
         return (
@@ -241,7 +269,8 @@ export default class QuizScreenContainer extends React.Component<Props, States>{
                     width={widthPercentageToDP(100)}
                     color="#019AE8"
                     borderColor="white"
-                    borderRadius={0}/>
+                    borderRadius={0}
+                    onOver = {() => {this.quizOver()}}/>
                     <Content {...this._panResponder.panHandlers}>
                         {this.renderAnswerQuestion()}
                     </Content>

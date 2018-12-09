@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, Image, Platform, StatusBar} from 'react-native';
 import {Root} from 'native-base';
 import {AppLoading, Asset, Font, Icon} from 'expo';
-import Expo from 'expo';
+import {Expo} from 'expo';
 
 import {
     DrawerItems, createDrawerNavigator,createStackNavigator,createAppContainer,withNavigation
@@ -76,7 +76,7 @@ export default class App extends React.Component {
 
     render() {
         if(this.state.loading){
-            return (<Expo.AppLoading/>);
+            return (<AppLoading/>);
         }
         return (
         // <View style={styles.container}>
