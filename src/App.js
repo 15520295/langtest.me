@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image, Platform, StatusBar} from 'react-native';
+import {StyleSheet, Text, View, Image, Platform, StatusBar, SafeAreaView, ScrollView} from 'react-native';
 import {Root} from 'native-base';
 import {AppLoading, Asset, Font, Icon} from 'expo';
 import Expo from 'expo';
@@ -19,16 +19,29 @@ import QuizScreen from './screen/QuestionScreen/QuestionScreen';
 //huy
 
 const CustomDrawerContentComponent = (props) => (
-    <Container>
-        <Header style={{height: 200, backgroundColor:'gray'}}>
-            <Body>
-
-            </Body>
-        </Header>
-        <Content>
+    // <Container>
+    //     <Header style={{height: 200, backgroundColor:'white'}}>
+    //         <Body>
+    //         <Image style={styles.drawImage}
+    //             source={require('../assets/images/reading.jpg')}
+    //         />
+    //         </Body>
+    //     </Header>
+    //     <Content>
+    //         <DrawerItems {...props}/>
+    //     </Content>
+    // </Container>
+    <SafeAreaView style={{flex: 1}}>
+        <View style={{height: 150, backgroundColor: 'white', alignItems: 'center',
+        justifyContent: 'center'}}>
+            <Image source={require('../assets/images/reading.jpg')} 
+                style={{height: 120, width: 120, borderRadius: 60}}
+            />
+        </View> 
+        <ScrollView>
             <DrawerItems {...props}/>
-        </Content>
-    </Container>
+        </ScrollView>
+    </SafeAreaView>
 );
 
 // const AppNavigator = createStackNavigator(
@@ -55,6 +68,8 @@ const CustomDrawerContentComponent = (props) => (
 // );
 
 import AppNavigator from './navigation/AppNavigator';
+import HomeScreen from './screen/HomeScreen';
+import ChartScreen from './screen/ChartScreen';
 const AppContainer = createAppContainer(AppNavigator);
 
 export default class App extends React.Component {
@@ -85,13 +100,36 @@ export default class App extends React.Component {
             //     </WordFlatList>
             // </View>
             //<QuestionScreen/>
-        <View style={styles.container}>
-            {Platform.OS === 'ios' && <StatusBar barStyle="default"/>}
-            <AppContainer />
-        </View>
+        // <View style={styles.container}>
+        //     {Platform.OS === 'ios' && <StatusBar barStyle="default"/>}
+        //     <AppContainer />
+        // </View>
+        <MyApp/>
         );
     }
 }
+
+const MyDrawerNavigator = createDrawerNavigator({
+    Home: {
+        screen: HomeScreen
+    },
+    Question: {
+        screen: QuizScreen
+    },
+    Topic: {
+        screen: TopicScreen
+    },
+    Chart: {
+        screen: ChartScreen
+    },
+
+},
+{
+    contentComponent: CustomDrawerContentComponent
+}
+);
+
+const MyApp = createAppContainer(MyDrawerNavigator);
 
 const styles = StyleSheet.create({
     container: {
