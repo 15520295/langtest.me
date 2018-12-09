@@ -1,6 +1,6 @@
 import React from 'react';
 import {Platform} from 'react-native';
-import {createStackNavigator, createBottomTabNavigator} from 'react-navigation';
+import {createStackNavigator, createBottomTabNavigator, createSwitchNavigator} from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screen/HomeScreen';
@@ -45,7 +45,7 @@ QuestionStack.navigationOptions = {
     ),
 };
 
-const TopicStack = createStackNavigator({
+const TopicStack = createSwitchNavigator({
     Topic: TopicScreen,
     Word: WordScreen,
 });

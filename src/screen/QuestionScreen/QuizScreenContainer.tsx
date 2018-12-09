@@ -170,7 +170,7 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
     quizOver = () => {
         const {quizStore} = this.props;
         this.props.navigation.navigate('Results', {totalAnswer: quizStore.getTotalQuestionNumber(),
-            correctAnswer: quizStore.state.correctedAnswer,
+            correctedAnswer: quizStore.state.correctedAnswer,
             uncorrectedAnswer: quizStore.state.uncorrectedAnswer,
             leftButtonText: "LET DO AGAIN",
             rightButtonText: "Go Home",})

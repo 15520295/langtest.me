@@ -24,7 +24,7 @@ export default class QuizStore extends Container<quizStoreInterface>{
         }
 
         this.state = {
-            questionList: null,
+            questionList: [],
             correctedAnswer: 0,
             uncorrectedAnswer: 0,
             selectedAnswer: new Map<string, number>(),

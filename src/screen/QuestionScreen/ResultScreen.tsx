@@ -4,7 +4,8 @@ import { StyleSheet, ViewStyle } from 'react-native';
 import * as Progress from 'react-native-progress';
 import { heightPercentageToDP, widthPercentageToDP } from '../../helper/ratioHelper';
 import { systemWeights } from 'react-native-typography';
-export interface ResultScreenProps{
+import { NavigationScreenProps, NavigationParams } from 'react-navigation';
+export interface ResultScreenProps extends NavigationScreenProps<NavigationParams, any>{
     totalAnswer: number,
     correctAnswer: number,
     uncorrectedAnswer: number,
@@ -18,13 +19,15 @@ interface ResultScreenState{
     progress: number
 }
 
+
 class ResultScreen extends React.Component<ResultScreenProps, ResultScreenState>{
     static defaultProps : ResultScreenProps = {
         totalAnswer: 10,
         correctAnswer: 10,
         uncorrectedAnswer: 0,
         leftButtonText: "Click me",
-        rightButtonText: "Home"
+        rightButtonText: "Home",
+        navigation: null
     }
 
     constructor(props: ResultScreenProps){
@@ -36,13 +39,19 @@ class ResultScreen extends React.Component<ResultScreenProps, ResultScreenState>
     }
 
     componentDidMount(){
+        const correctedAnswer: number = this.props.navigation.getParam('correctedAnswer', this.props.correctAnswer);
+        const totalAnswer: number = this.props.navigation.getParam('totalAnswer', this.props.correctAnswer);
         this.setState({
-            progress: 0.3
+            progress: correctedAnswer / totalAnswer
         })
     }
 
     render(){
-        
+        const correctedAnswer: number = this.props.navigation.getParam('correctedAnswer', this.props.correctAnswer);
+        const uncorrectedAnswer: number = this.props.navigation.getParam('uncorrectedAnswer', this.props.correctAnswer);
+        const totalAnswer: number = this.props.navigation.getParam('totalAnswer', this.props.correctAnswer);
+        const leftButtonText: number = this.props.navigation.getParam('leftButtonText', this.props.leftButtonText);
+        const rightButtonText: number = this.props.navigation.getParam('rightButtonText', this.props.rightButtonText);
         return (
             <View style={styles.container}>
                 <View style={styles.infoContainer}>
@@ -63,19 +72,19 @@ class ResultScreen extends React.Component<ResultScreenProps, ResultScreenState>
                                 <Text style={styles.labelLeftText}>WRONG ANSWER</Text>
                             </View>
                             <View style={styles.numberContainer}>
-                                <Text style={styles.numberText}>{this.props.totalAnswer}</Text>
-                                <Text style={[styles.numberText, {color: '#46C00D'}]}>{this.props.correctAnswer}</Text>
-                                <Text style={[styles.numberText, {color: '#EF2121'}]}>{this.props.uncorrectedAnswer}</Text>
+                                <Text style={styles.numberText}>{totalAnswer}</Text>
+                                <Text style={[styles.numberText, {color: '#46C00D'}]}>{correctedAnswer}</Text>
+                                <Text style={[styles.numberText, {color: '#EF2121'}]}>{uncorrectedAnswer}</Text>
                             </View>
                         </View>
                     </View>
                 </View>
                 <View style={styles.buttonContainer}> 
                     <Button onPress={this.props.leftButtonClick} style={[styles.button as ViewStyle, {backgroundColor: '#FF5252'}]}>
-                        <Text>{this.props.leftButtonText}</Text>
+                        <Text>{leftButtonText}</Text>
                     </Button>
                     <Button info bordered onPress={this.props.leftButtonClick} style={[styles.button as ViewStyle, {borderWidth: 3}]}>
-                        <Text style={{textAlign: "center"}}>{this.props.leftButtonText}</Text>
+                        <Text style={{textAlign: "center"}}>{rightButtonText}</Text>
                     </Button>
                 </View>
             </View>
