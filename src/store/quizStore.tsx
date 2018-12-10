@@ -33,9 +33,8 @@ export default class QuizStore extends Container<quizStoreInterface>{
 
     }
 
-    async init(numberOfQuestion: number = 5, difficultLevel: number = 3) : Promise<void>{
+    async init() : Promise<void>{
         this.reset();
-        this._quizService.initQuickTest(numberOfQuestion, difficultLevel);
         await this.setState({
             questionList: this._quizService.getQuestion()
         });

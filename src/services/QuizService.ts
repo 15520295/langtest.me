@@ -37,7 +37,7 @@ class QuizService implements IQuizService{
     //Calculator the number of question for each type by percent
     //Because of the rounding, the total number of question may not true, so we trim down or scale random type of question
     //Then scan for the number of question of each type, the number of difficult level may increase by one two but not over
-    initQuickTest(numberOfQuestion: number = 5, difficultLevel: number = 3): void {
+    async initQuickTest(numberOfQuestion: number = 5, difficultLevel: number = 3): Promise<void> {
         console.log("init quick test");
         this.reset();
 
@@ -100,7 +100,7 @@ class QuizService implements IQuizService{
 
         this._questionList = resQuestionList;
     }
-    initTest(_type: QuestionType, _numberOfQuestion: number, _difficultLevel: number): void {
+    async initTest(_type: QuestionType, _numberOfQuestion: number, _difficultLevel: number): Promise<void> {
         throw new Error("Method not implemented.");
     }
 
