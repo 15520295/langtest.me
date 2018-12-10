@@ -24,8 +24,8 @@ import {
 
 
 import * as Progress from 'react-native-progress';
-import TopicScreen from '../../screen/TopicScreen';
-import WordScreen from '../../screen/WordScreen';
+import TopicScreen from '../../screen/vocabularySreen/TopicScreen';
+import WordScreen from '../../screen/vocabularySreen/WordScreen';
 
 class TopicFlatListItem extends Component {
     constructor(props) {
@@ -41,7 +41,7 @@ class TopicFlatListItem extends Component {
                     onPress={() =>
                         this.props.navigation.navigate('Word' ,
                             {
-                                topicName:this.props.item.name
+                                topic:this.props.item
                             })
                     }
                 >

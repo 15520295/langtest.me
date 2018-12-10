@@ -18,10 +18,10 @@ import {
     TouchableOpacity,
     Platform, FlatList
 } from 'react-native';
-import TopicFlatList from '../components/vocabulary/TopicFlatList';
-import UserScore from '../components/vocabulary/UserScore';
-import flatListData from "../data/TopicData";
-import TopicFlatListItem from "../components/vocabulary/TopicFlatListItem";
+import TopicFlatList from '../../components/vocabulary/TopicFlatList';
+import UserScore from '../../components/vocabulary/UserScore';
+import flatListData from '../../data/TopicData';
+import TopicFlatListItem from '../../components/vocabulary/TopicFlatListItem';
 
 export default class TopicScreen extends React.Component {
     constructor(props) {
@@ -85,14 +85,7 @@ export default class TopicScreen extends React.Component {
                     <Title>Topic Screen</Title>
                     </Body>
                     <Right>
-                        <Button transparent>
-                            {/*<Title style={{paddingRight: 10}}>{this.state.correctAnswer}</Title>*/}
-                            {/*<Icon android='md-thumbs-up' ios='ios-thumbs-up'/>*/}
-                        </Button>
-                        <Button transparent>
-                            {/*<Title style={{paddingRight: 10}}>{this.state.incorrectAnswer}</Title>*/}
-                            {/*<Icon android='md-thumbs-down' ios='ios-thumbs-down'/>*/}
-                        </Button>
+
                     </Right>
                 </Header>
                 <Content>
@@ -107,10 +100,8 @@ export default class TopicScreen extends React.Component {
 
                                     </TopicFlatListItem>);
                             }}
-                            keyExtractor={(item, index) => item.name}
-                        >
-
-                        </FlatList>
+                            keyExtractor={(item, index) => item.id}
+                        />
                     </View>
                 </Content>
             </Container>

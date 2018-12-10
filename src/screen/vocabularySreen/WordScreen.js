@@ -11,27 +11,18 @@ import {
     View,
     Text,
     Content,
-    Footer
 } from 'native-base';
 
 import {
     StyleSheet,
     TouchableOpacity,
-    Platform, FlatList
+    Platform,
+    FlatList,
 } from 'react-native';
 
-import TopicFlatList
-    from '../components/vocabulary/TopicFlatList';
-
-import WordFlatList
-    from '../components/vocabulary/WordFlatList';
-
-import { FloatingAction }
-    from 'react-native-floating-action';
-
 import ActionButton from 'react-native-action-button';
-import flatListData from "../data/VocabularyList";
-import WordFlatListItem from "../components/vocabulary/WordFlatListItem";
+import wordMap from '../../data/VocabularyList';
+import WordFlatListItem from '../../components/vocabulary/WordFlatListItem';
 
 export default class WordScreen extends React.Component {
     static navigationOptions = {
@@ -41,44 +32,13 @@ export default class WordScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            correctAnswer: 0,
-            isActionButtonVisible: true,
         };
 
     }
-    _listViewOffset = 0;
-
-    nextQuestion = () => {
-        this.setState({
-            // isWaiting: false,
-            // answerState: [0, 0, 0, 0],
-            // currentQuestion: (this.state.currentQuestion + 1) % QuestionData.length
-        });
-    };
-
-    chooseAnswer = (idAnswer) => {
-        // if (this.state.isWaiting) {
-        //     return;
-        // }
-        // this.setState({isWaiting: true});
-        // if (idAnswer === QuestionData[this.state.currentQuestion].correct) {
-        //     let answerState = this.state.answerState;
-        //     answerState[idAnswer - 1] = 1;
-        //     this.setState({answerState: answerState, correctAnswer: this.state.correctAnswer + 1});
-        // } else {
-        //     let answerState = this.state.answerState;
-        //     answerState[QuestionData[this.state.currentQuestion].correct - 1] = 1;
-        //     answerState[idAnswer - 1] = 2;
-        //     this.setState({answerState: answerState, incorrectAnswer: this.state.incorrectAnswer + 1});
-        // }
-        // setTimeout(() => {
-        //     this.nextQuestion();
-        // }, 2000);
-    };
 
     render() {
         const { navigation } = this.props;
-        const topicName = navigation.getParam('topicName', 'Topic');
+        const topic = navigation.getParam('topic', null);
 
         return (
             <Container style={styles.container}>
@@ -90,15 +50,14 @@ export default class WordScreen extends React.Component {
                         </Button>
                     </Left>
                     <Body>
-                        <Title>{topicName}</Title>
+                        <Title>{topic.name}</Title>
                     </Body>
                 </Header>
                 <Content>
                     <View style={{ flex: 1,
                         backgroundColor:'#EEEEEE'}}>
                         <FlatList
-                            onScroll={this._onScroll}
-                            data={flatListData}
+                            data={wordMap[topic.id]}
                             renderItem={({ item, index }) => {
                                 return (
                                     <WordFlatListItem item={item} index={index}>

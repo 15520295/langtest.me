@@ -5,9 +5,9 @@ import {createStackNavigator, createBottomTabNavigator} from 'react-navigation';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screen/HomeScreen';
 import QuizScreen from '../screen/QuestionScreen/QuestionScreen';
-import TopicScreen from '../screen/TopicScreen';
+import TopicScreen from '../screen/vocabularySreen/TopicScreen';
 import ChartScreen from '../screen/ChartScreen';
-import WordScreen from '../screen/WordScreen';
+import WordScreen from '../screen/vocabularySreen/WordScreen';
 
 const HomeStack = createStackNavigator({
     Home: HomeScreen,

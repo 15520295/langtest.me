@@ -12,8 +12,8 @@ import {
     Container, Header, Body, Content
 } from 'native-base';
 
-import TopicScreen from './screen/TopicScreen';
-import WordScreen from './screen/WordScreen';
+import TopicScreen from './screen/vocabularySreen/TopicScreen';
+import WordScreen from './screen/vocabularySreen/WordScreen';
 import QuizScreen from './screen/QuestionScreen/QuestionScreen';
 
 //huy
