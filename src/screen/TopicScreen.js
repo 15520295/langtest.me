@@ -16,10 +16,12 @@ import {
 import {
     StyleSheet,
     TouchableOpacity,
-    Platform
+    Platform, FlatList
 } from 'react-native';
 import TopicFlatList from '../components/vocabulary/TopicFlatList';
 import UserScore from '../components/vocabulary/UserScore';
+import flatListData from "../data/TopicData";
+import TopicFlatListItem from "../components/vocabulary/TopicFlatListItem";
 
 export default class TopicScreen extends React.Component {
     constructor(props) {
@@ -75,12 +77,12 @@ export default class TopicScreen extends React.Component {
                 <Header androidStatusBarColor="#0076BF"
                         style={{backgroundColor: Platform.OS === 'android' ? '#019AE8' : '#FFFFFF'}}>
                     <Left>
-                        <Button transparent>
-                            <Icon android='md-arrow-back' ios='ios-arrow-back'/>
-                        </Button>
+                        {/*<Button transparent>*/}
+                            {/*<Icon android='md-arrow-back' ios='ios-arrow-back'/>*/}
+                        {/*</Button>*/}
                     </Left>
                     <Body>
-                    <Title>Part 5</Title>
+                    <Title>Topic Screen</Title>
                     </Body>
                     <Right>
                         <Button transparent>
@@ -95,7 +97,21 @@ export default class TopicScreen extends React.Component {
                 </Header>
                 <Content>
                     <UserScore/>
-                    <TopicFlatList/>
+                    <View style={{ flex: 1,
+                        backgroundColor:'#EEEEEE'}}>
+                        <FlatList
+                            data={flatListData}
+                            renderItem={({ item, index }) => {
+                                return (
+                                    <TopicFlatListItem item={item} index={index}>
+
+                                    </TopicFlatListItem>);
+                            }}
+                            keyExtractor={(item, index) => item.name}
+                        >
+
+                        </FlatList>
+                    </View>
                 </Content>
             </Container>
         );

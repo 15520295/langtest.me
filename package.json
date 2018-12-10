@@ -17,6 +17,7 @@
     "watchAndRunIOS": "concurrently \"yarn run watch\" \"yarn run ios\"",
     "buildRunIOS": "yarn run build && yarn run watchAndRunIOS ",
     "watchAndStart": "concurrently \"yarn run watch\" \"yarn run start\"",
+    "r": "concurrently \"yarn run watch\" \"yarn run start\"",
     "buildAndStart": "yarn run build && yarn run watchAndStart "
   },
   "dependencies": {
@@ -27,8 +28,10 @@
     "prop-types": "^15.6.2",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.1.tar.gz",
+    "react-native-action-button": "^2.8.5",
     "react-native-elements": "^0.19.1",
     "react-native-flip-card": "^3.5.2",
+    "react-native-floating-action": "^1.13.0",
     "react-native-gesture-view": "^0.2.1",
     "react-native-pose": "^0.9.0",
     "react-native-progress": "^3.5.0",
