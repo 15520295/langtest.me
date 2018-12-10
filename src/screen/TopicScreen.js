@@ -6,11 +6,11 @@ import {
     Body,
     Right,
     Button,
-    Icon,
     Title,
     View,
     Text,
-    Content
+    Content,
+    Icon
 } from 'native-base';
 
 import {
@@ -18,6 +18,8 @@ import {
     TouchableOpacity,
     Platform
 } from 'react-native';
+// import {Icon} from 'react-native-elements';
+
 import TopicFlatList from '../components/vocabulary/TopicFlatList';
 import UserScore from '../components/vocabulary/UserScore';
 
@@ -31,14 +33,12 @@ export default class TopicScreen extends React.Component {
     }
 
     static navigationOptions = {
-        header: null // !!! Hide Header
+        header: null, // !!! Hide Header
+        drawerIcon: ({tintColor}) => (
+            <Icon name='clipboard' style= {{ fontSize: 24, color: tintColor}}/>
+        )
         // title:'Home 1',
-        // // header: { visible:false },
-        // drawerIcon:(
-        //     <Image source={require('../../assets/images/home.png')}
-        //            style={{height: 24, width: 24}}
-        //     />
-        // )
+       
     };
 
     nextQuestion = () => {

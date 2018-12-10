@@ -8,6 +8,10 @@ import {
     VictoryPolarAxis,
 } from 'victory-native';
 
+import {Button, Header, Content, Left, Container} from 'native-base';
+
+import {Icon} from 'react-native-elements';
+
 const data = [
     {quarter: 1, earnings: 13000},
     {quarter: 2, earnings: 16500},
@@ -16,6 +20,17 @@ const data = [
 ];
 
 export default class ChartScreen extends React.Component {
+
+    static navigationOptions = {
+        header: null, // !!! Hide Header
+        drawerIcon: ({tintColor}) => (
+            <Icon name='pie-chart' 
+            style= {{ fontSize: 24, color: tintColor}}/>
+        )
+        // title:'Home 1',
+       
+    };
+
     render() {
         return (
             <View style={styles.container}>

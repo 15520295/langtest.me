@@ -23,14 +23,17 @@ export default class HomeScreen extends React.Component {
     }
 
   static navigationOptions = {
-      header: null // !!! Hide Header
+      header: null, // !!! Hide Header
+      drawerIcon: ({tintColor}) => (
+          <Icon name='home' style= {{ fontSize: 24, color: tintColor}}/>
+      )
       // title:'Home 1',
       // // header: { visible:false },
-      // drawerIcon:(
-      //     <Image source={require('../../assets/images/home.png')}
-      //            style={{height: 24, width: 24}}
-      //     />
-      // )
+    //   drawerIcon: (
+    //       <Image source={require('../../assets/images/home.png')}
+    //              style={{height: 24, width: 24}}
+    //       />
+    //   )
   };
 
   render() {
@@ -49,6 +52,7 @@ export default class HomeScreen extends React.Component {
       // { name: 'SILVER', code: '#bdc3c7' }, { name: 'ASBESTOS', code: '#7f8c8d' },
       ];
       return (
+          
           <Container>
               {/* <Header>
             <Left>

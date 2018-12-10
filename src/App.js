@@ -125,7 +125,10 @@ const MyDrawerNavigator = createDrawerNavigator({
 
 },
 {
-    contentComponent: CustomDrawerContentComponent
+    contentComponent: CustomDrawerContentComponent,
+    contentOptions: {
+        activeTintColor: 'orange'
+    }
 }
 );
 

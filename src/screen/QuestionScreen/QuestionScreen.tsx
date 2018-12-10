@@ -2,13 +2,19 @@ import QuizStore from "../../store/quizStore";
 import React from 'react';
 import { Subscribe, Provider } from "unstated";
 import QuestionScreenContainer from "./QuestionScreenContainer";
+// import { Icon } from "native-base";
+import {Icon} from 'react-native-elements';
 
   
 
 export default class QuizScreen extends React.Component {
 
     static navigationOptions = {
-        header: null // !!! Hide Header
+        header: null, // !!! Hide Header
+        drawerIcon: ({tintColor}) => (
+            <Icon name='sc-telegram'
+            type='evilicon'/>
+        )
         // title:'Question',
         // // header: { visible:false },
         // drawerIcon:(
