@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Icon, View, Text, Content} from 'native-base';
-import {StyleSheet, TouchableOpacity, PanResponder, PanResponderGestureState, PanResponderInstance} from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 import {AppLoading} from 'expo';
 import { AnswerState } from './AnswerButton';
 import posed, { Transition } from 'react-native-pose';
@@ -15,6 +15,7 @@ import QuestionType5Component from './QuestionType5Component';
 import QuestionType3Component from './QuestionType3Component';
 import QuizScreenTimer from './QuizScreenTimer';
 import { NavigationScreenProps } from 'react-navigation';
+import GestureView from './GestureView';
 
 
 
@@ -40,16 +41,12 @@ const Box = posed.View({
     }
 });
 
-const touchThreshold = 20;
-const swipeThreshold = 30;
-const quadrantThreshold = 30;
 
 export interface QuizScreenContainerProps extends NavigationScreenProps<{}>{ 
     quizStore: QuizStore,
 }
 
 interface States{
-    quadrants: any,
     answerState: AnswerState[],
     isWaiting: boolean,
     isAnimation: boolean,
@@ -58,65 +55,23 @@ interface States{
 }
 
 export default class QuizScreenContainer extends React.Component<QuizScreenContainerProps, States>{
-    _panResponder: PanResponderInstance;
     constructor(props: QuizScreenContainerProps){
         super(props);
         
         this.state = {
-            quadrants: this.calculateQuadrants(quadrantThreshold),
             answerState: [AnswerState.normal, AnswerState.normal, AnswerState.normal, AnswerState.normal],
             isWaiting: false,
             isAnimation: false,
             isLoading: true,
             isOver: false
         };
-
-
-        this._panResponder = PanResponder.create({
-            onStartShouldSetPanResponder: () => false,
-            onMoveShouldSetPanResponder: (_, gestureState) =>{
-                const {dx, dy} = gestureState;
-                return (Math.abs(dx) > touchThreshold) || (Math.abs(dy) > touchThreshold);
-            },
-            onPanResponderRelease: (_, gestureState) => this.handleSwipe(gestureState)
-        });
-
-        this.calculateQuadrants = this.calculateQuadrants.bind(this);
-        this.handleSwipe = this.handleSwipe.bind(this);
     }
+
     async componentDidMount(){
         await this.props.quizStore.init();
         this.setState({isLoading: false});
     }
 
-    calculateQuadrants (threshold: number): any {
-        return {
-            right: [0 + threshold, 0 - threshold],
-            up: [-90 + threshold, -90 - threshold],
-            down: [90 + threshold, 90 - threshold],
-            topLeft: [-180 + threshold, -180],
-            bottomLeft: [180, 180 - threshold]
-        };
-    }
-
-    isInsideQuadrant (quadrants: any, direction: string, angle: number): boolean {
-        return angle >= quadrants[direction][1] && angle <= quadrants[direction][0];
-    }
-
-    handleSwipe (gesture:PanResponderGestureState): void {
-        const angle = Math.atan2(gesture.dy, gesture.dx) * (180 / Math.PI);
-        const distance = Math.sqrt(Math.pow(gesture.dx, 2) + Math.pow(gesture.dy, 2));
-
-        if (distance > swipeThreshold) {
-            if (this.isInsideQuadrant(this.state.quadrants, 'right', angle)) {
-                this.nextQuestion();
-            } else if (this.isInsideQuadrant(this.state.quadrants, 'topLeft', angle)) {
-                this.prevQuestion();
-            } else if (this.isInsideQuadrant(this.state.quadrants, 'bottomLeft', angle)) {
-                this.prevQuestion();
-            } 
-        } 
-    }
 
     nextQuestion = async () => {
         const {quizStore} = this.props;
@@ -271,8 +226,12 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
                     borderColor="white"
                     borderRadius={0}
                     onOver = {() => {this.quizOver()}}/>
-                    <Content {...this._panResponder.panHandlers}>
-                        {this.renderAnswerQuestion()}
+                    <Content>
+                        <GestureView onLeftSwipe={()=> {this.prevQuestion()}}
+                            onRightSwipe={() => {this.nextQuestion()}}
+                            style={{flex: 1}}>
+                            {this.renderAnswerQuestion()}
+                        </GestureView>    
                     </Content>
                     {question.audioAsset && 
                         <AudioPlayer uri={question.audioAsset} name={question.id} styles = {{width: widthPercentageToDP(100)}}/>
