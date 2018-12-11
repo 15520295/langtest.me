@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { View, Text, Button} from 'native-base';
-import { StyleSheet, ViewStyle } from 'react-native';
+import { StyleSheet, ViewStyle, Platform } from 'react-native';
 import * as Progress from 'react-native-progress';
 import { heightPercentageToDP, widthPercentageToDP } from '../../helper/ratioHelper';
 import { systemWeights } from 'react-native-typography';
@@ -65,7 +65,7 @@ class ResultScreen extends React.Component<ResultScreenProps, ResultScreenState>
                         borderWidth={0}
                         thickness={7}
                         fill="white"
-                        style={{marginLeft: widthPercentageToDP(30)}}>
+                        style={{marginLeft: widthPercentageToDP(30), zIndex: 3}}>
                         </Progress.Circle>
                     <View style={styles.colorContainer}>
                         <View style={styles.textContainer}>
@@ -103,9 +103,10 @@ const styles  = StyleSheet.create({
     infoContainer: {
         flex: 1,
         flexDirection: 'column',
-        marginTop: heightPercentageToDP(40),
+        marginTop: Platform.OS === 'ios' ? heightPercentageToDP(40) : heightPercentageToDP(20),
         justifyContent: 'flex-start',
-        alignContent: 'stretch'
+        alignContent: 'stretch',
+        zIndex: -3
     },
     progress : {
         alignContent: 'center'
@@ -116,7 +117,6 @@ const styles  = StyleSheet.create({
         marginTop: -widthPercentageToDP(20),
         height: heightPercentageToDP(40),
         backgroundColor: '#019AE8',
-        zIndex: -1
     },
     textContainer: {
         marginTop: heightPercentageToDP(16),

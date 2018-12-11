@@ -121,6 +121,8 @@ const TopicStack = createSwitchNavigator({
 const QuestionStack = createSwitchNavigator({
     Questions: QuizScreen,
     Results: ResultScreen
+}, {
+    initialRouteName: 'Questions'
 });
 
 const MyDrawerNavigator = createDrawerNavigator({
