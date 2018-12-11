@@ -16,23 +16,57 @@ import {
 import {
     StyleSheet,
     TouchableOpacity,
-    Platform, FlatList
+    Platform,
+    FlatList,
+    Animated,
+    Dimensions
 } from 'react-native';
 
+import wordMap from '../../data/VocabularyList';
+import WordFlatListItem from '../../components/vocabulary/WordFlatListItem';
+
+
 export default class LearnScreen extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-
-        };
-    }
-
     static navigationOptions = {
         header: null
     };
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            animIn: new Animated.Value(-500),
+            animOut: new Animated.Value(0),
+        };
+    }
+
+
+    slide = () => {
+        Animated.parallel([
+            Animated.timing(this.state.animIn, {
+                toValue: 0,
+                duration: 1000
+            }),
+            Animated.timing(this.state.animOut, {
+                toValue: 500,
+                duration: 1000
+            })
+        ]).start(() => {
+
+        });
+    };
+
+    componentDidMount() {
+        this.slide();
+    }
 
     render() {
+
+        let curWord = 0;
+        // const { navigation } = this.props;
+        // const topic = navigation.getParam('topic', null);
+
+        const screenWidth = Dimensions.get('window').width;
+
         return (
             <Container style={styles.container}>
                 <Header androidStatusBarColor="#0076BF"
@@ -43,21 +77,46 @@ export default class LearnScreen extends React.Component {
                         {/*</Button>*/}
                     </Left>
                     <Body>
-                    <Title>Topic Screen</Title>
+                        <Title>Learn Screen</Title>
                     </Body>
                     <Right>
-                        <Button transparent>
-                            {/*<Title style={{paddingRight: 10}}>{this.state.correctAnswer}</Title>*/}
-                            {/*<Icon android='md-thumbs-up' ios='ios-thumbs-up'/>*/}
-                        </Button>
-                        <Button transparent>
-                            {/*<Title style={{paddingRight: 10}}>{this.state.incorrectAnswer}</Title>*/}
-                            {/*<Icon android='md-thumbs-down' ios='ios-thumbs-down'/>*/}
-                        </Button>
                     </Right>
                 </Header>
                 <Content>
+                    {/*wordMap[topic.id]*/}
+                    <View
+                        style={{flexDirection: 'row', width: screenWidth*2}}>
+                        <Animated.View
+                            style={[
+                                {flex:0, width: screenWidth},
+                                {
+                                transform: [
+                                    {
+                                        translateX: this.state.animIn
+                                    }]
+                                }
+                                ]
+                            }>
+                            <WordFlatListItem item={wordMap['t1'][0]}>
 
+                            </WordFlatListItem>
+                        </Animated.View>
+                        <Animated.View
+                            style={[
+                                {flex:0, width: screenWidth},
+                                {
+                                transform: [
+                                    {
+                                        translateX: this.state.animIn
+                                    }]
+                                }
+                                ]
+                            }>
+                            <WordFlatListItem item={wordMap['t1'][1]}>
+
+                            </WordFlatListItem>
+                        </Animated.View>
+                    </View>
                 </Content>
             </Container>
         );
@@ -66,37 +125,15 @@ export default class LearnScreen extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        justifyContent: 'center'
+        backgroundColor:'gray'
     },
-    navigationView: {
-        flex: 1,
-        justifyContent: 'space-between',
+    vc_slide: {
+        backgroundColor:'blue',
         flexDirection: 'row',
-        marginLeft: 30,
-        marginRight: 30,
-        marginTop: 15
+        justifyContent: 'center', alignContent: 'center',
     },
-    questionView: {
+    slideView: {
+        backgroundColor:'green',
         flex: 1,
-        marginLeft: 30,
-        marginRight: 30,
-        marginTop: 20,
-        marginBottom: 10,
-        height: 120
     },
-    questionText: {
-        color: '#4F4F4F',
-        fontWeight: '200',
-        textAlign: 'justify'
-    },
-    answerButton: {
-        flex: 1,
-        marginLeft: 30,
-        marginRight: 30,
-        marginBottom: 10,
-        height: 60,
-        shadowRadius: 0
-    }
 });

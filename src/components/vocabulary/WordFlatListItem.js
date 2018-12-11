@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     FlatList,
@@ -8,9 +8,9 @@ import {
     Text
 } from 'react-native';
 
-import { 
+import {
     Card,
-    Icon 
+    Icon
 } from 'react-native-elements';
 
 import FlipCard from 'react-native-flip-card';
@@ -18,9 +18,9 @@ import FlipCard from 'react-native-flip-card';
 export default class WordFlatListItem extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-        };
+        this.state = {};
     }
+
     playSound = async () => {
         const soundObject = new Expo.Audio.Sound();
         try {
@@ -45,7 +45,7 @@ export default class WordFlatListItem extends Component {
                     clickable={true}>
                     {/* Face Side */}
                     <Card containerStyle={styles.cardView}
-                        wrapperStyle={styles.vc_card}>
+                          wrapperStyle={styles.vc_card}>
                         <View style={styles.vc_top}>
                             <View style={styles.vc_topLeft}>
                                 <View style={styles.vc_wordDes}>
@@ -64,9 +64,9 @@ export default class WordFlatListItem extends Component {
                                 </View>
                             </View>
                             <View style={styles.vc_topRight}>
-                                <Image style={styles.img} 
+                                <Image style={styles.img}
                                     // source={{ uri: this.props.item.img }}
-                                    source={this.props.item.img}
+                                       source={this.props.item.img}
                                 />
                             </View>
                         </View>
@@ -76,7 +76,7 @@ export default class WordFlatListItem extends Component {
 
                     </Card>
                     {/* Back Side */}
-                    <Card >
+                    <Card>
                         <Text style={styles.txt_wordTranslate}>{this.props.item.translate}</Text>
                     </Card>
                 </FlipCard>
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     flip: {
         borderWidth: 0,
         padding: 0,
-        margin:0
+        margin: 0
     },
     ItemContainer: {
         flex: 0,
@@ -100,15 +100,15 @@ const styles = StyleSheet.create({
     },
     cardView: {
         borderRadius: 3,
-        paddingHorizontal:16,
-        paddingVertical:14
+        paddingHorizontal: 16,
+        paddingVertical: 14
     },
     img: {
         width: '100%',
         height: '100%',
-        minWidth:50,
+        minWidth: 50,
         resizeMode: 'cover',
-        borderRadius:3,
+        borderRadius: 3,
         // backgroundColor:'grey'
     },
     txt_word: {
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
         fontFamily: 'System',
         fontWeight: 'bold',
         color: '#00BCD4',
-        paddingRight:8,
+        paddingRight: 8,
         // backgroundColor:'white'
 
     },
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
         fontFamily: 'System',
         fontWeight: 'bold',
         color: '#00BCD4',
-        paddingRight:8,
+        paddingRight: 8,
         textAlign: 'center',
         // backgroundColor:'red'
 
@@ -134,8 +134,8 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontFamily: 'System',
         opacity: 0.6,
-        paddingTop:6
-        
+        paddingTop: 6
+
     },
     txt_ex: {
         fontSize: 14,
@@ -145,52 +145,52 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontFamily: 'System',
         color: '#6F7FD4',
-        
+
     },
     // View
     vc_cardFront: {
-        backfaceVisibility:'hidden',
-        backgroundColor:'blue'
+        backfaceVisibility: 'hidden',
+        backgroundColor: 'blue'
     },
     vc_cardBack: {
-        backgroundColor:'red'
+        backgroundColor: 'red'
     },
     vc_card: {
-        flex:1,
-        width:'100%',
-        padding:3
+        flex: 1,
+        width: '100%',
+        padding: 3
     },
-    vc_top : {
-        height:150,
-        flexDirection:'row',
+    vc_top: {
+        height: 150,
+        flexDirection: 'row',
         // backgroundColor:'red'
     },
     vc_bottom: {
-        flex:0, 
-        flexDirection:'row',
+        flex: 0,
+        flexDirection: 'row',
         // backgroundColor:'green',
-        paddingHorizontal:5,
-        paddingTop:5,
+        paddingHorizontal: 5,
+        paddingTop: 5,
     },
-    vc_topLeft : {
-        minWidth:'48%',
+    vc_topLeft: {
+        minWidth: '48%',
         flex: 0
     },
-    vc_topRight : {
+    vc_topRight: {
         flexGrow: 1,
-        justifyContent:'center',
-        alignItems:'center'
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     vc_wordDes: {
-        flex:70,
-        justifyContent:'center',
-        alignItems:'center',
+        flex: 70,
+        justifyContent: 'center',
+        alignItems: 'center',
         // backgroundColor:'blue'
     },
     vc_exampleTitle: {
-        flex:0,
-        justifyContent:'flex-end',
-        paddingLeft:5
+        flex: 0,
+        justifyContent: 'flex-end',
+        paddingLeft: 5
     },
-    
+
 });
