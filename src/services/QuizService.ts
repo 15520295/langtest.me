@@ -11,6 +11,7 @@ import QuestionDataPart7 from '../data/QuestionDataPart7';
 //For this app, we assume that 
 
 class QuizService implements IQuizService{
+
     _questionList : IQuestion[] = null;
     _srcQuestionList: IQuestion[] = null;
     readonly _typePercent: number[] = [3, 12.5, 19.5, 15, 15, 8, 27];
@@ -100,8 +101,40 @@ class QuizService implements IQuizService{
 
         this._questionList = resQuestionList;
     }
-    async initTest(_type: QuestionType, _numberOfQuestion: number, _difficultLevel: number): Promise<void> {
-        throw new Error("Method not implemented.");
+    async initTest(type: QuestionType, numberOfQuestion: number, difficultLevel: number): Promise<void> {
+        console.log("init quick test");
+        this.reset();
+
+        var numberOfQuestionType: Array<number> = new Array();
+        for(let i = 0; i < 7; i++){
+            numberOfQuestionType.push(Math.ceil(numberOfQuestion * this._typePercent[i] / 100));
+        }
+
+        console.log("Number of question type");
+        console.log(numberOfQuestionType);
+
+
+
+        //Let crawling the question
+        var resQuestionList : IQuestion[] = this.crawlingQuestion(type, numberOfQuestionType[0], difficultLevel);
+        console.log("Crawing the question")
+
+        //Let trim the question so that it can fix the number of question
+        if(resQuestionList.length > numberOfQuestion){
+            while(resQuestionList.length > numberOfQuestion){
+                resQuestionList.pop();
+            }
+        } else {
+            //just add part5 cause it easy to do 
+
+        }
+
+
+        this._questionList = resQuestionList;
+    }
+
+    async initTestVocabulary(questions: IQuestion[]): Promise<void> {
+        this._questionList = questions;
     }
 
     private crawlingQuestion(type: QuestionType, numberOfQuestion: number, difficult: number): IQuestion[] {

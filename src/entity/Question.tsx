@@ -20,5 +20,6 @@ export enum QuestionType{
     part4 = "Part 4",
     part5 = "Part 5",
     part6 = "Part 6",
-    part7 = "Part 7"
+    part7 = "Part 7",
+    vocabulary = "Vocabulary"
 }
