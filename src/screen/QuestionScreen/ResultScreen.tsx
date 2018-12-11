@@ -51,7 +51,10 @@ class ResultScreen extends React.Component<ResultScreenProps, ResultScreenState>
         const uncorrectedAnswer: number = this.props.navigation.getParam('uncorrectedAnswer', this.props.correctAnswer);
         const totalAnswer: number = this.props.navigation.getParam('totalAnswer', this.props.correctAnswer);
         const leftButtonText: number = this.props.navigation.getParam('leftButtonText', this.props.leftButtonText);
+        const leftButtonClick: () => void = this.props.navigation.getParam('leftButtonClick', this.props.leftButtonClick);
         const rightButtonText: number = this.props.navigation.getParam('rightButtonText', this.props.rightButtonText);
+        const rightButtonClick: () => void = this.props.navigation.getParam('rightButtonClick', this.props.rightButtonClick);
+
         return (
             <View style={styles.container}>
                 <View style={styles.infoContainer}>
@@ -80,10 +83,10 @@ class ResultScreen extends React.Component<ResultScreenProps, ResultScreenState>
                     </View>
                 </View>
                 <View style={styles.buttonContainer}> 
-                    <Button onPress={this.props.leftButtonClick} style={[styles.button as ViewStyle, {backgroundColor: '#FF5252'}]}>
+                    <Button onPress={leftButtonClick} style={[styles.button as ViewStyle, {backgroundColor: '#FF5252'}]}>
                         <Text>{leftButtonText}</Text>
                     </Button>
-                    <Button info bordered onPress={this.props.leftButtonClick} style={[styles.button as ViewStyle, {borderWidth: 3}]}>
+                    <Button info bordered onPress={rightButtonClick} style={[styles.button as ViewStyle, {borderWidth: 3}]}>
                         <Text style={{textAlign: "center"}}>{rightButtonText}</Text>
                     </Button>
                 </View>

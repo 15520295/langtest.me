@@ -16,6 +16,7 @@ import QuestionType3Component from './QuestionType3Component';
 import QuizScreenTimer from './QuizScreenTimer';
 import { NavigationScreenProps } from 'react-navigation';
 import GestureView from './GestureView';
+import sharedQuizService from '../../services/QuizService';
 
 
 
@@ -69,7 +70,12 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
 
     async componentDidMount(){
         await this.props.quizStore.init();
-        this.setState({isLoading: false});
+        this.setState({
+            isLoading: false,
+            answerState: [AnswerState.normal, AnswerState.normal, AnswerState.normal, AnswerState.normal],
+            isWaiting: false,
+            isAnimation: false,
+            isOver: false});
     }
 
 
@@ -124,11 +130,21 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
 
     quizOver = () => {
         const {quizStore} = this.props;
-        this.props.navigation.navigate('Results', {totalAnswer: quizStore.getTotalQuestionNumber(),
+        const {navigation} = this.props;
+        const tryAgainButton = async function (): Promise<void> {
+            await sharedQuizService.initQuickTest();
+            navigation.navigate('Questions');
+        }
+        const homeFunc = function(): void {
+            navigation.navigate('Home');
+        }
+        navigation.navigate('Results', {totalAnswer: quizStore.getTotalQuestionNumber(),
             correctedAnswer: quizStore.state.correctedAnswer,
             uncorrectedAnswer: quizStore.state.uncorrectedAnswer,
             leftButtonText: "LET DO AGAIN",
-            rightButtonText: "Go Home",})
+            leftButtonClick: tryAgainButton,
+            rightButtonText: "Go Home",
+            rightButtonClick: homeFunc})
     }
 
     renderQuestion () {
