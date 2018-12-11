@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import {
     Image,
     Platform,
@@ -7,16 +7,74 @@ import {
     TouchableOpacity,
     View,
     Alert,
+    Dimensions,
+    ScrollView,
+    LayoutAnimation,
+
 } from 'react-native';
 import { WebBrowser } from 'expo';
 import GridView from 'react-native-super-grid';
+import NavigationBar from 'react-native-navbar';
 
 import {Icon, Button, Header, Content, Left, Container} from 'native-base';
 
+import Carousel from 'react-native-snap-carousel';
+import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-cards';
+import CardModal from '../components/CardModal';
 
 var imageGrid = require('../../assets/images/reading.jpg');
 
-export default class HomeScreen extends React.Component {
+
+let FirstItem = 3;
+// FirstItem = 20;  // <----- UNCOMMENT THIS
+
+const SliderWidth = Dimensions.get('screen').width;
+const ItemWidth = 300.0;
+const ItemHeight = 300.0;
+
+const NumItems = 6;
+const Items = [];
+for(var i = 0; i < NumItems; i++) {
+  Items.push(i);
+}
+
+const itemCarousel= [
+    { name: 'Grammar', sub: 'Adjective/Adverb/Article/Modal Verb'},
+    { name: 'Vocabulary', sub: 'Adjective/Adverb/Article/Modal Verb'},
+    { name: 'Listening', sub: 'Adjective/Adverb/Article/Modal Verb'},
+    { name: 'Writing', sub: 'Adjective/Adverb/Article/Modal Verb'},
+    { name: 'Speaking', sub: 'Adjective/Adverb/Article/Modal Verb'},
+    { name: 'Reading', sub: 'Adjective/Adverb/Article/Modal Verb'}
+];
+
+const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
+
+export default class HomeScreen extends PureComponent {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            scroll: true,
+        }
+    }
+
+    renderNav() {
+
+        const titleConfig = {
+            title: 'react-native-card-modal',
+        };
+
+        return (
+            <NavigationBar
+                title={titleConfig}/>
+        )
+
+    }
+
+    disableScroll() {
+        this.setState({scroll: !this.state.scroll});
+    }
+
     _onPressCard(){
     // Toast.show('This is a long toast.', Toast.LONG)
         Alert.alert('You tapped the button!');
@@ -36,6 +94,42 @@ export default class HomeScreen extends React.Component {
     //   )
   };
 
+  constructor(props) {
+    super(props);
+    this._renderItem = this._renderItem.bind(this)
+  }
+  
+  _renderItem({ item }) {
+    return (
+      <View style={styles.viewCard}>
+        <Card>
+            <CardImage 
+                source={{uri: 'http://bit.ly/2GfzooV'}} 
+                title={item.name}
+            />
+            <CardTitle
+                subtitle="Number 6"
+            />
+            <CardContent text={item.sub} />
+            <CardAction 
+                separator={true} 
+                inColumn={false}>
+                    <CardButton
+                        onPress={() => {}}
+                        title="Test"
+                        color="#FEB557"
+                    />
+                    <CardButton
+                        onPress={() => {}}
+                        title="Chart"
+                        color="#FEB557"
+                    />
+            </CardAction>
+        </Card>
+    </View> 
+    );
+  }
+
   render() {
       // Taken from https://flatuicolors.com/
       const items = [
@@ -43,23 +137,52 @@ export default class HomeScreen extends React.Component {
           { name: 'Listening', code: '#3498db' }, { name: 'Writing', code: '#9b59b6' },
           { name: 'Speaking', code: '#34495e' }, { name: 'Reading', code: '#16a085' },
           { name: 'Rule of test', code: '#27ae60' }, 
-      // { name: 'BELIZE HOLE', code: '#2980b9' },
-      // { name: 'WISTERIA', code: '#8e44ad' }, { name: 'MIDNIGHT BLUE', code: '#2c3e50' },
-      // { name: 'SUN FLOWER', code: '#f1c40f' }, { name: 'CARROT', code: '#e67e22' },
-      // { name: 'ALIZARIN', code: '#e74c3c' }, { name: 'CLOUDS', code: '#ecf0f1' },
-      // { name: 'CONCRETE', code: '#95a5a6' }, { name: 'ORANGE', code: '#f39c12' },
-      // { name: 'PUMPKIN', code: '#d35400' }, { name: 'POMEGRANATE', code: '#c0392b' },
-      // { name: 'SILVER', code: '#bdc3c7' }, { name: 'ASBESTOS', code: '#7f8c8d' },
       ];
       return (
           
-          <Container>
-              {/* <Header>
-            <Left>
-              <Icon name="ios-menu" onPress={()=>this.props.navigation.navigate('DrawerOpen')} />
-            </Left>
-        </Header> */}
-              <GridView
+        //   <Container>
+        //       {/* <Header>
+        //     <Left>
+        //       <Icon name="ios-menu" onPress={()=>this.props.navigation.navigate('DrawerOpen')} />
+        //     </Left>
+        // </Header> */}
+        //       <GridView
+        //           itemDimension={130}
+        //           items={items}
+        //           style={styles.gridView}
+        //           renderItem={item => (
+        //               <View style={[styles.itemContainer, { backgroundColor: item.code }]}>
+        //                   <Image style={styles.drawImage}
+        //                       source={imageGrid}
+        //                       onPress={this._onPressCard} 
+        //                   />
+        //                   <Text style={styles.itemName}>{item.name}</Text>
+        //                   <Text style={styles.itemCode}>{item.code}</Text>
+        //               </View>
+        //           )}
+        //       />
+        //   </Container>
+        <Container>
+        <Header>
+             <Left>
+               <Icon name="ios-menu" onPress={()=>this.props.navigation.navigate('DrawerOpen')} />
+             </Left>
+        </Header>
+            <ScrollView>
+            <View style={styles.container}>
+                <Carousel
+                    layout={'default'}
+                    data={itemCarousel}
+                    firstItem={FirstItem}
+                    itemWidth={ItemWidth}
+                    sliderWidth={SliderWidth}
+                    activeSlideAlignment='center'
+                    renderItem={this._renderItem}
+                    backgroundColor= 'white'
+                />
+            </View>
+
+            <GridView
                   itemDimension={130}
                   items={items}
                   style={styles.gridView}
@@ -74,16 +197,62 @@ export default class HomeScreen extends React.Component {
                       </View>
                   )}
               />
-          </Container>
-      
+              {/* <CardModal title={'Walmart'}
+                           description={'Electronics, home, furniture, and more'}
+                           image={require('../../assets/images/reading.jpg').default}
+                           color={'#0E48BE'}
+                           content={'What started small, with a single discount store and the simple idea of selling more for less, has grown over the last 50 years into the largest retailer in the world. Today, nearly 260 million customers visit our more than 11,500 stores under 63 banners in 28 countries and e-commerce sites in 11 countries each week. With fiscal year 2016 revenue of $482.1 billion, Walmart employs 2.3 million associates worldwide – 1.5 million in the U.S. alone. It’s all part of our unwavering commitment to creating opportunities and bringing value to customers and communities around the world.'}
+                           onClick={() => this.disableScroll()}
+                           due={3}
+                />
+                <CardModal title={'Taco Bell'}
+                           description={'Tacos, burritos, and more tacos'}
+                           image={require('../../assets/images/reading.jpg').default}
+                           color='#662BAB'
+                           content={'Taco Bell is an American chain of fast-food restaurants based in Irvine, California. A subsidiary of Yum! Brands, Inc., they serve a variety of Tex-Mex foods, including tacos, burritos, quesadillas, nachos, other specialty items, and a variety of "value menu" items. Taco Bell serves more than 2 billion customers each year in 6,407 restaurants, more than 80 percent of which are owned and operated by independent franchisees and licensees.'}
+                           onClick={() => this.disableScroll()}
+                           due={5}
+                />
+                <CardModal title={'Walgreens'}
+                           description={'Prescribed medicine, contact lenses, and more'}
+                           image={require('../../assets/images/reading.jpg').default}
+                           color={'#fc3758'}
+                           content={'In December 2014, Walgreens completed its strategic combination with Alliance Boots to establish Walgreens Boots Alliance, Inc., forging the first global pharmacy-led, health and wellbeing enterprise. The combination brought together two leading companies with iconic brands, complementary geographic footprints, shared values and a heritage of trusted health care services through community pharmacy care and pharmaceutical wholesaling.  Both companies have more than a century’s worth of experience in customer and patient care. Walgreens is today part of the Retail Pharmacy USA division of Walgreens Boots Alliance.'}
+                           onClick={() => this.disableScroll()}
+                           due={4}
+                />
+                <CardModal title={'Apple'}
+                           description={'iPhone, iPad, Mac, and Apple Watch'}
+                           image={require('../../assets/images/reading.jpg').default}
+                           color='black'
+                           content={'Apple is an American multinational technology company headquartered in Cupertino, California, that designs, develops, and sells consumer electronics, computer software, and online services.'}
+                           onClick={() => this.disableScroll()}
+                           due={1}
+                /> */}
+        </ScrollView>
+        </Container>
+        
       );
   }
 }
 
 const styles = StyleSheet.create({
+    viewCard: {
+        // flex: 1
+        width: ItemWidth,
+        height: ItemHeight,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'white'
+    },
     container: {
+        // flex: 1,
+        // backgroundColor: '#fff',
         flex: 1,
-        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingTop: 50,
+        backgroundColor: '#ecf0f1',
     },
     developmentModeText: {
         marginBottom: 20,
@@ -189,7 +358,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         borderRadius: 5,
         padding: 10,
-        height: 150,
+        height: 200,
     },
     itemName: {
         fontSize: 16,
@@ -210,4 +379,11 @@ const styles = StyleSheet.create({
         height:100,
         width: 100,
     },
+    box: {
+        backgroundColor: 'red'
+    },
+    button: {
+        borderColor: 1,
+        borderWidth: 1,
+    }
 });
