@@ -5,10 +5,10 @@ import {createStackNavigator, createBottomTabNavigator, createSwitchNavigator} f
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screen/HomeScreen';
 import QuizScreen from '../screen/QuestionScreen/QuizScreen';
-import TopicScreen from '../screen/TopicScreen';
-import ChartScreen from '../screen/ChartScreen';
-import WordScreen from '../screen/WordScreen';
 import ResultScreen from '../screen/QuestionScreen/ResultScreen';
+import TopicScreen from '../screen/vocabularySreen/TopicScreen';
+import ChartScreen from '../screen/ChartScreen';
+import WordScreen from '../screen/vocabularySreen/WordScreen';
 
 const HomeStack = createStackNavigator({
     Home: HomeScreen,

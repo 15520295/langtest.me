@@ -12,9 +12,10 @@ import {
     Container, Header, Body, Content
 } from 'native-base';
 
-import TopicScreen from './screen/TopicScreen';
-import WordScreen from './screen/WordScreen';
+
 import QuizScreen from './screen/QuestionScreen/QuizScreen';
+import TopicScreen from './screen/vocabularySreen/TopicScreen';
+import WordScreen from './screen/vocabularySreen/WordScreen';
 
 //huy
 
@@ -111,6 +112,11 @@ export default class App extends React.Component {
     }
 }
 
+const TopicStack = createSwitchNavigator({
+    Topic: TopicScreen,
+    Word: WordScreen,
+});
+
 const MyDrawerNavigator = createDrawerNavigator({
     Home: {
         screen: HomeScreen
@@ -119,7 +125,8 @@ const MyDrawerNavigator = createDrawerNavigator({
         screen: QuizScreen
     },
     Topic: {
-        screen: TopicScreen
+        screen: TopicScreen,
+        
     },
     Chart: {
         screen: ChartScreen
