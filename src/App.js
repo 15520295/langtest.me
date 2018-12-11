@@ -5,7 +5,7 @@ import {AppLoading, Asset, Font, Icon} from 'expo';
 import {Expo} from 'expo';
 
 import {
-    DrawerItems, createDrawerNavigator,createStackNavigator,createAppContainer,withNavigation
+    DrawerItems, createDrawerNavigator,createStackNavigator,createAppContainer,withNavigation, createSwitchNavigator
 } from 'react-navigation';
 
 import {
@@ -72,6 +72,7 @@ import AppNavigator from './navigation/AppNavigator';
 import HomeScreen from './screen/HomeScreen';
 import ChartScreen from './screen/ChartScreen';
 import sharedQuizService from './services/QuizService';
+import ResultScreen from './screen/QuestionScreen/ResultScreen';
 const AppContainer = createAppContainer(AppNavigator);
 
 export default class App extends React.Component {
@@ -117,21 +118,24 @@ const TopicStack = createSwitchNavigator({
     Word: WordScreen,
 });
 
+const QuestionStack = createSwitchNavigator({
+    Questions: QuizScreen,
+    Results: ResultScreen
+});
+
 const MyDrawerNavigator = createDrawerNavigator({
     Home: {
         screen: HomeScreen
     },
     Question: {
-        screen: QuizScreen
+        screen: QuestionStack
     },
     Topic: {
-        screen: TopicScreen,
-        
+        screen: TopicStack,
     },
     Chart: {
         screen: ChartScreen
     },
-
 },
 {
     contentComponent: CustomDrawerContentComponent,

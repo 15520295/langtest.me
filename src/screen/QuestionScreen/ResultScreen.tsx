@@ -100,7 +100,7 @@ const styles  = StyleSheet.create({
     infoContainer: {
         flex: 1,
         flexDirection: 'column',
-        marginTop: heightPercentageToDP(20),
+        marginTop: heightPercentageToDP(40),
         justifyContent: 'flex-start',
         alignContent: 'stretch'
     },
