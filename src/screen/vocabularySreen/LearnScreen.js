@@ -34,17 +34,23 @@ export default class LearnScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // animA: new Animated.Value(-500),
-            // animB: new Animated.Value(0),
+            // timer
+            timer: null,
+            counter: 5
         };
-        this.animA = new Animated.Value(-500);
-        this.animB = new Animated.Value(-500);
+        // animation
+        this.animA = new Animated.Value(-this.screenWidth);
+        this.animB = new Animated.Value(-this.screenWidth);
     }
 
     screenWidth = Dimensions.get('window').width;
 
+    animDuration = 1000;
+
     curWordA = 0;
     curWordB = 1;
+
+    counterMaxValue = 5;
 
     slideA = () => {
         this.animA.setValue(-this.screenWidth);
@@ -53,14 +59,14 @@ export default class LearnScreen extends React.Component {
         Animated.parallel([
             Animated.timing(this.animA, {
                 toValue: 0,
-                duration: 5000
+                duration: this.animDuration
             }),
             Animated.timing(this.animB, {
                 toValue: 0,
-                duration: 5000
+                duration: this.animDuration
             })
         ]).start(() => {
-            this.slideB();
+
         });
     };
 
@@ -71,22 +77,47 @@ export default class LearnScreen extends React.Component {
         Animated.parallel([
             Animated.timing(this.animA, {
                 toValue: this.screenWidth,
-                duration: 1000
+                duration: this.animDuration
             }),
             Animated.timing(this.animB, {
                 toValue: -this.screenWidth,
-                duration: 1000
+                duration: this.animDuration
             })
         ]).start(() => {
 
         });
     };
 
-
-
     componentDidMount() {
-        this.slideA();
+        this.startTimer();
     }
+
+    componentWillUnmount() {
+        this.clearInterval(this.state.timer);
+    }
+
+    tick = () => {
+        if (this.state.counter <= 1) {
+            this.setState({
+                counter : this.counterMaxValue+1
+            });
+            this.stopTimer();
+            // this.slideA();
+            // this.child.flipCard();
+        }
+        this.setState({
+            counter: this.state.counter - 1
+        });
+
+    };
+
+    stopTimer = () =>{
+        clearInterval(this.state.timer);
+    };
+
+    startTimer = () =>{
+        let timer = setInterval(this.tick, 1000);
+    };
 
     render() {
 
@@ -99,9 +130,9 @@ export default class LearnScreen extends React.Component {
                 <Header androidStatusBarColor="#0076BF"
                         style={{backgroundColor: Platform.OS === 'android' ? '#019AE8' : '#FFFFFF'}}>
                     <Left>
-                        {/*<Button transparent>*/}
-                            {/*<Icon android='md-arrow-back' ios='ios-arrow-back'/>*/}
-                        {/*</Button>*/}
+                        <Button transparent>
+                            <Icon android='md-arrow-back' ios='ios-arrow-back'/>
+                        </Button>
                     </Left>
                     <Body>
                         <Title>Learn Screen</Title>
@@ -111,6 +142,11 @@ export default class LearnScreen extends React.Component {
                 </Header>
                 <Content>
                     {/*wordMap[topic.id]*/}
+                    <View>
+                        <Text>
+                            {this.state.counter}
+                        </Text>
+                    </View>
                     <View
                         style={{flex:0,flexDirection: 'row'}}>
                         <Animated.View
@@ -121,7 +157,10 @@ export default class LearnScreen extends React.Component {
                                     ]}
                                 ]
                             }>
-                            <WordFlatListItem item={wordMap['t1'][this.curWordA]}>
+                            <WordFlatListItem
+                                item={wordMap['t1'][this.curWordA]}
+                                ref={component => this.wordComponentA = component} // for perform click
+                            >
 
                             </WordFlatListItem>
                         </Animated.View>
@@ -132,7 +171,10 @@ export default class LearnScreen extends React.Component {
                                     {translateX: this.animB}]}
                                 ]
                             }>
-                            <WordFlatListItem item={wordMap['t1'][this.curWordB]}>
+                            <WordFlatListItem
+                                item={wordMap['t1'][this.curWordB]}
+                                ref={component => this.wordComponentB = component} // for perform click
+                            >
 
                             </WordFlatListItem>
                         </Animated.View>

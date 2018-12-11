@@ -12,13 +12,14 @@ import {
     Card,
     Icon
 } from 'react-native-elements';
+import FlipCard from './FlipCard';
 
-import FlipCard from 'react-native-flip-card';
 
 export default class WordFlatListItem extends Component {
     constructor(props) {
         super(props);
         this.state = {};
+
     }
 
     playSound = async () => {
@@ -32,10 +33,15 @@ export default class WordFlatListItem extends Component {
         }
     };
 
+    flipCard = () => {
+        this.card._toggleCard();
+    };
+
     render() {
         return (
             <View style={styles.ItemContainer}>
                 <FlipCard
+                    ref={component => this.card = component} // for perform click
                     style={styles.flip}
                     friction={1000}
                     perspective={1000}
