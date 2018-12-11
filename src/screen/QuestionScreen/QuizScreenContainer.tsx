@@ -6,17 +6,13 @@ import { AnswerState } from './AnswerButton';
 import posed, { Transition } from 'react-native-pose';
 import QuizStore from '../../store/quizStore';
 import QuizScreenHeader from './QuizScreenHeader';
-import QuestionType1Component from './QuestionType1Component';
 import AudioPlayer from './AudioPlayer';
-import { QuestionType } from '../../entity/Question';
-import QuestionType2Component from './QuestionType2Component';
 import { widthPercentageToDP, heightPercentageToDP } from '../../helper/ratioHelper';
-import QuestionType5Component from './QuestionType5Component';
-import QuestionType3Component from './QuestionType3Component';
 import QuizScreenTimer from './QuizScreenTimer';
 import { NavigationScreenProps } from 'react-navigation';
 import GestureView from './GestureView';
 import sharedQuizService from '../../services/QuizService';
+import QuestionComponent from './QuestionComponent';
 
 
 
@@ -150,43 +146,49 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
     renderQuestion () {
         const {quizStore} = this.props;
         const question = quizStore.getCurrentQuestionInfo();
-        switch(question.type){
-            case QuestionType.part1:
-                return (
-                    <QuestionType1Component 
-                        question={question} 
-                        answerState={this.state.answerState} 
-                        onChooseAnswer={(index) => this.chooseAnswer(index)}/>
-                )
-            case QuestionType.part2:
-                return (
-                    <QuestionType2Component
-                        question={question} 
-                        answerState={this.state.answerState} 
-                        onChooseAnswer={(index) => this.chooseAnswer(index)}/>
-                )
-            case QuestionType.part3: case QuestionType.part4 : case QuestionType.part6 : case QuestionType.part7 :
-                return (
-                    <QuestionType3Component
-                        question={question} 
-                        answerState={this.state.answerState} 
-                        onChooseAnswer={(index) => this.chooseAnswer(index)}/>
-                )
-            case QuestionType.part5:
-                return (
-                    <QuestionType5Component
-                        question={question} 
-                        answerState={this.state.answerState} 
-                        onChooseAnswer={(index) => this.chooseAnswer(index)}/>
-                )
-            default:
-                return (
-                    <QuestionType3Component 
-                        question={question} 
-                        answerState={this.state.answerState} 
-                        onChooseAnswer={(index) => this.chooseAnswer(index)}/>
-                )
-        }
+        return (
+            <QuestionComponent
+                question={question} 
+                         answerState={this.state.answerState} 
+                         onChooseAnswer={(index) => this.chooseAnswer(index)}/>
+        );
+        // switch(question.type){
+        //     case QuestionType.part1:
+        //         return (
+        //             <QuestionType1Component 
+        //                 question={question} 
+        //                 answerState={this.state.answerState} 
+        //                 onChooseAnswer={(index) => this.chooseAnswer(index)}/>
+        //         )
+        //     case QuestionType.part2:
+        //         return (
+        //             <QuestionType2Component
+        //                 question={question} 
+        //                 answerState={this.state.answerState} 
+        //                 onChooseAnswer={(index) => this.chooseAnswer(index)}/>
+        //         )
+        //     case QuestionType.part3: case QuestionType.part4 : case QuestionType.part6 : case QuestionType.part7 :
+        //         return (
+        //             <QuestionType3Component
+        //                 question={question} 
+        //                 answerState={this.state.answerState} 
+        //                 onChooseAnswer={(index) => this.chooseAnswer(index)}/>
+        //         )
+        //     case QuestionType.part5:
+        //         return (
+        //             <QuestionType5Component
+        //                 question={question} 
+        //                 answerState={this.state.answerState} 
+        //                 onChooseAnswer={(index) => this.chooseAnswer(index)}/>
+        //         )
+        //     default:
+        //         return (
+        //             <QuestionType3Component 
+        //                 question={question} 
+        //                 answerState={this.state.answerState} 
+        //                 onChooseAnswer={(index) => this.chooseAnswer(index)}/>
+        //         )
+        // }
     }
 
     renderAnswerQuestion () {
