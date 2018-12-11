@@ -34,20 +34,47 @@ export default class LearnScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            animIn: new Animated.Value(-500),
-            animOut: new Animated.Value(0),
+            // animA: new Animated.Value(-500),
+            // animB: new Animated.Value(0),
         };
+        this.animA = new Animated.Value(-500);
+        this.animB = new Animated.Value(-500);
     }
 
+    screenWidth = Dimensions.get('window').width;
 
-    slide = () => {
+    curWordA = 0;
+    curWordB = 1;
+
+    slideA = () => {
+        this.animA.setValue(-this.screenWidth);
+        this.animB.setValue(-this.screenWidth);
+
         Animated.parallel([
-            Animated.timing(this.state.animIn, {
+            Animated.timing(this.animA, {
                 toValue: 0,
+                duration: 5000
+            }),
+            Animated.timing(this.animB, {
+                toValue: 0,
+                duration: 5000
+            })
+        ]).start(() => {
+            this.slideB();
+        });
+    };
+
+    slideB = () => {
+        this.animA.setValue(0);
+        this.animB.setValue(-(this.screenWidth*2));
+
+        Animated.parallel([
+            Animated.timing(this.animA, {
+                toValue: this.screenWidth,
                 duration: 1000
             }),
-            Animated.timing(this.state.animOut, {
-                toValue: 500,
+            Animated.timing(this.animB, {
+                toValue: -this.screenWidth,
                 duration: 1000
             })
         ]).start(() => {
@@ -55,17 +82,17 @@ export default class LearnScreen extends React.Component {
         });
     };
 
+
+
     componentDidMount() {
-        this.slide();
+        this.slideA();
     }
 
     render() {
 
-        let curWord = 0;
         // const { navigation } = this.props;
         // const topic = navigation.getParam('topic', null);
 
-        const screenWidth = Dimensions.get('window').width;
 
         return (
             <Container style={styles.container}>
@@ -85,34 +112,27 @@ export default class LearnScreen extends React.Component {
                 <Content>
                     {/*wordMap[topic.id]*/}
                     <View
-                        style={{flexDirection: 'row', width: screenWidth*2}}>
+                        style={{flex:0,flexDirection: 'row'}}>
                         <Animated.View
                             style={[
-                                {flex:0, width: screenWidth},
-                                {
-                                transform: [
-                                    {
-                                        translateX: this.state.animIn
-                                    }]
-                                }
+                                {width: this.screenWidth, backgroundColor:'red'},
+                                {transform: [
+                                    {translateX: this.animA}
+                                    ]}
                                 ]
                             }>
-                            <WordFlatListItem item={wordMap['t1'][0]}>
+                            <WordFlatListItem item={wordMap['t1'][this.curWordA]}>
 
                             </WordFlatListItem>
                         </Animated.View>
                         <Animated.View
                             style={[
-                                {flex:0, width: screenWidth},
-                                {
-                                transform: [
-                                    {
-                                        translateX: this.state.animIn
-                                    }]
-                                }
+                                {width: this.screenWidth, backgroundColor:'blue'},
+                                {transform: [
+                                    {translateX: this.animB}]}
                                 ]
                             }>
-                            <WordFlatListItem item={wordMap['t1'][1]}>
+                            <WordFlatListItem item={wordMap['t1'][this.curWordB]}>
 
                             </WordFlatListItem>
                         </Animated.View>
