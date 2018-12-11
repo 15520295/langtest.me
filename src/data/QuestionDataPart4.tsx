@@ -9,15 +9,17 @@ const QuestionDataPart4 : IQuestion[] = [{
     explain: "Nothing at all",
     help: "Arimasen",
     audioAsset: require('./../../assets/audio/doraemon.mp3'),
+    difficultLevel: 3
 }, {
-    id: 'p4_001',
+    id: 'p4_002',
     type: QuestionType.part4,
     question: 'When can the listener pick up his car?',
     answer: ['Today', 'Tomorrow', 'Next week', 'In two weeks'],
     correctAnswer: 2,
     explain: "Nothing at all",
     help: "Arimasen",
-    audioAsset: require('./../../assets/audio/doraemon.mp3')
+    audioAsset: require('./../../assets/audio/doraemon.mp3'),
+    difficultLevel: 3
 }];
 
 export default QuestionDataPart4;

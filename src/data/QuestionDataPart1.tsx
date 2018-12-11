@@ -9,7 +9,8 @@ const QuestionDataPart1 : IQuestion[] = [{
     explain: "Nothing at all",
     help: "No thing at all",
     imageAsset: require('./../../assets/images/part1/p1_001.png'),
-    audioAsset: require('./../../assets/audio/doraemon.mp3')
+    audioAsset: require('./../../assets/audio/doraemon.mp3'),
+    difficultLevel: 3
 },
 {
     id: 'p1_002',
@@ -20,7 +21,8 @@ const QuestionDataPart1 : IQuestion[] = [{
     explain: "Nothing at all",
     help: "No thing at all",
     imageAsset: require('./../../assets/images/part1/p1_001.png'),
-    audioAsset: require('./../../assets/audio/doraemon.mp3')
+    audioAsset: require('./../../assets/audio/doraemon.mp3'),
+    difficultLevel: 3
 }]
 
 export default QuestionDataPart1;

@@ -8,7 +8,9 @@ const QuestionDataPart7 : IQuestion[] = [{
     correctAnswer: 0,
     explain: "Nothing at all",
     help: "Arimasen",
-    imageAsset: require('./../../assets/images/part7/p7_001.png')
+    imageAsset: require('./../../assets/images/part7/p7_001.png'),
+    difficultLevel: 3,
+    comeWith: ['p7_002']
 },
 {
     id: 'p7_002',
@@ -18,7 +20,9 @@ const QuestionDataPart7 : IQuestion[] = [{
     correctAnswer: 3,
     explain: "Nothing at all",
     help: "Arimasen",
-    imageAsset: require('./../../assets/images/part7/p7_001.png')
+    imageAsset: require('./../../assets/images/part7/p7_001.png'),
+    difficultLevel: 3,
+    comeWith: ['p7_001']
 }]
 
 export default QuestionDataPart7;

@@ -8,6 +8,7 @@ const QuestionDataPart5 : IQuestion[] = [{
     correctAnswer: 2,
     explain: "Nothing at all",
     help: "Arimasen",
+    difficultLevel: 3
 }, {
     id: 'p5_002',
     type: QuestionType.part5,
