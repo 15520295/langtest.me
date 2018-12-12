@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Icon, View, Text, Content} from 'native-base';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableOpacity, Alert} from 'react-native';
 import {AppLoading} from 'expo';
 import { AnswerState } from './AnswerButton';
 import posed, { Transition } from 'react-native-pose';
@@ -74,6 +74,15 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
             isOver: false});
     }
 
+    reset = async () => {
+        await this.setState({
+            isLoading: false,
+            answerState: [AnswerState.normal, AnswerState.normal, AnswerState.normal, AnswerState.normal],
+            isWaiting: false,
+            isAnimation: false,
+            isOver: false});
+    }
+
 
     nextQuestion = async () => {
         const {quizStore} = this.props;
@@ -124,14 +133,26 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
         
     }
 
+    finishQuiz = () => {
+        Alert.alert(
+            'Are you sure to finish ?',
+            'You can not go back',
+            [
+              {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+              {text: 'Finish', onPress: () => this.quizOver()},
+            ],
+            { cancelable: true }
+          )
+    }
     quizOver = () => {
-        const {quizStore} = this.props;
-        const {navigation} = this.props;
+        const {quizStore, navigation} = this.props;
+        const reset = this.reset;
         const tryAgainButton = async function (): Promise<void> {
             await sharedQuizService.initQuickTest();
             navigation.navigate('Questions');
         }
-        const homeFunc = function(): void {
+        const homeFunc = async function(): Promise<void> {
+            await reset();
             navigation.navigate('Home');
         }
         navigation.navigate('Results', {totalAnswer: quizStore.getTotalQuestionNumber(),
@@ -152,43 +173,6 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
                          answerState={this.state.answerState} 
                          onChooseAnswer={(index) => this.chooseAnswer(index)}/>
         );
-        // switch(question.type){
-        //     case QuestionType.part1:
-        //         return (
-        //             <QuestionType1Component 
-        //                 question={question} 
-        //                 answerState={this.state.answerState} 
-        //                 onChooseAnswer={(index) => this.chooseAnswer(index)}/>
-        //         )
-        //     case QuestionType.part2:
-        //         return (
-        //             <QuestionType2Component
-        //                 question={question} 
-        //                 answerState={this.state.answerState} 
-        //                 onChooseAnswer={(index) => this.chooseAnswer(index)}/>
-        //         )
-        //     case QuestionType.part3: case QuestionType.part4 : case QuestionType.part6 : case QuestionType.part7 :
-        //         return (
-        //             <QuestionType3Component
-        //                 question={question} 
-        //                 answerState={this.state.answerState} 
-        //                 onChooseAnswer={(index) => this.chooseAnswer(index)}/>
-        //         )
-        //     case QuestionType.part5:
-        //         return (
-        //             <QuestionType5Component
-        //                 question={question} 
-        //                 answerState={this.state.answerState} 
-        //                 onChooseAnswer={(index) => this.chooseAnswer(index)}/>
-        //         )
-        //     default:
-        //         return (
-        //             <QuestionType3Component 
-        //                 question={question} 
-        //                 answerState={this.state.answerState} 
-        //                 onChooseAnswer={(index) => this.chooseAnswer(index)}/>
-        //         )
-        // }
     }
 
     renderAnswerQuestion () {
@@ -234,6 +218,7 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
                         title={question.type}
                         correctAnswer={quizStore.state.correctedAnswer}
                         uncorrectedAnswer={quizStore.state.uncorrectedAnswer}
+                        onFinishButton={this.finishQuiz}
                     />
                     <QuizScreenTimer interval={500} 
                     totalTime={5 * 60 * 1000} 
@@ -275,6 +260,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginLeft: widthPercentageToDP(8),
         marginRight: widthPercentageToDP(8),
-        marginTop: heightPercentageToDP(2)
+        marginTop: heightPercentageToDP(1)
     }
 });

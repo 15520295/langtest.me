@@ -63,7 +63,7 @@ const stylesNormal = StyleSheet.create({
     },
     answerText: {
         color: '#4F4F4F',
-        fontSize: 16,
+        fontSize: 14,
         flex: 1,
         ...systemWeights.light
     },
@@ -90,7 +90,7 @@ const stylesCorrect = StyleSheet.create({
     },
     answerText: {
         color: '#FFFFFF',
-        fontSize: 16,
+        fontSize: 14,
         flex: 1,
         ...systemWeights.regular
     },
@@ -121,7 +121,7 @@ const stylesIncorrect = StyleSheet.create({
     },
     answerText: {
         color: '#FFFFFF',
-        fontSize: 16,
+        fontSize: 14,
         flex: 1,
         ...systemWeights.regular
     },

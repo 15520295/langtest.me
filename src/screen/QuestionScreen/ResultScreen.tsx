@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { View, Text, Button} from 'native-base';
-import { StyleSheet, ViewStyle, Platform } from 'react-native';
+import { StyleSheet, ViewStyle } from 'react-native';
 import * as Progress from 'react-native-progress';
 import { heightPercentageToDP, widthPercentageToDP } from '../../helper/ratioHelper';
-import { systemWeights } from 'react-native-typography';
+import { systemWeights, human } from 'react-native-typography';
 import { NavigationScreenProps, NavigationParams } from 'react-navigation';
 export interface ResultScreenProps extends NavigationScreenProps<NavigationParams, any>{
     totalAnswer: number,
@@ -33,9 +33,17 @@ class ResultScreen extends React.Component<ResultScreenProps, ResultScreenState>
     constructor(props: ResultScreenProps){
         super(props);
 
-        this.state = {
-            progress: 0
+        const correctedAnswer: number = this.props.navigation.getParam('correctedAnswer', props.correctAnswer);
+        if(correctedAnswer === 0){
+            this.state = {
+                progress: 1
+            }
+        } else {
+            this.state = {
+                progress: 0
+            }
         }
+
     }
 
     componentDidMount(){
@@ -57,6 +65,9 @@ class ResultScreen extends React.Component<ResultScreenProps, ResultScreenState>
 
         return (
             <View style={styles.container}>
+                <View style={styles.title}>
+                    <Text style={[human.largeTitle, {textAlign: 'center', color: 'rgba(0, 70, 255, 1)'}]}>Your result</Text>
+                </View>
                 <View style={styles.infoContainer}>
                     <Progress.Circle 
                         size={widthPercentageToDP(40)} 
@@ -100,10 +111,14 @@ const styles  = StyleSheet.create({
         flex: 1,
         flexDirection: 'column'
     },
-    infoContainer: {
+    title: {
         flex: 1,
+        justifyContent: 'center',
+        alignContent: 'center',
+    },
+    infoContainer: {
+        flex: 2,
         flexDirection: 'column',
-        marginTop: Platform.OS === 'ios' ? heightPercentageToDP(40) : heightPercentageToDP(20),
         justifyContent: 'flex-start',
         alignContent: 'stretch',
         zIndex: -3
@@ -157,6 +172,7 @@ const styles  = StyleSheet.create({
         marginTop: heightPercentageToDP(2),
         marginLeft: widthPercentageToDP(8),
         marginRight: widthPercentageToDP(8),
+        marginBottom: heightPercentageToDP(2),
         height: heightPercentageToDP(7),
         maxHeight: heightPercentageToDP(7),
         flex: 1,

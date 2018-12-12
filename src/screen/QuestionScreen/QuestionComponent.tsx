@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {View, Text} from 'native-base';
-import {StyleSheet, ViewStyle, Image, ImageStyle} from "react-native";
+import {View, Text, Card} from 'native-base';
+import {StyleSheet, ViewStyle, Image, ImageStyle, Platform} from "react-native";
 import IQuestion, { QuestionType } from '../../entity/Question';
 import { systemWeights } from 'react-native-typography';
 import AnswerButton, { AnswerState } from './AnswerButton';
@@ -13,6 +13,7 @@ export interface QuestionComponentProps{
     onChooseAnswer: (index: number) => void,
 }
 
+const TWO_ROW_MAX_CHARACTER = 21;
 
 export default class QuestionComponent extends React.Component<QuestionComponentProps>{
     constructor(prop: QuestionComponentProps){
@@ -28,6 +29,17 @@ export default class QuestionComponent extends React.Component<QuestionComponent
                     onPress = {() => onChooseAnswer(index)}
                     text={value}/>
             </View>)
+    }
+
+    shouldRenderTwoRow(): boolean {
+        let should: boolean = true;
+        this.props.question.answer.forEach((a) => {
+            if(a.length > TWO_ROW_MAX_CHARACTER){
+                should = false;
+            }
+        })
+
+        return should;
     }
 
     renderAnswer(){
@@ -54,14 +66,28 @@ export default class QuestionComponent extends React.Component<QuestionComponent
                     {this.renderAnswerButton(2, question.answer[2])}
                 </View>);
             default:
-            return(
-            <View style={styles.answerContainer}>
-                {this.renderAnswerButton(0, question.answer[0])}
-                {this.renderAnswerButton(1, question.answer[1])}
-                {this.renderAnswerButton(2, question.answer[2])}
-                {this.renderAnswerButton(3, question.answer[3])}
-            </View>);
+                if(this.shouldRenderTwoRow()){
+                    return(
+                    <View>
+                        <View style={styles.answerContainerTwoRow}>
+                            {this.renderAnswerButton(0, question.answer[0])}
+                            {this.renderAnswerButton(1, question.answer[1])}
+                        </View>
 
+                        <View style={styles.answerContainerTwoRow}>
+                            {this.renderAnswerButton(2, question.answer[2])}
+                            {this.renderAnswerButton(3, question.answer[3])}
+                        </View>
+                    </View>);
+                } else {
+                    return(
+                        <View style={styles.answerContainer}>
+                            {this.renderAnswerButton(0, question.answer[0])}
+                            {this.renderAnswerButton(1, question.answer[1])}
+                            {this.renderAnswerButton(2, question.answer[2])}
+                            {this.renderAnswerButton(3, question.answer[3])}
+                        </View>);
+                }
         }
     }
     render() {
@@ -69,18 +95,19 @@ export default class QuestionComponent extends React.Component<QuestionComponent
         return (
             <View style={styles.container}>
                 {question.imageAsset && 
-                    <ImageZoom 
-                        cropWidth={widthPercentageToDP(84)}
-                       cropHeight={heightPercentageToDP(25)}
-                       imageWidth={widthPercentageToDP(84)}
-                       imageHeight={heightPercentageToDP(25)}
-                       minScale={0.2}
-                    style={styles.imageView as ImageStyle}>
-                        <Image style={{width: widthPercentageToDP(84), height: heightPercentageToDP(25)}}
-                                source={question.imageAsset}
-                                resizeMode='contain'/>
-                    </ImageZoom>
-
+                <Card >
+                        <ImageZoom 
+                        cropWidth={widthPercentageToDP(100)}
+                        cropHeight={heightPercentageToDP(25)}
+                        imageWidth={widthPercentageToDP(100)}
+                        imageHeight={heightPercentageToDP(25)}
+                        minScale={0.2}
+                        style={styles.imageView as ImageStyle}>
+                            <Image style={{width: widthPercentageToDP(100), height: heightPercentageToDP(25)}}
+                                    source={question.imageAsset}
+                                    resizeMode='contain'/>
+                        </ImageZoom>
+                </Card>
                 }
                 <Text adjustsFontSizeToFit minimumFontScale={.5} style={styles.questionText}>	
                         {question.question}
@@ -98,17 +125,18 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
     },
     imageView: {
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 1.5,
         flex: 1,
-        marginLeft: widthPercentageToDP(8),
-        marginRight: widthPercentageToDP(8),
         marginTop: heightPercentageToDP(2),
         marginBottom: heightPercentageToDP(2),
         justifyContent: 'center',
-        alignItems: 'stretch'
+        alignItems: 'stretch',
     },
     questionText: {
         color: '#4F4F4F',
-        fontSize: 20,
+        fontSize: Platform.OS == 'ios' ? 20 : 18,
         marginLeft: widthPercentageToDP(8),
         justifyContent: 'center',
         alignItems: 'stretch',
@@ -132,9 +160,9 @@ const styles = StyleSheet.create({
     },
     answerButton: {
         flex: 1,
-        marginBottom: heightPercentageToDP(2),
-        height: heightPercentageToDP(9.3),
-        maxHeight: heightPercentageToDP(9.3),
+        marginBottom: heightPercentageToDP(1),
+        height: Platform.OS == 'ios' ? heightPercentageToDP(9.3) : heightPercentageToDP(9.3), 
+        maxHeight: Platform.OS == 'ios' ? heightPercentageToDP(9.3) : heightPercentageToDP(9.3), 
         shadowRadius: 0
     }
 });
