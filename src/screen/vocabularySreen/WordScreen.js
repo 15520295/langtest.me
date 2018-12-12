@@ -40,19 +40,21 @@ class WordScreen extends React.Component {
 
     }
 
-    _testVocabularyScreen() {
+    _testVocabularyScreen(topic) {
         sharedQuizService.initTestVocabulary(VocabularyTestData);
         this.props.navigation.navigate('Questions');
     }
 
-    _learnScreen() {
-        sharedQuizService.initTestVocabulary(VocabularyTestData);
-        this.props.navigation.navigate('Learn');
+    _learnScreen(topic) {
+        this.props.navigation.navigate('Learn', {
+            topic:topic
+        });
     }
 
     render() {
         const { navigation } = this.props;
         const topic = navigation.getParam('topic', null);
+
 
         return (
             <Container style={styles.container}>
@@ -95,7 +97,7 @@ class WordScreen extends React.Component {
                         buttonColor="#3498db"
                         title="Học Từ"
                         onPress={() => {
-                            this._learnScreen();
+                            this._learnScreen(topic);
                         }}>
                         <Icon type="Ionicons"
                               name="md-book"
@@ -109,7 +111,7 @@ class WordScreen extends React.Component {
                         buttonColor="#3498db"
                         title="Luyện Tập"
                         onPress={() => {
-                            this._testVocabularyScreen();
+                            this._testVocabularyScreen(topic);
                         }}>
                         <Icon type="Entypo"
                               name="controller-play"

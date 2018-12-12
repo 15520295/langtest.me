@@ -40,6 +40,7 @@ export default class LearnScreen extends React.Component {
             timer: null,
             counter: this.counterMaxValue,
             progress: 0,
+            topicID: 't1',
         };
         // animation
         this.animA = new Animated.Value(-this.screenWidth);
@@ -56,7 +57,7 @@ export default class LearnScreen extends React.Component {
 
     screenWidth = Dimensions.get('window').width;
 
-    counterMaxValue = 5;
+    counterMaxValue = 4;
 
     isFlipDown = false;
 
@@ -76,6 +77,12 @@ export default class LearnScreen extends React.Component {
             })
         ]).start(() => {
             this.startTimer();
+
+            if (this.curWordA === wordMap[this.props.navigation.state.params.topic.id].length -1) {
+                this.curWordB = 0;
+            } else {
+                this.curWordB = this.curWordA +1;
+            }
         });
     };
 
@@ -94,15 +101,22 @@ export default class LearnScreen extends React.Component {
             })
         ]).start(() => {
             this.startTimer();
+
+            if (this.curWordB === wordMap[this.props.navigation.state.params.topic.id].length -1) {
+                this.curWordA = 0;
+            } else {
+                this.curWordA = this.curWordB +1;
+            }
         });
     };
 
-    curWordA = 0;
-    curWordB = 1;
+    curWordB = 0;
+    curWordA = 1;
     isSlideA = true;
     _slideCard() {
         if (this.isSlideA) {
             this.slideA();
+
             this.isSlideA = false;
         } else {
             this.slideB();
@@ -152,8 +166,8 @@ export default class LearnScreen extends React.Component {
 
     render() {
 
-        // const { navigation } = this.props;
-        // const topic = navigation.getParam('topic', null);
+        const { navigation } = this.props;
+        const topic = navigation.getParam('topic', null);
 
         return (
             <Container style={styles.container}>
@@ -202,7 +216,7 @@ export default class LearnScreen extends React.Component {
                             ]
                             }>
                             <WordFlatListItem
-                                item={wordMap['t1'][this.curWordA]}
+                                item={wordMap[topic.id][this.curWordA]}
                                 ref={component => this.wordComponentA = component} // for perform click
                             >
 
@@ -218,7 +232,7 @@ export default class LearnScreen extends React.Component {
                             ]
                             }>
                             <WordFlatListItem
-                                item={wordMap['t1'][this.curWordB]}
+                                item={wordMap[topic.id][this.curWordB]}
                                 ref={component => this.wordComponentB = component} // for perform click
                             >
 

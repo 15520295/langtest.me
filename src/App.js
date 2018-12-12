@@ -73,6 +73,7 @@ import HomeScreen from './screen/HomeScreen';
 import ChartScreen from './screen/ChartScreen';
 import sharedQuizService from './services/QuizService';
 import ResultScreen from './screen/QuestionScreen/ResultScreen';
+import LearnScreen from './screen/vocabularySreen/LearnScreen';
 const AppContainer = createAppContainer(AppNavigator);
 
 export default class App extends React.Component {
@@ -82,6 +83,10 @@ export default class App extends React.Component {
             loading: true
         };
     }
+
+    static navigationOptions = {
+        header: null, // !!! Hide Header
+    };
     async componentDidMount(){
         await Font.loadAsync({
             'Roboto': require('native-base/Fonts/Roboto.ttf'),
@@ -113,14 +118,17 @@ export default class App extends React.Component {
     }
 }
 
-const TopicStack = createSwitchNavigator({
+const TopicStack = createStackNavigator({
     Topic: TopicScreen,
     Word: WordScreen,
+    Learn: LearnScreen,
+    Questions: QuizScreen,
+    Results: ResultScreen,
 });
 
 const QuestionStack = createSwitchNavigator({
     Questions: QuizScreen,
-    Results: ResultScreen
+    Results: ResultScreen,
 });
 
 const MyDrawerNavigator = createDrawerNavigator({
