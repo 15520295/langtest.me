@@ -33,8 +33,12 @@ export default class WordFlatListItem extends Component {
         }
     };
 
-    flipCard = () => {
+    _flipCard = () => {
         this.card._toggleCard();
+    };
+
+    _flipUp = () => {
+        this.card._flipUp();
     };
 
     render() {

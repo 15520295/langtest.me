@@ -23,8 +23,12 @@ import {
 import ActionButton from 'react-native-action-button';
 import wordMap from '../../data/VocabularyList';
 import WordFlatListItem from '../../components/vocabulary/WordFlatListItem';
+import sharedQuizService from '../../services/QuizService';
+import VocabularyTestData from '../../data/VocabularyTestData';
+import {withNavigation} from 'react-navigation';
 
-export default class WordScreen extends React.Component {
+
+class WordScreen extends React.Component {
     static navigationOptions = {
         header: null // !!! Hide Header
     };
@@ -34,6 +38,16 @@ export default class WordScreen extends React.Component {
         this.state = {
         };
 
+    }
+
+    _testVocabularyScreen() {
+        sharedQuizService.initTestVocabulary(VocabularyTestData);
+        this.props.navigation.navigate('Questions');
+    }
+
+    _learnScreen() {
+        sharedQuizService.initTestVocabulary(VocabularyTestData);
+        this.props.navigation.navigate('Learn');
     }
 
     render() {
@@ -50,7 +64,7 @@ export default class WordScreen extends React.Component {
                         </Button>
                     </Left>
                     <Body>
-                        <Title>{topic.name}</Title>
+                    <Title>{topic.name}</Title>
                     </Body>
                 </Header>
                 <Content>
@@ -80,7 +94,9 @@ export default class WordScreen extends React.Component {
                     <ActionButton.Item
                         buttonColor="#3498db"
                         title="Học Từ"
-                        onPress={() => {}}>
+                        onPress={() => {
+                            this._learnScreen();
+                        }}>
                         <Icon type="Ionicons"
                               name="md-book"
                               style={{
@@ -92,7 +108,9 @@ export default class WordScreen extends React.Component {
                     <ActionButton.Item
                         buttonColor="#3498db"
                         title="Luyện Tập"
-                        onPress={() => {}}>
+                        onPress={() => {
+                            this._testVocabularyScreen();
+                        }}>
                         <Icon type="Entypo"
                               name="controller-play"
                               style={{
@@ -106,6 +124,8 @@ export default class WordScreen extends React.Component {
         );
     }
 }
+
+export default withNavigation(WordScreen);
 
 const styles = StyleSheet.create({
     vc_floatingButton: {

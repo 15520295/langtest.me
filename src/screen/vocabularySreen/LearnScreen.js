@@ -22,6 +22,8 @@ import {
     Dimensions
 } from 'react-native';
 
+import * as Progress from 'react-native-progress';
+
 import wordMap from '../../data/VocabularyList';
 import WordFlatListItem from '../../components/vocabulary/WordFlatListItem';
 
@@ -36,22 +38,29 @@ export default class LearnScreen extends React.Component {
         this.state = {
             // timer
             timer: null,
-            counter: 5
+            counter: this.counterMaxValue,
+            progress: 0,
         };
         // animation
         this.animA = new Animated.Value(-this.screenWidth);
         this.animB = new Animated.Value(-this.screenWidth);
     }
 
+    componentDidMount() {
+        this.startTimer();
+    }
+
+    componentWillUnmount() {
+        this.stopTimer();
+    }
+
     screenWidth = Dimensions.get('window').width;
-
-    animDuration = 1000;
-
-    curWordA = 0;
-    curWordB = 1;
 
     counterMaxValue = 5;
 
+    isFlipDown = false;
+
+    animDuration = 1000;
     slideA = () => {
         this.animA.setValue(-this.screenWidth);
         this.animB.setValue(-this.screenWidth);
@@ -66,13 +75,13 @@ export default class LearnScreen extends React.Component {
                 duration: this.animDuration
             })
         ]).start(() => {
-
+            this.startTimer();
         });
     };
 
     slideB = () => {
         this.animA.setValue(0);
-        this.animB.setValue(-(this.screenWidth*2));
+        this.animB.setValue(-(this.screenWidth * 2));
 
         Animated.parallel([
             Animated.timing(this.animA, {
@@ -84,46 +93,67 @@ export default class LearnScreen extends React.Component {
                 duration: this.animDuration
             })
         ]).start(() => {
-
+            this.startTimer();
         });
     };
 
-    componentDidMount() {
-        this.startTimer();
-    }
+    curWordA = 0;
+    curWordB = 1;
+    isSlideA = true;
+    _slideCard() {
+        if (this.isSlideA) {
+            this.slideA();
+            this.isSlideA = false;
+        } else {
+            this.slideB();
 
-    componentWillUnmount() {
-        this.clearInterval(this.state.timer);
+            this.isSlideA = true;
+        }
     }
 
     tick = () => {
+        // Time Out
         if (this.state.counter <= 1) {
             this.setState({
-                counter : this.counterMaxValue+1
+                counter: this.counterMaxValue + 1, //reset Value
             });
-            this.stopTimer();
-            // this.slideA();
-            // this.child.flipCard();
+            if (this.isFlipDown) {
+                this.stopTimer();
+                this.wordComponentA._flipUp();
+                this.wordComponentB._flipUp();
+                this.isFlipDown = false;
+
+                this._slideCard();
+
+            } else {
+                this.wordComponentA._flipCard();
+                this.wordComponentB._flipCard();
+                this.isFlipDown = true;
+            }
+
         }
-        this.setState({
-            counter: this.state.counter - 1
-        });
+
+        // Ticking
+        this.setState(previousState => ({
+            counter: this.state.counter - 1,
+            progress: 1 - (this.state.counter-1)/this.counterMaxValue
+        }));
 
     };
 
-    stopTimer = () =>{
-        clearInterval(this.state.timer);
-    };
-
-    startTimer = () =>{
+    startTimer = () => {
         let timer = setInterval(this.tick, 1000);
+        this.setState({timer});
+    };
+
+    stopTimer = () => {
+        clearInterval(this.state.timer);
     };
 
     render() {
 
         // const { navigation } = this.props;
         // const topic = navigation.getParam('topic', null);
-
 
         return (
             <Container style={styles.container}>
@@ -135,27 +165,41 @@ export default class LearnScreen extends React.Component {
                         </Button>
                     </Left>
                     <Body>
-                        <Title>Learn Screen</Title>
+                    <Title>Learn Screen</Title>
                     </Body>
                     <Right>
                     </Right>
                 </Header>
                 <Content>
                     {/*wordMap[topic.id]*/}
-                    <View>
-                        <Text>
-                            {this.state.counter}
-                        </Text>
+                    <View
+                        style={styles.vc_timer}>
+                        <Progress.Circle
+                            size={50}
+                            showsText={false}
+                            progress={this.state.progress}
+                            borderWidth={0}
+                            thickness={4}
+                            fill="white"
+                            style={{}}/>
+                        <View
+                            style={styles.vc_timerCounter}>
+                            <Text>
+                                {this.state.counter}
+                            </Text>
+                        </View>
                     </View>
                     <View
-                        style={{flex:0,flexDirection: 'row'}}>
+                        style={{flex: 0, flexDirection: 'row'}}>
                         <Animated.View
                             style={[
-                                {width: this.screenWidth, backgroundColor:'red'},
-                                {transform: [
-                                    {translateX: this.animA}
-                                    ]}
-                                ]
+                                {width: this.screenWidth, backgroundColor: 'red'},
+                                {
+                                    transform: [
+                                        {translateX: this.animA}
+                                    ]
+                                }
+                            ]
                             }>
                             <WordFlatListItem
                                 item={wordMap['t1'][this.curWordA]}
@@ -166,10 +210,12 @@ export default class LearnScreen extends React.Component {
                         </Animated.View>
                         <Animated.View
                             style={[
-                                {width: this.screenWidth, backgroundColor:'blue'},
-                                {transform: [
-                                    {translateX: this.animB}]}
-                                ]
+                                {width: this.screenWidth, backgroundColor: 'blue'},
+                                {
+                                    transform: [
+                                        {translateX: this.animB}]
+                                }
+                            ]
                             }>
                             <WordFlatListItem
                                 item={wordMap['t1'][this.curWordB]}
@@ -187,15 +233,29 @@ export default class LearnScreen extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor:'gray'
+        backgroundColor: 'gray'
     },
     vc_slide: {
-        backgroundColor:'blue',
+        backgroundColor: 'blue',
         flexDirection: 'row',
         justifyContent: 'center', alignContent: 'center',
     },
+    vc_timer: {
+        flex:0,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignContent: 'center',
+    },
+    vc_timerCounter: {
+        flex: 1,
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+    },
     slideView: {
-        backgroundColor:'green',
+        backgroundColor: 'green',
         flex: 1,
     },
 });
