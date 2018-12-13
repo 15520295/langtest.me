@@ -22,7 +22,7 @@ const Box = posed.View({
         x: 50,
         y: 0,
         opacity: 0,
-        scale: 0.9
+        scale: 0.7
     },
     enter: {
         x: 0,
@@ -33,7 +33,7 @@ const Box = posed.View({
     exit: {
         x: -50,
         y: 0,
-        scale: 0.9,
+        scale: 0.7,
         opacity: 0
     }
 });
@@ -74,6 +74,16 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
             isOver: false});
     }
 
+    flipAnimation = () => {
+        if(this.state.isAnimation){
+            console.log("First");
+        } else {
+            console.log("Second");
+        }
+        this.setState({isAnimation: !this.state.isAnimation});
+        
+    }
+
     reset = async () => {
         await this.setState({
             isLoading: false,
@@ -85,34 +95,29 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
 
 
     nextQuestion = async () => {
+        this.flipAnimation();
         const {quizStore} = this.props;
         //Wait a bit for disapperance animation
-        await this.setState({isAnimation: true});
-        setTimeout(async() => {
-            await this.setState({
-                isWaiting: false,
-                isAnimation: false,
-            });
-            await quizStore.nextQuestion();
-            await this.setState({
-                answerState: quizStore.getCurrentAnswerState()
-            })
-        }, 50);
+        await this.setState({
+            isWaiting: false,
+        });
+        await quizStore.nextQuestion();
+        await this.setState({
+            answerState: quizStore.getCurrentAnswerState()
+        })
     }
 
     prevQuestion = async () => {
+        this.flipAnimation();
         const {quizStore} = this.props;
-        await this.setState({isAnimation: true});
-        setTimeout(async() => {
-            await this.setState({
-                isWaiting: false,
-                isAnimation: false,
-            });
-            await quizStore.prevQuestion();
-            await this.setState({
-                answerState: quizStore.getCurrentAnswerState()
-            })
-        }, 50);
+        //Wait a bit for disapperance animation
+        await this.setState({
+            isWaiting: false,
+        });
+        await quizStore.prevQuestion();
+        await this.setState({
+            answerState: quizStore.getCurrentAnswerState()
+        })
     }
 
     chooseAnswer = (idAnswer: number) => {
@@ -171,14 +176,15 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
             <QuestionComponent
                 question={question} 
                          answerState={this.state.answerState} 
-                         onChooseAnswer={(index) => this.chooseAnswer(index)}/>
+                         onChooseAnswer={(index) => this.chooseAnswer(index)}
+                         style={{flex: 1 ,width: widthPercentageToDP(84)}}/>
         );
     }
 
     renderAnswerQuestion () {
         const {quizStore} = this.props;
         return (
-            <View>
+            <View style={{flex: 1}}>
                 <View style={styles.navigationView}>
                     <TouchableOpacity onPress={() => {this.prevQuestion();}}>
                         <Icon name='arrow-back' style={{color: '#019AE8'}} android="md-arrow-back" ios="ios-arrow-back" /> 
@@ -189,17 +195,25 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
                         </TouchableOpacity>
                         <Text style={{fontSize: 18}}>/{quizStore.getTotalQuestionNumber()}</Text>
                     </View>
-                    <TouchableOpacity onPress={() => {this.nextQuestion();}}>
+                    <TouchableOpacity onPress={() => {this.nextQuestion();}} >
                         <Icon name='arrow-forward' style={{color: '#019AE8'}} android="md-arrow-forward" ios="ios-arrow-forward" /> 
                     </TouchableOpacity>
                 </View>
-                <Transition preEnterPose='before' exitPose='exit'>
-                    {!this.state.isAnimation && 
-            <Box preEnterPose='before' key='question'>
-                {this.renderQuestion()}
-            </Box>
-                    }
+                <View >
+                <Transition preEnterPose='before' style={{position: 'absolute'}}>
+                {
+                    this.state.isAnimation 
+                    ?
+                    <Box key='question'>
+                        {this.renderQuestion()}
+                    </Box>
+                    :
+                    <Box key='question2'>
+                        {this.renderQuestion()}
+                    </Box>
+                }
                 </Transition>
+                </View>
             </View>
         );
     }
@@ -229,7 +243,7 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
                     borderColor="white"
                     borderRadius={0}
                     onOver = {() => {this.quizOver()}}/>
-                    <Content>
+                    <Content scrollEnabled={false}>
                         <GestureView onLeftSwipe={()=> {this.prevQuestion()}}
                             onRightSwipe={() => {this.nextQuestion()}}
                             style={{flex: 1}}>

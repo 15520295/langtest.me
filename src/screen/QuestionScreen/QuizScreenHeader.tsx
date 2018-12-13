@@ -1,6 +1,8 @@
 import * as React from 'react';
 import {Header, Left, Body, Right, Button, Icon, Title, Text} from 'native-base';
 import { Platform } from "react-native";
+import { AntDesign } from '@expo/vector-icons';
+import { widthPercentageToDP } from '../../helper/ratioHelper';
 
 export interface Props{
     title: String,
@@ -33,11 +35,11 @@ export default class QuizScreenHeader extends React.Component<Props>{
             <Right>
                 <Button transparent>
                     <Title style={{paddingRight: 10, alignContent: 'center'}}>{correctAnswer}</Title>
-                    <Icon name ='nothing' android='md-thumbs-up' ios='md-thumbs-up'/>
+                    <AntDesign name='smileo' color={Platform.OS === 'ios' ? 'black' : 'white'} size={widthPercentageToDP(7)}/>
                 </Button>
                 <Button transparent>
                     <Title style={{paddingRight: 10, alignContent: 'center'}}>{uncorrectedAnswer}</Title>
-                    <Icon name = 'nothing' android='md-thumbs-down' ios='md-thumbs-down'/>
+                    <AntDesign name='frowno' color={Platform.OS === 'ios' ? 'black' : 'white'}  size={widthPercentageToDP(7)}/>
                 </Button>
             </Right>
         </Header>

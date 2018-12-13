@@ -11,6 +11,7 @@ export interface QuestionComponentProps{
     question: IQuestion,
     answerState: AnswerState[],
     onChooseAnswer: (index: number) => void,
+    style?: ViewStyle
 }
 
 const TWO_ROW_MAX_CHARACTER = 21;
@@ -21,10 +22,10 @@ export default class QuestionComponent extends React.Component<QuestionComponent
 
     }
     renderAnswerButton(index: number, value: string) {
-        const {onChooseAnswer, answerState} = this.props;
+        const {onChooseAnswer, answerState, style} = this.props;
 
         return (
-            <View key={index} style={styles.answerButton as ViewStyle}>
+            <View key={index} style={[styles.answerButton as ViewStyle, style]}>
                 <AnswerButton answerState={answerState[index]} 
                     onPress = {() => onChooseAnswer(index)}
                     text={value}/>
@@ -33,6 +34,9 @@ export default class QuestionComponent extends React.Component<QuestionComponent
 
     shouldRenderTwoRow(): boolean {
         let should: boolean = true;
+        if(this.props.question.type === QuestionType.part2 || this.props.question.type === QuestionType.part5 ){
+            return false;
+        }
         this.props.question.answer.forEach((a) => {
             if(a.length > TWO_ROW_MAX_CHARACTER){
                 should = false;

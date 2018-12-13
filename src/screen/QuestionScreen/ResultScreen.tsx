@@ -66,7 +66,7 @@ class ResultScreen extends React.Component<ResultScreenProps, ResultScreenState>
         return (
             <View style={styles.container}>
                 <View style={styles.title}>
-                    <Text style={[human.largeTitle, {textAlign: 'center', color: 'rgba(0, 70, 255, 1)'}]}>Your result</Text>
+                    <Text style={[human.largeTitle, {textAlign: 'center'}]}>Your result</Text>
                 </View>
                 <View style={styles.infoContainer}>
                     <Progress.Circle 
