@@ -10,7 +10,8 @@ import {
     Title,
     View,
     Text,
-    Content
+    Content,
+    Picker
 } from 'native-base';
 
 import {
@@ -41,6 +42,9 @@ export default class LearnScreen extends React.Component {
             counter: this.counterMaxValue,
             progress: 0,
             topicID: 't1',
+            
+            // picker
+            selected: this.counterMaxValue,
         };
         // animation
         this.animA = new Animated.Value(-this.screenWidth);
@@ -55,13 +59,12 @@ export default class LearnScreen extends React.Component {
         this.stopTimer();
     }
 
+    //region ------------------- Card
     screenWidth = Dimensions.get('window').width;
-
     counterMaxValue = 4;
-
     isFlipDown = false;
-
     animDuration = 1000;
+
     slideA = () => {
         this.animA.setValue(-this.screenWidth);
         this.animB.setValue(-this.screenWidth);
@@ -78,10 +81,10 @@ export default class LearnScreen extends React.Component {
         ]).start(() => {
             this.startTimer();
 
-            if (this.curWordA === wordMap[this.props.navigation.state.params.topic.id].length -1) {
+            if (this.curWordA === wordMap[this.props.navigation.state.params.topic.id].length - 1) {
                 this.curWordB = 0;
             } else {
-                this.curWordB = this.curWordA +1;
+                this.curWordB = this.curWordA + 1;
             }
         });
     };
@@ -102,10 +105,10 @@ export default class LearnScreen extends React.Component {
         ]).start(() => {
             this.startTimer();
 
-            if (this.curWordB === wordMap[this.props.navigation.state.params.topic.id].length -1) {
+            if (this.curWordB === wordMap[this.props.navigation.state.params.topic.id].length - 1) {
                 this.curWordA = 0;
             } else {
-                this.curWordA = this.curWordB +1;
+                this.curWordA = this.curWordB + 1;
             }
         });
     };
@@ -113,6 +116,7 @@ export default class LearnScreen extends React.Component {
     curWordB = 0;
     curWordA = 1;
     isSlideA = true;
+
     _slideCard() {
         if (this.isSlideA) {
             this.slideA();
@@ -124,12 +128,14 @@ export default class LearnScreen extends React.Component {
             this.isSlideA = true;
         }
     }
+    //endregion
 
+    //region ---------------- Timer
     tick = () => {
         // Time Out
         if (this.state.counter <= 1) {
             this.setState({
-                counter: this.counterMaxValue + 1, //reset Value
+                counter: (this.counterMaxValue + 1), //reset Value
             });
             if (this.isFlipDown) {
                 this.stopTimer();
@@ -148,14 +154,16 @@ export default class LearnScreen extends React.Component {
         }
 
         // Ticking
+
         this.setState(previousState => ({
             counter: this.state.counter - 1,
-            progress: 1 - (this.state.counter-1)/this.counterMaxValue
+            progress: 1 - (this.state.counter - 1) / this.counterMaxValue
         }));
 
     };
 
     startTimer = () => {
+
         let timer = setInterval(this.tick, 1000);
         this.setState({timer});
     };
@@ -164,9 +172,19 @@ export default class LearnScreen extends React.Component {
         clearInterval(this.state.timer);
     };
 
+    //endregion
+
+    // --------------- Picker
+    onValueChange(value) {
+        this.setState({
+            selected: value
+        });
+        this.counterMaxValue = value;
+    }
+
     render() {
 
-        const { navigation } = this.props;
+        const {navigation} = this.props;
         const topic = navigation.getParam('topic', null);
 
         return (
@@ -185,22 +203,43 @@ export default class LearnScreen extends React.Component {
                     </Right>
                 </Header>
                 <Content>
-                    {/*wordMap[topic.id]*/}
                     <View
-                        style={styles.vc_timer}>
-                        <Progress.Circle
-                            size={50}
-                            showsText={false}
-                            progress={this.state.progress}
-                            borderWidth={0}
-                            thickness={4}
-                            fill="white"
-                            style={{}}/>
+                        style={styles.vc_top}>
                         <View
-                            style={styles.vc_timerCounter}>
-                            <Text>
-                                {this.state.counter}
-                            </Text>
+                            style={styles.vc_timer}>
+                            <Progress.Circle
+                                size={50}
+                                showsText={false}
+                                progress={this.state.progress}
+                                borderWidth={0}
+                                thickness={4}
+                                fill="white"
+                                style={{}}/>
+                            <View
+                                style={styles.vc_timerCounter}>
+                                <Text>
+                                    {this.state.counter}
+                                </Text>
+                            </View>
+                        </View>
+                        <View
+                            style={styles.vc_timerPicker}>
+                            <Picker
+                                mode="dropdown"
+                                iosHeader="Select Time Out"
+                                iosIcon={<Icon name="ios-arrow-down-outline" />}
+                                style={{ width: undefined }}
+                                selectedValue={this.state.selected}
+                                onValueChange={this.onValueChange.bind(this)}
+                            >
+                                <Picker.Item label="1s" value={1} />
+                                <Picker.Item label="2s" value={2} />
+                                <Picker.Item label="3s" value={3} />
+                                <Picker.Item label="4s" value={4} />
+                                <Picker.Item label="5s" value={5} />
+                                <Picker.Item label="8s" value={8} />
+                                <Picker.Item label="10s" value={10} />
+                            </Picker>
                         </View>
                     </View>
                     <View
@@ -249,13 +288,20 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: 'gray'
     },
-    vc_slide: {
-        backgroundColor: 'blue',
+    vc_top: {
+        flex: 0,
         flexDirection: 'row',
-        justifyContent: 'center', alignContent: 'center',
+        justifyContent: 'center',
+        alignContent: 'center',
+    },
+    vc_timerPicker: {
+        flex: 50,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignContent: 'center',
     },
     vc_timer: {
-        flex:0,
+        flex: 50,
         flexDirection: 'row',
         justifyContent: 'center',
         alignContent: 'center',
@@ -267,6 +313,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         position: 'absolute',
+    },
+    vc_slide: {
+        backgroundColor: 'blue',
+        flexDirection: 'row',
+        justifyContent: 'center', alignContent: 'center',
     },
     slideView: {
         backgroundColor: 'green',
