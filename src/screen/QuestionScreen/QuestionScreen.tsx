@@ -5,8 +5,6 @@ import QuestionScreenContainer from "./QuestionScreenContainer";
 // import { Icon } from "native-base";
 import {Icon} from 'react-native-elements';
 
-  
-
 export default class QuizScreen extends React.Component {
 
     static navigationOptions = {
