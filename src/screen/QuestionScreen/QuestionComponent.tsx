@@ -14,13 +14,27 @@ export interface QuestionComponentProps{
     style?: ViewStyle
 }
 
+interface QuestionComponentState{
+    isImageZoom: boolean
+}
+
 const TWO_ROW_MAX_CHARACTER = 21;
 
-export default class QuestionComponent extends React.Component<QuestionComponentProps>{
+export default class QuestionComponent extends React.Component<QuestionComponentProps, QuestionComponentState>{
     constructor(prop: QuestionComponentProps){
         super(prop);
 
+        this.state = {
+            isImageZoom: false
+        }
     }
+
+    toggleImageZoom = () : void => {
+        this.setState({
+            isImageZoom : !this.state.isImageZoom
+        });
+    }
+
     renderAnswerButton(index: number, value: string) {
         const {onChooseAnswer, answerState, style} = this.props;
 
@@ -102,12 +116,14 @@ export default class QuestionComponent extends React.Component<QuestionComponent
                 <Card >
                         <ImageZoom 
                         cropWidth={widthPercentageToDP(100)}
-                        cropHeight={heightPercentageToDP(25)}
+                        cropHeight={this.state.isImageZoom ? heightPercentageToDP(80) : heightPercentageToDP(25)}
                         imageWidth={widthPercentageToDP(100)}
-                        imageHeight={heightPercentageToDP(25)}
+                        imageHeight={this.state.isImageZoom ? heightPercentageToDP(80) : heightPercentageToDP(25)}
                         minScale={0.2}
+                        enableDoubleClickZoom={false}
+                        onDoubleClick={this.toggleImageZoom}
                         style={styles.imageView as ImageStyle}>
-                            <Image style={{width: widthPercentageToDP(100), height: heightPercentageToDP(25)}}
+                            <Image style={{width: widthPercentageToDP(100), height: this.state.isImageZoom ? heightPercentageToDP(80) : heightPercentageToDP(25)}}
                                     source={question.imageAsset}
                                     resizeMode='contain'/>
                         </ImageZoom>
