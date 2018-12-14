@@ -14,9 +14,6 @@ import GestureView from './GestureView';
 import sharedQuizService from '../../services/QuizService';
 import QuestionComponent from './QuestionComponent';
 
-
-
-//TODO: Fix pre-enter pose
 const Box = posed.View({
     before: {
         x: 50,
@@ -48,6 +45,7 @@ interface States{
     isWaiting: boolean,
     isAnimation: boolean,
     isLoading: boolean,
+    isNextQuestion: boolean
     isOver: boolean
 }
 
@@ -60,6 +58,7 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
             isWaiting: false,
             isAnimation: false,
             isLoading: true,
+            isNextQuestion: true,
             isOver: false
         };
     }
@@ -100,6 +99,7 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
         //Wait a bit for disapperance animation
         await this.setState({
             isWaiting: false,
+            isNextQuestion: true
         });
         await quizStore.nextQuestion();
         await this.setState({
@@ -113,6 +113,7 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
         //Wait a bit for disapperance animation
         await this.setState({
             isWaiting: false,
+            isNextQuestion: false
         });
         await quizStore.prevQuestion();
         await this.setState({
@@ -200,7 +201,7 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
                     </TouchableOpacity>
                 </View>
                 <View >
-                <Transition preEnterPose='before' style={{position: 'absolute'}}>
+                <Transition preEnterPose={this.state.isNextQuestion ? 'before' : 'exit'} exitPose={this.state.isNextQuestion ? 'exit' : 'before'} style={{position: 'absolute'}}>
                 {
                     this.state.isAnimation 
                     ?
