@@ -73,6 +73,7 @@ import HomeScreen from './screen/HomeScreen';
 import ChartScreen from './screen/ChartScreen';
 import sharedQuizService from './services/QuizService';
 import ResultScreen from './screen/QuestionScreen/ResultScreen';
+import LeaderBoardScreen from './screen/LeaderBoardScreen';
 const AppContainer = createAppContainer(AppNavigator);
 
 export default class App extends React.Component {
@@ -108,7 +109,7 @@ export default class App extends React.Component {
         //     {Platform.OS === 'ios' && <StatusBar barStyle="default"/>}
         //     <AppContainer />
         // </View>
-        <MyApp/>
+        <LeaderBoardScreen/>
         );
     }
 }
