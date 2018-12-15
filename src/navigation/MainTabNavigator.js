@@ -1,13 +1,14 @@
 import React from 'react';
 import {Platform} from 'react-native';
-import {createStackNavigator, createBottomTabNavigator} from 'react-navigation';
+import {createStackNavigator, createBottomTabNavigator, createSwitchNavigator} from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screen/HomeScreen';
-import QuizScreen from '../screen/QuestionScreen/QuestionScreen';
-import TopicScreen from '../screen/TopicScreen';
+import QuizScreen from '../screen/QuestionScreen/QuizScreen';
+import ResultScreen from '../screen/QuestionScreen/ResultScreen';
+import TopicScreen from '../screen/vocabularySreen/TopicScreen';
 import ChartScreen from '../screen/ChartScreen';
-import WordScreen from '../screen/WordScreen';
+import WordScreen from '../screen/vocabularySreen/WordScreen';
 
 const HomeStack = createStackNavigator({
     Home: HomeScreen,
@@ -27,8 +28,11 @@ HomeStack.navigationOptions = {
     ),
 };
 
-const QuestionStack = createStackNavigator({
+const QuestionStack = createSwitchNavigator({
     Questions: QuizScreen,
+    Results: ResultScreen
+}, {
+    headerMode: 'none'
 });
 
 QuestionStack.navigationOptions = {
@@ -41,7 +45,7 @@ QuestionStack.navigationOptions = {
     ),
 };
 
-const TopicStack = createStackNavigator({
+const TopicStack = createSwitchNavigator({
     Topic: TopicScreen,
     Word: WordScreen,
 });

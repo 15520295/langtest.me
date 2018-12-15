@@ -2,19 +2,20 @@ import React from 'react';
 import {StyleSheet, Text, View, Image, Platform, StatusBar, SafeAreaView, ScrollView} from 'react-native';
 import {Root} from 'native-base';
 import {AppLoading, Asset, Font, Icon} from 'expo';
-import Expo from 'expo';
+import {Expo} from 'expo';
 
 import {
-    DrawerItems, createDrawerNavigator,createStackNavigator,createAppContainer,withNavigation
+    DrawerItems, createDrawerNavigator,createStackNavigator,createAppContainer,withNavigation, createSwitchNavigator
 } from 'react-navigation';
 
 import {
     Container, Header, Body, Content
 } from 'native-base';
 
-import TopicScreen from './screen/TopicScreen';
-import WordScreen from './screen/WordScreen';
-import QuizScreen from './screen/QuestionScreen/QuestionScreen';
+
+import QuizScreen from './screen/QuestionScreen/QuizScreen';
+import TopicScreen from './screen/vocabularySreen/TopicScreen';
+import WordScreen from './screen/vocabularySreen/WordScreen';
 
 //huy
 
@@ -70,6 +71,8 @@ const CustomDrawerContentComponent = (props) => (
 import AppNavigator from './navigation/AppNavigator';
 import HomeScreen from './screen/HomeScreen';
 import ChartScreen from './screen/ChartScreen';
+import sharedQuizService from './services/QuizService';
+import ResultScreen from './screen/QuestionScreen/ResultScreen';
 const AppContainer = createAppContainer(AppNavigator);
 
 export default class App extends React.Component {
@@ -86,12 +89,13 @@ export default class App extends React.Component {
             // 'Roboto_light': require('./../assets/fonts/Roboto-Light.ttf'),
             'Ionicons': require('@expo/vector-icons/fonts/Ionicons.ttf')
         });
+        await sharedQuizService.initQuickTest(5, 3);
         this.setState({loading: false});
     }
 
     render() {
         if(this.state.loading){
-            return (<Expo.AppLoading/>);
+            return (<AppLoading/>);
         }
         return (
         // <View style={styles.container}>
@@ -109,20 +113,29 @@ export default class App extends React.Component {
     }
 }
 
+const TopicStack = createSwitchNavigator({
+    Topic: TopicScreen,
+    Word: WordScreen,
+});
+
+const QuestionStack = createSwitchNavigator({
+    Questions: QuizScreen,
+    Results: ResultScreen
+});
+
 const MyDrawerNavigator = createDrawerNavigator({
     Home: {
         screen: HomeScreen
     },
     Question: {
-        screen: QuizScreen
+        screen: QuestionStack
     },
     Topic: {
-        screen: TopicScreen
+        screen: TopicStack,
     },
     Chart: {
         screen: ChartScreen
     },
-
 },
 {
     contentComponent: CustomDrawerContentComponent,

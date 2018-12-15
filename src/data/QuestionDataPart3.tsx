@@ -9,8 +9,9 @@ const QuestionDataPart3 : IQuestion[] = [{
     explain: "Nothing at all",
     help: "Arimasen",
     audioAsset: require('./../../assets/audio/doraemon.mp3'),
+    difficultLevel: 3
 }, {
-    id: 'p3_001',
+    id: 'p3_002',
     type: QuestionType.part3,
     question: 'Look at the graphic. What size screen will the man order? ',
     answer: ['11 inches', '13 inches', '15 inches', '17 inches'],
@@ -18,7 +19,8 @@ const QuestionDataPart3 : IQuestion[] = [{
     explain: "Nothing at all",
     help: "Arimasen",
     audioAsset: require('./../../assets/audio/doraemon.mp3'),
-    imageAsset: require('./../../assets/images/part3/p3_002.png')
+    imageAsset: require('./../../assets/images/part3/p3_002.png'),
+    difficultLevel: 3
 }];
 
 export default QuestionDataPart3;

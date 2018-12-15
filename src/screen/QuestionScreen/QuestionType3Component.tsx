@@ -5,6 +5,7 @@ import IQuestion from '../../entity/Question';
 import { systemWeights } from 'react-native-typography';
 import AnswerButton, { AnswerState } from './AnswerButton';
 import { widthPercentageToDP, heightPercentageToDP } from '../../helper/ratioHelper';
+import ImageZoom from 'react-native-image-pan-zoom';
 export interface Props{
     question: IQuestion,
     answerState: AnswerState[],
@@ -28,13 +29,22 @@ export default class QuestionType3Component extends React.Component<Props>{
             </View>)
     }
     render() {
-        const {question} = this.props;
+        const {question} = this.props;  
         return (
             <View style={styles.container}>
                 {question.imageAsset && 
-                    <Image style={styles.imageView as ImageStyle}
-                            source={question.imageAsset}
-                            resizeMode='contain'/>
+                    <ImageZoom 
+                        cropWidth={widthPercentageToDP(84)}
+                       cropHeight={heightPercentageToDP(33)}
+                       imageWidth={widthPercentageToDP(84)}
+                       imageHeight={heightPercentageToDP(33)}
+                       minScale={0.2}
+                    style={styles.imageView as ImageStyle}>
+                        <Image style={{width: widthPercentageToDP(84), height: heightPercentageToDP(33)}}
+                                source={question.imageAsset}
+                                resizeMode='contain'/>
+                    </ImageZoom>
+
                 }
                 <Text adjustsFontSizeToFit minimumFontScale={.5} style={styles.questionText}>	
                         {question.question}
@@ -65,7 +75,6 @@ const styles = StyleSheet.create({
         marginRight: widthPercentageToDP(8),
         marginTop: heightPercentageToDP(2),
         marginBottom: heightPercentageToDP(2),
-        maxHeight: heightPercentageToDP(33),
         justifyContent: 'center',
         alignItems: 'stretch'
     },

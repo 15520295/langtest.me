@@ -1,11 +1,8 @@
 import {Container} from 'unstated';
 import IQuestion from '../entity/Question';
-import QuestionDataPart1 from '../data/QuestionDataPart1';
-import QuestionDataPart2 from '../data/QuestionDataPart2';
-import QuestionDataPart5 from '../data/QuestionDataPart5';
-import QuestionDataPart4 from '../data/QuestionDataPart4';
-import QuestionDataPart3 from '../data/QuestionDataPart3';
-import QuestionDataPart7 from '../data/QuestionDataPart7';
+import { AnswerState } from '../screen/QuestionScreen/AnswerButton';
+import IQuizService from '../services/IQuizService';
+import sharedQuizService from '../services/QuizService';
 
 export interface quizStoreInterface {
     questionList: IQuestion[],
@@ -16,27 +13,35 @@ export interface quizStoreInterface {
 }
 
 export default class QuizStore extends Container<quizStoreInterface>{
-    constructor(){
+    _quizService: IQuizService = null;
+    constructor(quizService?: IQuizService){
         super();
+
+        if(quizService){
+            this._quizService = quizService;
+        } else {
+            this._quizService = sharedQuizService;
+        }
+
         this.state = {
-            questionList: QuestionDataPart1.concat(QuestionDataPart2).concat(QuestionDataPart3).concat(QuestionDataPart4).concat(QuestionDataPart5).concat(QuestionDataPart7),
+            questionList: [],
             correctedAnswer: 0,
             uncorrectedAnswer: 0,
             selectedAnswer: new Map<string, number>(),
             currentQuestion: 0
         }
+
     }
 
-    //TODO: Add order init method
-    init() : void{
+    async init() : Promise<void>{
         this.reset();
-        this.setState({
-            questionList: QuestionDataPart1
+        await this.setState({
+            questionList: this._quizService.getQuestion()
         });
     }
 
-    reset() : void{
-        this.setState({
+    async reset() : Promise<void>{
+        await this.setState({
             questionList: [],
             correctedAnswer: 0,
             uncorrectedAnswer: 0,
@@ -45,19 +50,22 @@ export default class QuizStore extends Container<quizStoreInterface>{
         })
     }
 
-    nextQuestion() : void{
-        this.setState({
+    async nextQuestion() : Promise<void>{
+        await this.setState({
             currentQuestion: (this.state.currentQuestion + 1) % this.state.questionList.length
         })
     } 
     
-    prevQuestion() : void{
-        this.setState({
+    async prevQuestion() : Promise<void>{
+        await this.setState({
             currentQuestion: (this.state.currentQuestion + this.state.questionList.length - 1) % this.state.questionList.length
         })
     }
 
     answerQuestion(answer: number) : boolean{
+        if(this.isCurrentQuestionAnswered()){
+            return false;
+        }
         var currentQuestion = this.state.questionList[this.state.currentQuestion];
         var selectedAnswer : Map<string, number> = this.state.selectedAnswer;
         selectedAnswer.set(currentQuestion.id, answer);
@@ -87,5 +95,20 @@ export default class QuizStore extends Container<quizStoreInterface>{
 
     getTotalQuestionNumber(): number {
         return this.state.questionList.length;
+    }
+
+    isCurrentQuestionAnswered() : boolean {
+        return this.state.selectedAnswer.has(this.getCurrentQuestionInfo().id);
+    }
+
+    getCurrentAnswerState(): AnswerState[] {
+        var answerState: AnswerState[] = [AnswerState.normal, AnswerState.normal, AnswerState.normal, AnswerState.normal]
+        var question: IQuestion = this.getCurrentQuestionInfo();
+        if(this.isCurrentQuestionAnswered()){
+            answerState[this.state.selectedAnswer.get(question.id)] = AnswerState.uncorrected;
+            answerState[question.correctAnswer] = AnswerState.corrected;
+        }
+
+        return answerState;
     }
 }

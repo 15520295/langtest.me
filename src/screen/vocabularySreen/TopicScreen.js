@@ -6,26 +6,24 @@ import {
     Body,
     Right,
     Button,
-    Icon,
     Title,
     View,
     Text,
-    Content
+    Content,
+    Icon
 } from 'native-base';
 
 import {
     StyleSheet,
     TouchableOpacity,
-    Platform
+    Platform, FlatList
 } from 'react-native';
-import TopicFlatList from '../components/vocabulary/TopicFlatList';
-import WordFlatList from '../components/vocabulary/WordFlatList';
+import TopicFlatList from '../../components/vocabulary/TopicFlatList';
+import UserScore from '../../components/vocabulary/UserScore';
+import flatListData from '../../data/TopicData';
+import TopicFlatListItem from '../../components/vocabulary/TopicFlatListItem';
 
-export default class WordScreen extends React.Component {
-    static navigationOptions = {
-        header: null // !!! Hide Header
-    };
-
+export default class TopicScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -33,6 +31,15 @@ export default class WordScreen extends React.Component {
 
         };
     }
+
+    static navigationOptions = {
+        header: null, // !!! Hide Header
+        drawerIcon: ({tintColor}) => (
+            <Icon name='clipboard' style= {{ fontSize: 24, color: tintColor}}/>
+        )
+        // title:'Home 1',
+       
+    };
 
     nextQuestion = () => {
         this.setState({
@@ -63,36 +70,37 @@ export default class WordScreen extends React.Component {
     };
 
     render() {
-        const { navigation } = this.props;
-        const topicName = navigation.getParam('topicName', 'null');
-
         return (
             <Container style={styles.container}>
                 <Header androidStatusBarColor="#0076BF"
                         style={{backgroundColor: Platform.OS === 'android' ? '#019AE8' : '#FFFFFF'}}>
                     <Left>
-                        <Button transparent>
-                            <Icon android='md-arrow-back' ios='ios-arrow-back'/>
-                        </Button>
+                        {/*<Button transparent>*/}
+                            {/*<Icon android='md-arrow-back' ios='ios-arrow-back'/>*/}
+                        {/*</Button>*/}
                     </Left>
                     <Body>
-                    <Title>Part 5</Title>
+                    <Title>Topic Screen</Title>
                     </Body>
                     <Right>
-                        <Button transparent>
-                            {/*<Title style={{paddingRight: 10}}>{this.state.correctAnswer}</Title>*/}
-                            {/*<Icon android='md-thumbs-up' ios='ios-thumbs-up'/>*/}
-                        </Button>
-                        <Button transparent>
-                            {/*<Title style={{paddingRight: 10}}>{this.state.incorrectAnswer}</Title>*/}
-                            {/*<Icon android='md-thumbs-down' ios='ios-thumbs-down'/>*/}
-                        </Button>
+
                     </Right>
                 </Header>
                 <Content>
+                    <UserScore/>
+                    <View style={{ flex: 1,
+                        backgroundColor:'#EEEEEE'}}>
+                        <FlatList
+                            data={flatListData}
+                            renderItem={({ item, index }) => {
+                                return (
+                                    <TopicFlatListItem item={item} index={index}>
 
-                    <WordFlatList/>
-
+                                    </TopicFlatListItem>);
+                            }}
+                            keyExtractor={(item, index) => item.id}
+                        />
+                    </View>
                 </Content>
             </Container>
         );

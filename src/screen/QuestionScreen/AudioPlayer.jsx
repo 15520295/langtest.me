@@ -51,6 +51,10 @@ export default class AudioPlayer extends Component {
 	    this._loadNewPlaybackInstance(false);
 	}
 	
+	componentWillUnmount() {
+		this._onStopPressed();
+	}
+	
     async _loadNewPlaybackInstance(playing) {
 	    if (this.playbackInstance != null) {
 	        await this.playbackInstance.unloadAsync();
@@ -65,7 +69,7 @@ export default class AudioPlayer extends Component {
 	        volume: this.state.volume,
 	    };
 
-	    const { sound, status } = await Audio.Sound.create(
+	    const { sound, status } = await Audio.Sound.createAsync(
 	        source,
 	        initialStatus,
 	        this._onPlaybackStatusUpdate
