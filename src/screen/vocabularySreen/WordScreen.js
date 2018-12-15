@@ -69,7 +69,8 @@ class WordScreen extends React.Component {
                     <Title>{topic.name}</Title>
                     </Body>
                 </Header>
-                <Content>
+                <Content
+                    contentContainerStyle={{ flexGrow: 1 }}>
                     <View style={{ flex: 1,
                         backgroundColor:'#EEEEEE'}}>
                         <FlatList

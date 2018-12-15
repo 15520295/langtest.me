@@ -27,6 +27,7 @@ import * as Progress from 'react-native-progress';
 
 import wordMap from '../../data/VocabularyList';
 import WordFlatListItem from '../../components/vocabulary/WordFlatListItem';
+import Slider from 'react-native-slider';
 
 
 export default class LearnScreen extends React.Component {
@@ -42,9 +43,10 @@ export default class LearnScreen extends React.Component {
             counter: this.counterMaxValue,
             progress: 0,
             topicID: 't1',
-            
+
             // picker
             selected: this.counterMaxValue,
+            sliderValue:this.counterMaxValue,
         };
         // animation
         this.animA = new Animated.Value(-this.screenWidth);
@@ -81,7 +83,7 @@ export default class LearnScreen extends React.Component {
         ]).start(() => {
             this.startTimer();
 
-            if (this.curWordA === wordMap[this.props.navigation.state.params.topic.id].length - 1) {
+            if (this.curWordA === wordMap['t1'].length - 1) {//this.props.navigation.state.params.topic.id
                 this.curWordB = 0;
             } else {
                 this.curWordB = this.curWordA + 1;
@@ -105,7 +107,7 @@ export default class LearnScreen extends React.Component {
         ]).start(() => {
             this.startTimer();
 
-            if (this.curWordB === wordMap[this.props.navigation.state.params.topic.id].length - 1) {
+            if (this.curWordB === wordMap['t1'].length - 1) {//this.props.navigation.state.params.topic.id
                 this.curWordA = 0;
             } else {
                 this.curWordA = this.curWordB + 1;
@@ -175,17 +177,18 @@ export default class LearnScreen extends React.Component {
     //endregion
 
     // --------------- Picker
-    onValueChange(value) {
+
+    _onSeekSliderValueChange = async value => {
         this.setState({
-            selected: value
+            sliderValue: value,
         });
         this.counterMaxValue = value;
-    }
+    };
 
     render() {
 
-        const {navigation} = this.props;
-        const topic = navigation.getParam('topic', null);
+        // const {navigation} = this.props;
+        // const topic = navigation.getParam('topic', null);
 
         return (
             <Container style={styles.container}>
@@ -202,82 +205,129 @@ export default class LearnScreen extends React.Component {
                     <Right>
                     </Right>
                 </Header>
-                <Content>
+                <Content
+                    contentContainerStyle={{ flexGrow: 1 }}>
                     <View
-                        style={styles.vc_top}>
+                        style={{flex: 1}}>
                         <View
-                            style={styles.vc_timer}>
-                            <Progress.Circle
-                                size={50}
-                                showsText={false}
-                                progress={this.state.progress}
-                                borderWidth={0}
-                                thickness={4}
-                                fill="white"
-                                style={{}}/>
+                            style={{flex: 50,
+                                justifyContent: 'flex-end',
+                                alignContent: 'center',}}>
                             <View
-                                style={styles.vc_timerCounter}>
-                                <Text>
-                                    {this.state.counter}
-                                </Text>
+                                style={{
+                                    minHeight:280,
+                                    flexDirection: 'row',
+                                    alignContent: 'center',
+                                }}>
+                                <Animated.View
+                                    style={[
+                                        {
+                                            width: this.screenWidth,
+                                        },
+                                        {
+                                            transform: [
+                                                {translateX: this.animA}
+                                            ]
+                                        }
+                                    ]
+                                    }>
+                                    <WordFlatListItem
+                                        item={wordMap['t1'][this.curWordA]}//topic.id
+                                        ref={component => this.wordComponentA = component} // for perform click
+                                    >
+
+                                    </WordFlatListItem>
+                                </Animated.View>
+                                <Animated.View
+                                    style={[
+                                        {
+                                            width: this.screenWidth,
+                                        },
+                                        {
+                                            transform: [
+                                                {translateX: this.animB}]
+                                        }
+                                    ]
+                                    }>
+                                    <WordFlatListItem
+                                        item={wordMap['t1'][this.curWordB]}//topic.id
+                                        ref={component => this.wordComponentB = component} // for perform click
+                                    >
+
+                                    </WordFlatListItem>
+                                </Animated.View>
                             </View>
                         </View>
                         <View
-                            style={styles.vc_timerPicker}>
-                            <Picker
-                                mode="dropdown"
-                                iosHeader="Select Time Out"
-                                iosIcon={<Icon name="ios-arrow-down-outline" />}
-                                style={{ width: undefined }}
-                                selectedValue={this.state.selected}
-                                onValueChange={this.onValueChange.bind(this)}
-                            >
-                                <Picker.Item label="1s" value={1} />
-                                <Picker.Item label="2s" value={2} />
-                                <Picker.Item label="3s" value={3} />
-                                <Picker.Item label="4s" value={4} />
-                                <Picker.Item label="5s" value={5} />
-                                <Picker.Item label="8s" value={8} />
-                                <Picker.Item label="10s" value={10} />
-                            </Picker>
+                            style={{flex: 50,
+                                flexDirection: 'column',
+                                justifyContent: 'space-around',
+                                alignContent: 'center',
+                                paddingBottom:60,
+                                paddingTop:30,
+                            }}>
+                            <View
+                                style={{flex: 0,
+                                    flexDirection: 'column',
+                                }}>
+                                <View
+                                    style={styles.vc_top}>
+                                    <View
+                                        style={styles.vc_timer}>
+                                        <Progress.Circle
+                                            size={50}
+                                            showsText={false}
+                                            progress={this.state.progress}
+                                            borderWidth={0}
+                                            thickness={4}
+                                            fill='white'
+                                            color='#00BCD4'
+                                            style={{}}/>
+                                        <View
+                                            style={styles.vc_timerCounter}>
+                                            <Text>
+                                                {this.state.counter}
+                                            </Text>
+                                        </View>
+                                    </View>
+                                </View>
+                            </View>
+                            <View
+                                style={{flex: 0,
+                                    flexDirection: 'row',
+                                    paddingHorizontal: 60
+                                }}>
+                                <View
+                                    style={{flex: 80,
+                                    }}>
+                                    <Slider
+                                        style={styles.slider}
+                                        minimumValue={1}
+                                        maximumValue={10}
+                                        step={1}
+                                        value={this.state.sliderValue}
+                                        onValueChange={this._onSeekSliderValueChange}
+                                        trackStyle={styles.sliderTrack}
+                                        thumbStyle={styles.sliderThumb}
+                                        thumbTintColor='#000000'
+                                        minimumTrackTintColor='#78E589'
+                                    />
+                                </View>
+                                <Text
+                                    style={{
+                                        flex: 20,
+                                        textAlignVertical: 'center',
+                                        textAlign: 'center',
+                                        color: '#55BE66',
+                                        fontWeight:'bold'
+                                    }}>
+                                    {this.state.sliderValue}s
+                                </Text>
+                            </View>
+
                         </View>
                     </View>
-                    <View
-                        style={{flex: 0, flexDirection: 'row'}}>
-                        <Animated.View
-                            style={[
-                                {width: this.screenWidth, backgroundColor: 'red'},
-                                {
-                                    transform: [
-                                        {translateX: this.animA}
-                                    ]
-                                }
-                            ]
-                            }>
-                            <WordFlatListItem
-                                item={wordMap[topic.id][this.curWordA]}
-                                ref={component => this.wordComponentA = component} // for perform click
-                            >
 
-                            </WordFlatListItem>
-                        </Animated.View>
-                        <Animated.View
-                            style={[
-                                {width: this.screenWidth, backgroundColor: 'blue'},
-                                {
-                                    transform: [
-                                        {translateX: this.animB}]
-                                }
-                            ]
-                            }>
-                            <WordFlatListItem
-                                item={wordMap[topic.id][this.curWordB]}
-                                ref={component => this.wordComponentB = component} // for perform click
-                            >
-
-                            </WordFlatListItem>
-                        </Animated.View>
-                    </View>
                 </Content>
             </Container>
         );
@@ -286,7 +336,8 @@ export default class LearnScreen extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'gray'
+        flex: 1,
+        backgroundColor: '#E5E5E5'
     },
     vc_top: {
         flex: 0,
@@ -315,12 +366,31 @@ const styles = StyleSheet.create({
         position: 'absolute',
     },
     vc_slide: {
-        backgroundColor: 'blue',
         flexDirection: 'row',
         justifyContent: 'center', alignContent: 'center',
     },
     slideView: {
-        backgroundColor: 'green',
         flex: 1,
     },
+    slider: {
+        width: '100%',
+        marginLeft: 10,
+        marginRight: 10,
+    },
+    sliderTrack: {
+        height: 14,
+        borderRadius: 2,
+        backgroundColor: 'white',
+        borderColor: '#9a9a9a',
+        borderWidth: 1,
+    },
+    sliderThumb: {
+        width: 20,
+        height: 20,
+        borderRadius: 2,
+        backgroundColor: '#eaeaea',
+        borderColor: '#9a9a9a',
+        borderWidth: 1,
+    }
+
 });

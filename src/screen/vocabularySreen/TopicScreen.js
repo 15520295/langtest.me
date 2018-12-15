@@ -86,7 +86,8 @@ export default class TopicScreen extends React.Component {
 
                     </Right>
                 </Header>
-                <Content>
+                <Content
+                    contentContainerStyle={{ flexGrow: 1 }}>
                     <UserScore/>
                     <View style={{ flex: 1,
                         backgroundColor:'#EEEEEE'}}>
