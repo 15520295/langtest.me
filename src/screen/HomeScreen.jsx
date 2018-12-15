@@ -244,21 +244,38 @@ export default class HomeScreen extends PureComponent {
                   alignItems: 'center'}}>
                   <View style={[styles.cardMain, {backgroundColor: '#ffffff'}]}>
                       <View style={{flexDirection: 'row'}}>
-                          <View style={{flexDirection: 'column'}}>
+                          <View style={{flexDirection: 'column', marginLeft: 10}}>
                               <Text style={{color: '#0099DA',
                                   fontStyle: 'italic',
                                   fontSize: 16}}>Your Result</Text>
                               <View style={{flexDirection:'row', marginTop: 10, alignItems:'center'}}>
                                   <View style={[styles.iconDoc, {backgroundColor: '#BC9CFF'}]}/>
-                                  <Text style={{color: '#888888', marginLeft: 10}}>Time spent: 2112 minutes</Text>
+                                  <Text style={{color: '#888888', marginLeft: 10,
+                                      fontSize: 12
+                                  }}>Time spent: 2112 minutes</Text>
                               </View>
                               <View style={{flexDirection:'row', marginTop: 10, alignItems:'center'}}>
                                   <View style={[styles.iconDoc, {backgroundColor: '#FFBA9C'}]}/>
-                                  <Text style={{color: '#888888', marginLeft: 10}}>1912 Questions</Text>
+                                  <Text style={{color: '#888888', marginLeft: 10,
+                                      fontSize: 12
+                                  }}>1912 Questions</Text>
                               </View>
                           </View>
-                          <View style={{}}>
-                              
+
+                          <View>
+                              <TouchableOpacity style={{marginLeft: 20, alignItems:'center',
+                                  justifyContent:'center', flex: 1}}>
+                                  <View style={{
+                                      backgroundColor: 'red', alignItems: 'center',
+                                      justifyContent: 'center', borderRadius: 30, height: 50,
+                                      width: 150, position: 'absolute'
+                                  }}
+                                  >
+                                      <Image style={{alignItems: 'center',
+                                          justifyContent: 'center', borderRadius: 30, height: 50,
+                                          width: 150,}} source={require('../../assets/images/rectangle.jpg')}/>
+                                  </View>
+                              </TouchableOpacity>
                           </View>
                       </View>
                   </View>
@@ -298,8 +315,8 @@ const styles = StyleSheet.create({
     gridView: {
         marginTop: 50,
         flex: 1,
-        marginLeft: 10,
-        marginRight: 10
+        marginLeft: 15,
+        marginRight: 15
     },
     itemContainer: {
         borderRadius: 10,
@@ -332,7 +349,24 @@ const styles = StyleSheet.create({
         width: 10,
         borderRadius:60,
         justifyContent:'center',
-    }
+    },
+    LinearGradientStyle: {
+        height: 40,
+        paddingLeft: 15,
+        paddingRight: 15,
+        borderRadius: 5,
+        marginBottom: 20
+    },
+
+    buttonText: {
+        fontSize: 18,
+        textAlign: 'center',
+        margin: 7,
+        color : '#fff',
+        backgroundColor: 'transparent'
+
+    },
+
     // viewCard: {
     //     // flex: 1
     //     width: ItemWidth,
