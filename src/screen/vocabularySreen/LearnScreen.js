@@ -83,7 +83,7 @@ export default class LearnScreen extends React.Component {
         ]).start(() => {
             this.startTimer();
 
-            if (this.curWordA === wordMap['t1'].length - 1) {//this.props.navigation.state.params.topic.id
+            if (this.curWordA === wordMap[this.props.navigation.state.params.topic.id].length - 1) {//
                 this.curWordB = 0;
             } else {
                 this.curWordB = this.curWordA + 1;
@@ -107,7 +107,7 @@ export default class LearnScreen extends React.Component {
         ]).start(() => {
             this.startTimer();
 
-            if (this.curWordB === wordMap['t1'].length - 1) {//this.props.navigation.state.params.topic.id
+            if (this.curWordB === wordMap[this.props.navigation.state.params.topic.id].length - 1) {//
                 this.curWordA = 0;
             } else {
                 this.curWordA = this.curWordB + 1;
@@ -187,8 +187,8 @@ export default class LearnScreen extends React.Component {
 
     render() {
 
-        // const {navigation} = this.props;
-        // const topic = navigation.getParam('topic', null);
+        const {navigation} = this.props;
+        const topic = navigation.getParam('topic', null);
 
         return (
             <Container style={styles.container}>
@@ -232,7 +232,7 @@ export default class LearnScreen extends React.Component {
                                     ]
                                     }>
                                     <WordFlatListItem
-                                        item={wordMap['t1'][this.curWordA]}//topic.id
+                                        item={wordMap[topic.id][this.curWordA]}//
                                         ref={component => this.wordComponentA = component} // for perform click
                                     >
 
@@ -250,7 +250,7 @@ export default class LearnScreen extends React.Component {
                                     ]
                                     }>
                                     <WordFlatListItem
-                                        item={wordMap['t1'][this.curWordB]}//topic.id
+                                        item={wordMap[topic.id][this.curWordB]}//
                                         ref={component => this.wordComponentB = component} // for perform click
                                     >
 
@@ -285,7 +285,8 @@ export default class LearnScreen extends React.Component {
                                             style={{}}/>
                                         <View
                                             style={styles.vc_timerCounter}>
-                                            <Text>
+                                            <Text
+                                                style={{color:'#55BE66'}}>
                                                 {this.state.counter}
                                             </Text>
                                         </View>
