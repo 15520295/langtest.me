@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Icon, View, Text, Content} from 'native-base';
-import {StyleSheet, TouchableOpacity, Alert} from 'react-native';
+import {StyleSheet, TouchableOpacity, Alert, Platform} from 'react-native';
 import {AppLoading} from 'expo';
 import { AnswerState } from './AnswerButton';
 import posed, { Transition } from 'react-native-pose';
@@ -14,7 +14,25 @@ import GestureView from './GestureView';
 import sharedQuizService from '../../services/QuizService';
 import QuestionComponent from './QuestionComponent';
 
-const Box = posed.View({
+const BoxAndroid = posed.View({
+    before: {
+        x: widthPercentageToDP(100),
+        y: 0,
+        scale: 0.5
+    },
+    enter: {
+        x: 0,
+        y: 0,
+        scale: 1
+    },
+    exit: {
+        x: -widthPercentageToDP(100),
+        y: 0,
+        scale: 0.5
+    }
+});
+
+const BoxiOS = posed.View({
     before: {
         x: 50,
         y: 0,
@@ -35,7 +53,6 @@ const Box = posed.View({
     }
 });
 
-
 export interface QuizScreenContainerProps extends NavigationScreenProps<{}>{ 
     quizStore: QuizStore,
 }
@@ -52,7 +69,6 @@ interface States{
 export default class QuizScreenContainer extends React.Component<QuizScreenContainerProps, States>{
     constructor(props: QuizScreenContainerProps){
         super(props);
-        
         this.state = {
             answerState: [AnswerState.normal, AnswerState.normal, AnswerState.normal, AnswerState.normal],
             isWaiting: false,
@@ -96,7 +112,7 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
     nextQuestion = async () => {
         this.flipAnimation();
         const {quizStore} = this.props;
-        //Wait a bit for disapperance animation
+        // Wait a bit for disapperance animation
         await this.setState({
             isWaiting: false,
             isNextQuestion: true
@@ -200,28 +216,46 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
                         <Icon name='arrow-forward' style={{color: '#019AE8'}} android="md-arrow-forward" ios="ios-arrow-forward" /> 
                     </TouchableOpacity>
                 </View>
-                <View >
-                <Transition preEnterPose={this.state.isNextQuestion ? 'before' : 'exit'} exitPose={this.state.isNextQuestion ? 'exit' : 'before'} style={{position: 'absolute'}}>
+                {Platform.OS === 'ios'
+                ?
+                <Transition preEnterPose={this.state.isNextQuestion ? 'before' : 'exit'} 
+                            exitPose={this.state.isNextQuestion ? 'exit' : 'before'} style={{position: 'absolute'}}>
                 {
                     this.state.isAnimation 
                     ?
-                    <Box key='question'>
+                    <BoxiOS key='question'>
                         {this.renderQuestion()}
-                    </Box>
+                    </BoxiOS>
                     :
-                    <Box key='question2'>
+                    <BoxiOS key='question2'>
                         {this.renderQuestion()}
-                    </Box>
+                    </BoxiOS>
                 }
                 </Transition>
-                </View>
+                :
+                <Transition preEnterPose={this.state.isNextQuestion ? 'before' : 'exit'} 
+                exitPose={this.state.isNextQuestion ? 'exit' : 'before'}
+                enterAfterExit={true}>
+                {
+                    this.state.isAnimation 
+                    ?
+                    <BoxAndroid key='question'>
+                        {this.renderQuestion()}
+                    </BoxAndroid>
+                    :
+                    <BoxAndroid key='question2'>
+                        {this.renderQuestion()}
+                    </BoxAndroid>
+                }
+                </Transition>
+                }
             </View>
         );
     }
 
     render() {
-        if(this.state.isLoading || this.state.isOver){
-            return <AppLoading/>
+        if (this.state.isLoading || this.state.isOver){
+            return <AppLoading/>;
         };
 
         const {quizStore} = this.props;
@@ -230,21 +264,21 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
             <Container>
                 <View style={styles.container}>
                     <QuizScreenHeader
-                        title={question.type}
-                        correctAnswer={quizStore.state.correctedAnswer}
-                        uncorrectedAnswer={quizStore.state.uncorrectedAnswer}
-                        onFinishButton={this.finishQuiz}
+                            title={question.type}
+                            correctAnswer={quizStore.state.correctedAnswer}
+                            uncorrectedAnswer={quizStore.state.uncorrectedAnswer}
+                            onFinishButton={this.finishQuiz}
                     />
-                    <QuizScreenTimer interval={500} 
-                    totalTime={5 * 60 * 1000} 
-                    style={styles.timer} 
-                    height={heightPercentageToDP(0.75)} 
-                    width={widthPercentageToDP(100)}
-                    color="#019AE8"
-                    borderColor="white"
-                    borderRadius={0}
-                    onOver = {() => {this.quizOver()}}/>
                     <Content scrollEnabled={false}>
+                        <QuizScreenTimer interval={500} 
+                        totalTime={5 * 60 * 1000} 
+                        style={styles.timer} 
+                        height={heightPercentageToDP(0.75)} 
+                        width={widthPercentageToDP(100)}
+                        color="#019AE8"
+                        borderColor="white"
+                        borderRadius={0}
+                        onOver = {() => {this.quizOver()}}/>
                         <GestureView onLeftSwipe={()=> {this.prevQuestion()}}
                             onRightSwipe={() => {this.nextQuestion()}}
                             style={{flex: 1}}>

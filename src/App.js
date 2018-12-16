@@ -109,7 +109,7 @@ export default class App extends React.Component {
         //     {Platform.OS === 'ios' && <StatusBar barStyle="default"/>}
         //     <AppContainer />
         // </View>
-        <LeaderBoardScreen/>
+        <MyApp/>
         );
     }
 }
