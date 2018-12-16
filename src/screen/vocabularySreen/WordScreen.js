@@ -18,6 +18,7 @@ import {
     TouchableOpacity,
     Platform,
     FlatList,
+    Alert,
 } from 'react-native';
 
 import ActionButton from 'react-native-action-button';
@@ -26,6 +27,7 @@ import WordFlatListItem from '../../components/vocabulary/WordFlatListItem';
 import sharedQuizService from '../../services/QuizService';
 import VocabularyTestData from '../../data/VocabularyTestData';
 import {withNavigation} from 'react-navigation';
+import {QuestionType} from '../../entity/Question';
 
 
 class WordScreen extends React.Component {
@@ -35,24 +37,87 @@ class WordScreen extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-        };
+        this.state = {};
 
     }
 
+    _topicToTestData(topic) {
+        const questionArr = [];
+        for (let curWordIndex = 0; curWordIndex < topic.length; curWordIndex++) {
+
+            const correctAnswerNum = Math.floor(Math.random() * 4);
+            let correctWord = topic[curWordIndex];
+
+            // Random answer array
+            const answerArrIndex = [];
+            while (answerArrIndex.length <= 3) {
+                const answerIndex = Math.floor(Math.random() * topic.length);
+
+                let isAdded = false;
+                for (const answerIndexGetted of answerArrIndex) {
+                    if ((answerIndex === answerIndexGetted)
+                        || (answerIndex === curWordIndex)) {
+                        isAdded = true;
+                        break;
+                    }
+                }
+
+                if (! isAdded) {
+                    answerArrIndex.push(answerIndex);
+                }
+            }
+
+            // put Answer and Correct answer into one Array
+            const answerArr = [];
+            for (let i = 0, j = 0; i < 4; i++) {
+                if (i === correctAnswerNum) {
+                    answerArr.push(correctWord.translate);
+                } else {
+                    answerArr.push(topic[ answerArrIndex[j] ].translate);
+                    j++;
+                }
+            }
+
+            //push question to array
+            const question = {
+                id: correctWord.id,
+                type: QuestionType.vocabulary,
+                question: correctWord.word,
+                answer: answerArr,
+                correctAnswer: correctAnswerNum,
+                imageAsset: correctWord.img,
+                explain: 'Nothing at all',
+                help: correctWord.ex,
+                difficultLevel: 3,
+                comeWith: [correctWord.id]
+            };
+            questionArr.push(
+                question
+            );
+        }
+        return questionArr;
+    }
+
     _testVocabularyScreen(topic) {
-        sharedQuizService.initTestVocabulary(VocabularyTestData);
-        this.props.navigation.navigate('Questions');
+        if (topic.length < 4) {
+            Alert.alert(
+                'Alert',
+                'Not enough data to run test!',
+            );
+        } else {
+            sharedQuizService.initTestVocabulary(this._topicToTestData(topic));
+            this.props.navigation.navigate('Questions');
+        }
     }
 
     _learnScreen(topic) {
         this.props.navigation.navigate('Learn', {
-            topic:topic
+            topic: topic
         });
     }
 
     render() {
-        const { navigation } = this.props;
+        const {navigation} = this.props;
         const topic = navigation.getParam('topic', null);
 
 
@@ -70,12 +135,14 @@ class WordScreen extends React.Component {
                     </Body>
                 </Header>
                 <Content
-                    contentContainerStyle={{ flexGrow: 1 }}>
-                    <View style={{ flex: 1,
-                        backgroundColor:'#EEEEEE'}}>
+                    contentContainerStyle={{flexGrow: 1}}>
+                    <View style={{
+                        flex: 1,
+                        backgroundColor: '#EEEEEE'
+                    }}>
                         <FlatList
                             data={wordMap[topic.id]}
-                            renderItem={({ item, index }) => {
+                            renderItem={({item, index}) => {
                                 return (
                                     <WordFlatListItem item={item} index={index}>
 
@@ -98,28 +165,30 @@ class WordScreen extends React.Component {
                         buttonColor="#3498db"
                         title="Học Từ"
                         onPress={() => {
-                            this._learnScreen(topic);
+                            this._learnScreen(wordMap[topic.id]);
                         }}>
                         <Icon type="Ionicons"
                               name="md-book"
                               style={{
                                   color: 'white',
                                   fontSize: 22,
-                                  height: 22,}}
+                                  height: 22,
+                              }}
                         />
                     </ActionButton.Item>
                     <ActionButton.Item
                         buttonColor="#3498db"
                         title="Luyện Tập"
                         onPress={() => {
-                            this._testVocabularyScreen(topic);
+                            this._testVocabularyScreen(wordMap[topic.id]);
                         }}>
                         <Icon type="Entypo"
                               name="controller-play"
                               style={{
                                   color: 'white',
                                   fontSize: 22,
-                                  height: 22,}}
+                                  height: 22,
+                              }}
                         />
                     </ActionButton.Item>
                 </ActionButton>
@@ -136,10 +205,10 @@ const styles = StyleSheet.create({
         width: 100,
         height: 100,
         backgroundColor: 'red',
-        bottom:30,
-        right:10,
+        bottom: 30,
+        right: 10,
         justifyContent: 'center',
-        alignItems:'center',
+        alignItems: 'center',
     },
     container: {
         flex: 1,
