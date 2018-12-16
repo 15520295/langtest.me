@@ -38,15 +38,6 @@ for(var i = 0; i < NumItems; i++) {
   Items.push(i);
 }
 
-const itemCarousel= [
-    { name: 'Grammar', sub: 'Adjective/Adverb/Article/Modal Verb'},
-    { name: 'Vocabulary', sub: 'Adjective/Adverb/Article/Modal Verb'},
-    { name: 'Listening', sub: 'Adjective/Adverb/Article/Modal Verb'},
-    { name: 'Writing', sub: 'Adjective/Adverb/Article/Modal Verb'},
-    { name: 'Speaking', sub: 'Adjective/Adverb/Article/Modal Verb'},
-    { name: 'Reading', sub: 'Adjective/Adverb/Article/Modal Verb'}
-];
-
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
 
 export default class HomeScreen extends PureComponent {
@@ -56,19 +47,6 @@ export default class HomeScreen extends PureComponent {
         this.state = {
             scroll: true,
         };
-    }
-
-    renderNav() {
-
-        const titleConfig = {
-            title: 'react-native-card-modal',
-        };
-
-        return (
-            <NavigationBar
-                title={titleConfig}/>
-        );
-
     }
 
     disableScroll() {
@@ -133,9 +111,10 @@ export default class HomeScreen extends PureComponent {
   render() {
       // Taken from https://flatuicolors.com/
       const items = [
-          { name: 'Grammar', code: '#1abc9c' }, { name: 'Vocabulary', code: '#2ecc71' },
-          { name: 'Listening', code: '#3498db' }, { name: 'Writing', code: '#9b59b6' },
-          { name: 'Speaking', code: '#34495e' }, { name: 'Reading', code: '#16a085' },
+          { name: 'Grammar', code: 20 }, { name: 'Vocabulary', code: 50 },
+          { name: 'Listening', code: 30 }, { name: 'Writing', code: 20 },
+          { name: 'Speaking', code: 10 }, { name: 'Reading', code: 50 },
+          { name: 'Part 7', code: 30 },
       ];
       return (
           
@@ -201,100 +180,104 @@ export default class HomeScreen extends PureComponent {
         // </ScrollView>
         // </Container>
 
+          <Container>
+              <Header>
+                    <Left>
+                      <Icon name="ios-menu" onPress={()=>('')} />
+                    </Left>
+              </Header>
+              <ScrollView style={styles.container}>
 
-          <ScrollView style={styles.container}>
-              <View style={{
-                  flex: 3, backgroundColor: '#54C5F5', alignItems: 'center', height: 200,
-              }}>
-                  <Image source={require('../../assets/images/info.jpg')}
-                         style={styles.imageInfo}
-                  />
-                  <Text style={{
-                      color: '#ffffff', fontWeight: 'bold',
-                      marginTop: 10, fontSize: 16,
-                  }}>Chí Phèo</Text>
-                  <View style={{flexDirection: 'row',}}>
-                      <Text style={{color: '#ffffff', marginTop: 10, fontSize: 14,}}>Craiova</Text>
-                      <Text style={{color: '#ffffff', marginTop: 10, marginLeft: 14}}>Desiger</Text>
+                  <View style={{
+                      flex: 3, backgroundColor: '#54C5F5', alignItems: 'center', height: 200,
+                  }}>
+                      <Image source={require('../../assets/images/info.jpg')}
+                             style={styles.imageInfo}
+                      />
+                      <Text style={{
+                          color: '#ffffff', fontWeight: 'bold',
+                          marginTop: 10, fontSize: 16,
+                      }}>Chí Phèo</Text>
+                      <View style={{flexDirection: 'row',}}>
+                          <Image style={{marginTop: 10,}} source={require('../../assets/images/location_on.png')}/>
+                          <Text style={{color: '#ffffff', marginTop: 10, fontSize: 14, marginLeft: 5}}>Craiova</Text>
+                          <Image style={{marginTop: 10, marginLeft: 15}} source={require('../../assets/images/work.png')}/>
+                          <Text style={{color: '#ffffff', marginTop: 10, marginLeft: 5}}>Desiger</Text>
+                      </View>
+
                   </View>
 
-              </View>
-
-              <View style={{flex: 6, backgroundColor: '#F7F7F7'}}>
-                  <ScrollView>
-                      <GridView
-                          itemDimension={130}
-                          items={items}
-                          style={styles.gridView}
-                          renderItem={item => (
-                              <View style={[styles.itemContainer, {backgroundColor: '#ffffff'}]}>
-                                  <Image style={styles.drawImage}
-                                         source={imageGrid}
-                                         onPress={this._onPressCard}
-                                  />
-                                  <Text style={styles.itemName}>{item.name}</Text>
-                                  <Text style={styles.itemCode}>{item.code}</Text>
-                              </View>
-                          )}
-                      />
-                  </ScrollView>
-              </View>
-
-              <View style={{position:'absolute',flex: 1, left: 10, right: 10, top: 150, justifyContent: 'center',
-                  alignItems: 'center'}}>
-                  <View style={[styles.cardMain, {backgroundColor: '#ffffff'}]}>
-                      <View style={{flexDirection: 'row'}}>
-                          <View style={{flexDirection: 'column', marginLeft: 10}}>
-                              <Text style={{color: '#0099DA',
-                                  fontStyle: 'italic',
-                                  fontSize: 16}}>Your Result</Text>
-                              <View style={{flexDirection:'row', marginTop: 10, alignItems:'center'}}>
-                                  <View style={[styles.iconDoc, {backgroundColor: '#BC9CFF'}]}/>
-                                  <Text style={{color: '#888888', marginLeft: 10,
-                                      fontSize: 12
-                                  }}>Time spent: 2112 minutes</Text>
-                              </View>
-                              <View style={{flexDirection:'row', marginTop: 10, alignItems:'center'}}>
-                                  <View style={[styles.iconDoc, {backgroundColor: '#FFBA9C'}]}/>
-                                  <Text style={{color: '#888888', marginLeft: 10,
-                                      fontSize: 12
-                                  }}>1912 Questions</Text>
-                              </View>
-                          </View>
-
-                          <View>
-                              <TouchableOpacity style={{marginLeft: 20, alignItems:'center',
-                                  justifyContent:'center', flex: 1}}>
-                                  <View style={{
-                                      backgroundColor: 'red', alignItems: 'center',
-                                      justifyContent: 'center', borderRadius: 30, height: 50,
-                                      width: 150, position: 'absolute'
-                                  }}
-                                  >
-                                      <Image style={{alignItems: 'center',
-                                          justifyContent: 'center', borderRadius: 30, height: 50,
-                                          width: 150,}} source={require('../../assets/images/rectangle.jpg')}/>
+                  <View style={{flex: 6, backgroundColor: '#F7F7F7'}}>
+                      <ScrollView>
+                          <GridView
+                              itemDimension={130}
+                              items={items}
+                              style={styles.gridView}
+                              renderItem={item => (
+                                  <View style={[styles.itemContainer, {backgroundColor: '#ffffff'}]}>
+                                      <Image style={styles.drawImage}
+                                             source={imageGrid}
+                                             onPress={this._onPressCard}
+                                      />
+                                      <Text style={styles.itemName}>{item.name}</Text>
+                                      {/*<Text style={styles.itemCode}>{item.code}</Text>*/}
+                                      <View style={styles.progressGray}>
+                                          <View style={{backgroundColor: '#ebecef', height: 4,
+                                              width: '90%', borderRadius: 5}}/>
+                                          <View style={{backgroundColor: '#019AE8', height: 4,
+                                              width: item.code, position:'absolute', borderRadius: 5}}/>
+                                      </View>
                                   </View>
-                              </TouchableOpacity>
+                              )}
+                          />
+                      </ScrollView>
+                  </View>
+
+                  <View style={styles.positionAbsolute}>
+                      <View style={[styles.cardMain, {backgroundColor: '#ffffff'}]}>
+                          <View style={{flexDirection: 'row', flex: 1}}>
+
+                              <View style={{flexDirection: 'column', marginLeft: 10}}>
+                                  <Text style={{color: '#0099DA',
+                                      fontStyle: 'italic',
+                                      fontSize: 16}}>Your Result</Text>
+                                  <View style={{flexDirection:'row', marginTop: 10, alignItems:'center'}}>
+                                      <View style={[styles.iconDoc, {backgroundColor: '#FFBA9C'}]}/>
+                                      <Text style={{color: '#888888', marginLeft: 10,
+                                          fontSize: 12
+                                      }}>1912 Questions</Text>
+                                  </View>
+                                  <View style={{flexDirection:'row', marginTop: 10, alignItems:'center'}}>
+                                      <View style={[styles.iconDoc, {backgroundColor: '#BC9CFF'}]}/>
+                                      <Text style={{color: '#888888', marginLeft: 10,
+                                          fontSize: 12
+                                      }}>Time spent: 2112 min</Text>
+                                  </View>
+                              </View>
+
+                              <View style={{flex: 1}}>
+                                  <TouchableOpacity style={{marginLeft: 20, alignItems:'center',
+                                      justifyContent:'center', flex: 1}}>
+                                      <View style={{
+                                          backgroundColor: '#F50057', alignItems: 'center',
+                                          justifyContent: 'center', borderRadius: 30, height: 45,
+                                          width: 130, position: 'absolute'
+                                      }}
+                                      >
+                                          <Image style={{alignItems: 'center',
+                                              justifyContent: 'center', borderRadius: 30, height: 45,
+                                              width: 130,}} source={require('../../assets/images/rectangle.jpg')}
+                                          />
+                                          <Text style={{position:'absolute', color: '#ffffff', fontWeight:'bold'}}>Begin Test</Text>
+                                      </View>
+                                  </TouchableOpacity>
+                              </View>
                           </View>
                       </View>
                   </View>
-              </View>
 
-
-              {/*<View style={{flex: 1}}>*/}
-                  {/*<View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>*/}
-                      {/*<Text>Centered text</Text>*/}
-                  {/*</View>*/}
-              {/*</View>*/}
-
-              {/*<View>*/}
-                  {/*<View style={{justifyContent: 'flex-end', alignItems: 'center', marginTop: 80,}}>*/}
-                      {/*<Text style={{position: 'absolute', }}>ABCGSDFS</Text>*/}
-                  {/*</View>*/}
-              {/*</View>*/}
-
-          </ScrollView>
+              </ScrollView>
+          </Container>
       );
   }
 }
@@ -366,6 +349,18 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent'
 
     },
+    positionAbsolute:{
+        position:'absolute',
+        left: 25,
+        right: 25,
+        top: 150,
+    },
+    progressGray:{
+        height: 4,
+        width: 150,
+        marginTop: 15,
+        borderRadius: 5
+    }
 
     // viewCard: {
     //     // flex: 1
