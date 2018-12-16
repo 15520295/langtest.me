@@ -33,27 +33,27 @@ export default class MyProfileComponent extends React.Component<MyProfileCompone
                     </View>
                     {/* Time, time spend */}
                     <View style={{flex: 5, flexDirection: 'column', justifyContent: 'center'}}>
-                        <Text style={[{color: 'white', fontSize: 26}, systemWeights.regular ]}>{profile.name}</Text>
+                        <Text style={[{color: 'white', fontSize: 30}, systemWeights.semibold ]}>{profile.name}</Text>
                         <Text style={[{color: 'white', fontSize: 14}, systemWeights.regular ]}>Time spent: {profile.timeSpent} minutes</Text>
                     </View>
                     {/* rank */}
-                    <View style={{flex: 2, flexDirection: 'row', alignItems: 'center', alignContent: 'center', justifyContent: 'center'}}>
-                        <Text style={[{color: 'white', fontSize: 56, textAlign: 'right'}, systemWeights.regular ]}>{profile.rank}</Text>
-                        <Text style={[{marginBottom: widthPercentageToDP(10) ,color: 'white', fontSize: 14, textAlign: 'right', textAlignVertical : 'top'}, systemWeights.regular ]}>{getNumberWithOrdinal(profile.rank)}</Text>
+                    <View style={{flex: 2, flexDirection: 'row', alignItems: 'center', alignContent: 'center', justifyContent: 'center', marginRight: widthPercentageToDP(3)}}>
+                        <Text style={[{color: 'white', fontSize: 56, textAlign: 'right'}, systemWeights.semibold ]}>{profile.rank}</Text>
+                        <Text style={[{marginBottom: widthPercentageToDP(10) ,color: 'white', fontSize: 20, textAlign: 'right', textAlignVertical : 'top'}, systemWeights.regular ]}>{getNumberWithOrdinal(profile.rank)}</Text>
                     </View>
                 </View>
                 {/* Question */}
-                <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+                <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', backgroundColor: '#019AE8', marginLeft: widthPercentageToDP(6)}}>
                     <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-                        <AntDesign name='smile-circle' color={'white'} size={30} style={{marginLeft: widthPercentageToDP(3)}}/>
-                        <Text>{profile.correctAnswer}</Text>
+                        <AntDesign name='smile-circle' color={'white'} size={20}/>
+                        <Text style={[{color: 'white', fontSize: 16}, systemWeights.semibold ]}> {profile.correctAnswer}</Text>
                     </View>
                     <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-                        <AntDesign name='frown' color={'white'} size={30} style={{marginLeft: widthPercentageToDP(3)}}/>
-                        <Text>{profile.correctAnswer}</Text>
+                        <AntDesign name='frown' color={'white'} size={20}/>
+                        <Text style={[{color: 'white', fontSize: 16}, systemWeights.semibold ]}> {profile.correctAnswer}</Text>
                     </View>
                     <View style={{flex: 2, flexDirection: 'row', alignItems: 'flex-end'}}>
-                        <Text style={{flex: 1, textAlign: 'right'}}>{profile.totalQuestion} Questions</Text>
+                        <Text style={[{color: 'white', flex: 1, textAlign: 'right', marginRight: widthPercentageToDP(3)}, systemWeights.semibold]}>{profile.totalQuestion} Questions</Text>
                     </View>
                 </View>
             </View>
