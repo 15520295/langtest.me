@@ -206,6 +206,7 @@ class QuizService implements IQuizService{
     }
 
     //Since some question may come together, it better to take all of them to
+    //TODO: Fix contain
     private addQuestionToArray(questionList: IQuestion[], question: IQuestion){
         if(this.contain(questionList, question.id)){
             return;
@@ -232,9 +233,14 @@ class QuizService implements IQuizService{
 
     private contain(questionList: IQuestion[], question_id: string) : boolean {
             //Check whether we already have the question in the question List yet !
+            
             for(var i = 0; i < questionList.length; i++) {
+                console.log("Check whether " + questionList[i].id + " equal " + question_id);
                 if (questionList[i].id === question_id) {
+                    console.log("true");
                     return true;
+                } else {
+                    console.log("false");
                 }
             }
             return false;

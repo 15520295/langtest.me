@@ -1,23 +1,33 @@
 import * as React from 'react';
-import {Header, Left, Body, Right, Button, Icon, Title} from 'native-base';
+import {Header, Left, Body, Right, Button, Icon, Title, Text} from 'native-base';
 import { Platform } from "react-native";
+import { AntDesign } from '@expo/vector-icons';
+import { widthPercentageToDP } from '../../helper/ratioHelper';
 
 export interface Props{
     title: String,
     correctAnswer: number,
-    uncorrectedAnswer : number;
+    uncorrectedAnswer : number,
+    onFinishButton : () => void
 }
 
 export default class QuizScreenHeader extends React.Component<Props>{
     render() {
-        const {correctAnswer, uncorrectedAnswer, title} = this.props;
+        const {correctAnswer, uncorrectedAnswer, title, onFinishButton} = this.props;
 
         return (
             <Header androidStatusBarColor="#0076BF" style={{backgroundColor: Platform.OS ==='android' ? '#019AE8' : '#FFFFFF'}}>
             <Left>
-                <Button transparent>
-                    <Icon name='arrow-back' android='md-arrow-back' ios='md-arrow-back' />
+                {Platform.OS === 'ios'  
+                ? 
+                <Button transparent onPress={()=> {onFinishButton()}}>
+                    <Text>Finish</Text>
                 </Button>
+                    :
+                <Button transparent onPress={()=> {onFinishButton()}}>
+                    <Icon name = 'nothing' android='md-done-all' ios='md-done-all'/>
+                </Button>
+                }
             </Left>
             <Body>
                 <Title>{title}</Title>
@@ -25,11 +35,11 @@ export default class QuizScreenHeader extends React.Component<Props>{
             <Right>
                 <Button transparent>
                     <Title style={{paddingRight: 10, alignContent: 'center'}}>{correctAnswer}</Title>
-                    <Icon name ='nothing' android='md-thumbs-up' ios='md-thumbs-up'/>
+                    <AntDesign name='smileo' color={Platform.OS === 'ios' ? 'black' : 'white'} size={widthPercentageToDP(7)}/>
                 </Button>
                 <Button transparent>
                     <Title style={{paddingRight: 10, alignContent: 'center'}}>{uncorrectedAnswer}</Title>
-                    <Icon name = 'nothing' android='md-thumbs-down' ios='md-thumbs-down'/>
+                    <AntDesign name='frowno' color={Platform.OS === 'ios' ? 'black' : 'white'}  size={widthPercentageToDP(7)}/>
                 </Button>
             </Right>
         </Header>

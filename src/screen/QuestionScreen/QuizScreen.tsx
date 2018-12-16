@@ -2,13 +2,17 @@ import QuizStore from "../../store/quizStore";
 import React from 'react';
 import { Subscribe, Provider } from "unstated";
 import QuizScreenContainer from "./QuizScreenContainer";
-import { NavigationScreenProps } from "react-navigation";
+import { NavigationScreenProps, NavigationScreenConfig } from "react-navigation";
 
 export interface QuizScreenProps extends NavigationScreenProps<{}>{ 
     quizStore: QuizStore,
 }
 
 export default class QuizScreen extends React.Component<QuizScreenProps>{
+    static navigationOption : NavigationScreenConfig<{}> = {
+        header: null
+    }
+
     constructor(props: any){
         super(props);
     }

@@ -1,7 +1,9 @@
 import React from 'react';
 import {StyleSheet, Animated, ViewStyle} from 'react-native';
-import { Button, Text, View, Icon } from 'native-base';
+import { Button, Text, View } from 'native-base';
 import {systemWeights} from 'react-native-typography';
+import { Ionicons, FontAwesome } from '@expo/vector-icons';
+import { widthPercentageToDP } from '../../helper/ratioHelper';
 
 
 export enum AnswerState{'normal', 'selected', 'corrected', 'uncorrected'}
@@ -25,7 +27,7 @@ export default class AnswerButton extends React.Component<Props>{
             result = (
                 <Button light style={stylesCorrect.answerButton as ViewStyle} onPress={this.props.onPress}>
                     <View style={stylesCorrect.answerCircle}>
-                        <Icon style={stylesCorrect.checkIcon as ViewStyle} name='check-mark' android='md-checkmark' ios='ios-checkmark'/>
+                        <Ionicons  name="md-checkmark" size={widthPercentageToDP(5)}  color="white" />
                     </View>
                     <Text uppercase={false} allowFontScaling={true} style={stylesCorrect.answerText}>{this.props.text}</Text>
                 </Button>);
@@ -35,7 +37,7 @@ export default class AnswerButton extends React.Component<Props>{
             result =  (            
                 <Button style={stylesIncorrect.answerButton as ViewStyle}  light onPress={this.props.onPress}>
                     <View style={stylesIncorrect.answerCircle}>
-                        <Icon style={stylesIncorrect.checkIcon as ViewStyle} name='remove' type="FontAwesome" android="remove" ios="remove" />   
+                        <FontAwesome name="remove" size={widthPercentageToDP(5)} color="white" />    
                     </View>
                     <Text uppercase={false} allowFontScaling={true} style={stylesIncorrect.answerText}>{this.props.text}</Text>
                 </Button>);
@@ -63,7 +65,7 @@ const stylesNormal = StyleSheet.create({
     },
     answerText: {
         color: '#4F4F4F',
-        fontSize: 16,
+        fontSize: 14,
         flex: 1,
         ...systemWeights.light
     },
@@ -90,7 +92,7 @@ const stylesCorrect = StyleSheet.create({
     },
     answerText: {
         color: '#FFFFFF',
-        fontSize: 16,
+        fontSize: 14,
         flex: 1,
         ...systemWeights.regular
     },
@@ -121,7 +123,7 @@ const stylesIncorrect = StyleSheet.create({
     },
     answerText: {
         color: '#FFFFFF',
-        fontSize: 16,
+        fontSize: 14,
         flex: 1,
         ...systemWeights.regular
     },

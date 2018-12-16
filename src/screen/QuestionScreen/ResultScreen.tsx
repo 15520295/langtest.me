@@ -3,7 +3,7 @@ import { View, Text, Button} from 'native-base';
 import { StyleSheet, ViewStyle } from 'react-native';
 import * as Progress from 'react-native-progress';
 import { heightPercentageToDP, widthPercentageToDP } from '../../helper/ratioHelper';
-import { systemWeights } from 'react-native-typography';
+import { systemWeights, human } from 'react-native-typography';
 import { NavigationScreenProps, NavigationParams } from 'react-navigation';
 export interface ResultScreenProps extends NavigationScreenProps<NavigationParams, any>{
     totalAnswer: number,
@@ -33,9 +33,17 @@ class ResultScreen extends React.Component<ResultScreenProps, ResultScreenState>
     constructor(props: ResultScreenProps){
         super(props);
 
-        this.state = {
-            progress: 0
+        const correctedAnswer: number = this.props.navigation.getParam('correctedAnswer', props.correctAnswer);
+        if(correctedAnswer === 0){
+            this.state = {
+                progress: 1
+            }
+        } else {
+            this.state = {
+                progress: 0
+            }
         }
+
     }
 
     componentDidMount(){
@@ -51,9 +59,15 @@ class ResultScreen extends React.Component<ResultScreenProps, ResultScreenState>
         const uncorrectedAnswer: number = this.props.navigation.getParam('uncorrectedAnswer', this.props.correctAnswer);
         const totalAnswer: number = this.props.navigation.getParam('totalAnswer', this.props.correctAnswer);
         const leftButtonText: number = this.props.navigation.getParam('leftButtonText', this.props.leftButtonText);
+        const leftButtonClick: () => void = this.props.navigation.getParam('leftButtonClick', this.props.leftButtonClick);
         const rightButtonText: number = this.props.navigation.getParam('rightButtonText', this.props.rightButtonText);
+        const rightButtonClick: () => void = this.props.navigation.getParam('rightButtonClick', this.props.rightButtonClick);
+
         return (
             <View style={styles.container}>
+                <View style={styles.title}>
+                    <Text style={[human.largeTitle, {textAlign: 'center'}]}>Your result</Text>
+                </View>
                 <View style={styles.infoContainer}>
                     <Progress.Circle 
                         size={widthPercentageToDP(40)} 
@@ -62,7 +76,7 @@ class ResultScreen extends React.Component<ResultScreenProps, ResultScreenState>
                         borderWidth={0}
                         thickness={7}
                         fill="white"
-                        style={{marginLeft: widthPercentageToDP(30)}}>
+                        style={{marginLeft: widthPercentageToDP(30), zIndex: 3}}>
                         </Progress.Circle>
                     <View style={styles.colorContainer}>
                         <View style={styles.textContainer}>
@@ -80,10 +94,10 @@ class ResultScreen extends React.Component<ResultScreenProps, ResultScreenState>
                     </View>
                 </View>
                 <View style={styles.buttonContainer}> 
-                    <Button onPress={this.props.leftButtonClick} style={[styles.button as ViewStyle, {backgroundColor: '#FF5252'}]}>
+                    <Button onPress={leftButtonClick} style={[styles.button as ViewStyle, {backgroundColor: '#FF5252'}]}>
                         <Text>{leftButtonText}</Text>
                     </Button>
-                    <Button info bordered onPress={this.props.leftButtonClick} style={[styles.button as ViewStyle, {borderWidth: 3}]}>
+                    <Button info bordered onPress={rightButtonClick} style={[styles.button as ViewStyle, {borderWidth: 3}]}>
                         <Text style={{textAlign: "center"}}>{rightButtonText}</Text>
                     </Button>
                 </View>
@@ -97,12 +111,17 @@ const styles  = StyleSheet.create({
         flex: 1,
         flexDirection: 'column'
     },
-    infoContainer: {
+    title: {
         flex: 1,
+        justifyContent: 'center',
+        alignContent: 'center',
+    },
+    infoContainer: {
+        flex: 2,
         flexDirection: 'column',
-        marginTop: heightPercentageToDP(40),
         justifyContent: 'flex-start',
-        alignContent: 'stretch'
+        alignContent: 'stretch',
+        zIndex: -3
     },
     progress : {
         alignContent: 'center'
@@ -113,7 +132,6 @@ const styles  = StyleSheet.create({
         marginTop: -widthPercentageToDP(20),
         height: heightPercentageToDP(40),
         backgroundColor: '#019AE8',
-        zIndex: -1
     },
     textContainer: {
         marginTop: heightPercentageToDP(16),
@@ -154,6 +172,7 @@ const styles  = StyleSheet.create({
         marginTop: heightPercentageToDP(2),
         marginLeft: widthPercentageToDP(8),
         marginRight: widthPercentageToDP(8),
+        marginBottom: heightPercentageToDP(2),
         height: heightPercentageToDP(7),
         maxHeight: heightPercentageToDP(7),
         flex: 1,
