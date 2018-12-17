@@ -9,7 +9,7 @@ import QuizScreenHeader from './QuizScreenHeader';
 import AudioPlayer from './AudioPlayer';
 import { widthPercentageToDP, heightPercentageToDP } from '../../helper/ratioHelper';
 import QuizScreenTimer from './QuizScreenTimer';
-import { NavigationScreenProps } from 'react-navigation';
+import { NavigationScreenProps, NavigationParams } from 'react-navigation';
 import GestureView from './GestureView';
 import sharedQuizService from '../../services/QuizService';
 import QuestionComponent from './QuestionComponent';
@@ -53,8 +53,9 @@ const BoxiOS = posed.View({
     }
 });
 
-export interface QuizScreenContainerProps extends NavigationScreenProps<{}>{ 
+export interface QuizScreenContainerProps extends NavigationScreenProps<NavigationParams, any>{ 
     quizStore: QuizStore,
+    onQuizOver?: (quizStore: QuizStore) => void
 }
 
 interface States{
@@ -168,6 +169,11 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
     }
     quizOver = () => {
         const {quizStore, navigation} = this.props;
+        const onQuizOver: (quizStore : QuizStore) => void = navigation.getParam('rightButtonClick', this.props.onQuizOver);
+        if(onQuizOver){
+            onQuizOver(quizStore);
+            return;
+        }
         const reset = this.reset;
         const tryAgainButton = async function (): Promise<void> {
             await sharedQuizService.initQuickTest();

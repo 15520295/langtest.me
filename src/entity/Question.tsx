@@ -3,13 +3,13 @@ export default interface IQuestion {
     id: string,
     type: QuestionType, 
     question: string,
-    answer?: string[], 
+    answer: string[], 
     correctAnswer: number,
     explain?: string,
     help?: string,
     audioAsset?: number, // As the new format some audio question have i picture
     imageAsset?: number,
-    comeWith? : string[] // There are some question that come together xD
+    comeWith?: string[] // There are some question that come together xD
     difficultLevel?: number
 }
 

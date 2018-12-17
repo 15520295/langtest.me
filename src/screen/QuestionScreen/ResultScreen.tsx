@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { View, Text, Button} from 'native-base';
-import { StyleSheet, ViewStyle } from 'react-native';
+import { StyleSheet, ViewStyle, AsyncStorage } from 'react-native';
 import * as Progress from 'react-native-progress';
 import { heightPercentageToDP, widthPercentageToDP } from '../../helper/ratioHelper';
 import { systemWeights, human } from 'react-native-typography';
@@ -13,6 +13,7 @@ export interface ResultScreenProps extends NavigationScreenProps<NavigationParam
     leftButtonClick?: () => void,
     rightButtonText: string,
     rightButtonClick?: () => void,
+    onResultScreenOpen?: (correctAnswer: number, totalAnswer: number) => void,
 }
 
 interface ResultScreenState{
@@ -43,15 +44,18 @@ class ResultScreen extends React.Component<ResultScreenProps, ResultScreenState>
                 progress: 0
             }
         }
-
     }
 
     componentDidMount(){
+        const onResultScreenOpen: (correctAnswer: number, totalAnswer: number) => void = this.props.navigation.getParam('onResultScreenOpen', this.props.onResultScreenOpen);
         const correctedAnswer: number = this.props.navigation.getParam('correctedAnswer', this.props.correctAnswer);
         const totalAnswer: number = this.props.navigation.getParam('totalAnswer', this.props.correctAnswer);
         this.setState({
             progress: correctedAnswer / totalAnswer
         })
+        if(onResultScreenOpen){
+            onResultScreenOpen(correctedAnswer, totalAnswer);
+        }
     }
 
     render(){
@@ -62,6 +66,7 @@ class ResultScreen extends React.Component<ResultScreenProps, ResultScreenState>
         const leftButtonClick: () => void = this.props.navigation.getParam('leftButtonClick', this.props.leftButtonClick);
         const rightButtonText: number = this.props.navigation.getParam('rightButtonText', this.props.rightButtonText);
         const rightButtonClick: () => void = this.props.navigation.getParam('rightButtonClick', this.props.rightButtonClick);
+        
 
         return (
             <View style={styles.container}>
