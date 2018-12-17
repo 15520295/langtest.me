@@ -100,8 +100,8 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
         
     }
 
-    reset = async () => {
-        await this.setState({
+    componentWillUnmount(){
+        this.setState({
             isLoading: false,
             answerState: [AnswerState.normal, AnswerState.normal, AnswerState.normal, AnswerState.normal],
             isWaiting: false,
@@ -174,13 +174,11 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
             onQuizOver(quizStore);
             return;
         }
-        const reset = this.reset;
         const tryAgainButton = async function (): Promise<void> {
             await sharedQuizService.initQuickTest();
             navigation.navigate('Questions');
         }
         const homeFunc = async function(): Promise<void> {
-            await reset();
             navigation.navigate('Home');
         }
         navigation.navigate('Results', {totalAnswer: quizStore.getTotalQuestionNumber(),
