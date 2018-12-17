@@ -28,6 +28,7 @@ import sharedQuizService from '../../services/QuizService';
 import VocabularyTestData from '../../data/VocabularyTestData';
 import {withNavigation} from 'react-navigation';
 import {QuestionType} from '../../entity/Question';
+import LocalStoreHelper from "../../helper/LocalStoreHelper";
 
 
 class WordScreen extends React.Component {
@@ -35,23 +36,28 @@ class WordScreen extends React.Component {
         header: null // !!! Hide Header
     };
 
+    topic = null;
+    topicData = null;
+
     constructor(props) {
         super(props);
         this.state = {};
 
+        this.topic = props.navigation.getParam('topic', null);
+        this.topicData = wordMap[this.topic.id];
     }
 
-    _topicToTestData(topic) {
+    _wordDataToTestData = (wordData) => {
         const questionArr = [];
-        for (let curWordIndex = 0; curWordIndex < topic.length; curWordIndex++) {
+        for (let curWordIndex = 0; curWordIndex < wordData.length; curWordIndex++) {
 
             const correctAnswerNum = Math.floor(Math.random() * 4);
-            let correctWord = topic[curWordIndex];
+            let correctWord = wordData[curWordIndex];
 
             // Random answer array
             const answerArrIndex = [];
             while (answerArrIndex.length <= 3) {
-                const answerIndex = Math.floor(Math.random() * topic.length);
+                const answerIndex = Math.floor(Math.random() * wordData.length);
 
                 let isAdded = false;
                 for (const answerIndexGetted of answerArrIndex) {
@@ -62,7 +68,7 @@ class WordScreen extends React.Component {
                     }
                 }
 
-                if (! isAdded) {
+                if (!isAdded) {
                     answerArrIndex.push(answerIndex);
                 }
             }
@@ -73,7 +79,7 @@ class WordScreen extends React.Component {
                 if (i === correctAnswerNum) {
                     answerArr.push(correctWord.translate);
                 } else {
-                    answerArr.push(topic[ answerArrIndex[j] ].translate);
+                    answerArr.push(wordData[answerArrIndex[j]].translate);
                     j++;
                 }
             }
@@ -96,55 +102,69 @@ class WordScreen extends React.Component {
             );
         }
         return questionArr;
-    }
+    };
 
-    _testVocabularyScreen(topic) {
-        if (topic.length < 4) {
+    _openTestVocabularyScreen = () => {
+        if (this.topicData.length <= 4) {
             Alert.alert(
                 'Alert',
                 'Not enough data to run test!',
             );
         } else {
-            sharedQuizService.initTestVocabulary(this._topicToTestData(topic));
+            sharedQuizService.initTestVocabulary(this._wordDataToTestData(this.topicData));
             this.props.navigation.navigate('Questions'
-                // , {
-                //     'quizOver': this.quizOver
-                // }
-                );
+                , {
+                    'quizOver': this.quizOver
+                }
+            );
         }
-    }
+    };
 
-    // quizOver = (quizStore) => {
-    //     const navigation = this.props.navigation;
-    //     const tryAgainButton = async function () {
-    //         await sharedQuizService.initQuickTest();
-    //         navigation.navigate('Questions');
-    //     };
-    //     const homeFunc = async function () {
-    //         navigation.navigate('Home');
-    //     };
-    //     navigation.navigate('Results', {
-    //         totalAnswer: quizStore.getTotalQuestionNumber(),
-    //         correctedAnswer: quizStore.state.correctedAnswer,
-    //         uncorrectedAnswer: quizStore.state.uncorrectedAnswer,
-    //         leftButtonText: "LET DO AGAIN",
-    //         leftButtonClick: tryAgainButton,
-    //         rightButtonText: "Go Home",
-    //         rightButtonClick: homeFunc
-    //     });
-    // };
+    _onResultScreenOpen = (correctAnswer, totalAnswer) => {
+        this._storeVocabularyResult(null, this.topic.id, totalAnswer / correctAnswer);
+    };
 
-    _learnScreen(topic) {
-        this.props.navigation.navigate('Learn', {
-            topic: topic
+
+    _storeVocabularyResult = async (topicResult, topicID, result) => {
+        if (topicResult == null) {
+            topicResult = new Map();
+        }
+        topicResult.set(topicID, result);
+
+        await LocalStoreHelper._storeMapData(LocalStoreHelper.topicResult, topicResult);
+    };
+
+    quizOver = (quizStore) => {
+        this.props.navigation.popToTop();
+        const navigation = this.props.navigation;
+        const tryAgainButton = async () => {
+            this._openTestVocabularyScreen();
+        };
+        const homeFunc = async () => {
+            this.props.navigation.navigate('Word',
+                {
+                    topic: this.topic
+                });
+        };
+        navigation.navigate('Results', {
+            totalAnswer: quizStore.getTotalQuestionNumber(),
+            correctedAnswer: quizStore.state.correctedAnswer,
+            uncorrectedAnswer: quizStore.state.uncorrectedAnswer,
+            leftButtonText: 'LET DO AGAIN',
+            leftButtonClick: tryAgainButton,
+            rightButtonText: 'Go Back',
+            rightButtonClick: homeFunc,
+            onResultScreenOpen: this._onResultScreenOpen,
         });
-    }
+    };
+
+    _openLearnScreen = () => {
+        this.props.navigation.navigate('Learn', {
+            topic: this.topic
+        });
+    };
 
     render() {
-        const {navigation} = this.props;
-        const topic = navigation.getParam('topic', null);
-
-
         return (
             <Container style={styles.container}>
                 <Header androidStatusBarColor="#0076BF"
@@ -155,7 +175,7 @@ class WordScreen extends React.Component {
                         </Button>
                     </Left>
                     <Body>
-                    <Title>{topic.name}</Title>
+                    <Title>{this.topic.name}</Title>
                     </Body>
                 </Header>
                 <Content
@@ -165,7 +185,7 @@ class WordScreen extends React.Component {
                         backgroundColor: '#EEEEEE'
                     }}>
                         <FlatList
-                            data={wordMap[topic.id]}
+                            data={this.topicData}
                             renderItem={({item, index}) => {
                                 return (
                                     <WordFlatListItem item={item} index={index}>
@@ -189,7 +209,7 @@ class WordScreen extends React.Component {
                         buttonColor="#3498db"
                         title="Học Từ"
                         onPress={() => {
-                            this._learnScreen(wordMap[topic.id]);
+                            this._openLearnScreen();
                         }}>
                         <Icon type="Ionicons"
                               name="md-book"
@@ -203,9 +223,7 @@ class WordScreen extends React.Component {
                     <ActionButton.Item
                         buttonColor="#3498db"
                         title="Luyện Tập"
-                        onPress={() => {
-                            this._testVocabularyScreen(wordMap[topic.id]);
-                        }}>
+                        onPress={() => {this._openTestVocabularyScreen()}}>
                         <Icon type="Entypo"
                               name="controller-play"
                               style={{

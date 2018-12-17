@@ -119,7 +119,7 @@ export default class LearnScreen extends React.Component {
     curWordA = 1;
     isSlideA = true;
 
-    _slideCard() {
+    _slideCard = () => {
         if (this.isSlideA) {
             this.slideA();
 
@@ -129,7 +129,7 @@ export default class LearnScreen extends React.Component {
 
             this.isSlideA = true;
         }
-    }
+    };
     //endregion
 
     //region ---------------- Timer

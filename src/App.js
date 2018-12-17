@@ -74,6 +74,7 @@ import ChartScreen from './screen/ChartScreen';
 import sharedQuizService from './services/QuizService';
 import ResultScreen from './screen/QuestionScreen/ResultScreen';
 import LeaderBoardScreen from './screen/LeaderBoardScreen';
+import LearnScreen from './screen/vocabularySreen/LearnScreen';
 const AppContainer = createAppContainer(AppNavigator);
 
 export default class App extends React.Component {
@@ -114,16 +115,18 @@ export default class App extends React.Component {
     }
 }
 
-const TopicStack = createSwitchNavigator({
-    Topic: TopicScreen,
-    Word: WordScreen,
-});
 
 const QuestionStack = createSwitchNavigator({
     Questions: QuizScreen,
     Results: ResultScreen
 }, {
     initialRouteName: 'Questions'
+});
+
+const TopicStack = createStackNavigator({
+    Topic: TopicScreen,
+    Word: WordScreen,
+    Learn: LearnScreen
 });
 
 const MyDrawerNavigator = createDrawerNavigator({

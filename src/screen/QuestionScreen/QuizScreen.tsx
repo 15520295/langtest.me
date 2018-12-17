@@ -25,6 +25,7 @@ export default class QuizScreen extends React.Component<QuizScreenProps>{
           {(quizStore) => (
             <QuizScreenContainer
                 navigation = {navigation}
+                onQuizOver = {navigation.getParam('quizOver', undefined)}
               quizStore={quizStore as QuizStore}
             />
           )}

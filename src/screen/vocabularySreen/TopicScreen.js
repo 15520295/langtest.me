@@ -23,18 +23,9 @@ import TopicFlatList from '../../components/vocabulary/TopicFlatList';
 import UserScore from '../../components/vocabulary/UserScore';
 import flatListData from '../../data/TopicData';
 import TopicFlatListItem from '../../components/vocabulary/TopicFlatListItem';
+import LocalStoreHelper from '../../helper/LocalStoreHelper';
 
 export default class TopicScreen extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            correctAnswer: 0,
-            topicResult: null,
-            refresh: true
-        };
-
-        this._storeData();
-    }
 
     static navigationOptions = {
         header: null, // !!! Hide Header
@@ -46,42 +37,27 @@ export default class TopicScreen extends React.Component {
 
     };
 
-    _storeData = async () => {
-        try {
-            const topicResult = new Map();
-            topicResult.set('t1', 0.1);
-            topicResult.set('t2', 0.2);
+    constructor(props) {
+        super(props);
+        this.state = {
+            correctAnswer: 0,
+            topicResult: null,
+            refresh: true
+        };
+        this._retrieveData();
 
-            const str = JSON.stringify(Array.from(topicResult.entries()));
-
-            await AsyncStorage.setItem('topicResult', str);
-
-            await this._retrieveData();
-        } catch (error) {
-            // Error saving data
-            console.log('Chi CS error: ' + error);
-        }
-    };
+    }
 
     _retrieveData = async () => {
-        try {
-            const str = await AsyncStorage.getItem('topicResult');
-            const topicResult = new Map(JSON.parse(str));
+        const topicResult = await LocalStoreHelper._getMapData(LocalStoreHelper.topicResult);
 
-            this.setState(
-                {
-                    topicResult: topicResult,
-                    refresh: !this.state.refresh
-                }
-            );
-
-        } catch (error) {
-            // Error retrieving data
-            console.log('Chi CS error: ' + error);
-        }
+        this.setState(
+            {
+                topicResult: topicResult,
+                refresh: !this.state.refresh
+            }
+        );
     };
-
-    forceU = this.forceUpdate;
 
     _getResult(item) {
         let result = 0.0;
@@ -93,6 +69,7 @@ export default class TopicScreen extends React.Component {
 
 
     render() {
+
         return (
             <Container style={styles.container}>
                 <Header androidStatusBarColor="#0076BF"
