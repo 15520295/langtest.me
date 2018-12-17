@@ -4,6 +4,8 @@ import {Root} from 'native-base';
 import {AppLoading, Asset, Font, Icon} from 'expo';
 import {Expo} from 'expo';
 
+import * as firebase from 'firebase';
+
 import {
     DrawerItems, createDrawerNavigator,createStackNavigator,createAppContainer,withNavigation, createSwitchNavigator
 } from 'react-navigation';
@@ -18,6 +20,16 @@ import TopicScreen from './screen/vocabularySreen/TopicScreen';
 import WordScreen from './screen/vocabularySreen/WordScreen';
 
 //huy
+// Initialize Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyDuPNEItAslJNPc1tPO4AB3DtcESKqwHYE",
+    authDomain: "toeicfast.firebaseapp.com",
+    databaseURL: "https://toeicfast.firebaseio.com",
+    projectId: "toeicfast",
+    storageBucket: "toeicfast.appspot.com",
+    messagingSenderId: "126817198367"
+};
+const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 const CustomDrawerContentComponent = (props) => (
     // <Container>
@@ -81,7 +93,16 @@ export default class App extends React.Component {
         this.state = {
             loading: true
         };
+        // this.database = firebase.database();
+        // this.writeDB();
     }
+
+    // writeDB(){
+    //     firebase.database().ref('notes/1').set({
+    //         text: 'Hello wrold!'
+    //     });
+    // }
+
     async componentDidMount(){
         await Font.loadAsync({
             'Roboto': require('native-base/Fonts/Roboto.ttf'),
