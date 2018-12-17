@@ -1,30 +1,33 @@
 import IQuestion, { QuestionType } from "../entity/Question";
 
 const QuestionDataPart5 : IQuestion[] = [{
-    id: 'p5_001',
+    id: 'p5_1101',
     type: QuestionType.part5,
-    question: 'Thank you for your ------ in the Foxdale Apartments community enhancement survey',
-    answer: ['participant', 'participation', 'participate', 'participated'],
-    correctAnswer: 2,
-    explain: "Nothing at all",
-    help: "Arimasen",
+    question: ' Dr. Braun will write	letters only for interns who master every task expected of a junior copy editor.',
+    answer: ['recommends ', 'recommendation', 'recommended', 'recommending'],
+    correctAnswer: 0,
     difficultLevel: 3
 }, {
-    id: 'p5_002',
+    id: 'p5_1102',
     type: QuestionType.part5,
-    question: 'Company officials must disclose their own ------ affairs.',
-    answer: ['finance', 'financing', 'financial', 'financed'],
-    correctAnswer: 3,
-    explain: "Nothing at all",
-    help: "Arimasen",
-}, {
-    id: 'p5_003',
-    type: QuestionType.part5,
-    question: 'Ms. Kim asks that the marketing team e-mail the final draft to ------ before 5 p.m.',
-    answer: ['her', 'she', 'hers', 'herself'],
+    question: 'The	of a new chief financial officer at Veracore Industries was announced on April 6.',
+    answer: ['appoint', 'appoints', 'appointed', 'appointment'],
     correctAnswer: 0,
-    explain: "Nothing at all",
-    help: "Arimasen",
-}]
+    difficultLevel: 3
+}, {
+    id: 'p5_1103',
+    type: QuestionType.part5,
+    question: 'After a six-month probationary period, city employees are	to take vacation days.',
+    answer: ['beneficial', 'eligible', 'convenient', 'relevant'],
+    correctAnswer: 0,
+    difficultLevel: 3
+}, {
+    id: 'p5_1104',
+    type: QuestionType.part5,
+    question: 'Ms. Larensky is applying with several different agencies to obtain the permits 	for the outdoor art event.',
+    answer: ['required', 'requiring', 'requires', 'will require'],
+    correctAnswer: 0,
+    difficultLevel: 3
+}];
 
 export default QuestionDataPart5;

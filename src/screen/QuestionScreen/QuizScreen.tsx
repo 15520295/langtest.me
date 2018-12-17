@@ -2,9 +2,9 @@ import QuizStore from "../../store/quizStore";
 import React from 'react';
 import { Subscribe, Provider } from "unstated";
 import QuizScreenContainer from "./QuizScreenContainer";
-import { NavigationScreenProps, NavigationScreenConfig } from "react-navigation";
+import { NavigationScreenProps, NavigationScreenConfig, NavigationParams } from "react-navigation";
 
-export interface QuizScreenProps extends NavigationScreenProps<{}>{ 
+export interface QuizScreenProps extends NavigationScreenProps<NavigationParams, any>{ 
     quizStore: QuizStore,
 }
 
