@@ -106,9 +106,33 @@ class WordScreen extends React.Component {
             );
         } else {
             sharedQuizService.initTestVocabulary(this._topicToTestData(topic));
-            this.props.navigation.navigate('Questions');
+            this.props.navigation.navigate('Questions'
+                // , {
+                //     'quizOver': this.quizOver
+                // }
+                );
         }
     }
+
+    // quizOver = (quizStore) => {
+    //     const navigation = this.props.navigation;
+    //     const tryAgainButton = async function () {
+    //         await sharedQuizService.initQuickTest();
+    //         navigation.navigate('Questions');
+    //     };
+    //     const homeFunc = async function () {
+    //         navigation.navigate('Home');
+    //     };
+    //     navigation.navigate('Results', {
+    //         totalAnswer: quizStore.getTotalQuestionNumber(),
+    //         correctedAnswer: quizStore.state.correctedAnswer,
+    //         uncorrectedAnswer: quizStore.state.uncorrectedAnswer,
+    //         leftButtonText: "LET DO AGAIN",
+    //         leftButtonClick: tryAgainButton,
+    //         rightButtonText: "Go Home",
+    //         rightButtonClick: homeFunc
+    //     });
+    // };
 
     _learnScreen(topic) {
         this.props.navigation.navigate('Learn', {

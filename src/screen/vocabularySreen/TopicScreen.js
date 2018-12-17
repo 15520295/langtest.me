@@ -16,7 +16,8 @@ import {
 import {
     StyleSheet,
     TouchableOpacity,
-    Platform, FlatList
+    Platform, FlatList,
+    AsyncStorage
 } from 'react-native';
 import TopicFlatList from '../../components/vocabulary/TopicFlatList';
 import UserScore from '../../components/vocabulary/UserScore';
@@ -28,46 +29,68 @@ export default class TopicScreen extends React.Component {
         super(props);
         this.state = {
             correctAnswer: 0,
-
+            topicResult: null,
+            refresh: true
         };
+
+        this._storeData();
     }
 
     static navigationOptions = {
         header: null, // !!! Hide Header
         drawerIcon: ({tintColor}) => (
-            <Icon name='clipboard' style= {{ fontSize: 24, color: tintColor}}/>
+            <Icon name='clipboard' style={{fontSize: 24, color: tintColor}}/>
         )
         // title:'Home 1',
-       
+
+
     };
 
-    nextQuestion = () => {
-        this.setState({
-            // isWaiting: false,
-            // answerState: [0, 0, 0, 0],
-            // currentQuestion: (this.state.currentQuestion + 1) % QuestionData.length
-        });
+    _storeData = async () => {
+        try {
+            const topicResult = new Map();
+            topicResult.set('t1', 0.1);
+            topicResult.set('t2', 0.2);
+
+            const str = JSON.stringify(Array.from(topicResult.entries()));
+
+            await AsyncStorage.setItem('topicResult', str);
+
+            await this._retrieveData();
+        } catch (error) {
+            // Error saving data
+            console.log('Chi CS error: ' + error);
+        }
     };
 
-    chooseAnswer = (idAnswer) => {
-        // if (this.state.isWaiting) {
-        //     return;
-        // }
-        // this.setState({isWaiting: true});
-        // if (idAnswer === QuestionData[this.state.currentQuestion].correct) {
-        //     let answerState = this.state.answerState;
-        //     answerState[idAnswer - 1] = 1;
-        //     this.setState({answerState: answerState, correctAnswer: this.state.correctAnswer + 1});
-        // } else {
-        //     let answerState = this.state.answerState;
-        //     answerState[QuestionData[this.state.currentQuestion].correct - 1] = 1;
-        //     answerState[idAnswer - 1] = 2;
-        //     this.setState({answerState: answerState, incorrectAnswer: this.state.incorrectAnswer + 1});
-        // }
-        // setTimeout(() => {
-        //     this.nextQuestion();
-        // }, 2000);
+    _retrieveData = async () => {
+        try {
+            const str = await AsyncStorage.getItem('topicResult');
+            const topicResult = new Map(JSON.parse(str));
+
+            this.setState(
+                {
+                    topicResult: topicResult,
+                    refresh: !this.state.refresh
+                }
+            );
+
+        } catch (error) {
+            // Error retrieving data
+            console.log('Chi CS error: ' + error);
+        }
     };
+
+    forceU = this.forceUpdate;
+
+    _getResult(item) {
+        let result = 0.0;
+        if (this.state.topicResult != null) {
+            result = this.state.topicResult.get(item.id)  != null ? this.state.topicResult.get(item.id) : 0.0;
+        }
+        return result;
+    }
+
 
     render() {
         return (
@@ -76,7 +99,7 @@ export default class TopicScreen extends React.Component {
                         style={{backgroundColor: Platform.OS === 'android' ? '#019AE8' : '#FFFFFF'}}>
                     <Left>
                         {/*<Button transparent>*/}
-                            {/*<Icon android='md-arrow-back' ios='ios-arrow-back'/>*/}
+                        {/*<Icon android='md-arrow-back' ios='ios-arrow-back'/>*/}
                         {/*</Button>*/}
                     </Left>
                     <Body>
@@ -87,15 +110,21 @@ export default class TopicScreen extends React.Component {
                     </Right>
                 </Header>
                 <Content
-                    contentContainerStyle={{ flexGrow: 1 }}>
+                    contentContainerStyle={{flexGrow: 1}}>
                     <UserScore/>
-                    <View style={{ flex: 1,
-                        backgroundColor:'#EEEEEE'}}>
+                    <View style={{
+                        flex: 1,
+                        backgroundColor: '#EEEEEE'
+                    }}>
                         <FlatList
                             data={flatListData}
-                            renderItem={({ item, index }) => {
+                            extraData={this.state.refresh}
+                            renderItem={({item, index}) => {
                                 return (
-                                    <TopicFlatListItem item={item} index={index}>
+                                    <TopicFlatListItem
+                                        item={item}
+                                        index={index}
+                                        result={this._getResult(item)}>
 
                                     </TopicFlatListItem>);
                             }}
@@ -106,6 +135,7 @@ export default class TopicScreen extends React.Component {
             </Container>
         );
     }
+
 }
 
 const styles = StyleSheet.create({

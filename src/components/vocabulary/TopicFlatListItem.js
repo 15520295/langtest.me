@@ -34,6 +34,9 @@ class TopicFlatListItem extends Component {
     }
 
     render() {
+        const item = this.props.item;
+        const result = this.props.result;
+
         return (
             <View style={styles.vc_component}>
                 <TouchableOpacity
@@ -41,7 +44,7 @@ class TopicFlatListItem extends Component {
                     onPress={() =>
                         this.props.navigation.navigate('Word' ,
                             {
-                                topic:this.props.item
+                                topic:item
                             })
                     }
                 >
@@ -50,25 +53,25 @@ class TopicFlatListItem extends Component {
                     >
                         <View style={styles.vc_left}>
                             <Image style={styles.img}
-                                   source={{uri: this.props.item.img}}/>
+                                   source={{uri: item.img}}/>
                         </View>
                         <View style={styles.vc_right}>
                             <View style={styles.vc_topic}>
                                 <View style={styles.vc_topicName}>
                                     <Text style={styles.txt_topicName}>
-                                        {this.props.item.name}</Text>
+                                        {item.name}</Text>
 
                                 </View>
                                 <View style={styles.vc_topicDetail}>
                                     <Text style={styles.txt_topicCount}>
-                                        {this.props.item.count} words | </Text>
+                                        {item.count} words | </Text>
                                     <Text style={styles.txt_topicDetail}>
                                         More Detail</Text>
 
                                 </View>
                                 <View style={styles.vc_progress}>
                                     <Progress.Bar
-                                        progress={0.5}
+                                        progress={result}
                                         borderWidth={0}
                                         unfilledColor={'#E1E1E1'}
                                         color={'#78E589'}
@@ -78,7 +81,7 @@ class TopicFlatListItem extends Component {
                                     />
                                     <View style={styles.vc_progressValue}>
                                         <Text style={styles.txt_progressValue}>
-                                            30%</Text>
+                                            {result*100}%</Text>
                                     </View>
                                 </View>
                             </View>
