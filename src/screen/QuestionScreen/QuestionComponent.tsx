@@ -60,6 +60,23 @@ export default class QuestionComponent extends React.Component<QuestionComponent
         return should;
     }
 
+    renderQuestion(){
+        const {question} = this.props; 
+        switch(question.type){
+            case QuestionType.part6:
+                return(
+                    <Text adjustsFontSizeToFit minimumFontScale={.5} style={styles.questionText}>	
+                        Fill in the {question.id.slice(question.id.length - 3,question.id.length)} blank
+                    </Text>
+                );
+            default:
+                    return(
+                    <Text adjustsFontSizeToFit minimumFontScale={.5} style={styles.questionText}>	
+                        {question.question}
+                    </Text>
+                    )
+        }
+    }
     renderAnswer(){
         const {question} = this.props; 
         switch(question.type){
@@ -130,7 +147,7 @@ export default class QuestionComponent extends React.Component<QuestionComponent
                 </Card>
                 }
                 <Text adjustsFontSizeToFit minimumFontScale={.5} style={styles.questionText}>	
-                        {question.question}
+                        {this.renderQuestion()}
                 </Text>
                 {this.renderAnswer()}
             </View>

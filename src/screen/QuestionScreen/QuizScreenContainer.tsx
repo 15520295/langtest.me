@@ -307,7 +307,7 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
                         </GestureView>    
                     </Content>
                     {question.audioAsset && 
-                        <AudioPlayer uri={question.audioAsset} name={question.id} styles = {{width: widthPercentageToDP(100)}}/>
+                        <AudioPlayer uri={question.audioAsset} name={question.id.slice(question.id.length - 3,question.id.length)} styles = {{width: widthPercentageToDP(100)}}/>
                     }
                 </View>
             </Container>
