@@ -18,17 +18,26 @@ const BoxAndroid = posed.View({
     before: {
         x: widthPercentageToDP(100),
         y: 0,
-        scale: 0.5
+        scale: 0.5,
+        transition: {
+            default: { ease: 'linear', duration: 50 }
+        }
     },
     enter: {
         x: 0,
         y: 0,
-        scale: 1
+        scale: 1,
+        transition: {
+            default: { ease: 'linear', duration: 50 }
+        }
     },
     exit: {
         x: -widthPercentageToDP(100),
         y: 0,
-        scale: 0.5
+        scale: 0.5,
+        transition: {
+            default: { ease: 'linear', duration: 50 }
+        }
     }
 });
 
@@ -37,19 +46,28 @@ const BoxiOS = posed.View({
         x: 50,
         y: 0,
         opacity: 0,
-        scale: 0.7
+        scale: 0.7,
+        transition: {
+            default: { ease: 'linear', duration: 50 }
+        }
     },
     enter: {
         x: 0,
         y: 0,
         scale: 1,
-        opacity: 1
+        opacity: 1,
+        transition: {
+            default: { ease: 'linear', duration: 50 }
+        }
     },
     exit: {
         x: -50,
         y: 0,
         scale: 0.7,
-        opacity: 0
+        opacity: 0,
+        transition: {
+            default: { ease: 'linear', duration: 50 }
+        }
     }
 });
 
