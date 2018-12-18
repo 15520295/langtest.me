@@ -1,11 +1,11 @@
 import QuizStore from "../../store/quizStore";
 import React from 'react';
 import { Subscribe, Provider } from "unstated";
-import QuizScreenContainer from "./QuizScreenContainer";
+import QuizScreenContainer, { QuizScreenContainerProps } from "./QuizScreenContainer";
 import { NavigationScreenProps, NavigationScreenConfig, NavigationParams } from "react-navigation";
 
-export interface QuizScreenProps extends NavigationScreenProps<NavigationParams, any>{ 
-    quizStore: QuizStore,
+export interface QuizScreenProps extends QuizScreenContainerProps{ 
+
 }
 
 export default class QuizScreen extends React.Component<QuizScreenProps>{
@@ -18,7 +18,7 @@ export default class QuizScreen extends React.Component<QuizScreenProps>{
     }
 
     render() {
-        const {navigation} = this.props;
+        const {navigation, onQuizOver} = this.props;
         return(
             <Provider>
                  <Subscribe to={[QuizStore]}>
@@ -27,6 +27,7 @@ export default class QuizScreen extends React.Component<QuizScreenProps>{
                 navigation = {navigation}
                 onQuizOver = {navigation.getParam('quizOver', undefined)}
               quizStore={quizStore as QuizStore}
+              onQuizOver = {onQuizOver}
             />
           )}
         </Subscribe>

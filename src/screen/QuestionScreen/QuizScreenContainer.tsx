@@ -18,17 +18,26 @@ const BoxAndroid = posed.View({
     before: {
         x: widthPercentageToDP(100),
         y: 0,
-        scale: 0.5
+        scale: 0.5,
+        transition: {
+            default: { ease: 'linear', duration: 50 }
+        }
     },
     enter: {
         x: 0,
         y: 0,
-        scale: 1
+        scale: 1,
+        transition: {
+            default: { ease: 'linear', duration: 50 }
+        }
     },
     exit: {
         x: -widthPercentageToDP(100),
         y: 0,
-        scale: 0.5
+        scale: 0.5,
+        transition: {
+            default: { ease: 'linear', duration: 50 }
+        }
     }
 });
 
@@ -37,19 +46,28 @@ const BoxiOS = posed.View({
         x: 50,
         y: 0,
         opacity: 0,
-        scale: 0.7
+        scale: 0.7,
+        transition: {
+            default: { ease: 'linear', duration: 50 }
+        }
     },
     enter: {
         x: 0,
         y: 0,
         scale: 1,
-        opacity: 1
+        opacity: 1,
+        transition: {
+            default: { ease: 'linear', duration: 50 }
+        }
     },
     exit: {
         x: -50,
         y: 0,
         scale: 0.7,
-        opacity: 0
+        opacity: 0,
+        transition: {
+            default: { ease: 'linear', duration: 50 }
+        }
     }
 });
 
@@ -100,8 +118,8 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
         
     }
 
-    reset = async () => {
-        await this.setState({
+    componentWillUnmount(){
+        this.setState({
             isLoading: false,
             answerState: [AnswerState.normal, AnswerState.normal, AnswerState.normal, AnswerState.normal],
             isWaiting: false,
@@ -174,13 +192,11 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
             onQuizOver(quizStore);
             return;
         }
-        const reset = this.reset;
         const tryAgainButton = async function (): Promise<void> {
             await sharedQuizService.initQuickTest();
             navigation.navigate('Questions');
         }
         const homeFunc = async function(): Promise<void> {
-            await reset();
             navigation.navigate('Home');
         }
         navigation.navigate('Results', {totalAnswer: quizStore.getTotalQuestionNumber(),
