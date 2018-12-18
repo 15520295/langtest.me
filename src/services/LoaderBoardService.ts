@@ -3,9 +3,6 @@ import IProfile from '../entity/Profile';
 
 
 class LeaderBoardService implements ILeaderBoardService {
-    getLeaderBoardAll(_index: number, _numberOfProfile: number): IProfile[] {
-        throw new Error('Method not implemented.');
-    }
 
     getMyProfile(): IProfile {
         let myprofile: IProfile = {
@@ -19,6 +16,10 @@ class LeaderBoardService implements ILeaderBoardService {
         };
 
         return myprofile;
+    }
+
+    getLeaderBoardAll(_index: number, _numberOfProfile: number): IProfile[] {
+        throw new Error('Method not implemented.');
     }
 
     getLeaderBoardDay(_index: number, _numberOfProfile: number): IProfile[] {
