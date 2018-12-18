@@ -10,7 +10,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'In a publishing company'],
     correctAnswer: 0,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_147-148.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_147-148.png'),
     comeWith: ['p7_1_147', 'p7_1_148',]
 },{
     id: 'p7_1_148',
@@ -22,7 +22,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'Meet a new staff member'],
     correctAnswer: 3,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_147-148.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_147-148.png'),
     comeWith: ['p7_1_147', 'p7_1_148',]
 },{
     id: 'p7_1_149',
@@ -34,7 +34,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'It will cover more than one neighborhood.'],
     correctAnswer: 1,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_149-150.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_149-150.png'),
     comeWith: ['p7_1_149', 'p7_1_150',]
 },{
     id: 'p7_1_150',
@@ -46,7 +46,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'To suggest changes in deadlines '],
     correctAnswer: 0,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_149-150.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_149-150.png'),
     comeWith: ['p7_1_149', 'p7_1_150',]
 },{
     id: 'p7_1_151',
@@ -58,7 +58,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'New employees at small companies'],
     correctAnswer: 2,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_151-153.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_151-153.png'),
     comeWith: ['p7_1_151', 'p7_1_152', 'p7_1_153']
 },{
     id: 'p7_1_152',
@@ -70,7 +70,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'Evaluation Techniques'],
     correctAnswer: 0,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_151-153.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_151-153.png'),
     comeWith: ['p7_1_151', 'p7_1_152', 'p7_1_153']
 },{
     id: 'p7_1_153',
@@ -82,7 +82,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'It will focus on new software.'],
     correctAnswer: 3,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_151-153.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_151-153.png'),
     comeWith: ['p7_1_151', 'p7_1_152', 'p7_1_153']
 },,{
     id: 'p7_1_154',
@@ -94,7 +94,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'Its customers are not happy about changes that are planned.'],
     correctAnswer: 1,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_154-157.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_154-157.png'),
     comeWith: ['p7_1_154', 'p7_1_155', 'p7_1_156', 'p7_1_157']
 },{
     id: 'p7_1_155',
@@ -106,7 +106,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'Finding buyers for the theater'],
     correctAnswer: 2,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_154-157.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_154-157.png'),
     comeWith: ['p7_1_154', 'p7_1_155', 'p7_1_156', 'p7_1_157']
 },{
     id: 'p7_1_156',
@@ -118,7 +118,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'A Lakehurst street'],
     correctAnswer: 2,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_154-157.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_154-157.png'),
     comeWith: ['p7_1_154', 'p7_1_155', 'p7_1_156', 'p7_1_157']
 },{
     id: 'p7_1_157',
@@ -130,7 +130,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      '[4]'],
     correctAnswer: 0,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_154-157.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_154-157.png'),
     comeWith: ['p7_1_154', 'p7_1_155', 'p7_1_156', 'p7_1_157']
 },{
     id: 'p7_1_158',
@@ -142,7 +142,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'Software development'],
     correctAnswer: 3,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_158-159.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_158-159.png'),
     comeWith: ['p7_1_158', 'p7_1_159']
 },{
     id: 'p7_1_159',
@@ -154,7 +154,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'It is not available to new customers'],
     correctAnswer: 0,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_158-159.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_158-159.png'),
     comeWith: ['p7_1_158', 'p7_1_159']
 },{
     id: 'p7_1_160',
@@ -166,7 +166,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'Calling people who are unfamiliar with the company'],
     correctAnswer: 1,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_160-162.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_160-162.png'),
     comeWith: ['p7_1_160', 'p7_1_161', 'p7_1_162']
 },{
     id: 'p7_1_161',
@@ -178,7 +178,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'An insurance license'],
     correctAnswer: 3,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_160-162.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_160-162.png'),
     comeWith: ['p7_1_160', 'p7_1_161', 'p7_1_162']
 },{
     id: 'p7_1_162',
@@ -190,7 +190,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'To find out about their application status'],
     correctAnswer: 0,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_160-162.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_160-162.png'),
     comeWith: ['p7_1_160', 'p7_1_161', 'p7_1_162']
 },{
     id: 'p7_1_163',
@@ -202,7 +202,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'To announce the relocation of an established business'],
     correctAnswer: 2,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_163-166.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_163-166.png'),
     comeWith: ['p7_1_163', 'p7_1_164', 'p7_1_165', 'p7_1_166']
 },{
     id: 'p7_1_164',
@@ -214,7 +214,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'He enjoys talking about baseball with others.'],
     correctAnswer: 3,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_163-166.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_163-166.png'),
     comeWith: ['p7_1_163', 'p7_1_164', 'p7_1_165', 'p7_1_166']
 },{
     id: 'p7_1_165',
@@ -226,7 +226,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'keeps'],
     correctAnswer: 3,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_163-166.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_163-166.png'),
     comeWith: ['p7_1_163', 'p7_1_164', 'p7_1_165', 'p7_1_166']
 },{
     id: 'p7_1_166',
@@ -238,7 +238,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'Its sign will be replaced later in the month.'],
     correctAnswer: 1,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_163-166.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_163-166.png'),
     comeWith: ['p7_1_163', 'p7_1_164', 'p7_1_165', 'p7_1_166']
 },{
     id: 'p7_1_167',
@@ -250,7 +250,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'He was happy to fulfill a request.'],
     correctAnswer: 3,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_167-168.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_167-168.png'),
     comeWith: ['p7_1_167', 'p7_1_168']
 },{
     id: 'p7_1_168',
@@ -262,7 +262,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'A human resources manager'],
     correctAnswer: 0,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_167-168.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_167-168.png'),
     comeWith: ['p7_1_167', 'p7_1_168']
 },{
     id: 'p7_1_169',
@@ -274,7 +274,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'To propose that a session be rescheduled'],
     correctAnswer: 1,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_169-171.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_169-171.png'),
     comeWith: ['p7_1_169', 'p7_1_170', 'p7_1_171']
 },{
     id: 'p7_1_170',
@@ -286,7 +286,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'She is studying to be a dietitian.'],
     correctAnswer: 0,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_169-171.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_169-171.png'),
     comeWith: ['p7_1_169', 'p7_1_170', 'p7_1_171']
 },{
     id: 'p7_1_171',
@@ -298,7 +298,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      '[4]'],
     correctAnswer: 3,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_169-171.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_169-171.png'),
     comeWith: ['p7_1_169', 'p7_1_170', 'p7_1_171']
 },{
     id: 'p7_1_172',
@@ -310,7 +310,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'Appliances'],
     correctAnswer: 1,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_172-175.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_172-175.png'),
     comeWith: ['p7_1_172', 'p7_1_173', 'p7_1_174', 'p7_1_175']
 },{
     id: 'p7_1_173',
@@ -322,7 +322,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'Choose a different shipping method'],
     correctAnswer: 0,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_172-175.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_172-175.png'),
     comeWith: ['p7_1_172', 'p7_1_173', 'p7_1_174', 'p7_1_175']
 },{
     id: 'p7_1_174',
@@ -334,7 +334,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'To alert her to an error in a previous message'],
     correctAnswer: 0,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_172-175.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_172-175.png'),
     comeWith: ['p7_1_172', 'p7_1_173', 'p7_1_174', 'p7_1_175']
 },{
     id: 'p7_1_175',
@@ -346,7 +346,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'Some new items will be chosen for a catalog by the end of the day.'],
     correctAnswer: 2,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_172-175.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_172-175.png'),
     comeWith: ['p7_1_172', 'p7_1_173', 'p7_1_174', 'p7_1_175']
 },{
     id: 'p7_1_176',
@@ -358,7 +358,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'To offer him a discount on a subscription'],
     correctAnswer: 2,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_176-180.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_176-180.png'),
     comeWith: ['p7_1_176', 'p7_1_177', 'p7_1_178', 'p7_1_179', 'p7_1_180']
 },{
     id: 'p7_1_177',
@@ -370,7 +370,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'It publishes a full-color magazine.'],
     correctAnswer: 3,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_176-180.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_176-180.png'),
     comeWith: ['p7_1_176', 'p7_1_177', 'p7_1_178', 'p7_1_179', 'p7_1_180']
 },{
     id: 'p7_1_178',
@@ -382,7 +382,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'She will be out of the office in October.'],
     correctAnswer: 2,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_176-180.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_176-180.png'),
     comeWith: ['p7_1_176', 'p7_1_177', 'p7_1_178', 'p7_1_179', 'p7_1_180']
 },{
     id: 'p7_1_179',
@@ -394,7 +394,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'calculating'],
     correctAnswer: 1,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_176-180.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_176-180.png'),
     comeWith: ['p7_1_176', 'p7_1_177', 'p7_1_178', 'p7_1_179', 'p7_1_180']
 },{
     id: 'p7_1_180',
@@ -406,7 +406,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'Package 4'],
     correctAnswer: 1,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_176-180.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_176-180.png'),
     comeWith: ['p7_1_176', 'p7_1_177', 'p7_1_178', 'p7_1_179', 'p7_1_180']
 },{
     id: 'p7_1_181',
@@ -418,7 +418,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'To negotiate a salary'],
     correctAnswer: 0,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_181-185.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_181-185.png'),
     comeWith: ['p7_1_181', 'p7_1_182', 'p7_1_183', 'p7_1_184', 'p7_1_185']
 },{
     id: 'p7_1_182',
@@ -430,7 +430,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'A summary of her work experience'],
     correctAnswer: 2,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_181-185.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_181-185.png'),
     comeWith: ['p7_1_181', 'p7_1_182', 'p7_1_183', 'p7_1_184', 'p7_1_185']
 },{
     id: 'p7_1_183',
@@ -442,7 +442,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'They pay their own travel expenses.'],
     correctAnswer: 0,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_181-185.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_181-185.png'),
     comeWith: ['p7_1_181', 'p7_1_182', 'p7_1_183', 'p7_1_184', 'p7_1_185']
 },{
     id: 'p7_1_184',
@@ -454,7 +454,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'To explain software requirements'],
     correctAnswer: 2,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_181-185.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_181-185.png'),
     comeWith: ['p7_1_181', 'p7_1_182', 'p7_1_183', 'p7_1_184', 'p7_1_185']
 },{
     id: 'p7_1_185',
@@ -466,7 +466,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'Meet Mr. Chalmers'],
     correctAnswer: 1,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_181-185.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_181-185.png'),
     comeWith: ['p7_1_181', 'p7_1_182', 'p7_1_183', 'p7_1_184', 'p7_1_185']
 },{
     id: 'p7_1_191',
@@ -478,7 +478,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'Clothing'],
     correctAnswer: 1,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_191-195.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_191-195.png'),
     comeWith: ['p7_1_191', 'p7_1_192', 'p7_1_193', 'p7_1_194', 'p7_1_195']
 },{
     id: 'p7_1_192',
@@ -490,7 +490,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'Request a discount code from Vertin Suites'],
     correctAnswer: 0,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_191-195.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_191-195.png'),
     comeWith: ['p7_1_191', 'p7_1_192', 'p7_1_193', 'p7_1_194', 'p7_1_195']
 },{
     id: 'p7_1_193',
@@ -502,7 +502,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'Cancel travel arrangements made for Mr. Kekana'],
     correctAnswer: 2,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_191-195.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_191-195.png'),
     comeWith: ['p7_1_191', 'p7_1_192', 'p7_1_193', 'p7_1_194', 'p7_1_195']
 },{
     id: 'p7_1_194',
@@ -514,7 +514,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'experience'],
     correctAnswer: 0,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_191-195.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_191-195.png'),
     comeWith: ['p7_1_191', 'p7_1_192', 'p7_1_193', 'p7_1_194', 'p7_1_195']
 },{
     id: 'p7_1_195',
@@ -526,7 +526,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'He believed his topic would be easy to understand.'],
     correctAnswer: 1,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_191-195.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_191-195.png'),
     comeWith: ['p7_1_191', 'p7_1_192', 'p7_1_193', 'p7_1_194', 'p7_1_195']
 },{
     id: 'p7_1_196',
@@ -538,7 +538,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'It is enforcing new traffic regulations.'],
     correctAnswer: 2,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_196-200.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_196-200.png'),
     comeWith: ['p7_1_196', 'p7_1_197', 'p7_1_198', 'p7_1_199', 'p7_1_200']
 },{
     id: 'p7_1_197',
@@ -550,7 +550,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'She read the May 6 newspaper article.'],
     correctAnswer: 1,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_196-200.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_196-200.png'),
     comeWith: ['p7_1_196', 'p7_1_197', 'p7_1_198', 'p7_1_199', 'p7_1_200']
 },{
     id: 'p7_1_198',
@@ -562,7 +562,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'registered'],
     correctAnswer: 0,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_196-200.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_196-200.png'),
     comeWith: ['p7_1_196', 'p7_1_197', 'p7_1_198', 'p7_1_199', 'p7_1_200']
 },{
     id: 'p7_1_199',
@@ -574,7 +574,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'They have secured additional funding from the city.'],
     correctAnswer: 2,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_196-200.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_196-200.png'),
     comeWith: ['p7_1_196', 'p7_1_197', 'p7_1_198', 'p7_1_199', 'p7_1_200']
 },{
     id: 'p7_1_200',
@@ -586,7 +586,7 @@ const QuestionDataPart7 : IQuestion[] = [{
      'Some of them live in the Eastside cultural district.'],
     correctAnswer: 2,
     difficultLevel: 3,
-    imageAsset: require('./../../assets/images/test1/p7_1_196-200.PNG'),
+    imageAsset: require('./../../assets/images/test1/p7_1_196-200.png'),
     comeWith: ['p7_1_196', 'p7_1_197', 'p7_1_198', 'p7_1_199', 'p7_1_200']
 }]
 

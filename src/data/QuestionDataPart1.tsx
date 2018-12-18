@@ -6,7 +6,7 @@ const QuestionDataPart1 : IQuestion[] = [{
     question: 'Choose the best description',
     answer: ['A', 'B', 'C', 'D'],
     correctAnswer: 0,
-    imageAsset: require('./../../assets/images/test1/p1_1_001.PNG'),
+    imageAsset: require('./../../assets/images/test1/p1_1_001.png'),
     audioAsset: require('./../../assets/audio/test1/p1_1_001.mp3'),
     difficultLevel: 3
 },{
@@ -15,7 +15,7 @@ const QuestionDataPart1 : IQuestion[] = [{
     question: 'Choose the best description',
     answer: ['A', 'B', 'C', 'D'],
     correctAnswer: 0,
-    imageAsset: require('./../../assets/images/test1/p1_1_002.PNG'),
+    imageAsset: require('./../../assets/images/test1/p1_1_002.png'),
     audioAsset: require('./../../assets/audio/test1/p1_1_002.mp3'),
     difficultLevel: 3
 },{
@@ -24,7 +24,7 @@ const QuestionDataPart1 : IQuestion[] = [{
     question: 'Choose the best description',
     answer: ['A', 'B', 'C', 'D'],
     correctAnswer: 3,
-    imageAsset: require('./../../assets/images/test1/p1_1_003.PNG'),
+    imageAsset: require('./../../assets/images/test1/p1_1_003.png'),
     audioAsset: require('./../../assets/audio/test1/p1_1_003.mp3'),
     difficultLevel: 3
 },{
@@ -33,7 +33,7 @@ const QuestionDataPart1 : IQuestion[] = [{
     question: 'Choose the best description',
     answer: ['A', 'B', 'C', 'D'],
     correctAnswer: 2,
-    imageAsset: require('./../../assets/images/test1/p1_1_004.PNG'),
+    imageAsset: require('./../../assets/images/test1/p1_1_004.png'),
     audioAsset: require('./../../assets/audio/test1/p1_1_004.mp3'),
     difficultLevel: 3
 },{
@@ -42,7 +42,7 @@ const QuestionDataPart1 : IQuestion[] = [{
     question: 'Choose the best description',
     answer: ['A', 'B', 'C', 'D'],
     correctAnswer: 1,
-    imageAsset: require('./../../assets/images/test1/p1_1_005.PNG'),
+    imageAsset: require('./../../assets/images/test1/p1_1_005.png'),
     audioAsset: require('./../../assets/audio/test1/p1_1_005.mp3'),
     difficultLevel: 3
 },{
@@ -51,7 +51,7 @@ const QuestionDataPart1 : IQuestion[] = [{
     question: 'Choose the best description',
     answer: ['A', 'B', 'C', 'D'],
     correctAnswer: 3,
-    imageAsset: require('./../../assets/images/test1/p1_1_006.PNG'),
+    imageAsset: require('./../../assets/images/test1/p1_1_006.png'),
     audioAsset: require('./../../assets/audio/test1/p1_1_006.mp3'),
     difficultLevel: 3
 }];

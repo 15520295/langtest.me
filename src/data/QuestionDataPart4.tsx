@@ -348,7 +348,7 @@ const QuestionDataPart4 : IQuestion[] = [{
         'Offering different styles', 
         'Changing a Web site'],
     correctAnswer: 1,
-    imageAsset: require('./../../assets/images/test1/p4_1_097.PNG'),
+    imageAsset: require('./../../assets/images/test1/p4_1_097.png'),
     audioAsset: require('./../../assets/audio/test1/p4_1_095-097.mp3'),
     comeWith: ['p7_1_095', 'p7_1_096', 'p7_1_097'],
     difficultLevel: 3
@@ -375,7 +375,7 @@ const QuestionDataPart4 : IQuestion[] = [{
         'Trail 3', 
         'Trail 4'],
     correctAnswer: 3,
-    imageAsset: require('./../../assets/images/test1/p4_1_099.PNG'),
+    imageAsset: require('./../../assets/images/test1/p4_1_099.png'),
     audioAsset: require('./../../assets/audio/test1/p4_1_098-100.mp3'),
     comeWith: ['p7_1_098', 'p7_1_099', 'p7_1_100'],
     difficultLevel: 3

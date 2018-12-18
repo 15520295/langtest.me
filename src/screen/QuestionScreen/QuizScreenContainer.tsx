@@ -48,7 +48,7 @@ const BoxiOS = posed.View({
         opacity: 0,
         scale: 0.7,
         transition: {
-            default: { ease: 'linear', duration: 50 }
+            default: { ease: 'linear', duration: 200 }
         }
     },
     enter: {
@@ -57,7 +57,7 @@ const BoxiOS = posed.View({
         scale: 1,
         opacity: 1,
         transition: {
-            default: { ease: 'linear', duration: 50 }
+            default: { ease: 'linear', duration: 200 }
         }
     },
     exit: {
@@ -66,7 +66,7 @@ const BoxiOS = posed.View({
         scale: 0.7,
         opacity: 0,
         transition: {
-            default: { ease: 'linear', duration: 50 }
+            default: { ease: 'linear', duration: 200 }
         }
     }
 });
@@ -221,23 +221,8 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
     }
 
     renderAnswerQuestion () {
-        const {quizStore} = this.props;
         return (
             <View style={{flex: 1}}>
-                <View style={styles.navigationView}>
-                    <TouchableOpacity onPress={() => {this.prevQuestion();}}>
-                        <Icon name='arrow-back' style={{color: '#019AE8'}} android="md-arrow-back" ios="ios-arrow-back" /> 
-                    </TouchableOpacity>
-                    <View style={{flexDirection: 'row'}}>
-                        <TouchableOpacity>
-                            <Text style={{fontSize: 18,color: '#019AE8'}}>{quizStore.getCurrentQuestionNumber() + 1}</Text>
-                        </TouchableOpacity>
-                        <Text style={{fontSize: 18}}>/{quizStore.getTotalQuestionNumber()}</Text>
-                    </View>
-                    <TouchableOpacity onPress={() => {this.nextQuestion();}} >
-                        <Icon name='arrow-forward' style={{color: '#019AE8'}} android="md-arrow-forward" ios="ios-arrow-forward" /> 
-                    </TouchableOpacity>
-                </View>
                 {Platform.OS === 'ios'
                 ?
                 <Transition preEnterPose={this.state.isNextQuestion ? 'before' : 'exit'} 
@@ -301,6 +286,20 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
                         borderColor="white"
                         borderRadius={0}
                         onOver = {() => {this.quizOver()}}/>
+                        <View style={styles.navigationView}>
+                            <TouchableOpacity onPress={() => {this.prevQuestion();}}>
+                                <Icon name='arrow-back' style={{color: '#019AE8'}} android="md-arrow-back" ios="ios-arrow-back" /> 
+                            </TouchableOpacity>
+                            <View style={{flexDirection: 'row'}}>
+                                <TouchableOpacity>
+                                    <Text style={{fontSize: 18,color: '#019AE8'}}>{quizStore.getCurrentQuestionNumber() + 1}</Text>
+                                </TouchableOpacity>
+                                <Text style={{fontSize: 18}}>/{quizStore.getTotalQuestionNumber()}</Text>
+                            </View>
+                            <TouchableOpacity onPress={() => {this.nextQuestion();}} >
+                                <Icon name='arrow-forward' style={{color: '#019AE8'}} android="md-arrow-forward" ios="ios-arrow-forward" /> 
+                            </TouchableOpacity>
+                        </View>
                         <GestureView onLeftSwipe={()=> {this.prevQuestion()}}
                             onRightSwipe={() => {this.nextQuestion()}}
                             style={{flex: 1}}>

@@ -220,7 +220,7 @@ class QuizService implements IQuizService{
             if(question.comeWith){
                 question.comeWith.forEach((id, _) => {
                     if(!this.contain(questionList, id)){
-                        const questionToAdd : IQuestion = this._srcQuestionList.find((value, _, __) => value.id === id);
+                        const questionToAdd : IQuestion = this._srcQuestionList.find((value, _, __) => value && value.id === id);
                         if (questionToAdd){
                             questionList.push(questionToAdd);
                         }
