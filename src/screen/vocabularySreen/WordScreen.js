@@ -48,6 +48,8 @@ class WordScreen extends React.Component {
         this.topicData = wordMap[this.topic.id];
     }
 
+    //region ------------- TEST SCREEN
+
     _wordDataToTestData = (wordData) => {
         const questionArr = [];
         for (let curWordIndex = 0; curWordIndex < wordData.length; curWordIndex++) {
@@ -62,11 +64,13 @@ class WordScreen extends React.Component {
 
                 let isAdded = false;
                 for (const answerIndexGetted of answerArrIndex) {
-                    if ((answerIndex === answerIndexGetted)
-                        || (answerIndex === curWordIndex)) {
+                    if ((answerIndex === answerIndexGetted)) {
                         isAdded = true;
                         break;
                     }
+                }
+                if (answerIndex === curWordIndex) {
+                    isAdded = true;
                 }
 
                 if (!isAdded) {
@@ -122,8 +126,6 @@ class WordScreen extends React.Component {
     };
 
     _onResultScreenOpen = (correctAnswer, totalAnswer) => {
-        console.log('Chi CS _onResultScreenOpen:  ');
-
         this._storeVocabularyResult(this.topic.id,correctAnswer/totalAnswer);
     };
 
@@ -136,8 +138,6 @@ class WordScreen extends React.Component {
         topicResult.set(topicID, result);
 
         await LocalStoreHelper._storeMapData(LocalStoreHelper.topicResult, topicResult);
-
-        console.log('Chi CS _storeVocabularyResult: ' + JSON.stringify(Array.from( topicResult.entries())));
     };
 
     quizOver = (quizStore) => {
@@ -163,6 +163,10 @@ class WordScreen extends React.Component {
             onResultScreenOpen: this._onResultScreenOpen,
         });
     };
+
+    //endregion
+
+    // ------------- LEARN SCREEN
 
     _openLearnScreen = () => {
         this.props.navigation.navigate('Learn', {

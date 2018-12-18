@@ -40,8 +40,6 @@ class TopicScreen extends React.Component {
             correctAnswer: 0,
             refresh: true
         };
-
-        this._refreshList();
     }
 
     _refreshList = async () => {
@@ -55,12 +53,10 @@ class TopicScreen extends React.Component {
 
     _getResult(item) {
         let result = 0.0;
-        console.log('Chi CS _getResult: ');
 
         const topicResult = this.state.topicResult;
         if (topicResult != null) {
             result = topicResult.get(item.id)  != null ? topicResult.get(item.id) : 0.0;
-            console.log('Chi CS _getResult: ' + JSON.stringify(Array.from( topicResult.entries())));
         }
         return result;
     }
@@ -74,14 +70,10 @@ class TopicScreen extends React.Component {
                 }
             );
         }
-
-
     }
 
 
     render() {
-        console.log('Chi CS Topic - render ');
-
         return (
             <Container style={styles.container}>
                 <Header androidStatusBarColor="#0076BF"
