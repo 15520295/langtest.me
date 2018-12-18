@@ -29,11 +29,17 @@ export default class FlipCard extends Component {
       back: { width: 0, height: 0 }
     }
   }
-  UNSAFE_componentWillReceiveProps (nextProps) {
-    if (this.state.isFlipped !== nextProps.flip) {
-      // this._toggleCard()
+  // UNSAFE_componentWillReceiveProps (nextProps) {
+  //   if (this.state.isFlipped !== nextProps.flip) {
+  //     this._toggleCard()
+  //   }
+  // }
+
+    _flipUp() {
+        if (this.state.isFlipped) {
+            this._toggleCard()
+        }
     }
-  }
   _toggleCard () {
     this.setState({isFlipping: true})
     this.props.onFlipStart(this.state.isFlipped)

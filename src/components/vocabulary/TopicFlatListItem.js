@@ -34,6 +34,9 @@ class TopicFlatListItem extends Component {
     }
 
     render() {
+        const item = this.props.item;
+        const result = this.props.result;
+
         return (
             <View style={styles.vc_component}>
                 <TouchableOpacity
@@ -41,7 +44,7 @@ class TopicFlatListItem extends Component {
                     onPress={() =>
                         this.props.navigation.navigate('Word' ,
                             {
-                                topic:this.props.item
+                                topic:item
                             })
                     }
                 >
@@ -50,35 +53,37 @@ class TopicFlatListItem extends Component {
                     >
                         <View style={styles.vc_left}>
                             <Image style={styles.img}
-                                   source={{uri: this.props.item.img}}/>
+                                   source={{uri: item.img}}/>
                         </View>
                         <View style={styles.vc_right}>
                             <View style={styles.vc_topic}>
                                 <View style={styles.vc_topicName}>
                                     <Text style={styles.txt_topicName}>
-                                        {this.props.item.name}</Text>
+                                        {item.name}</Text>
 
                                 </View>
                                 <View style={styles.vc_topicDetail}>
                                     <Text style={styles.txt_topicCount}>
-                                        {this.props.item.count} words | </Text>
-                                    <Text style={styles.txt_topicDetail}>
-                                        More Detail</Text>
+                                        {item.count} words</Text>
+                                    {/*<Text style={styles.txt_topicCount}>*/}
+                                        {/*{item.count} words | </Text>*/}
+                                    {/*<Text style={styles.txt_topicDetail}>*/}
+                                        {/*More Detail</Text>*/}
 
                                 </View>
                                 <View style={styles.vc_progress}>
                                     <Progress.Bar
-                                        progress={0.5}
+                                        progress={result}
                                         borderWidth={0}
                                         unfilledColor={'#E1E1E1'}
-                                        color={'#78E589'}
+                                        color={'#38bfd6'}
                                         height={14}
                                         borderRadius={10}
                                         width={null}
                                     />
                                     <View style={styles.vc_progressValue}>
                                         <Text style={styles.txt_progressValue}>
-                                            30%</Text>
+                                            {Number((result*100).toFixed(0))}%</Text>
                                     </View>
                                 </View>
                             </View>
@@ -185,15 +190,15 @@ const styles = StyleSheet.create({
     },
     txt_topicName: {
         fontSize: 22,
-        fontFamily: 'System',
-        color: '#00BCD4',
+        color: '#38bfd6',
         paddingLeft: 14,
-
+        fontFamily:'Roboto_medium',
+        // fontWeight: 'bold',
     },
     txt_topicCount: {
-        fontSize: 14,
+        fontSize: 16,
         fontFamily: 'System',
-        color: '#737373',
+            color: '#6d6d6d',
         paddingLeft: 14,
 
     },
@@ -208,7 +213,7 @@ const styles = StyleSheet.create({
     txt_progressValue: {
         fontSize: 10,
         fontFamily: 'System',
-        color: '#737373',
+        color: '#6d6d6d',
 
     },
 

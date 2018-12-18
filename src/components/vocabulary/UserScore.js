@@ -24,27 +24,27 @@ export default class UserScore extends Component {
                 </View>
                 <View style={styles.vc_totalScore}>
                     <Text style={styles.txt_totalScore}>
-                        Total score</Text>
+                        Total Answer</Text>
                     <Text style={styles.txt_totalScoreValue}>
-                        30</Text>
+                        {this.props.totalAnswer}</Text>
                 </View>
                 <View style={styles.vc_detail}>
                     <View style={styles.vc_detailScore}>
-                        <Text style={styles.txt_detailScore}>
-                            Reading</Text>
-                        <Text style={styles.txt_detailScoreValue}>
-                            30</Text>
+                        <Text style={styles.txt_correctTitle}>
+                            Correct</Text>
+                        <Text style={styles.txt_correctScoreValue}>
+                            {this.props.correctAnswer}</Text>
                     </View>
                     <View style={styles.vc_detailScore}>
-                        <Text style={styles.txt_detailScore}>
-                            |</Text>
-                        <Text style={styles.txt_detailScoreValue}> </Text>
+                        <Text style={styles.txt_separator}>
+                             </Text>
+                        <Text style={styles.txt_correctScoreValue}> </Text>
                     </View>
                     <View style={styles.vc_detailScore}>
-                        <Text style={styles.txt_detailScore}>
-                            Listening</Text>
-                        <Text style={styles.txt_detailScoreValue}>
-                            30</Text>
+                        <Text style={styles.txt_wrongTitle}>
+                            Wrong</Text>
+                        <Text style={styles.txt_wrongScoreValue}>
+                            {this.props.totalAnswer - this.props.correctAnswer}</Text>
                     </View>
                 </View>
             </View>
@@ -58,7 +58,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
-        paddingHorizontal: 20,
+        paddingHorizontal: 18,
+        paddingTop:15,
         backgroundColor: '#EEEEEE',
     },
     vc_icon: {
@@ -75,6 +76,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 0,
+        marginRight: 2,
         // backgroundColor: 'blue',
     },
     vc_detail: {
@@ -97,33 +99,42 @@ const styles = StyleSheet.create({
     // Component
     txt_totalScore: {
         fontSize: 22,
-        fontFamily: 'System',
-        fontWeight: 'bold',
-        color: '#4F4F4F',
+        fontFamily:'Roboto_medium',
+        color: '#6d6d6d',
         // paddingLeft: 8,
 
     },
     txt_totalScoreValue: {
-        fontSize: 32,
-        fontFamily: 'System',
-        fontWeight: 'bold',
-        color: '#78E589',
+        fontSize: 28,
+        fontFamily:'Roboto_medium',
+        color: '#6d6d6d',
         // paddingLeft: 8,
 
     },
-    txt_detailScore: {
-        fontSize: 18,
-        fontFamily: 'System',
-        color: '#4F4F4F',
-        // paddingLeft: 8,
+    txt_correctTitle: {
+        fontSize: 19,
+        color: '#49c90e',
+        fontFamily:'Roboto_medium',
 
     },
-    txt_detailScoreValue: {
-        fontSize: 18,
-        fontFamily: 'System',
-        color: '#78E589',
-        // paddingLeft: 8,
-
+    txt_wrongTitle: {
+        fontSize: 19,
+        color: '#FF5252',
+        fontFamily:'Roboto_medium',
+    },
+    txt_separator: {
+        fontSize: 19,
+        color: '#b0c8c8',
+    },
+    txt_correctScoreValue: {
+        fontSize: 19,
+        fontFamily:'Roboto_medium',
+        color: '#49c90e',
+    },
+    txt_wrongScoreValue: {
+        fontSize: 19,
+        fontFamily:'Roboto_medium',
+        color: '#FF5252',
     },
 
 });

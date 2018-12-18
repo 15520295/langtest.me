@@ -4,8 +4,10 @@ import {Root} from 'native-base';
 import {AppLoading, Asset, Font, Icon} from 'expo';
 import {Expo} from 'expo';
 
+import * as firebase from 'firebase';
+
 import {
-    DrawerItems, createDrawerNavigator,createStackNavigator,createAppContainer,withNavigation, createSwitchNavigator
+    DrawerItems, createDrawerNavigator, createStackNavigator, createAppContainer, withNavigation, createSwitchNavigator
 } from 'react-navigation';
 
 import {
@@ -18,6 +20,16 @@ import TopicScreen from './screen/vocabularySreen/TopicScreen';
 import WordScreen from './screen/vocabularySreen/WordScreen';
 
 //huy
+// Initialize Firebase
+const firebaseConfig = {
+    apiKey: 'AIzaSyD118xcgkOSzBjghv7_gzot8AmvI4itCAA',
+    authDomain: 'fasttoeic-d9d3c.firebaseapp.com',
+    databaseURL: 'https://fasttoeic-d9d3c.firebaseio.com',
+    projectId: 'fasttoeic-d9d3c',
+    storageBucket: '',
+    messagingSenderId: '935557755374'
+};
+const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 const CustomDrawerContentComponent = (props) => (
     // <Container>
@@ -33,12 +45,14 @@ const CustomDrawerContentComponent = (props) => (
     //     </Content>
     // </Container>
     <SafeAreaView style={{flex: 1}}>
-        <View style={{height: 150, backgroundColor: 'white', alignItems: 'center',
-        justifyContent: 'center'}}>
-            <Image source={require('../assets/images/reading.jpg')} 
-                style={{height: 120, width: 120, borderRadius: 60}}
+        <View style={{
+            height: 150, backgroundColor: 'white', alignItems: 'center',
+            justifyContent: 'center'
+        }}>
+            <Image source={require('../assets/images/reading.jpg')}
+                   style={{height: 120, width: 120, borderRadius: 60}}
             />
-        </View> 
+        </View>
         <ScrollView>
             <DrawerItems {...props}/>
         </ScrollView>
@@ -74,16 +88,27 @@ import ChartScreen from './screen/ChartScreen';
 import sharedQuizService from './services/QuizService';
 import ResultScreen from './screen/QuestionScreen/ResultScreen';
 import LeaderBoardScreen from './screen/LeaderBoardScreen';
+import LearnScreen from './screen/vocabularySreen/LearnScreen';
+
 const AppContainer = createAppContainer(AppNavigator);
 
 export default class App extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             loading: true
         };
+        // this.database = firebase.database();
+        // this.writeDB();
     }
-    async componentDidMount(){
+
+    // writeDB(){
+    //     firebase.database().ref('notes/1').set({
+    //         text: 'Hello wrold!'
+    //     });
+    // }
+
+    async componentDidMount() {
         await Font.loadAsync({
             'Roboto': require('native-base/Fonts/Roboto.ttf'),
             'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
@@ -95,29 +120,25 @@ export default class App extends React.Component {
     }
 
     render() {
-        if(this.state.loading){
+        if (this.state.loading) {
             return (<AppLoading/>);
         }
         return (
-        // <View style={styles.container}>
-        //     <WordFlatList>
+            // <View style={styles.container}>
+            //     <WordFlatList>
 
             //     </WordFlatList>
             // </View>
             //<QuestionScreen/>
-        // <View style={styles.container}>
-        //     {Platform.OS === 'ios' && <StatusBar barStyle="default"/>}
-        //     <AppContainer />
-        // </View>
-        <MyApp/>
+            // <View style={styles.container}>
+            //     {Platform.OS === 'ios' && <StatusBar barStyle="default"/>}
+            //     <AppContainer />
+            // </View>
+            <MyApp/>
         );
     }
 }
 
-const TopicStack = createSwitchNavigator({
-    Topic: TopicScreen,
-    Word: WordScreen,
-});
 
 const QuestionStack = createSwitchNavigator({
     Questions: QuizScreen,
@@ -126,26 +147,32 @@ const QuestionStack = createSwitchNavigator({
     initialRouteName: 'Questions'
 });
 
+const TopicStack = createStackNavigator({
+    Topic: TopicScreen,
+    Word: WordScreen,
+    Learn: LearnScreen
+});
+
 const MyDrawerNavigator = createDrawerNavigator({
-    Home: {
-        screen: HomeScreen
+        Home: {
+            screen: HomeScreen
+        },
+        Question: {
+            screen: QuestionStack
+        },
+        Topic: {
+            screen: TopicStack,
+        },
+        Chart: {
+            screen: ChartScreen
+        },
     },
-    Question: {
-        screen: QuestionStack
-    },
-    Topic: {
-        screen: TopicStack,
-    },
-    Chart: {
-        screen: ChartScreen
-    },
-},
-{
-    contentComponent: CustomDrawerContentComponent,
-    contentOptions: {
-        activeTintColor: 'orange'
+    {
+        contentComponent: CustomDrawerContentComponent,
+        contentOptions: {
+            activeTintColor: 'orange'
+        }
     }
-}
 );
 
 const MyApp = createAppContainer(MyDrawerNavigator);
@@ -154,11 +181,11 @@ const styles = StyleSheet.create({
     container: {
         flex: 1
     },
-    drawImage:{
+    drawImage: {
         flex: 1,
-        height:100,
+        height: 100,
         width: 200,
-        borderRadius:75,
+        borderRadius: 75,
         alignItems: 'center',
         justifyContent: 'center',
     },

@@ -8,9 +8,7 @@ import {
     VictoryPolarAxis,
 } from 'victory-native';
 
-import {Button, Header, Content, Left, Container} from 'native-base';
-
-import {Icon} from 'react-native-elements';
+import {Button, Header, Content, Left, Container, Icon} from 'native-base';
 
 const data = [
     {quarter: 1, earnings: 13000},
@@ -23,23 +21,29 @@ export default class ChartScreen extends React.Component {
 
     static navigationOptions = {
         header: null, // !!! Hide Header
-        drawerIcon: ({tintColor}) => (
-            <Icon name='pie-chart' 
-            style= {{ fontSize: 24, color: tintColor}}/>
-        )
+        // drawerIcon: ({tintColor}) => (
+        //     <Icon name='pie-chart' 
+        //     style= {{ fontSize: 24, color: tintColor}}/>
+        // )
         // title:'Home 1',
        
     };
 
     render() {
         return (
-            <View style={styles.container}>
-                <ScrollView
-                    style={styles.container}
-                    contentContainerStyle={styles.contentContainer}
-                >
-                    {/* <VictoryChart minDomain={{ y: 0 }}>
-                <VictoryLine data={data} 
+            <Container>
+                <Header>
+                    <Left>
+                        <Icon name="ios-menu" onPress={()=>('')} />
+                    </Left>
+                </Header>
+                <View style={styles.container}>
+                    <ScrollView
+                        style={styles.container}
+                        contentContainerStyle={styles.contentContainer}
+                    >
+                        {/* <VictoryChart minDomain={{ y: 0 }}>
+                <VictoryLine data={data}
                   animate={{
                     duration: 2000,
                     onLoad: { duration: 1000 }
@@ -47,69 +51,70 @@ export default class ChartScreen extends React.Component {
             </VictoryChart>
 
             <VictoryChart minDomain={{ y: 0 }}>
-                <VictoryLine data={data1} 
+                <VictoryLine data={data1}
                   animate={{
                     duration: 2000,
                     onLoad: { duration: 1000 }
                   }}/>
             </VictoryChart> */}
 
-                    <VictoryChart polar
-                                  theme={VictoryTheme.material}
-                    >
-                        {
-                            ['Grammar', 'Listening', 'Speaking', 'Vocabulary', 'Reading'].map((d, i) => {
-                                return (
-                                    <VictoryPolarAxis dependentAxis
-                                                      key={i}
-                                                      label={d}
-                                                      labelPlacement="perpendicular"
-                                                      style={{tickLabels: {fill: 'none'}}}
-                                                      axisValue={i}
-                                                      animate={{
-                                                          duration: 2000,
-                                                          easing: 'bounce'
-                                                      }}
-                                    />
-                                );
-                            })
-                        }
-                        <VictoryBar
-                            style={{data: {fill: 'tomato', width: 25}}}
-                            data={[
-                                {x: 0, y: 10},
-                                {x: 1, y: 25},
-                                {x: 2, y: 40},
-                                {x: 3, y: 50},
-                                {x: 4, y: 50}
-                            ]}
-                        />
-                    </VictoryChart>
+                        <VictoryChart polar
+                                      theme={VictoryTheme.material}
+                                      animate={{
+                                          duration: 1000,
+                                          easing: 'bounce'
+                                      }}
+                        >
+                            {
+                                ['Grammar', 'Listening', 'Speaking', 'Vocabulary', 'Reading'].map((d, i) => {
+                                    return (
+                                        <VictoryPolarAxis dependentAxis
+                                                          key={i}
+                                                          label={d}
+                                                          labelPlacement="perpendicular"
+                                                          style={{tickLabels: {fill: 'none'}}}
+                                                          axisValue={i}
+                                        />
+                                    );
+                                })
+                            }
+                            <VictoryBar
+                                style={{data: {fill: 'tomato', width: 25}}}
+                                data={[
+                                    {x: 0, y: 10},
+                                    {x: 1, y: 25},
+                                    {x: 2, y: 40},
+                                    {x: 3, y: 50},
+                                    {x: 4, y: 50}
+                                ]}
+                            />
+                        </VictoryChart>
 
-                    <VictoryChart
-                        // domainPadding will add space to each side of VictoryBar to
-                        // prevent it from overlapping the axis
-                        domainPadding={20}
-                    >
-                        <VictoryAxis
-                            // tickValues specifies both the number of ticks and where
-                            // they are placed on the axis
-                            tickValues={[1, 2, 3, 4]}
-                            tickFormat={['01/11/2018', '02/11/2018', '03/11/2018', '04/11/2018']}
-                        />
-                        <VictoryAxis
-                            dependentAxis
-                            // tickFormat specifies how ticks should be displayed
-                            tickFormat={(x) => (`${x / 1000}k`)}
-                        />
-                        <VictoryBar
-                            data={data}
-                            x="quarter"
-                            y="earnings"
-                        />
-                    </VictoryChart>
-                </ScrollView>
-            </View>
+                        <VictoryChart
+                            // domainPadding will add space to each side of VictoryBar to
+                            // prevent it from overlapping the axis
+                            domainPadding={20}
+                        >
+                            <VictoryAxis
+                                // tickValues specifies both the number of ticks and where
+                                // they are placed on the axis
+                                tickValues={[1, 2, 3, 4]}
+                                tickFormat={['01/11', '02/11', '03/11', '04/11']}
+                            />
+                            <VictoryAxis
+                                dependentAxis
+                                // tickFormat specifies how ticks should be displayed
+                                tickFormat={(x) => (`${x / 1000}k`)}
+                            />
+                            <VictoryBar
+                                data={data}
+                                x="quarter"
+                                y="earnings"
+                            />
+                        </VictoryChart>
+                    </ScrollView>
+                </View>
+            </Container>
         );
     }
 }

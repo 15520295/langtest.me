@@ -33,8 +33,12 @@ export default class WordFlatListItem extends Component {
         }
     };
 
-    flipCard = () => {
+    _flipCard = () => {
         this.card._toggleCard();
+    };
+
+    _flipUp = () => {
+        this.card._flipUp();
     };
 
     render() {
@@ -48,7 +52,8 @@ export default class WordFlatListItem extends Component {
                     flipHorizontal={true}
                     flipVertical={false}
                     flip={false}
-                    clickable={true}>
+                    clickable={true}
+                >
                     {/* Face Side */}
                     <Card containerStyle={styles.cardView}
                           wrapperStyle={styles.vc_card}>
@@ -156,10 +161,10 @@ const styles = StyleSheet.create({
     // View
     vc_cardFront: {
         backfaceVisibility: 'hidden',
-        backgroundColor: 'blue'
+        // backgroundColor: 'blue'
     },
     vc_cardBack: {
-        backgroundColor: 'red'
+        // backgroundColor: 'red'
     },
     vc_card: {
         flex: 1,

@@ -16,58 +16,67 @@ import {
 import {
     StyleSheet,
     TouchableOpacity,
-    Platform, FlatList
+    Platform, FlatList,
+    AsyncStorage
 } from 'react-native';
 import TopicFlatList from '../../components/vocabulary/TopicFlatList';
 import UserScore from '../../components/vocabulary/UserScore';
 import flatListData from '../../data/TopicData';
 import TopicFlatListItem from '../../components/vocabulary/TopicFlatListItem';
+import LocalStoreHelper from '../../helper/LocalStoreHelper';
+import {Provider, Subscribe} from 'unstated';
+import WordScreenStore from '../../store/WordScreenStore';
+import {withNavigation} from 'react-navigation';
 
-export default class TopicScreen extends React.Component {
+
+class TopicScreen extends React.Component {
+    static navigationOptions = {
+        header: null // !!! Hide Header
+    };
+
     constructor(props) {
         super(props);
         this.state = {
-            correctAnswer: 0,
+            refresh: true,
 
+            totalAnswer: 0,
+            correctAnswer: 0,
         };
     }
 
-    static navigationOptions = {
-        header: null, // !!! Hide Header
-        drawerIcon: ({tintColor}) => (
-            <Icon name='clipboard' style= {{ fontSize: 24, color: tintColor}}/>
-        )
-        // title:'Home 1',
-       
-    };
+    _refreshList = async () => {
+        const topicResult = await LocalStoreHelper._getMapData(LocalStoreHelper.topicResult);
+        const score = await LocalStoreHelper._getMapData(LocalStoreHelper.score);
 
-    nextQuestion = () => {
         this.setState({
-            // isWaiting: false,
-            // answerState: [0, 0, 0, 0],
-            // currentQuestion: (this.state.currentQuestion + 1) % QuestionData.length
+            refresh: !this.state.refresh,
+            topicResult : topicResult,
+            totalAnswer: score.get('totalAnswer'),
+            correctAnswer: score.get('correctAnswer')
         });
     };
 
-    chooseAnswer = (idAnswer) => {
-        // if (this.state.isWaiting) {
-        //     return;
-        // }
-        // this.setState({isWaiting: true});
-        // if (idAnswer === QuestionData[this.state.currentQuestion].correct) {
-        //     let answerState = this.state.answerState;
-        //     answerState[idAnswer - 1] = 1;
-        //     this.setState({answerState: answerState, correctAnswer: this.state.correctAnswer + 1});
-        // } else {
-        //     let answerState = this.state.answerState;
-        //     answerState[QuestionData[this.state.currentQuestion].correct - 1] = 1;
-        //     answerState[idAnswer - 1] = 2;
-        //     this.setState({answerState: answerState, incorrectAnswer: this.state.incorrectAnswer + 1});
-        // }
-        // setTimeout(() => {
-        //     this.nextQuestion();
-        // }, 2000);
-    };
+    _getResult(item) {
+        let result = 0.0;
+
+        const topicResult = this.state.topicResult;
+        if (topicResult != null) {
+            result = topicResult.get(item.id)  != null ? topicResult.get(item.id) : 0.0;
+        }
+        return result;
+    }
+
+    componentDidMount() {
+        if (this.props.navigation != null) {
+            this.props.navigation.addListener(
+                'didFocus',
+                payload => {
+                    this._refreshList();
+                }
+            );
+        }
+    }
+
 
     render() {
         return (
@@ -76,7 +85,7 @@ export default class TopicScreen extends React.Component {
                         style={{backgroundColor: Platform.OS === 'android' ? '#019AE8' : '#FFFFFF'}}>
                     <Left>
                         {/*<Button transparent>*/}
-                            {/*<Icon android='md-arrow-back' ios='ios-arrow-back'/>*/}
+                        {/*<Icon android='md-arrow-back' ios='ios-arrow-back'/>*/}
                         {/*</Button>*/}
                     </Left>
                     <Body>
@@ -86,15 +95,27 @@ export default class TopicScreen extends React.Component {
 
                     </Right>
                 </Header>
-                <Content>
-                    <UserScore/>
-                    <View style={{ flex: 1,
-                        backgroundColor:'#EEEEEE'}}>
+                <Content
+                    contentContainerStyle={{flexGrow: 1}}>
+                    <UserScore
+                        totalAnswer = {this.state.totalAnswer != null ? this.state.totalAnswer : 0}
+                        correctAnswer = {this.state.correctAnswer != null ? this.state.correctAnswer : 0}
+                    />
+                    <View style={{
+                        flex: 1,
+                        backgroundColor: '#EEEEEE'
+                    }}>
                         <FlatList
+                            ref={component => this.topicFlatListItem = component}
                             data={flatListData}
-                            renderItem={({ item, index }) => {
+                            extraData={this.state.refresh}
+                            renderItem={({item, index}) => {
                                 return (
-                                    <TopicFlatListItem item={item} index={index}>
+                                    <TopicFlatListItem
+                                        item={item}
+                                        index={index}
+                                        result={this._getResult(item)}
+                                    >
 
                                     </TopicFlatListItem>);
                             }}
@@ -105,7 +126,10 @@ export default class TopicScreen extends React.Component {
             </Container>
         );
     }
+
 }
+
+export default withNavigation(TopicScreen);
 
 const styles = StyleSheet.create({
     container: {

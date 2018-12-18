@@ -16,7 +16,7 @@ import {
     Text,
 } from 'react-native';
 
-import {Icon} from 'react-native-vector-icons/FontAwesome';
+import {Icon} from 'react-native-vector-icons';
 
 const {width, height} = Dimensions.get('window');
 
@@ -153,7 +153,7 @@ export default class CardModal extends React.Component {
                 }
             ).start(),
 
-        ])
+        ]);
     }
 
     shrink() {
@@ -227,7 +227,7 @@ export default class CardModal extends React.Component {
                 }
             ).start(),
 
-        ])
+        ]);
     }
 
 
@@ -243,7 +243,7 @@ export default class CardModal extends React.Component {
                         this.shrink();
                     }
 
-                })
+                });
             });
         }
     }
@@ -252,7 +252,7 @@ export default class CardModal extends React.Component {
         this.setState({activate: 'loading'});
         setTimeout(()=> {
             this.setState({activate: <Text>Activated  <Icon name='check'/></Text>, activated: true})
-        }, 1500)
+        }, 1500);
 
     }
 
@@ -281,7 +281,7 @@ export default class CardModal extends React.Component {
 
 
             </Animated.ImageBackground>
-        )
+        );
     }
 
     renderBottom() {
@@ -336,12 +336,12 @@ export default class CardModal extends React.Component {
 
 
             </Animated.View>
-        )
+        );
     }
 
     renderContent() {
         if(!this.state.pressed) {
-            return
+            return;
         }
         return (
             <Animated.View style={{opacity: this.state.content_opac, marginTop: 40, width: width, height: this.state.content_height, zIndex: -1,
@@ -351,10 +351,8 @@ export default class CardModal extends React.Component {
                     <Text style={{fontSize: 24, fontWeight: '700', color: 'black'}}>Description</Text>
                     <Text style={{color: 'gray', paddingTop: 10}}>{this.props.content}</Text>
                 </View>
-
-
             </Animated.View>
-        )
+        );
     }
 
     render() {
@@ -363,7 +361,7 @@ export default class CardModal extends React.Component {
             <View style={[styles.container, this.state.pressedStyle]}>
                 <TouchableWithoutFeedback
                     onPress={!this.state.pressed ? this._onPress : null}>
-                    <View ref="container"
+                    <View refs="container"
                           style={[{alignItems: 'center'}]}>
                         {this.renderTop()}
                         {this.renderBottom()}
@@ -372,7 +370,7 @@ export default class CardModal extends React.Component {
                 </TouchableWithoutFeedback>
 
             </View>
-        )
+        );
     }
 }
 
@@ -400,4 +398,4 @@ const styles = StyleSheet.create({
         top: 32,
         left: 10,
     }
-})
+});
