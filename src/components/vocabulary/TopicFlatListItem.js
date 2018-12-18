@@ -64,9 +64,11 @@ class TopicFlatListItem extends Component {
                                 </View>
                                 <View style={styles.vc_topicDetail}>
                                     <Text style={styles.txt_topicCount}>
-                                        {item.count} words | </Text>
-                                    <Text style={styles.txt_topicDetail}>
-                                        More Detail</Text>
+                                        {item.count} words</Text>
+                                    {/*<Text style={styles.txt_topicCount}>*/}
+                                        {/*{item.count} words | </Text>*/}
+                                    {/*<Text style={styles.txt_topicDetail}>*/}
+                                        {/*More Detail</Text>*/}
 
                                 </View>
                                 <View style={styles.vc_progress}>
@@ -74,14 +76,14 @@ class TopicFlatListItem extends Component {
                                         progress={result}
                                         borderWidth={0}
                                         unfilledColor={'#E1E1E1'}
-                                        color={'#78E589'}
+                                        color={'#38bfd6'}
                                         height={14}
                                         borderRadius={10}
                                         width={null}
                                     />
                                     <View style={styles.vc_progressValue}>
                                         <Text style={styles.txt_progressValue}>
-                                            {result*100}%</Text>
+                                            {Number((result*100).toFixed(0))}%</Text>
                                     </View>
                                 </View>
                             </View>
@@ -188,15 +190,15 @@ const styles = StyleSheet.create({
     },
     txt_topicName: {
         fontSize: 22,
-        fontFamily: 'System',
-        color: '#00BCD4',
+        color: '#38bfd6',
         paddingLeft: 14,
-
+        fontFamily:'Roboto_medium',
+        // fontWeight: 'bold',
     },
     txt_topicCount: {
-        fontSize: 14,
+        fontSize: 16,
         fontFamily: 'System',
-        color: '#737373',
+            color: '#6d6d6d',
         paddingLeft: 14,
 
     },
@@ -211,7 +213,7 @@ const styles = StyleSheet.create({
     txt_progressValue: {
         fontSize: 10,
         fontFamily: 'System',
-        color: '#737373',
+        color: '#6d6d6d',
 
     },
 

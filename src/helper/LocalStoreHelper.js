@@ -5,8 +5,10 @@ import {
 } from 'react-native';
 
 
-export default class MyUtils {
+export default class LocalStoreHelper {
     static topicResult = 'topicResult';
+
+    static score = 'score';
 
     static _storeMapData = async (key, map) => {
         try {
@@ -22,11 +24,16 @@ export default class MyUtils {
 
     static _getMapData = async (key) => {
         try {
-            const str = await AsyncStorage.getItem('topicResult');
+            const str = await AsyncStorage.getItem(key);
             return new Map(JSON.parse(str));
         } catch (error) {
             // Error retrieving data
             console.log('Chi CS error: ' + error);
         }
     };
+
+    static _printMapConsole(map) {
+        console.log('Chi CS _printMapConsole: ' +
+            JSON.stringify(Array.from(map.entries())));
+    }
 }

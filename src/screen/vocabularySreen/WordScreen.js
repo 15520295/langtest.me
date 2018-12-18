@@ -126,18 +126,31 @@ class WordScreen extends React.Component {
     };
 
     _onResultScreenOpen = (correctAnswer, totalAnswer) => {
-        this._storeVocabularyResult(this.topic.id,correctAnswer/totalAnswer);
+        this._storeVocabularyResult(correctAnswer,totalAnswer);
     };
 
 
-    _storeVocabularyResult = async (topicID, result) => {
-        let topicResult = await LocalStoreHelper._getMapData(LocalStoreHelper.topicResult);
-        if (topicResult == null) {
-            topicResult = new Map();
+    _storeVocabularyResult = async (correctAnswer,totalAnswer) => {
+        const result = correctAnswer / totalAnswer;
+        let topicResultMap = await LocalStoreHelper._getMapData(LocalStoreHelper.topicResult);
+        if (topicResultMap == null) {
+            topicResultMap = new Map();
         }
-        topicResult.set(topicID, result);
+        topicResultMap.set(this.topic.id, result);
 
-        await LocalStoreHelper._storeMapData(LocalStoreHelper.topicResult, topicResult);
+        // calculate user score
+        let score = await LocalStoreHelper._getMapData(LocalStoreHelper.score);
+        if (score == null) {
+            score = new Map();
+            score.set('totalAnswer', totalAnswer);
+            score.set('correctAnswer', correctAnswer);
+        } else {
+            score.set('totalAnswer', totalAnswer + score.get('totalAnswer'));
+            score.set('correctAnswer', correctAnswer + score.get('correctAnswer'));
+        }
+
+        LocalStoreHelper._storeMapData(LocalStoreHelper.topicResult, topicResultMap);
+        LocalStoreHelper._storeMapData(LocalStoreHelper.score, score);
     };
 
     quizOver = (quizStore) => {

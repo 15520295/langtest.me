@@ -37,17 +37,22 @@ class TopicScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            refresh: true,
+
+            totalAnswer: 0,
             correctAnswer: 0,
-            refresh: true
         };
     }
 
     _refreshList = async () => {
         const topicResult = await LocalStoreHelper._getMapData(LocalStoreHelper.topicResult);
+        const score = await LocalStoreHelper._getMapData(LocalStoreHelper.score);
 
         this.setState({
             refresh: !this.state.refresh,
-            topicResult : topicResult
+            topicResult : topicResult,
+            totalAnswer: score.get('totalAnswer'),
+            correctAnswer: score.get('correctAnswer')
         });
     };
 
@@ -92,7 +97,10 @@ class TopicScreen extends React.Component {
                 </Header>
                 <Content
                     contentContainerStyle={{flexGrow: 1}}>
-                    <UserScore/>
+                    <UserScore
+                        totalAnswer = {this.state.totalAnswer != null ? this.state.totalAnswer : 0}
+                        correctAnswer = {this.state.correctAnswer != null ? this.state.correctAnswer : 0}
+                    />
                     <View style={{
                         flex: 1,
                         backgroundColor: '#EEEEEE'
