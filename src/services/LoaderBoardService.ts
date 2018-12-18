@@ -1,13 +1,14 @@
-import ILeaderBoardService from "./ILeaderBoardService";
-import IProfile from "../entity/Profile";
+import ILeaderBoardService from './ILeaderBoardService';
+import IProfile from '../entity/Profile';
 
 
-class LeaderBoardService implements ILeaderBoardService{
+class LeaderBoardService implements ILeaderBoardService {
     getLeaderBoardAll(_index: number, _numberOfProfile: number): IProfile[] {
-        throw new Error("Method not implemented.");
+        throw new Error('Method not implemented.');
     }
+
     getMyProfile(): IProfile {
-        let myprofile : IProfile = {
+        let myprofile: IProfile = {
             name: 'Alice',
             avatar: 2,
             correctAnswer: 2101,
@@ -15,13 +16,13 @@ class LeaderBoardService implements ILeaderBoardService{
             totalQuestion: 2602,
             rank: 43,
             timeSpent: 1212
-        }
+        };
 
         return myprofile;
-    }    
-    
+    }
+
     getLeaderBoardDay(_index: number, _numberOfProfile: number): IProfile[] {
-        let profileLeaderBoardDay : IProfile[] = [{
+        let profileLeaderBoardDay: IProfile[] = [{
             name: 'Alice',
             avatar: 2,
             correctAnswer: 2700,
@@ -29,7 +30,7 @@ class LeaderBoardService implements ILeaderBoardService{
             totalQuestion: 3000,
             rank: 1,
             timeSpent: 21201
-        },{
+        }, {
             name: 'Trump',
             avatar: 2,
             correctAnswer: 2101,
@@ -37,7 +38,7 @@ class LeaderBoardService implements ILeaderBoardService{
             totalQuestion: 2602,
             rank: 2,
             timeSpent: 1212
-        }]
+        }];
 
         return profileLeaderBoardDay;
     }

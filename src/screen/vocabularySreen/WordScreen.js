@@ -230,7 +230,7 @@ class WordScreen extends React.Component {
                     buttonColor="rgba(231,76,60,1)">
                     <ActionButton.Item
                         buttonColor="#3498db"
-                        title="Học Từ"
+                        title="Learn Word"
                         onPress={() => {
                             this._openLearnScreen();
                         }}>
@@ -245,7 +245,7 @@ class WordScreen extends React.Component {
                     </ActionButton.Item>
                     <ActionButton.Item
                         buttonColor="#3498db"
-                        title="Luyện Tập"
+                        title="Practice"
                         onPress={() => {this._openTestVocabularyScreen()}}>
                         <Icon type="Entypo"
                               name="controller-play"
