@@ -26,18 +26,19 @@ import wordMap from '../../data/VocabularyList';
 import WordFlatListItem from '../../components/vocabulary/WordFlatListItem';
 import sharedQuizService from '../../services/QuizService';
 import VocabularyTestData from '../../data/VocabularyTestData';
-import {withNavigation} from 'react-navigation';
+import {NavigationScreenConfig, withNavigation} from 'react-navigation';
 import {QuestionType} from '../../entity/Question';
-import LocalStoreHelper from "../../helper/LocalStoreHelper";
+import LocalStoreHelper from '../../helper/LocalStoreHelper';
+
 
 
 class WordScreen extends React.Component {
+    topic = null;
+    topicData = null;
+
     static navigationOptions = {
         header: null // !!! Hide Header
     };
-
-    topic = null;
-    topicData = null;
 
     constructor(props) {
         super(props);
@@ -121,17 +122,22 @@ class WordScreen extends React.Component {
     };
 
     _onResultScreenOpen = (correctAnswer, totalAnswer) => {
-        this._storeVocabularyResult(null, this.topic.id, totalAnswer / correctAnswer);
+        console.log('Chi CS _onResultScreenOpen:  ');
+
+        this._storeVocabularyResult(this.topic.id,correctAnswer/totalAnswer);
     };
 
 
-    _storeVocabularyResult = async (topicResult, topicID, result) => {
+    _storeVocabularyResult = async (topicID, result) => {
+        let topicResult = await LocalStoreHelper._getMapData(LocalStoreHelper.topicResult);
         if (topicResult == null) {
             topicResult = new Map();
         }
         topicResult.set(topicID, result);
 
         await LocalStoreHelper._storeMapData(LocalStoreHelper.topicResult, topicResult);
+
+        console.log('Chi CS _storeVocabularyResult: ' + JSON.stringify(Array.from( topicResult.entries())));
     };
 
     quizOver = (quizStore) => {

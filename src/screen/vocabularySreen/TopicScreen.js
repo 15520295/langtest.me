@@ -24,51 +24,63 @@ import UserScore from '../../components/vocabulary/UserScore';
 import flatListData from '../../data/TopicData';
 import TopicFlatListItem from '../../components/vocabulary/TopicFlatListItem';
 import LocalStoreHelper from '../../helper/LocalStoreHelper';
+import {Provider, Subscribe} from 'unstated';
+import WordScreenStore from '../../store/WordScreenStore';
+import {withNavigation} from 'react-navigation';
 
-export default class TopicScreen extends React.Component {
 
+class TopicScreen extends React.Component {
     static navigationOptions = {
-        header: null, // !!! Hide Header
-        drawerIcon: ({tintColor}) => (
-            <Icon name='clipboard' style={{fontSize: 24, color: tintColor}}/>
-        )
-        // title:'Home 1',
-
-
+        header: null // !!! Hide Header
     };
 
     constructor(props) {
         super(props);
         this.state = {
             correctAnswer: 0,
-            topicResult: null,
             refresh: true
         };
-        this._retrieveData();
 
+        this._refreshList();
     }
 
-    _retrieveData = async () => {
+    _refreshList = async () => {
         const topicResult = await LocalStoreHelper._getMapData(LocalStoreHelper.topicResult);
 
-        this.setState(
-            {
-                topicResult: topicResult,
-                refresh: !this.state.refresh
-            }
-        );
+        this.setState({
+            refresh: !this.state.refresh,
+            topicResult : topicResult
+        });
     };
 
     _getResult(item) {
         let result = 0.0;
-        if (this.state.topicResult != null) {
-            result = this.state.topicResult.get(item.id)  != null ? this.state.topicResult.get(item.id) : 0.0;
+        console.log('Chi CS _getResult: ');
+
+        const topicResult = this.state.topicResult;
+        if (topicResult != null) {
+            result = topicResult.get(item.id)  != null ? topicResult.get(item.id) : 0.0;
+            console.log('Chi CS _getResult: ' + JSON.stringify(Array.from( topicResult.entries())));
         }
         return result;
     }
 
+    componentDidMount() {
+        if (this.props.navigation != null) {
+            this.props.navigation.addListener(
+                'didFocus',
+                payload => {
+                    this._refreshList();
+                }
+            );
+        }
+
+
+    }
+
 
     render() {
+        console.log('Chi CS Topic - render ');
 
         return (
             <Container style={styles.container}>
@@ -94,6 +106,7 @@ export default class TopicScreen extends React.Component {
                         backgroundColor: '#EEEEEE'
                     }}>
                         <FlatList
+                            ref={component => this.topicFlatListItem = component}
                             data={flatListData}
                             extraData={this.state.refresh}
                             renderItem={({item, index}) => {
@@ -101,7 +114,8 @@ export default class TopicScreen extends React.Component {
                                     <TopicFlatListItem
                                         item={item}
                                         index={index}
-                                        result={this._getResult(item)}>
+                                        result={this._getResult(item)}
+                                    >
 
                                     </TopicFlatListItem>);
                             }}
@@ -114,6 +128,8 @@ export default class TopicScreen extends React.Component {
     }
 
 }
+
+export default withNavigation(TopicScreen);
 
 const styles = StyleSheet.create({
     container: {
