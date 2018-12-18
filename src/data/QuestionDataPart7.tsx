@@ -1,7 +1,7 @@
 import IQuestion, { QuestionType } from "../entity/Question";
 
 const QuestionDataPart7 : IQuestion[] = [{
-    id: 'p7_1147',
+    id: 'p7_1_147',
     type: QuestionType.part7,
     question: 'Where is the notice most likely posted?',
     answer: ['In a law office',
@@ -10,31 +10,34 @@ const QuestionDataPart7 : IQuestion[] = [{
      'In a publishing company'],
     correctAnswer: 0,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_147-148.PNG'),
+    comeWith: ['p7_1_147', 'p7_1_148',]
 },{
-    id: 'p7_1148',
+    id: 'p7_1_148',
     type: QuestionType.part7,
     question: 'What are employees invited to do on Thursday?',
     answer: ['Watch a musical performance',
      'Join a community service group', 
      'Attend a professional conference', 
      'Meet a new staff member'],
-    correctAnswer: 0,
+    correctAnswer: 3,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_147-148.PNG'),
+    comeWith: ['p7_1_147', 'p7_1_148',]
 },{
-    id: 'p7_1149',
+    id: 'p7_1_149',
     type: QuestionType.part7,
     question: '149.	What change will be made to the business directory?',
     answer: ['It will have shortened listings.',
      'It will be available only online.', 
      'It will be distributed on a different date.', 
      'It will cover more than one neighborhood.'],
-    correctAnswer: 0,
+    correctAnswer: 1,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_149-150.PNG'),
+    comeWith: ['p7_1_149', 'p7_1_150',]
 },{
-    id: 'p7_1150',
+    id: 'p7_1_150',
     type: QuestionType.part7,
     question: '150.	According to the notice, why might readers contact Ms. Lanster?',
     answer: ['To request a correction',
@@ -43,20 +46,22 @@ const QuestionDataPart7 : IQuestion[] = [{
      'To suggest changes in deadlines '],
     correctAnswer: 0,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_149-150.PNG'),
+    comeWith: ['p7_1_149', 'p7_1_150',]
 },{
-    id: 'p7_1151',
+    id: 'p7_1_151',
     type: QuestionType.part7,
     question: 'For whom is the workshop most likely intended?',
     answer: ['Business journalists',
      'Human resource experts', 
      'Owners of small businesses', 
      'New employees at small companies'],
-    correctAnswer: 0,
+    correctAnswer: 2,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_151-153.PNG'),
+    comeWith: ['p7_1_151', 'p7_1_152', 'p7_1_153']
 },{
-    id: 'p7_1152',
+    id: 'p7_1_152',
     type: QuestionType.part7,
     question: 'What session involves identifying goals?',
     answer: ['First Steps',
@@ -65,53 +70,58 @@ const QuestionDataPart7 : IQuestion[] = [{
      'Evaluation Techniques'],
     correctAnswer: 0,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_151-153.PNG'),
+    comeWith: ['p7_1_151', 'p7_1_152', 'p7_1_153']
 },{
-    id: 'p7_1153',
+    id: 'p7_1_153',
     type: QuestionType.part7,
     question: 'What is NOT indicated about the workshop?',
     answer: ['It requires a fee to attend.',
      'It includes a meal.', 
      'It is a one-day event.', 
      'It will focus on new software.'],
-    correctAnswer: 0,
+    correctAnswer: 3,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_151-153.PNG'),
+    comeWith: ['p7_1_151', 'p7_1_152', 'p7_1_153']
 },,{
-    id: 'p7_1154',
+    id: 'p7_1_154',
     type: QuestionType.part7,
     question: 'What is suggested about the Cloud Theater?',
     answer: ['It will show mainly classic films.',
      'It will soon have new equipment installed.', 
      'Its ticket prices will increase.', 
      'Its customers are not happy about changes that are planned.'],
-    correctAnswer: 0,
+    correctAnswer: 1,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_154-157.PNG'),
+    comeWith: ['p7_1_154', 'p7_1_155', 'p7_1_156', 'p7_1_157']
 },{
-    id: 'p7_1155',
+    id: 'p7_1_155',
     type: QuestionType.part7,
     question: 'According to the article, what was difficult for Mr. Sattler?',
     answer: ['Securing suitable equipment',
      'Selecting a location for retirement', 
      'Deciding to sell the theater', 
      'Finding buyers for the theater'],
-    correctAnswer: 0,
+    correctAnswer: 2,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_154-157.PNG'),
+    comeWith: ['p7_1_154', 'p7_1_155', 'p7_1_156', 'p7_1_157']
 },{
-    id: 'p7_1156',
+    id: 'p7_1_156',
     type: QuestionType.part7,
     question: 'What was renamed?',
     answer: ['A movie theater',
      'An executive position', 
      'A film festival', 
      'A Lakehurst street'],
-    correctAnswer: 0,
+    correctAnswer: 2,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_154-157.PNG'),
+    comeWith: ['p7_1_154', 'p7_1_155', 'p7_1_156', 'p7_1_157']
 },{
-    id: 'p7_1157',
+    id: 'p7_1_157',
     type: QuestionType.part7,
     question: 'In which of the positions marked [1], [2], [3],and [4] does the following sentence best belong? The concession stand has also been eliminated."',
     answer: ['[1]',
@@ -120,20 +130,22 @@ const QuestionDataPart7 : IQuestion[] = [{
      '[4]'],
     correctAnswer: 0,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_154-157.PNG'),
+    comeWith: ['p7_1_154', 'p7_1_155', 'p7_1_156', 'p7_1_157']
 },{
-    id: 'p7_1158',
+    id: 'p7_1_158',
     type: QuestionType.part7,
     question: 'What is one of the services offered by Venture Solutions?',
     answer: ['Legal advice',
      'Office accounting', 
      'Building maintenance', 
      'Software development'],
-    correctAnswer: 0,
+    correctAnswer: 3,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_158-159.PNG'),
+    comeWith: ['p7_1_158', 'p7_1_159']
 },{
-    id: 'p7_1159',
+    id: 'p7_1_159',
     type: QuestionType.part7,
     question: 'What is mentioned about ongoing care of computer equipment?',
     answer: ['It must be purchased for a minimum of one year.',
@@ -142,31 +154,34 @@ const QuestionDataPart7 : IQuestion[] = [{
      'It is not available to new customers'],
     correctAnswer: 0,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_158-159.PNG'),
+    comeWith: ['p7_1_158', 'p7_1_159']
 },{
-    id: 'p7_1160',
+    id: 'p7_1_160',
     type: QuestionType.part7,
     question: 'What duty is mentioned as part of the job?',
     answer: ['Meeting sales commission targets',
      'Receiving calls from potential customers', 
      'Working only during unconventional hours', 
      'Calling people who are unfamiliar with the company'],
-    correctAnswer: 0,
+    correctAnswer: 1,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_160-162.PNG'),
+    comeWith: ['p7_1_160', 'p7_1_161', 'p7_1_162']
 },{
-    id: 'p7_1161',
+    id: 'p7_1_161',
     type: QuestionType.part7,
     question: 'According to the advertisement, what is required for a salaried position?',
     answer: ['Sales experience',
      'A university degree', 
      'Employer references', 
      'An insurance license'],
-    correctAnswer: 0,
+    correctAnswer: 3,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_160-162.PNG'),
+    comeWith: ['p7_1_160', 'p7_1_161', 'p7_1_162']
 },{
-    id: 'p7_1162',
+    id: 'p7_1_162',
     type: QuestionType.part7,
     question: 'According to the advertisement, why should applicants visit the AJQ Web site?',
     answer: ['To learn about AJQ Insurance',
@@ -175,64 +190,70 @@ const QuestionDataPart7 : IQuestion[] = [{
      'To find out about their application status'],
     correctAnswer: 0,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_160-162.PNG'),
+    comeWith: ['p7_1_160', 'p7_1_161', 'p7_1_162']
 },{
-    id: 'p7_1163',
+    id: 'p7_1_163',
     type: QuestionType.part7,
     question: 'Why most likely was the article written?',
     answer: ['To attract members to a new book club',
      'To highlight the benefits of selling items that are unique', 
      'To celebrate the achievements of a local business personality', 
      'To announce the relocation of an established business'],
-    correctAnswer: 0,
+    correctAnswer: 2,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_163-166.PNG'),
+    comeWith: ['p7_1_163', 'p7_1_164', 'p7_1_165', 'p7_1_166']
 },{
-    id: 'p7_1164',
+    id: 'p7_1_164',
     type: QuestionType.part7,
     question: 'What is NOT suggested about Mr. Carlson?',
     answer: ['He will soon be ending his career as aninstructor.',
      'He studies works written by Russian authors.', 
      'He has lived in Pine Hill for almost ten years.', 
      'He enjoys talking about baseball with others.'],
-    correctAnswer: 0,
+    correctAnswer: 3,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_163-166.PNG'),
+    comeWith: ['p7_1_163', 'p7_1_164', 'p7_1_165', 'p7_1_166']
 },{
-    id: 'p7_1165',
+    id: 'p7_1_165',
     type: QuestionType.part7,
     question: 'The word “retains” in paragraph 2, line 9, is closest in meaning to',
     answer: ['contributes to',
      'agrees with', 
      'remembers', 
      'keeps'],
-    correctAnswer: 0,
+    correctAnswer: 3,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_163-166.PNG'),
+    comeWith: ['p7_1_163', 'p7_1_164', 'p7_1_165', 'p7_1_166']
 },{
-    id: 'p7_1166',
+    id: 'p7_1_166',
     type: QuestionType.part7,
     question: 'What is stated about The Treasure Box?',
     answer: ['It will be adding a section devoted to children’s books.',
      'It will maintain its current hours of operation.', 
      'Its sales are expected to increase this year.', 
      'Its sign will be replaced later in the month.'],
-    correctAnswer: 0,
+    correctAnswer: 1,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_163-166.PNG'),
+    comeWith: ['p7_1_163', 'p7_1_164', 'p7_1_165', 'p7_1_166']
 },{
-    id: 'p7_1167',
+    id: 'p7_1_167',
     type: QuestionType.part7,
     question: 'At 11:07 A.M., what does Mr. Volkov mean when he writes, “Of course”?',
     answer: ['He already knew that an e-mail had been received',
      'He has received a signed contract', 
      'He thinks the solution to a problem is obvious.', 
      'He was happy to fulfill a request.'],
-    correctAnswer: 0,
+    correctAnswer: 3,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_167-168.PNG'),
+    comeWith: ['p7_1_167', 'p7_1_168']
 },{
-    id: 'p7_1168',
+    id: 'p7_1_168',
     type: QuestionType.part7,
     question: 'Who most likely is Ms. Medrano?',
     answer: ['A writer',
@@ -241,18 +262,20 @@ const QuestionDataPart7 : IQuestion[] = [{
      'A human resources manager'],
     correctAnswer: 0,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_167-168.PNG'),
+    comeWith: ['p7_1_167', 'p7_1_168']
 },{
-    id: 'p7_1169',
+    id: 'p7_1_169',
     type: QuestionType.part7,
     question: 'Why did Mr. Cowden most likely send the e-mail?',
     answer: ['To invite Ms. Salinas to an event',
      'To acknowledge Ms. Salinas acceptance of an offer', 
      'To ask Ms. Salinas for a recommendation', 
      'To propose that a session be rescheduled'],
-    correctAnswer: 0,
+    correctAnswer: 1,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_169-171.PNG'),
+    comeWith: ['p7_1_169', 'p7_1_170', 'p7_1_171']
 },{
     id: 'p7_1_170',
     type: QuestionType.part7,
@@ -263,7 +286,8 @@ const QuestionDataPart7 : IQuestion[] = [{
      'She is studying to be a dietitian.'],
     correctAnswer: 0,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_169-171.PNG'),
+    comeWith: ['p7_1_169', 'p7_1_170', 'p7_1_171']
 },{
     id: 'p7_1_171',
     type: QuestionType.part7,
@@ -272,9 +296,10 @@ const QuestionDataPart7 : IQuestion[] = [{
      '[2]', 
      '[3]', 
      '[4]'],
-    correctAnswer: 0,
+    correctAnswer: 3,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_169-171.PNG'),
+    comeWith: ['p7_1_169', 'p7_1_170', 'p7_1_171']
 },{
     id: 'p7_1_172',
     type: QuestionType.part7,
@@ -283,9 +308,10 @@ const QuestionDataPart7 : IQuestion[] = [{
      'Jewelry', 
      'Flowers', 
      'Appliances'],
-    correctAnswer: 0,
+    correctAnswer: 1,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_172-175.PNG'),
+    comeWith: ['p7_1_172', 'p7_1_173', 'p7_1_174', 'p7_1_175']
 },{
     id: 'p7_1_173',
     type: QuestionType.part7,
@@ -296,7 +322,8 @@ const QuestionDataPart7 : IQuestion[] = [{
      'Choose a different shipping method'],
     correctAnswer: 0,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_172-175.PNG'),
+    comeWith: ['p7_1_172', 'p7_1_173', 'p7_1_174', 'p7_1_175']
 },{
     id: 'p7_1_174',
     type: QuestionType.part7,
@@ -307,7 +334,8 @@ const QuestionDataPart7 : IQuestion[] = [{
      'To alert her to an error in a previous message'],
     correctAnswer: 0,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_172-175.PNG'),
+    comeWith: ['p7_1_172', 'p7_1_173', 'p7_1_174', 'p7_1_175']
 },{
     id: 'p7_1_175',
     type: QuestionType.part7,
@@ -316,20 +344,22 @@ const QuestionDataPart7 : IQuestion[] = [{
      'She is pleased that the equipment is functioning properly.', 
      'The customer will be satisfied if the item is engraved tomorrow.', 
      'Some new items will be chosen for a catalog by the end of the day.'],
-    correctAnswer: 0,
+    correctAnswer: 2,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_172-175.PNG'),
+    comeWith: ['p7_1_172', 'p7_1_173', 'p7_1_174', 'p7_1_175']
 },{
     id: 'p7_1_176',
     type: QuestionType.part7,
     question: 'Why did Ms. Bartosz e-mail Mr. Wickler?',
-    answer: ['£! 1° the launch a',
-     'To advert.se a new agricultural product', 
+    answer: ['To announce the launch of a publication',
+     'To advertise a new agricultural product', 
      'To reform him of a special promotion', 
      'To offer him a discount on a subscription'],
-    correctAnswer: 0,
+    correctAnswer: 2,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_176-180.PNG'),
+    comeWith: ['p7_1_176', 'p7_1_177', 'p7_1_178', 'p7_1_179', 'p7_1_180']
 },{
     id: 'p7_1_177',
     type: QuestionType.part7,
@@ -338,9 +368,10 @@ const QuestionDataPart7 : IQuestion[] = [{
      'It will be releasing a special issue.', 
      'It has increased its advertising rates.', 
      'It publishes a full-color magazine.'],
-    correctAnswer: 0,
+    correctAnswer: 3,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_176-180.PNG'),
+    comeWith: ['p7_1_176', 'p7_1_177', 'p7_1_178', 'p7_1_179', 'p7_1_180']
 },{
     id: 'p7_1_178',
     type: QuestionType.part7,
@@ -349,9 +380,10 @@ const QuestionDataPart7 : IQuestion[] = [{
      'She has worked with Mr. Wickler before.', 
      'She can provide additional assistance.', 
      'She will be out of the office in October.'],
-    correctAnswer: 0,
+    correctAnswer: 2,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_176-180.PNG'),
+    comeWith: ['p7_1_176', 'p7_1_177', 'p7_1_178', 'p7_1_179', 'p7_1_180']
 },{
     id: 'p7_1_179',
     type: QuestionType.part7,
@@ -360,9 +392,10 @@ const QuestionDataPart7 : IQuestion[] = [{
      'putting', 
      'assigning', 
      'calculating'],
-    correctAnswer: 0,
+    correctAnswer: 1,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_176-180.PNG'),
+    comeWith: ['p7_1_176', 'p7_1_177', 'p7_1_178', 'p7_1_179', 'p7_1_180']
 },{
     id: 'p7_1_180',
     type: QuestionType.part7,
@@ -371,9 +404,10 @@ const QuestionDataPart7 : IQuestion[] = [{
      'Package 2 ', 
      'Package 3 ', 
      'Package 4'],
-    correctAnswer: 0,
+    correctAnswer: 1,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_176-180.PNG'),
+    comeWith: ['p7_1_176', 'p7_1_177', 'p7_1_178', 'p7_1_179', 'p7_1_180']
 },{
     id: 'p7_1_181',
     type: QuestionType.part7,
@@ -384,7 +418,8 @@ const QuestionDataPart7 : IQuestion[] = [{
      'To negotiate a salary'],
     correctAnswer: 0,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_181-185.PNG'),
+    comeWith: ['p7_1_181', 'p7_1_182', 'p7_1_183', 'p7_1_184', 'p7_1_185']
 },{
     id: 'p7_1_182',
     type: QuestionType.part7,
@@ -393,9 +428,10 @@ const QuestionDataPart7 : IQuestion[] = [{
      'Her availability for training', 
      'A list of her current clients', 
      'A summary of her work experience'],
-    correctAnswer: 0,
+    correctAnswer: 2,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_181-185.PNG'),
+    comeWith: ['p7_1_181', 'p7_1_182', 'p7_1_183', 'p7_1_184', 'p7_1_185']
 },{
     id: 'p7_1_183',
     type: QuestionType.part7,
@@ -406,7 +442,8 @@ const QuestionDataPart7 : IQuestion[] = [{
      'They pay their own travel expenses.'],
     correctAnswer: 0,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_181-185.PNG'),
+    comeWith: ['p7_1_181', 'p7_1_182', 'p7_1_183', 'p7_1_184', 'p7_1_185']
 },{
     id: 'p7_1_184',
     type: QuestionType.part7,
@@ -415,9 +452,10 @@ const QuestionDataPart7 : IQuestion[] = [{
      'To make travel arrangements', 
      'To issue employment paperwork', 
      'To explain software requirements'],
-    correctAnswer: 0,
+    correctAnswer: 2,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_181-185.PNG'),
+    comeWith: ['p7_1_181', 'p7_1_182', 'p7_1_183', 'p7_1_184', 'p7_1_185']
 },{
     id: 'p7_1_185',
     type: QuestionType.part7,
@@ -426,64 +464,10 @@ const QuestionDataPart7 : IQuestion[] = [{
      'Travel to Albany', 
      'Participate in a training session', 
      'Meet Mr. Chalmers'],
-    correctAnswer: 0,
+    correctAnswer: 1,
     difficultLevel: 3,
-    comeWith: []
-},{
-    id: 'p7_1_186',
-    type: QuestionType.part7,
-    question: 'What is suggested about Janney\'s Star Tours?',
-    answer: ['It has recently opened new offices.',
-     'It is celebrating a company expansion.', 
-     'It has created new tours to meet demand.', 
-     'It schedules its tours several times a month.'],
-    correctAnswer: 0,
-    difficultLevel: 3,
-    comeWith: []
-},{
-    id: 'p7_1_187',
-    type: QuestionType.part7,
-    question: 'According to the advertisement, what can Janney’s Star Tours offer clients?',
-    answer: ['Discussions with artists and actors',
-     'Reduced rates for repeat customers', 
-     'A guaranteed maximum tour group size', 
-     'Travel arrangements based on a group’s preferences'],
-    correctAnswer: 0,
-    difficultLevel: 3,
-    comeWith: []
-},{
-    id: 'p7_1_188',
-    type: QuestionType.part7,
-    question: 'What is suggested about Mr. Bryant’s tour?',
-    answer: ['It will take five days to complete.',
-     'It was purchased at a reduced price.', 
-     'It will not include gallery entrance fees.', 
-     'It has been especially designed for historians.'],
-    correctAnswer: 0,
-    difficultLevel: 3,
-    comeWith: []
-},{
-    id: 'p7_1_189',
-    type: QuestionType.part7,
-    question: 'In the Web site feedback, the word “treat" in paragraph 1, line 2, is closest in meaning to',
-    answer: ['serve',
-     'pay for', 
-     'develop', 
-     'improve'],
-    correctAnswer: 0,
-    difficultLevel: 3,
-    comeWith: []
-},{
-    id: 'p7_1_190',
-    type: QuestionType.part7,
-    question: 'What is indicated about Ms. Murray?',
-    answer: ['She is from Aberdeen.',
-     'She is a newly trained guide.', 
-     'She speaks several languages.', 
-     'She studies at a local university.'],
-    correctAnswer: 0,
-    difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_181-185.PNG'),
+    comeWith: ['p7_1_181', 'p7_1_182', 'p7_1_183', 'p7_1_184', 'p7_1_185']
 },{
     id: 'p7_1_191',
     type: QuestionType.part7,
@@ -492,9 +476,10 @@ const QuestionDataPart7 : IQuestion[] = [{
      'Food', 
      'Automotive', 
      'Clothing'],
-    correctAnswer: 0,
+    correctAnswer: 1,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_191-195.PNG'),
+    comeWith: ['p7_1_191', 'p7_1_192', 'p7_1_193', 'p7_1_194', 'p7_1_195']
 },{
     id: 'p7_1_192',
     type: QuestionType.part7,
@@ -505,7 +490,8 @@ const QuestionDataPart7 : IQuestion[] = [{
      'Request a discount code from Vertin Suites'],
     correctAnswer: 0,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_191-195.PNG'),
+    comeWith: ['p7_1_191', 'p7_1_192', 'p7_1_193', 'p7_1_194', 'p7_1_195']
 },{
     id: 'p7_1_193',
     type: QuestionType.part7,
@@ -514,9 +500,10 @@ const QuestionDataPart7 : IQuestion[] = [{
      'Submit a draft of her presentation', 
      'Discuss ways of preparing goods for transport', 
      'Cancel travel arrangements made for Mr. Kekana'],
-    correctAnswer: 0,
+    correctAnswer: 2,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_191-195.PNG'),
+    comeWith: ['p7_1_191', 'p7_1_192', 'p7_1_193', 'p7_1_194', 'p7_1_195']
 },{
     id: 'p7_1_194',
     type: QuestionType.part7,
@@ -527,7 +514,8 @@ const QuestionDataPart7 : IQuestion[] = [{
      'experience'],
     correctAnswer: 0,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_191-195.PNG'),
+    comeWith: ['p7_1_191', 'p7_1_192', 'p7_1_193', 'p7_1_194', 'p7_1_195']
 },{
     id: 'p7_1_195',
     type: QuestionType.part7,
@@ -536,9 +524,10 @@ const QuestionDataPart7 : IQuestion[] = [{
      'He filled out an Employer Application when registering.', 
      'He preferred the recent ACIC conference over previous ones.', 
      'He believed his topic would be easy to understand.'],
-    correctAnswer: 0,
+    correctAnswer: 1,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_191-195.PNG'),
+    comeWith: ['p7_1_191', 'p7_1_192', 'p7_1_193', 'p7_1_194', 'p7_1_195']
 },{
     id: 'p7_1_196',
     type: QuestionType.part7,
@@ -547,9 +536,10 @@ const QuestionDataPart7 : IQuestion[] = [{
      'It is going to increase its budget', 
      'It will soon start a road expansion project.', 
      'It is enforcing new traffic regulations.'],
-    correctAnswer: 0,
+    correctAnswer: 2,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_196-200.PNG'),
+    comeWith: ['p7_1_196', 'p7_1_197', 'p7_1_198', 'p7_1_199', 'p7_1_200']
 },{
     id: 'p7_1_197',
     type: QuestionType.part7,
@@ -558,9 +548,10 @@ const QuestionDataPart7 : IQuestion[] = [{
      'She worked with Mr. Pachenco.', 
      'She disagrees with Mr. Barnwell.', 
      'She read the May 6 newspaper article.'],
-    correctAnswer: 0,
+    correctAnswer: 1,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_196-200.PNG'),
+    comeWith: ['p7_1_196', 'p7_1_197', 'p7_1_198', 'p7_1_199', 'p7_1_200']
 },{
     id: 'p7_1_198',
     type: QuestionType.part7,
@@ -571,7 +562,8 @@ const QuestionDataPart7 : IQuestion[] = [{
      'registered'],
     correctAnswer: 0,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_196-200.PNG'),
+    comeWith: ['p7_1_196', 'p7_1_197', 'p7_1_198', 'p7_1_199', 'p7_1_200']
 },{
     id: 'p7_1_199',
     type: QuestionType.part7,
@@ -580,9 +572,10 @@ const QuestionDataPart7 : IQuestion[] = [{
      'They have been featured in a newspaper article.', 
      'They have helped influence a city decision.', 
      'They have secured additional funding from the city.'],
-    correctAnswer: 0,
+    correctAnswer: 2,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_196-200.PNG'),
+    comeWith: ['p7_1_196', 'p7_1_197', 'p7_1_198', 'p7_1_199', 'p7_1_200']
 },{
     id: 'p7_1_200',
     type: QuestionType.part7,
@@ -591,9 +584,10 @@ const QuestionDataPart7 : IQuestion[] = [{
      'They meet regularly every Thursday.', 
      'Some of them spoke at Helman Square.', 
      'Some of them live in the Eastside cultural district.'],
-    correctAnswer: 0,
+    correctAnswer: 2,
     difficultLevel: 3,
-    comeWith: []
+    imageAsset: require('./../../assets/images/test1/p7_1_196-200.PNG'),
+    comeWith: ['p7_1_196', 'p7_1_197', 'p7_1_198', 'p7_1_199', 'p7_1_200']
 }]
 
 export default QuestionDataPart7;
