@@ -4,7 +4,6 @@ import {
     AsyncStorage
 } from 'react-native';
 
-
 export default class LocalStoreHelper {
     static topicResult = 'topicResult';
 
@@ -31,9 +30,4 @@ export default class LocalStoreHelper {
             console.log('Chi CS error: ' + error);
         }
     };
-
-    static _printMapConsole(map) {
-        console.log('Chi CS _printMapConsole: ' +
-            JSON.stringify(Array.from(map.entries())));
-    }
 }
