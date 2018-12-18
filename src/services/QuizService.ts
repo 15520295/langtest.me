@@ -6,6 +6,7 @@ import QuestionDataPart3 from '../data/QuestionDataPart3';
 import QuestionDataPart4 from '../data/QuestionDataPart4';
 import QuestionDataPart5 from '../data/QuestionDataPart5';
 import QuestionDataPart7 from '../data/QuestionDataPart7';
+import QuestionDataPart6 from '../data/QuestionDataPart6';
 
 
 //For this app, we assume that 
@@ -25,7 +26,7 @@ class QuizService implements IQuizService{
         QuestionDataPart3.slice(),
         QuestionDataPart4.slice(),
         QuestionDataPart5.slice(),
-        QuestionDataPart5.slice(),
+        QuestionDataPart6.slice(),
         QuestionDataPart7.slice()
     ];
 
@@ -219,7 +220,7 @@ class QuizService implements IQuizService{
             if(question.comeWith){
                 question.comeWith.forEach((id, _) => {
                     if(!this.contain(questionList, id)){
-                        const questionToAdd : IQuestion = this._srcQuestionList.find((value, _, __) => value.id === id);
+                        const questionToAdd : IQuestion = this._srcQuestionList.find((value, _, __) => value && value.id === id);
                         if (questionToAdd){
                             questionList.push(questionToAdd);
                         }
