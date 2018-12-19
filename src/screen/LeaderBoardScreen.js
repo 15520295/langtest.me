@@ -10,6 +10,8 @@ import IProfile from '../entity/Profile';
 import DataHelper from '../helper/DataHelper';
 import UtilHelper from '../helper/UtilHelper';
 import {AppLoading} from 'expo';
+import {NetInfo} from 'react-native';
+import * as Progress from 'react-native-progress';
 
 
 export default class LeaderBoardScreen extends React.Component {
@@ -17,14 +19,14 @@ export default class LeaderBoardScreen extends React.Component {
         super(props);
 
         this.state = {
-            isLoading: true
+            info: 0 // 0: loading, 1: not connect, 2: loaded
         };
     }
 
     componentWillUnmount() {
         this.setState(
             {
-                isLoading: true
+                info: 0
             }
         );
     }
@@ -35,18 +37,28 @@ export default class LeaderBoardScreen extends React.Component {
                 'didFocus',
                 payload => {
                     console.log('LeaderBoardScreen - onResume');
+                    NetInfo.isConnected.fetch().then(isConnected => {
+                        console.log('First, is ' + (isConnected ? 'online' : 'offline'));
+                        if (isConnected) {
+                            DataHelper._putCurUserDataToServer();
 
-                    DataHelper._loadUserMapFromServer(() => {
-                        let curLeaderBoardDataRanked = DataHelper._getCurLeaderBoardProfile();
-                        let listLeaderBoardDataRanked = DataHelper._getLeaderBoardDataRanked();
+                            DataHelper._loadUserMapFromServer(() => {
+                                let curLeaderBoardDataRanked = DataHelper._getCurLeaderBoardProfile();
+                                let listLeaderBoardDataRanked = DataHelper._getLeaderBoardDataRanked();
 
-                        this.setState({
-                            myProfile: curLeaderBoardDataRanked,
-                            peopleProfile: listLeaderBoardDataRanked
-                        });
-                        this.setState({
-                            isLoading: false
-                        });
+                                this.setState({
+                                    myProfile: curLeaderBoardDataRanked,
+                                    peopleProfile: listLeaderBoardDataRanked
+                                });
+                                this.setState({
+                                    info: 2
+                                });
+                            });
+                        } else {
+                            this.setState({
+                                info: 1
+                            });
+                        }
                     });
                 }
             );
@@ -54,16 +66,40 @@ export default class LeaderBoardScreen extends React.Component {
     }
 
     render() {
-        if (this.state.isLoading) {
+        if (this.state.info === 0) {
             return <AppLoading/>;
+        } else if (this.state.info === 1) {
+            return (
+                <View
+                    style={{
+                        flex: 1,
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        paddingHorizontal: 25
+                    }}>
+                    <Progress.Circle
+                        size={35}
+                        thickness={5}
+                        indeterminate={true}
+                    />
+                    <Text
+                        style={{
+                            paddingHorizontal: 10
+                        }}>
+                        Please connect to Internet to see the LeaderBoard
+                    </Text>
+                </View>
+            )
         }
 
         return (
             <Container>
                 <View style={{height: Expo.Constants.statusBarHeight}}/>
                 <Content style={{flex: 1, backgroundColor: '#F6F6F6'}}>
-                    <MyProfileComponent style={{flex: 1, height: heightPercentageToDP(22), maxHeight: heightPercentageToDP(25)}}
-                                        profile={this.state.myProfile}/>
+                    <MyProfileComponent
+                        style={{flex: 1, height: heightPercentageToDP(22), maxHeight: heightPercentageToDP(25)}}
+                        profile={this.state.myProfile}/>
                     <View style={{flex: 1, backgroundColor: '#F6F6F6'}}>
                         {
                             Array.from(this.state.peopleProfile.values()).map((value, index) => {
@@ -71,7 +107,11 @@ export default class LeaderBoardScreen extends React.Component {
                                 console.log("v");
                                 console.log(value);
                                 return (
-                                    <PeopleProfileComponent key={index} style={{flex: 1, height: heightPercentageToDP(12), maxHeight: heightPercentageToDP(25)}}
+                                    <PeopleProfileComponent key={index} style={{
+                                        flex: 1,
+                                        height: heightPercentageToDP(12),
+                                        maxHeight: heightPercentageToDP(25)
+                                    }}
                                                             profile={value}/>
                                 );
                             })
