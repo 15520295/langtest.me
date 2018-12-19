@@ -16,11 +16,56 @@ import {
 } from 'react-native';
 
 import Button from 'react-native-flat-button';
+import LocalStoreHelper from "../../helper/LocalStoreHelper";
+import DataHelper from "../../helper/DataHelper";
+import UtilHelper from "../../helper/UtilHelper";
+import {AppLoading} from "expo";
+import {AnswerState} from "../QuestionScreen/AnswerButton";
 
 export default class ProfileScreen extends React.Component {
 
-    renderHeader = () => {
+    componentDidMount() {
+        if (this.props.navigation != null) {
+            this.props.navigation.addListener(
+                'didFocus',
+                payload => {
+                    console.log('onResume');
+                    DataHelper._loadUserProfile((profile) => {
+                        this.setState({
+                            name: profile.get('name'),
+                            place: profile.get('place'),
+                            phone: profile.get('phone'),
+                        });
+                        this.setState({
+                            isLoading: false
+                        });
+                    });
+                }
+            );
+        }
+    }
 
+    componentWillUnmount() {
+        this.setState(
+            {
+                isLoading: true,
+            }
+        );
+    }
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            isLoading: true,
+        };
+    }
+
+    _saveProfile = () => {
+        DataHelper._initUserProfile(this.state.name, this.state.place, this.state.phone);
+        DataHelper._saveUserProfileLocal();
+    };
+
+    renderHeader = () => {
         return (
             <View style={styles.headerContainer}>
                 <ImageBackground
@@ -33,7 +78,7 @@ export default class ProfileScreen extends React.Component {
                             style={styles.userImage}
                             source={require('../../../assets/images/info.jpg')}
                         />
-                        <Text style={styles.userNameText}>ABC</Text>
+                        <Text style={styles.userNameText}>{this.state.name}</Text>
                         <View style={styles.userAddressRow}>
                             <View>
                                 <Icon
@@ -44,7 +89,7 @@ export default class ProfileScreen extends React.Component {
                             </View>
                             <View style={styles.userCityRow}>
                                 <Text style={styles.userCityText}>
-                                    {'adfa'}, {'ádfasdf'}
+                                    {this.state.place}
                                 </Text>
                             </View>
                         </View>
@@ -54,20 +99,37 @@ export default class ProfileScreen extends React.Component {
                 <View style={styles.inputContainer}>
                     <View style={{flexDirection: 'row', alignItems: 'center', alignSelf: 'stretch'}}>
                         <View style={[styles.iconDoc, {backgroundColor: '#FFBA9C'}]}/>
-                        <TextInput underlineColorAndroid='transparent' style={styles.input}
-                                   placeholder={'Name'}
+                        <TextInput
+                            onChangeText={
+                                (name) => this.setState({name: name})
+                            }
+                            value={this.state.name}
+                            underlineColorAndroid='transparent'
+                            style={styles.input}
+                            placeholder={'Name'}
                         />
                     </View>
                     <View style={{flexDirection: 'row', alignItems: 'center', alignSelf: 'stretch'}}>
                         <View style={[styles.iconDoc, {backgroundColor: '#FFBA9C'}]}/>
-                        <TextInput underlineColorAndroid='transparent' style={styles.input}
-                                   placeholder={'Place'}
+                        <TextInput
+                            onChangeText={
+                                (place) => this.setState({place: place})
+                            }
+                            value={this.state.place}
+                            underlineColorAndroid='transparent'
+                            style={styles.input}
+                            placeholder={'Place'}
                         />
                     </View>
                     <View style={{flexDirection: 'row', alignItems: 'center', alignSelf: 'stretch'}}>
                         <View style={[styles.iconDoc, {backgroundColor: '#FFBA9C'}]}/>
-                        <TextInput underlineColorAndroid='transparent' style={styles.input}
-                                   placeholder={'Phone number'}
+                        <TextInput
+                            onChangeText={
+                                (phone) => this.setState({phone: phone})
+                            }
+                            value={this.state.phone}
+                            underlineColorAndroid='transparent' style={styles.input}
+                            placeholder={'Phone number'}
                         />
                     </View>
 
@@ -76,7 +138,9 @@ export default class ProfileScreen extends React.Component {
                 <View style={styles.buttonCenter}>
                     <Button
                         type="custom"
-                        onPress={() => Alert.alert('Saved!')}
+                        onPress={() => {
+                            this._saveProfile();
+                        }}
                         backgroundColor={'#ff5e52'}
                         borderColor={'#16a085'}
                         borderRadius={10}
@@ -93,6 +157,10 @@ export default class ProfileScreen extends React.Component {
     };
 
     render() {
+        if (this.state.isLoading) {
+            return <AppLoading/>;
+        }
+
         return (
             <ScrollView style={styles.scroll}>
                 <View style={styles.container}>

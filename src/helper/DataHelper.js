@@ -2,6 +2,7 @@ import React from 'react';
 import {Constants} from 'expo';
 import * as firebase from "firebase";
 import UtilHelper from "./UtilHelper";
+import LocalStoreHelper from "./LocalStoreHelper";
 
 class DataHelper {
     UID = Constants.installationId;
@@ -60,6 +61,64 @@ class DataHelper {
             });
     };
 
+    // ----------------- User Profile
+
+    curUserProfile = new Map();
+
+    _initUserProfile = (name, place, phone) => {
+        this.curUserProfile = new Map();
+
+        this.curUserProfile.set('name', name);
+        this.curUserProfile.set('place', place);
+        this.curUserProfile.set('phone', phone);
+    };
+
+    _saveUserProfileLocal = () => {
+        LocalStoreHelper._storeMapData(LocalStoreHelper.profile, this.curUserProfile);
+    };
+
+    isProfileNull = (profile) => {
+        if (profile != null && profile instanceof Map) {
+            if (
+                profile.get('name') == null
+                || profile.get('place') == null
+                || profile.get('phone') == null
+            ) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return true;
+        }
+    };
+
+    _loadUserProfile = async (callback) => {
+        if (this.isProfileNull(this.curUserProfile)) {
+            console.log('Chi CS 1:  ');
+            const localUserProfile = await LocalStoreHelper._getMapData(LocalStoreHelper.profile);
+
+            UtilHelper._printMapConsole(localUserProfile);
+            if (! this.isProfileNull(localUserProfile)) {
+                console.log('Chi CS 2: ');
+                UtilHelper._printMapConsole(localUserProfile);
+
+                this._initUserProfile(localUserProfile.get('name'),
+                    localUserProfile.get('place'),
+                    localUserProfile.get('phone'));
+            } else {
+                console.log('Chi CS 3: ');
+                // Generate Random
+                const name = UtilHelper._generateName();
+
+                this._initUserProfile(name, 'Viet Nam', '+0100000');
+                this._saveUserProfileLocal();
+            }
+        }
+        console.log('Chi CS 0:  ');
+        UtilHelper._printMapConsole(this.curUserProfile);
+        callback(this.curUserProfile);
+    }
 }
 
 const instance = new DataHelper();
