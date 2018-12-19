@@ -13,6 +13,7 @@ import { NavigationScreenProps, NavigationParams } from 'react-navigation';
 import GestureView from './GestureView';
 import sharedQuizService from '../../services/QuizService';
 import QuestionComponent from './QuestionComponent';
+import MyProfile from '../../entity/ProfileData';
 
 const BoxAndroid = posed.View({
     before: {
@@ -182,7 +183,13 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
     }
 
     saveQuizResult = () => {
-
+        const {quizStore} = this.props;
+        MyProfile.updateTestData(
+            sharedQuizService.getMode(), 
+            quizStore.getTotalQuestionNumber(),
+            quizStore.state.currentQuestion, 
+            quizStore.state.uncorrectedAnswer, 
+            quizStore.state.doingTimer / 1000); 
     }
 
     quizOver = () => {
@@ -216,6 +223,7 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
                 <AudioPlayer uri={question.audioAsset} name={question.id} styles = {{width: widthPercentageToDP(100)}}/>
             );
         }
+        return null;
     }
 
     renderQuestion () {

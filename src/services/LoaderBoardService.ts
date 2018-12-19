@@ -1,20 +1,12 @@
 import ILeaderBoardService from './ILeaderBoardService';
 import IProfile from '../entity/Profile';
+import MyProfile from '../entity/ProfileData';
 
 
 class LeaderBoardService implements ILeaderBoardService {
 
     getMyProfile(): IProfile {
-        let myprofile: IProfile = {
-            name: 'Alice',
-            avatar: 2,
-            correctAnswer: 2101,
-            incorrectAnswer: 212,
-            totalQuestion: 2602,
-            timeSpent: 1212
-        };
-
-        return myprofile;
+        return MyProfile.profile;
     }
 
     getLeaderBoardAll(_index: number, _numberOfProfile: number): IProfile[] {

@@ -6,19 +6,39 @@ import sharedLeaderBoardService from '../services/LoaderBoardService';
 import {heightPercentageToDP, widthPercentageToDP} from '../helper/ratioHelper';
 import {systemWeights} from 'react-native-typography';
 import PeopleProfileComponent from '../components/leaderBoardScreen/PeopleProfile';
+import IProfile from '../entity/Profile';
 
 export interface LeaderBoardScreenProps {
 
 }
 
-export default class LeaderBoardScreen extends React.Component<LeaderBoardScreenProps> {
+interface LeaderBoardScreenState{
+    myProfile : IProfile,
+    peopleProfile: IProfile[]
+}
+
+export default class LeaderBoardScreen extends React.Component<LeaderBoardScreenProps, LeaderBoardScreenState> {
+    constructor(props: LeaderBoardScreenProps){
+        super(props);
+
+        this.state = {
+            myProfile: sharedLeaderBoardService.getMyProfile(),
+            peopleProfile: [sharedLeaderBoardService.getMyProfile()]
+        }
+    }
+    componentDidMount(){
+        this.setState({
+            myProfile: sharedLeaderBoardService.getMyProfile(),
+            peopleProfile: [sharedLeaderBoardService.getMyProfile()]
+        })
+    }
     render() {
         return (
             <Container>
                 <View style={{height: Expo.Constants.statusBarHeight}}/>
                 <Content style={{flex: 1, backgroundColor: '#F6F6F6'}}>
                     <MyProfileComponent style={{flex: 1, height: heightPercentageToDP(22), maxHeight: heightPercentageToDP(25)}}
-                                        profile={sharedLeaderBoardService.getMyProfile()}/>
+                                        profile={this.state.myProfile}/>
                     <View style={{
                         flex: 1,
                         height: heightPercentageToDP(5),
@@ -48,17 +68,9 @@ export default class LeaderBoardScreen extends React.Component<LeaderBoardScreen
                     </View>
                     <View style={{flex: 1, backgroundColor: '#F6F6F6'}}>
                         <PeopleProfileComponent style={{flex: 1, height: heightPercentageToDP(12), maxHeight: heightPercentageToDP(25)}}
-                                                profile={sharedLeaderBoardService.getMyProfile()}/>
+                                                profile={this.state.myProfile}/>
                         <PeopleProfileComponent style={{flex: 1, height: heightPercentageToDP(12), maxHeight: heightPercentageToDP(25)}}
-                                                profile={sharedLeaderBoardService.getMyProfile()}/>
-                        <PeopleProfileComponent style={{flex: 1, height: heightPercentageToDP(12), maxHeight: heightPercentageToDP(25)}}
-                                                profile={sharedLeaderBoardService.getMyProfile()}/>
-                        <PeopleProfileComponent style={{flex: 1, height: heightPercentageToDP(12), maxHeight: heightPercentageToDP(25)}}
-                                                profile={sharedLeaderBoardService.getMyProfile()}/>
-                        <PeopleProfileComponent style={{flex: 1, height: heightPercentageToDP(12), maxHeight: heightPercentageToDP(25)}}
-                                                profile={sharedLeaderBoardService.getMyProfile()}/>
-                        <PeopleProfileComponent style={{flex: 1, height: heightPercentageToDP(12), maxHeight: heightPercentageToDP(25)}}
-                                                profile={sharedLeaderBoardService.getMyProfile()}/>
+                                                profile={this.state.myProfile}/>
                     </View>
                 </Content>
             </Container>

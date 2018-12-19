@@ -252,23 +252,18 @@ class QuizService implements IQuizService{
             return;
         }
 
-        questionList.push(question);
-
-        switch(question.type){
-            case QuestionType.part3 : case QuestionType.part4: case QuestionType.part6 : case QuestionType.part7 :
-            if(question.comeWith){
-                question.comeWith.forEach((id, _) => {
-                    if(!this.contain(questionList, id)){
-                        const questionToAdd : IQuestion = this._srcQuestionList.find((value, _, __) => value && value.id === id);
-                        if (questionToAdd){
-                            questionList.push(questionToAdd);
-                        }
+        if(question.comeWith){
+            question.comeWith.forEach((id, _) => {
+                if(!this.contain(questionList, id)){
+                    const questionToAdd : IQuestion = this._srcQuestionList.find((value, _, __) => value && value.id === id);
+                    if (questionToAdd){
+                        questionList.push(questionToAdd);
                     }
-                })
-            }
-            break;
+                }
+            })
+        } else {
+            questionList.push(question);            
         }
-
     }
 
     private contain(questionList: IQuestion[], question_id: string) : boolean {

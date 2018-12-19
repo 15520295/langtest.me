@@ -1,7 +1,7 @@
 import IQuestion, { QuestionType } from "../entity/Question";
 
 const QuestionDataPart4 : IQuestion[] = [{
-    id: 'p7_1_071',
+    id: 'p4_1_071',
     type: QuestionType.part4,
     question: 'Where does the speaker work?',
     answer: [
@@ -11,10 +11,10 @@ const QuestionDataPart4 : IQuestion[] = [{
         'At a cleaning service'],
     correctAnswer: 2,
     audioAsset: require('./../../assets/audio/test1/p4_1_071-073.mp3'),
-    comeWith: ['p7_1_071', 'p7_1_072', 'p7_1_073'],
+    comeWith: ['p4_1_071', 'p4_1_072', 'p4_1_073'],
     difficultLevel: 3
 },{
-    id: 'p7_1_072',
+    id: 'p4_1_072',
     type: QuestionType.part4,
     question: 'What does the speaker say he has done?',
     answer: [
@@ -24,10 +24,10 @@ const QuestionDataPart4 : IQuestion[] = [{
         'Ordered a part'],
     correctAnswer: 3,
     audioAsset: require('./../../assets/audio/test1/p4_1_071-073.mp3'),
-    comeWith: ['p7_1_071', 'p7_1_072', 'p7_1_073'],
+    comeWith: ['p4_1_071', 'p4_1_072', 'p4_1_073'],
     difficultLevel: 3
 },{
-    id: 'p7_1_073',
+    id: 'p4_1_073',
     type: QuestionType.part4,
     question: 'What does the speaker offer?',
     answer: [
@@ -37,10 +37,10 @@ const QuestionDataPart4 : IQuestion[] = [{
         'Expedited delivery'],
     correctAnswer: 0,
     audioAsset: require('./../../assets/audio/test1/p4_1_071-073.mp3'),
-    comeWith: ['p7_1_071', 'p7_1_072', 'p7_1_073'],
+    comeWith: ['p4_1_071', 'p4_1_072', 'p4_1_073'],
     difficultLevel: 3
 },{
-    id: 'p7_1_074',
+    id: 'p4_1_074',
     type: QuestionType.part4,
     question: 'Who most likely are the listeners?',
     answer: [
@@ -50,10 +50,10 @@ const QuestionDataPart4 : IQuestion[] = [{
         'Hotel clerks'],
     correctAnswer: 2,
     audioAsset: require('./../../assets/audio/test1/p4_1_074-076.mp3'),
-    comeWith: ['p7_1_074', 'p7_1_075', 'p7_1_076'],
+    comeWith: ['p4_1_074', 'p4_1_075', 'p4_1_076'],
     difficultLevel: 3
 },{
-    id: 'p7_1_075',
+    id: 'p4_1_075',
     type: QuestionType.part4,
     question: 'What is the topic of the meeting?',
     answer: [
@@ -63,10 +63,10 @@ const QuestionDataPart4 : IQuestion[] = [{
         'Maintaining a clean work area'],
     correctAnswer: 0,
     audioAsset: require('./../../assets/audio/test1/p4_1_074-076.mp3'),
-    comeWith: ['p7_1_074', 'p7_1_075', 'p7_1_076'],
+    comeWith: ['p4_1_074', 'p4_1_075', 'p4_1_076'],
     difficultLevel: 3
 },{
-    id: 'p7_1_076',
+    id: 'p4_1_076',
     type: QuestionType.part4,
     question: 'What will the listeners do next?',
     answer: [
@@ -76,10 +76,10 @@ const QuestionDataPart4 : IQuestion[] = [{
         'Work with a partner'],
     correctAnswer: 3,
     audioAsset: require('./../../assets/audio/test1/p4_1_074-076.mp3'),
-    comeWith: ['p7_1_074', 'p7_1_075', 'p7_1_076'],
+    comeWith: ['p4_1_074', 'p4_1_075', 'p4_1_076'],
     difficultLevel: 3
 },{
-    id: 'p7_1_077',
+    id: 'p4_1_077',
     type: QuestionType.part4,
     question: 'Where most likely is the speaker?',
     answer: [
@@ -89,10 +89,10 @@ const QuestionDataPart4 : IQuestion[] = [{
         'On a train'],
     correctAnswer: 1,
     audioAsset: require('./../../assets/audio/test1/p4_1_077-079.mp3'),
-    comeWith: ['p7_1_077', 'p7_1_078', 'p7_1_079'],
+    comeWith: ['p4_1_077', 'p4_1_078', 'p4_1_079'],
     difficultLevel: 3
 },{
-    id: 'p7_1_078',
+    id: 'p4_1_078',
     type: QuestionType.part4,
     question: 'What does the speaker imply when she says, “Can you believe it”?',
     answer: [
@@ -102,10 +102,10 @@ const QuestionDataPart4 : IQuestion[] = [{
         'She is confused.'],
     correctAnswer: 0,
     audioAsset: require('./../../assets/audio/test1/p4_1_077-079.mp3'),
-    comeWith: ['p7_1_077', 'p7_1_078', 'p7_1_079'],
+    comeWith: ['p4_1_077', 'p4_1_078', 'p4_1_079'],
     difficultLevel: 3
 },{
-    id: 'p7_1_079',
+    id: 'p4_1_079',
     type: QuestionType.part4,
     question: 'What does the speaker ask the listener to do?',
     answer: [
@@ -115,10 +115,10 @@ const QuestionDataPart4 : IQuestion[] = [{
         'Pick up a package'],
     correctAnswer: 3,
     audioAsset: require('./../../assets/audio/test1/p4_1_077-079.mp3'),
-    comeWith: ['p7_1_077', 'p7_1_078', 'p7_1_079'],
+    comeWith: ['p4_1_077', 'p4_1_078', 'p4_1_079'],
     difficultLevel: 3
 },{
-    id: 'p7_1_080',
+    id: 'p4_1_080',
     type: QuestionType.part4,
     question: 'Where is the tour most likely taking place?',
     answer: [
@@ -128,10 +128,10 @@ const QuestionDataPart4 : IQuestion[] = [{
         'At a trade fair'],
     correctAnswer: 1,
     audioAsset: require('./../../assets/audio/test1/p4_1_080-082.mp3'),
-    comeWith: ['p7_1_080', 'p7_1_081', 'p7_1_082'],
+    comeWith: ['p4_1_080', 'p4_1_081', 'p4_1_082'],
     difficultLevel: 3
 },{
-    id: 'p7_1_081',
+    id: 'p4_1_081',
     type: QuestionType.part4,
     question: 'What does the speaker say has changed about the tour?',
     answer: [
@@ -141,10 +141,10 @@ const QuestionDataPart4 : IQuestion[] = [{
         'The tour guide'],
     correctAnswer: 2,
     audioAsset: require('./../../assets/audio/test1/p4_1_080-082.mp3'),
-    comeWith: ['p7_1_080', 'p7_1_081', 'p7_1_082'],
+    comeWith: ['p4_1_080', 'p4_1_081', 'p4_1_082'],
     difficultLevel: 3
 },{
-    id: 'p7_1_082',
+    id: 'p4_1_082',
     type: QuestionType.part4,
     question: 'What does the speaker offer the listeners?',
     answer: [
@@ -154,10 +154,10 @@ const QuestionDataPart4 : IQuestion[] = [{
         'Product samples'],
     correctAnswer: 0,
     audioAsset: require('./../../assets/audio/test1/p4_1_080-082.mp3'),
-    comeWith: ['p7_1_080', 'p7_1_081', 'p7_1_082'],
+    comeWith: ['p4_1_080', 'p4_1_081', 'p4_1_082'],
     difficultLevel: 3
 },{
-    id: 'p7_1_083',
+    id: 'p4_1_083',
     type: QuestionType.part4,
     question: 'According to the news report, what will happen at the end of the year?',
     answer: [
@@ -167,10 +167,10 @@ const QuestionDataPart4 : IQuestion[] = [{
         'A hotel association will select a new president.'],
     correctAnswer: 2,
     audioAsset: require('./../../assets/audio/test1/p4_1_083-085.mp3'),
-    comeWith: ['p7_1_083', 'p7_1_084', 'p7_1_085'],
+    comeWith: ['p4_1_083', 'p4_1_084', 'p4_1_085'],
     difficultLevel: 3
 },{
-    id: 'p7_1_084',
+    id: 'p4_1_084',
     type: QuestionType.part4,
     question: 'What benefit to travelers does the speaker mention?',
     answer: [
@@ -180,10 +180,10 @@ const QuestionDataPart4 : IQuestion[] = [{
         'Shorter travel times'],
     correctAnswer: 1,
     audioAsset: require('./../../assets/audio/test1/p4_1_083-085.mp3'),
-    comeWith: ['p7_1_083', 'p7_1_084', 'p7_1_085'],
+    comeWith: ['p4_1_083', 'p4_1_084', 'p4_1_085'],
     difficultLevel: 3
 },{
-    id: 'p7_1_085',
+    id: 'p4_1_085',
     type: QuestionType.part4,
     question: 'Who does the speaker say is pleased with the news?',
     answer: [
@@ -193,10 +193,10 @@ const QuestionDataPart4 : IQuestion[] = [{
         'Construction supervisors'],
     correctAnswer: 2,
     audioAsset: require('./../../assets/audio/test1/p4_1_083-085.mp3'),
-    comeWith: ['p7_1_083', 'p7_1_084', 'p7_1_085'],
+    comeWith: ['p4_1_083', 'p4_1_084', 'p4_1_085'],
     difficultLevel: 3
 },{
-    id: 'p7_1_086',
+    id: 'p4_1_086',
     type: QuestionType.part4,
     question: 'Who most likely are the listeners?',
     answer: [
@@ -206,10 +206,10 @@ const QuestionDataPart4 : IQuestion[] = [{
         'Publishers'],
     correctAnswer: 2,
     audioAsset: require('./../../assets/audio/test1/p4_1_086-088.mp3'),
-    comeWith: ['p7_1_086', 'p7_1_087', 'p7_1_088'],
+    comeWith: ['p4_1_086', 'p4_1_087', 'p4_1_088'],
     difficultLevel: 3
 },{
-    id: 'p7_1_087',
+    id: 'p4_1_087',
     type: QuestionType.part4,
     question: '	What does the speaker mean when he says, “another conference is scheduled to begin here at 1:00”?',
     answer: [
@@ -219,10 +219,10 @@ const QuestionDataPart4 : IQuestion[] = [{
         'The room will need to be cleaned.'],
     correctAnswer: 0,
     audioAsset: require('./../../assets/audio/test1/p4_1_086-088.mp3'),
-    comeWith: ['p7_1_086', 'p7_1_087', 'p7_1_088'],
+    comeWith: ['p4_1_086', 'p4_1_087', 'p4_1_088'],
     difficultLevel: 3
 },{
-    id: 'p7_1_088',
+    id: 'p4_1_088',
     type: QuestionType.part4,
     question: 'What will the speaker distribute to the listeners?',
     answer: [
@@ -232,10 +232,10 @@ const QuestionDataPart4 : IQuestion[] = [{
         'A conference schedule'],
     correctAnswer: 0,
     audioAsset: require('./../../assets/audio/test1/p4_1_086-088.mp3'),
-    comeWith: ['p7_1_086', 'p7_1_087', 'p7_1_088'],
+    comeWith: ['p4_1_086', 'p4_1_087', 'p4_1_088'],
     difficultLevel: 3
 },{
-    id: 'p7_1_089',
+    id: 'p4_1_089',
     type: QuestionType.part4,
     question: 'What does the speaker say about the company?',
     answer: [
@@ -245,10 +245,10 @@ const QuestionDataPart4 : IQuestion[] = [{
         'It started a charity fund.'],
     correctAnswer: 0,
     audioAsset: require('./../../assets/audio/test1/p4_1_089-091.mp3'),
-    comeWith: ['p7_1_089', 'p7_1_090', 'p7_1_091'],
+    comeWith: ['p4_1_089', 'p4_1_090', 'p4_1_091'],
     difficultLevel: 3
 },{
-    id: 'p7_1_090',
+    id: 'p4_1_090',
     type: QuestionType.part4,
     question: 'According to the speaker, what decision was recently made?',
     answer: [
@@ -258,10 +258,10 @@ const QuestionDataPart4 : IQuestion[] = [{
         'To hire more staff'],
     correctAnswer: 3,
     audioAsset: require('./../../assets/audio/test1/p4_1_089-091.mp3'),
-    comeWith: ['p7_1_089', 'p7_1_090', 'p7_1_091'],
+    comeWith: ['p4_1_089', 'p4_1_090', 'p4_1_091'],
     difficultLevel: 3
 },{
-    id: 'p7_1_091',
+    id: 'p4_1_091',
     type: QuestionType.part4,
     question: 'What does the speaker ask the listeners to do?',
     answer: [
@@ -271,10 +271,10 @@ const QuestionDataPart4 : IQuestion[] = [{
         'Submit a list of questions'],
     correctAnswer: 1,
     audioAsset: require('./../../assets/audio/test1/p4_1_089-091.mp3'),
-    comeWith: ['p7_1_089', 'p7_1_090', 'p7_1_091'],
+    comeWith: ['p4_1_089', 'p4_1_090', 'p4_1_091'],
     difficultLevel: 3
 },{
-    id: 'p7_1_092',
+    id: 'p4_1_092',
     type: QuestionType.part4,
     question: 'What is the talk mostly about?',
     answer: [
@@ -284,10 +284,10 @@ const QuestionDataPart4 : IQuestion[] = [{
         'A guest speaker'],
     correctAnswer: 0,
     audioAsset: require('./../../assets/audio/test1/p4_1_092-094.mp3'),
-    comeWith: ['p7_1_092', 'p7_1_093', 'p7_1_094'],
+    comeWith: ['p4_1_092', 'p4_1_093', 'p4_1_094'],
     difficultLevel: 3
 },{
-    id: 'p7_1_093',
+    id: 'p4_1_093',
     type: QuestionType.part4,
     question: 'What does the speaker imply when he says, "this will be a big event”?',
     answer: [
@@ -297,10 +297,10 @@ const QuestionDataPart4 : IQuestion[] = [{
         'An event venue is too small.'],
     correctAnswer: 1,
     audioAsset: require('./../../assets/audio/test1/p4_1_092-094.mp3'),
-    comeWith: ['p7_1_092', 'p7_1_093', 'p7_1_094'],
+    comeWith: ['p4_1_092', 'p4_1_093', 'p4_1_094'],
     difficultLevel: 3
 },{
-    id: 'p7_1_094',
+    id: 'p4_1_094',
     type: QuestionType.part4,
     question: '	Why does the speaker suggest that listeners visit a Web site?',
     answer: [
@@ -310,10 +310,10 @@ const QuestionDataPart4 : IQuestion[] = [{
         'To check a list of approved items'],
     correctAnswer: 3,
     audioAsset: require('./../../assets/audio/test1/p4_1_092-094.mp3'),
-    comeWith: ['p7_1_092', 'p7_1_093', 'p7_1_094'],
+    comeWith: ['p4_1_092', 'p4_1_093', 'p4_1_094'],
     difficultLevel: 3
 },{
-    id: 'p7_1_095',
+    id: 'p4_1_095',
     type: QuestionType.part4,
     question: 'What is the main topic of the meeting?',
     answer: [
@@ -323,10 +323,10 @@ const QuestionDataPart4 : IQuestion[] = [{
         'Sales results'],
     correctAnswer: 3,
     audioAsset: require('./../../assets/audio/test1/p4_1_095-097.mp3'),
-    comeWith: ['p7_1_095', 'p7_1_096', 'p7_1_097'],
+    comeWith: ['p4_1_095', 'p4_1_096', 'p4_1_097'],
     difficultLevel: 3
 },{
-    id: 'p7_1_096',
+    id: 'p4_1_096',
     type: QuestionType.part4,
     question: 'Who most likely is the speaker?',
     answer: [
@@ -336,10 +336,10 @@ const QuestionDataPart4 : IQuestion[] = [{
         'A fashion reporter'],
     correctAnswer: 2,
     audioAsset: require('./../../assets/audio/test1/p4_1_095-097.mp3'),
-    comeWith: ['p7_1_095', 'p7_1_096', 'p7_1_097'],
+    comeWith: ['p4_1_095', 'p4_1_096', 'p4_1_097'],
     difficultLevel: 3
 },{
-    id: 'p7_1_097',
+    id: 'p4_1_097',
     type: QuestionType.part4,
     question: 'Look at the graphic. What will the speaker most likely discuss next?',
     answer: [
@@ -350,10 +350,10 @@ const QuestionDataPart4 : IQuestion[] = [{
     correctAnswer: 1,
     imageAsset: require('./../../assets/images/test1/p4_1_097.png'),
     audioAsset: require('./../../assets/audio/test1/p4_1_095-097.mp3'),
-    comeWith: ['p7_1_095', 'p7_1_096', 'p7_1_097'],
+    comeWith: ['p4_1_095', 'p4_1_096', 'p4_1_097'],
     difficultLevel: 3
 },{
-    id: 'p7_1_098',
+    id: 'p4_1_098',
     type: QuestionType.part4,
     question: 'Who is the talk intended for?',
     answer: [
@@ -363,10 +363,10 @@ const QuestionDataPart4 : IQuestion[] = [{
         'University students'],
     correctAnswer: 2,
     audioAsset: require('./../../assets/audio/test1/p4_1_098-100.mp3'),
-    comeWith: ['p7_1_098', 'p7_1_099', 'p7_1_100'],
+    comeWith: ['p4_1_098', 'p4_1_099', 'p4_1_100'],
     difficultLevel: 3
 },{
-    id: 'p7_1_099',
+    id: 'p4_1_099',
     type: QuestionType.part4,
     question: 'Look at the graphic. Which trail is closed to visitors?',
     answer: [
@@ -377,10 +377,10 @@ const QuestionDataPart4 : IQuestion[] = [{
     correctAnswer: 3,
     imageAsset: require('./../../assets/images/test1/p4_1_099.png'),
     audioAsset: require('./../../assets/audio/test1/p4_1_098-100.mp3'),
-    comeWith: ['p7_1_098', 'p7_1_099', 'p7_1_100'],
+    comeWith: ['p4_1_098', 'p4_1_099', 'p4_1_100'],
     difficultLevel: 3
 },{
-    id: 'p7_1_100',
+    id: 'p4_1_100',
     type: QuestionType.part4,
     question: 'What project is the Center participating in?',
     answer: [
@@ -390,7 +390,7 @@ const QuestionDataPart4 : IQuestion[] = [{
         'A program to plant more trees'],
     correctAnswer: 1,
     audioAsset: require('./../../assets/audio/test1/p4_1_098-100.mp3'),
-    comeWith: ['p7_1_098', 'p7_1_099', 'p7_1_100'],
+    comeWith: ['p4_1_098', 'p4_1_099', 'p4_1_100'],
     difficultLevel: 3
 }];
 

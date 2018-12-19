@@ -167,7 +167,8 @@ export default class App extends React.Component {
 
 const QuestionStack = createSwitchNavigator({
     Questions: QuizScreen,
-    Results: ResultScreen
+    Results: ResultScreen,
+    LeaderBoard: LeaderBoardScreen
 }, {
     initialRouteName: 'Questions'
 });
