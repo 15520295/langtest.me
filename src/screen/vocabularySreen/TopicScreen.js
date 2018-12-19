@@ -29,11 +29,12 @@ import WordScreenStore from '../../store/WordScreenStore';
 import {withNavigation} from 'react-navigation';
 import DataHelper from "../../helper/DataHelper";
 import UtilHelper from "../../helper/UtilHelper";
+import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 class TopicScreen extends React.Component {
     static navigationOptions = {
-        header: null // !!! Hide Header
+        header: null, // !!! Hide Header
     };
 
     constructor(props) {
@@ -78,7 +79,6 @@ class TopicScreen extends React.Component {
             );
         }
     }
-
 
     render() {
         return (

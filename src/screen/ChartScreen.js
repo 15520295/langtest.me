@@ -10,6 +10,8 @@ import {
 
 import {Button, Header, Content, Left, Container, Icon} from 'native-base';
 
+import { AntDesign, MaterialCommunityIcons, } from '@expo/vector-icons';
+
 const data = [
     {quarter: 1, earnings: 13000},
     {quarter: 2, earnings: 16500},
@@ -21,11 +23,9 @@ export default class ChartScreen extends React.Component {
 
     static navigationOptions = {
         header: null, // !!! Hide Header
-        // drawerIcon: ({tintColor}) => (
-        //     <Icon name='pie-chart' 
-        //     style= {{ fontSize: 24, color: tintColor}}/>
-        // )
-        // title:'Home 1',
+        drawerIcon: ({tintColor}) => (
+            <MaterialCommunityIcons name='chart-arc' color={tintColor} size= {24}/>
+        )
        
     };
 

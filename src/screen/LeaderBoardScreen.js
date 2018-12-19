@@ -12,6 +12,7 @@ import UtilHelper from '../helper/UtilHelper';
 import {AppLoading} from 'expo';
 import {NetInfo} from 'react-native';
 import * as Progress from 'react-native-progress';
+import { AntDesign, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 
 
 export default class LeaderBoardScreen extends React.Component {
@@ -66,6 +67,13 @@ export default class LeaderBoardScreen extends React.Component {
         }
     }
 
+    static navigationOptions = {
+        header: null, // !!! Hide Header
+        drawerIcon: ({tintColor}) => (
+            <FontAwesome name='trophy' color={tintColor} size= {24}/>
+        )
+    };
+
     render() {
         if (this.state.info === 0) {
             return <AppLoading/>;
@@ -91,7 +99,7 @@ export default class LeaderBoardScreen extends React.Component {
                         Please connect to Internet to see the LeaderBoard
                     </Text>
                 </View>
-            )
+            );
         }
 
         return (

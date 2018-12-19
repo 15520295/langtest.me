@@ -14,6 +14,7 @@ import {Root} from 'native-base';
 import {AppLoading, Asset, Font, Icon} from 'expo';
 import {Expo} from 'expo';
 
+import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import * as firebase from 'firebase';
 
 import {
@@ -68,10 +69,10 @@ const CustomDrawerContentComponent = (props) => (
             height: 150, backgroundColor: 'white', alignItems: 'center',
             justifyContent: 'center'
         }}>
-            <TouchableOpacity style={{height: 120, width: 120, borderRadius: 60}}
+            <TouchableOpacity style={{height: 120, width: 120, }}
                               // onPress={()=> navigate('Profile')}
             >
-                <Image source={require('../assets/images/reading.jpg')}
+                <Image source={require('../assets/images/logo.jpg')}
                        style={{height: 120, width: 120, borderRadius: 60}}
                 />
             </TouchableOpacity>
@@ -113,6 +114,7 @@ import ResultScreen from './screen/QuestionScreen/ResultScreen';
 import LeaderBoardScreen from './screen/LeaderBoardScreen';
 import LearnScreen from './screen/vocabularySreen/LearnScreen';
 import ProfileScreen from './screen/ProfileScreen/ProfileScreen';
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 const AppContainer = createAppContainer(AppNavigator);
 
@@ -164,12 +166,12 @@ export default class App extends React.Component {
 }
 
 
-const QuestionStack = createSwitchNavigator({
+const HomeStack = createSwitchNavigator({
+    Home: HomeScreen,
     Questions: QuizScreen,
-    Results: ResultScreen,
-    LeaderBoard: LeaderBoardScreen
+    Results: ResultScreen
 }, {
-    initialRouteName: 'Questions'
+    initialRouteName: 'Home'
 });
 
 const TopicStack = createStackNavigator({
@@ -180,16 +182,23 @@ const TopicStack = createStackNavigator({
 
 const MyDrawerNavigator = createDrawerNavigator({
         Home: {
-            screen: HomeScreen
+            screen: HomeStack,
+            navigationOptions: {
+                drawerIcon: ({tintColor}) => (
+                    <FontAwesome name='home' style={{fontSize: 24, color: tintColor}}/>
+                )
+            }
         },
         Profile: {
             screen: ProfileScreen
         },
-        Question: {
-            screen: QuestionStack
-        },
         Topic: {
             screen: TopicStack,
+            navigationOptions: {
+                drawerIcon: ({tintColor}) => (
+                    <MaterialCommunityIcons name='dictionary' color={tintColor} size= {24}/>
+                )
+            }
         },
         Chart: {
             screen: ChartScreen
@@ -197,6 +206,9 @@ const MyDrawerNavigator = createDrawerNavigator({
         LeaderBoard: {
             screen: LeaderBoardScreen
         },
+        Question: {
+            screen: QuestionStack
+        }
     },
     {
         contentComponent: CustomDrawerContentComponent,
