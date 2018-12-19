@@ -42,7 +42,7 @@ export default class QuizScreenTimer extends React.Component<Props, State>{
                 percent: percent
             });
 
-        }, interval)
+        }, interval);
     }
 
     componentWillUnmount() {

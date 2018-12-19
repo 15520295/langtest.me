@@ -21,7 +21,7 @@ import DataHelper from "../../helper/DataHelper";
 import UtilHelper from "../../helper/UtilHelper";
 import {AppLoading} from "expo";
 import {AnswerState} from "../QuestionScreen/AnswerButton";
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, FontAwesome } from '@expo/vector-icons';
 
 export default class ProfileScreen extends React.Component {
 
@@ -70,7 +70,7 @@ export default class ProfileScreen extends React.Component {
     static navigationOptions = {
         // header: null, // !!! Hide Header
         drawerIcon: ({tintColor}) => (
-            <AntDesign name='user' color={tintColor} size= {24}/>
+            <FontAwesome name='user' color={tintColor} size= {24}/>
         )
         // title:'Home 1',
         // // header: { visible:false },
