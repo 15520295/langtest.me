@@ -118,9 +118,9 @@ export default class HomeScreen extends PureComponent {
 
     static navigationOptions = {
         header: null, // !!! Hide Header
-        drawerIcon: ({tintColor}) => (
-            <Icon name='ios-home' style={{fontSize: 24, color: tintColor}}/>
-        )
+        // drawerIcon: ({tintColor}) => (
+        //     <Icon name='ios-home' style={{fontSize: 24, color: tintColor}}/>
+        // )
         // title:'Home 1',
         // // header: { visible:false },
         //   drawerIcon: (
