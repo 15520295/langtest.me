@@ -6,15 +6,21 @@ import {widthPercentageToDP} from '../../helper/ratioHelper';
 import {AntDesign} from '@expo/vector-icons';
 import {systemWeights} from 'react-native-typography';
 import {getNumberWithOrdinal} from '../../helper/numberHelper';
+import DataHelper from '../../helper/DataHelper';
 
 export interface MyProfileComponentProps {
     profile: Map<string, any>,
     style?: ViewStyle
 }
-
-export default class MyProfileComponent extends React.Component<MyProfileComponentProps> {
+interface State{
+    avatarRequire:number
+}
+export default class MyProfileComponent extends React.Component<MyProfileComponentProps,State> {
     constructor(props: MyProfileComponentProps) {
         super(props);
+        this.state = {
+            avatarRequire: DataHelper._getUserAvatar()
+        };
     }
 
 
@@ -26,7 +32,7 @@ export default class MyProfileComponent extends React.Component<MyProfileCompone
                     {/* avatar */}
                     <View style={{marginLeft: widthPercentageToDP(3), flex: 2, flexDirection: 'row', alignItems: 'center'}}>
                         <Image
-                            source={require('../../../assets/images/joychou.jpg')}
+                            source={this.state.avatarRequire}
                             style={{width: widthPercentageToDP(20), height: widthPercentageToDP(20), borderRadius: widthPercentageToDP(20) / 2}}
                             resizeMode='center'/>
                     </View>

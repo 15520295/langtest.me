@@ -44,15 +44,16 @@ export default class LeaderBoardScreen extends React.Component {
                             DataHelper._putCurUserDataToServer();
 
                             DataHelper._loadUserMapFromServer(() => {
-                                let curLeaderBoardDataRanked = DataHelper._getCurLeaderBoardProfile();
-                                let listLeaderBoardDataRanked = DataHelper._getLeaderBoardDataRanked();
+                                DataHelper._getCurLeaderBoardProfile((curLeaderBoardDataRanked) => {
+                                    let listLeaderBoardDataRanked = DataHelper._getLeaderBoardDataRanked();
 
-                                this.setState({
-                                    myProfile: curLeaderBoardDataRanked,
-                                    peopleProfile: listLeaderBoardDataRanked
-                                });
-                                this.setState({
-                                    info: 2
+                                    this.setState({
+                                        myProfile: curLeaderBoardDataRanked,
+                                        peopleProfile: listLeaderBoardDataRanked
+                                    });
+                                    this.setState({
+                                        info: 2
+                                    });
                                 });
                             });
                         } else {
