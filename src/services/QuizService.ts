@@ -129,13 +129,8 @@ class QuizService implements IQuizService{
         this._lastDifficult = difficultLevel;
         this._lastNumberOfQuestion = numberOfQuestion;
 
-        var numberOfQuestionType: Array<number> = new Array();
-        for(let i = 0; i < 7; i++){
-            numberOfQuestionType.push(Math.ceil(numberOfQuestion * this._typePercent[i] / 100));
-        }
-
         //Let crawling the question
-        var resQuestionList : IQuestion[] = this.crawlingQuestion(type, numberOfQuestionType[0], difficultLevel);
+        var resQuestionList : IQuestion[] = this.crawlingQuestion(type, numberOfQuestion, difficultLevel);
 
 
         //Let trim the question so that it can fix the number of question

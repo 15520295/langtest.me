@@ -9,7 +9,7 @@ export interface TestResultData{
 
 export class ProfileData{
     private _name : string = 'ParkHanSeo';
-    private _avatar : number = 0;
+    private _avatar : number = require('./../../assets/images/joychou.jpg');
     private _rank : number = 0;
     private _testResultData: Map<number, TestResultData> = new Map();
 
