@@ -32,6 +32,7 @@
     "react-native-action-button": "^2.8.5",
     "react-native-cards": "^1.1.4",
     "react-native-elements": "^0.19.1",
+    "react-native-flat-button": "^1.0.6",
     "react-native-flip-card": "^3.5.2",
     "react-native-floating-action": "^1.13.0",
     "react-native-gesture-view": "^0.2.1",

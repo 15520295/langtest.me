@@ -1,5 +1,15 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image, Platform, StatusBar, SafeAreaView, ScrollView} from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    Platform,
+    StatusBar,
+    SafeAreaView,
+    ScrollView,
+    TouchableOpacity
+} from 'react-native';
 import {Root} from 'native-base';
 import {AppLoading, Asset, Font, Icon} from 'expo';
 import {Expo} from 'expo';
@@ -7,7 +17,13 @@ import {Expo} from 'expo';
 import * as firebase from 'firebase';
 
 import {
-    DrawerItems, createDrawerNavigator, createStackNavigator, createAppContainer, withNavigation, createSwitchNavigator
+    DrawerItems,
+    createDrawerNavigator,
+    createStackNavigator,
+    createAppContainer,
+    withNavigation,
+    createSwitchNavigator,
+    navigate
 } from 'react-navigation';
 
 import {
@@ -49,9 +65,13 @@ const CustomDrawerContentComponent = (props) => (
             height: 150, backgroundColor: 'white', alignItems: 'center',
             justifyContent: 'center'
         }}>
-            <Image source={require('../assets/images/reading.jpg')}
-                   style={{height: 120, width: 120, borderRadius: 60}}
-            />
+            <TouchableOpacity style={{height: 120, width: 120, borderRadius: 60}}
+                              // onPress={()=> navigate('Profile')}
+            >
+                <Image source={require('../assets/images/reading.jpg')}
+                       style={{height: 120, width: 120, borderRadius: 60}}
+                />
+            </TouchableOpacity>
         </View>
         <ScrollView>
             <DrawerItems {...props}/>
@@ -89,6 +109,7 @@ import sharedQuizService from './services/QuizService';
 import ResultScreen from './screen/QuestionScreen/ResultScreen';
 import LeaderBoardScreen from './screen/LeaderBoardScreen';
 import LearnScreen from './screen/vocabularySreen/LearnScreen';
+import ProfileScreen from './screen/ProfileScreen/ProfileScreen';
 
 const AppContainer = createAppContainer(AppNavigator);
 
@@ -135,6 +156,7 @@ export default class App extends React.Component {
             //     <AppContainer />
             // </View>
             <MyApp/>
+            // <ProfileScreen/>
         );
     }
 }
@@ -156,6 +178,9 @@ const TopicStack = createStackNavigator({
 const MyDrawerNavigator = createDrawerNavigator({
         Home: {
             screen: HomeScreen
+        },
+        Profile: {
+            screen: ProfileScreen
         },
         Question: {
             screen: QuestionStack
