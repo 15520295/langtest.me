@@ -10,7 +10,7 @@ class DataHelper {
 
     usersArr = new Map();
 
-    _getCurrentUserData = () => {
+    _getCurLeaderBoardProfile = () => {
         return this.usersArr.get(this.UID);
     };
 
@@ -30,23 +30,32 @@ class DataHelper {
         );
     };
 
-    _putCurUserDataToServer = async () => {
-        let userObj = {
-            name: 'Alice',
-            avatar: 2,
-            totalQuestion: 2602,
-            correctAnswer: 2101,
-            timeSpent: 1212
-        };
+    _getLeaderBoardDataRanked = () => {
+        const sortedUsersData = this._getSortedUsersData();
+        let i = 0;
+        sortedUsersData.forEach(userProfile => {
+            userProfile.set('rank', i);
+            i++;
+        });
 
-        firebase.database()
-            .ref('users/' + this.UID)
-            .set(userObj, (result) => {
-                console.log('CCS _upServerUserMap: ' + result);
-            });
+        return sortedUsersData;
     };
 
-    _getUserMapFromServer = (callback) => {
+    _putCurUserDataToServer = async () => {
+        this._getCurServerProfile(curServerProfile => {
+            const objectData = UtilHelper._mapToObject(curServerProfile);
+
+            firebase.database()
+                .ref('users/' + this.UID)
+                .set(objectData,
+                    (result) => {
+                        console.log('CCS _upServerUserMap: ' + result);
+                    }
+                );
+        });
+    };
+
+    _loadUserMapFromServer = (callback) => {
         let usersRef = firebase.database().ref('users/');
         usersRef.once('value',
             (snapshot) => {
@@ -130,7 +139,7 @@ class DataHelper {
         callback(testResult);
     };
 
-    _getProfile(callback) {
+    _getCurServerProfile = (callback) => {
         let _timeSpent = 0;
         let _totalQuestion = 0;
         let _correctAnswer = 0;
@@ -142,18 +151,18 @@ class DataHelper {
             _totalQuestion += value.totalQuestion;
         });
 
-        
+        this._loadUserProfile(profile => {
+            const severProfile = new Map();
 
-        let _profile = {
-            name: ,
-            timeSpent: _timeSpent,
-            totalQuestion: _totalQuestion,
-            correctAnswer: _correctAnswer,
-            incorrectAnswer: _incorrectAnswer
-        };
+            severProfile.set('name', profile.get('name'));
+            severProfile.set('timeSpent', _timeSpent);
+            severProfile.set('totalQuestion', _totalQuestion);
+            severProfile.set('correctAnswer', _correctAnswer);
+            severProfile.set('incorrectAnswer', _incorrectAnswer);
 
-        return _profile;
-    }
+            callback(severProfile);
+        });
+    };
 
     _getPercent(mode) {
         let testResult = this._testResultData.get(mode);

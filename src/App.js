@@ -194,6 +194,9 @@ const MyDrawerNavigator = createDrawerNavigator({
         Chart: {
             screen: ChartScreen
         },
+        LeaderBoard: {
+            screen: LeaderBoardScreen
+        },
     },
     {
         contentComponent: CustomDrawerContentComponent,

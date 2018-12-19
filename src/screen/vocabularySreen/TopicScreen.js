@@ -44,11 +44,6 @@ class TopicScreen extends React.Component {
             totalAnswer: 0,
             correctAnswer: 0,
         };
-
-        DataHelper._getUserMapFromServer(() => {
-            UtilHelper._printMapConsole(DataHelper._getUsersData());
-            UtilHelper._printMapConsole(DataHelper._getSortedUsersData());
-        });
     }
 
     _refreshList = async () => {
