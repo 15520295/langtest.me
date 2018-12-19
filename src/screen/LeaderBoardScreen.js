@@ -10,7 +10,7 @@ import IProfile from '../entity/Profile';
 import DataHelper from '../helper/DataHelper';
 import UtilHelper from '../helper/UtilHelper';
 import {AppLoading} from 'expo';
-import {NetInfo} from 'react-native';
+import {NetInfo, Platform} from 'react-native';
 import * as Progress from 'react-native-progress';
 import { AntDesign, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 
@@ -104,7 +104,7 @@ export default class LeaderBoardScreen extends React.Component {
 
         return (
             <Container>
-                <View style={{height: Expo.Constants.statusBarHeight}}/>
+                <View style={{height: Platform.OS === 'android' ? 0 : Expo.Constants.statusBarHeight}}/>
                 <Content style={{flex: 1, backgroundColor: '#F6F6F6'}}>
                     <MyProfileComponent
                         style={{flex: 1, height: heightPercentageToDP(22), maxHeight: heightPercentageToDP(25)}}
