@@ -12,6 +12,8 @@ export default class LocalStoreHelper {
 
     static profile = 'profile';
 
+    static testResult = 'testResult';
+
     static _storeMapData = async (key, map) => {
         try {
             console.log('_storeMapData' + key + ' : ');

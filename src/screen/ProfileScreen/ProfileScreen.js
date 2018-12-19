@@ -33,6 +33,7 @@ export default class ProfileScreen extends React.Component {
                     DataHelper._loadUserProfile((profile) => {
                         this.setState({
                             name: profile.get('name'),
+                            avatar: profile.get('avatar'),
                             place: profile.get('place'),
                             phone: profile.get('phone'),
                         });
@@ -61,7 +62,7 @@ export default class ProfileScreen extends React.Component {
     }
 
     _saveProfile = () => {
-        DataHelper._initUserProfile(this.state.name, this.state.place, this.state.phone);
+        DataHelper._initUserProfile(this.state.name, this.state.avatar, this.state.place, this.state.phone);
         DataHelper._saveUserProfileLocal();
     };
 

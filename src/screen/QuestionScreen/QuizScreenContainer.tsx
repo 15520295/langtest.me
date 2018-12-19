@@ -13,7 +13,8 @@ import { NavigationScreenProps, NavigationParams } from 'react-navigation';
 import GestureView from './GestureView';
 import sharedQuizService from '../../services/QuizService';
 import QuestionComponent from './QuestionComponent';
-import MyProfile from '../../entity/ProfileData';
+// import MyProfile from '../../entity/ProfileData';
+import DataHelper from '../../helper/DataHelper';
 
 const BoxAndroid = posed.View({
     before: {
@@ -184,12 +185,18 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
 
     saveQuizResult = () => {
         const {quizStore} = this.props;
-        MyProfile.updateTestData(
-            sharedQuizService.getMode(), 
+        // MyProfile.updateTestData(
+        //     sharedQuizService.getMode(),
+        //     quizStore.getTotalQuestionNumber(),
+        //     quizStore.state.currentQuestion,
+        //     quizStore.state.uncorrectedAnswer,
+        //     Math.ceil(quizStore.state.doingTimer / 60000));
+
+        DataHelper._updateTestResult(sharedQuizService.getMode(),
             quizStore.getTotalQuestionNumber(),
-            quizStore.state.currentQuestion, 
-            quizStore.state.uncorrectedAnswer, 
-            Math.ceil(quizStore.state.doingTimer / 60000)); 
+            quizStore.state.currentQuestion,
+            quizStore.state.uncorrectedAnswer,
+            Math.ceil(quizStore.state.doingTimer / 60000));
     }
 
     quizOver = () => {

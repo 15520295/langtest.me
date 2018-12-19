@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, {Component, PureComponent} from 'react';
 import {
     Image,
     Platform,
@@ -12,18 +12,19 @@ import {
     LayoutAnimation,
 
 } from 'react-native';
-import { WebBrowser } from 'expo';
+import {WebBrowser} from 'expo';
 import GridView from 'react-native-super-grid';
 import NavigationBar from 'react-native-navbar';
 
 import {Icon, Button, Header, Content, Left, Container} from 'native-base';
 
 import Carousel from 'react-native-snap-carousel';
-import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-cards';
+import {Card, CardTitle, CardContent, CardAction, CardButton, CardImage} from 'react-native-cards';
 import CardModal from '../components/CardModal';
-import MyProfile from '../entity/ProfileData';
+// import MyProfile from '../entity/ProfileData';
 import sharedQuizService from '../services/QuizService';
-import { QuestionType } from '../entity/Question';
+import {QuestionType} from '../entity/Question';
+import DataHelper from "../helper/DataHelper";
 
 var imageGrid = require('../../assets/images/reading.jpg');
 
@@ -37,11 +38,11 @@ const ItemHeight = 300.0;
 
 const NumItems = 6;
 const Items = [];
-for(var i = 0; i < NumItems; i++) {
-  Items.push(i);
+for (var i = 0; i < NumItems; i++) {
+    Items.push(i);
 }
 
-const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
+const {width: viewportWidth, height: viewportHeight} = Dimensions.get('window');
 
 export default class HomeScreen extends PureComponent {
 
@@ -49,20 +50,26 @@ export default class HomeScreen extends PureComponent {
         super(props);
         this.state = {
             scroll: true,
-            myProfile: MyProfile.profile
         };
     }
 
-    componentDidMount(){
-        this.setState({
-            myProfile: MyProfile.profile
-        });
+    componentDidMount() {
         if (this.props.navigation != null) {
             this.props.navigation.addListener(
                 'didFocus',
                 payload => {
-                    this.setState({
-                        myProfile: MyProfile.profile
+                    DataHelper._loadTestResult((testResult) => {
+                        DataHelper._loadUserProfile((profile) => {
+                            this.setState({
+                                avatarRequired: DataHelper._getUserAvatar(),
+                                name: profile.get('name'),
+                                totalCorrectAnswer: DataHelper._getTotalCorrectAnswer(),
+                                totalTimeSpend: DataHelper._getTotaltimeSpent(),
+                            });
+                            this.setState({
+                                isLoading: false
+                            });
+                        });
                     });
                 }
             );
@@ -73,10 +80,10 @@ export default class HomeScreen extends PureComponent {
         this.setState({scroll: !this.state.scroll});
     }
 
-    _onPressCard(index){
-    // Toast.show('This is a long toast.', Toast.LONG)
-    const {navigation} = this.props;
-        switch(index){
+    _onPressCard(index) {
+        // Toast.show('This is a long toast.', Toast.LONG)
+        const {navigation} = this.props;
+        switch (index) {
             case 0:
                 navigation.navigate('Topic');
                 break;
@@ -111,177 +118,192 @@ export default class HomeScreen extends PureComponent {
         }
     }
 
-  static navigationOptions = {
-      header: null, // !!! Hide Header
-      drawerIcon: ({tintColor}) => (
-          <Icon name='home' style= {{ fontSize: 24, color: tintColor}}/>
-      )
-      // title:'Home 1',
-      // // header: { visible:false },
-    //   drawerIcon: (
-    //       <Image source={require('../../assets/images/home.png')}
-    //              style={{height: 24, width: 24}}
-    //       />
-    //   )
-  };
+    static navigationOptions = {
+        header: null, // !!! Hide Header
+        drawerIcon: ({tintColor}) => (
+            <Icon name='home' style={{fontSize: 24, color: tintColor}}/>
+        )
+        // title:'Home 1',
+        // // header: { visible:false },
+        //   drawerIcon: (
+        //       <Image source={require('../../assets/images/home.png')}
+        //              style={{height: 24, width: 24}}
+        //       />
+        //   )
+    };
 
-  // constructor(props) {
-  //   super(props);
-  //   this._renderItem = this._renderItem.bind(this)
-  // }
-  //
-  // _renderItem({ item }) {
-  //   return (
-  //     <View style={styles.viewCard}>
-  //       <Card>
-  //           <CardImage
-  //               source={{uri: 'http://bit.ly/2GfzooV'}}
-  //               title={item.name}
-  //           />
-  //           <CardTitle
-  //               subtitle="Number 6"
-  //           />
-  //           <CardContent text={item.sub} />
-  //           <CardAction
-  //               separator={true}
-  //               inColumn={false}>
-  //                   <CardButton
-  //                       onPress={() => {}}
-  //                       title="Test"
-  //                       color="#FEB557"
-  //                   />
-  //                   <CardButton
-  //                       onPress={() => {}}
-  //                       title="Chart"
-  //                       color="#FEB557"
-  //                   />
-  //           </CardAction>
-  //       </Card>
-  //   </View>
-  //   );
-  // }
+    // constructor(props) {
+    //   super(props);
+    //   this._renderItem = this._renderItem.bind(this)
+    // }
+    //
+    // _renderItem({ item }) {
+    //   return (
+    //     <View style={styles.viewCard}>
+    //       <Card>
+    //           <CardImage
+    //               source={{uri: 'http://bit.ly/2GfzooV'}}
+    //               title={item.name}
+    //           />
+    //           <CardTitle
+    //               subtitle="Number 6"
+    //           />
+    //           <CardContent text={item.sub} />
+    //           <CardAction
+    //               separator={true}
+    //               inColumn={false}>
+    //                   <CardButton
+    //                       onPress={() => {}}
+    //                       title="Test"
+    //                       color="#FEB557"
+    //                   />
+    //                   <CardButton
+    //                       onPress={() => {}}
+    //                       title="Chart"
+    //                       color="#FEB557"
+    //                   />
+    //           </CardAction>
+    //       </Card>
+    //   </View>
+    //   );
+    // }
 
-  render() {
-      // Taken from https://flatuicolors.com/
-      const {myProfile} = this.state;
-      const items = [
-        { name: 'Vocabulary', code: 0},
-        { name: 'Photographs', code: MyProfile.getPercent(1)},
-        { name: 'Question-Response', code: MyProfile.getPercent(2)},
-        { name: 'Conversations', code: MyProfile.getPercent(3)},
-        { name: 'Talks', code: MyProfile.getPercent(4)},
-        { name: 'Incomplete Sentences', code: MyProfile.getPercent(5)}, 
-        { name: 'Text Completion:', code: MyProfile.getPercent(6)},
-        { name: 'Passages', code: MyProfile.getPercent(7)},
-      ];
-      const {navigation} = this.props;
-      return (
+    render() {
+        // Taken from https://flatuicolors.com/
+        const items = [
+            {name: 'Vocabulary', code: 0},
+            {name: 'Photographs', code: DataHelper._getPercent(1)},
+            {name: 'Question-Response', code: DataHelper._getPercent(2)},
+            {name: 'Conversations', code: DataHelper._getPercent(3)},
+            {name: 'Talks', code: DataHelper._getPercent(4)},
+            {name: 'Incomplete Sentences', code: DataHelper._getPercent(5)},
+            {name: 'Text Completion:', code: DataHelper._getPercent(6)},
+            {name: 'Passages', code: DataHelper._getPercent(7)},
+        ];
+        const {navigation} = this.props;
+        return (
 
-          <Container>
-              <Header>
+            <Container>
+                <Header>
                     <Left>
-                      <Icon name="ios-menu" onPress={()=>('')} />
+                        <Icon name="ios-menu" onPress={() => ('')}/>
                     </Left>
-              </Header>
-              <ScrollView style={styles.container}>
+                </Header>
+                <ScrollView style={styles.container}>
 
-                  <View style={{
-                      flex: 3, backgroundColor: '#54C5F5', alignItems: 'center', height: 200,
-                  }}>
-                      <Image source={this.state.myProfile.avatar}
-                             style={styles.imageInfo}
-                      />
-                      <Text style={{
-                          color: '#ffffff', fontWeight: 'bold',
-                          marginTop: 10, fontSize: 16,
-                      }}>{this.state.myProfile.name}</Text>
-                      <View style={{flexDirection: 'row',}}>
-                          <Image style={{marginTop: 10,}} source={require('../../assets/images/location_on.png')}/>
-                          <Text style={{color: '#ffffff', marginTop: 10, fontSize: 14, marginLeft: 5}}>Craiova</Text>
-                          <Image style={{marginTop: 10, marginLeft: 15}} source={require('../../assets/images/work.png')}/>
-                          <Text style={{color: '#ffffff', marginTop: 10, marginLeft: 5}}>Desiger</Text>
-                      </View>
+                    <View style={{
+                        flex: 3, backgroundColor: '#54C5F5', alignItems: 'center', height: 200,
+                    }}>
+                        <Image source={this.state.avatarRequired}
+                               style={styles.imageInfo}
+                        />
+                        <Text style={{
+                            color: '#ffffff', fontWeight: 'bold',
+                            marginTop: 10, fontSize: 16,
+                        }}>{this.state.name}</Text>
+                        <View style={{flexDirection: 'row',}}>
+                            <Image style={{marginTop: 10,}} source={require('../../assets/images/location_on.png')}/>
+                            <Text style={{color: '#ffffff', marginTop: 10, fontSize: 14, marginLeft: 5}}>Craiova</Text>
+                            <Image style={{marginTop: 10, marginLeft: 15}}
+                                   source={require('../../assets/images/work.png')}/>
+                            <Text style={{color: '#ffffff', marginTop: 10, marginLeft: 5}}>Desiger</Text>
+                        </View>
 
-                  </View>
+                    </View>
 
-                  <View style={{flex: 6, backgroundColor: '#F7F7F7'}}>
-                      <ScrollView>
-                          <GridView
-                              itemDimension={130}
-                              items={items}
-                              style={styles.gridView}
-                              renderItem={(item, index) => (
-                                  <TouchableOpacity 
-                                  onPress={() => {this._onPressCard(index);}}
-                                  style={[styles.itemContainer, {backgroundColor: '#ffffff'}]}>
-                                      <Image style={styles.drawImage}
-                                             source={imageGrid}
-                                      />
-                                      <Text style={styles.itemName}>{item.name}</Text>
-                                      {/*<Text style={styles.itemCode}>{item.code}</Text>*/}
-                                      <View style={styles.progressGray}>
-                                          <View style={{backgroundColor: '#ebecef', height: 4,
-                                              width: '90%', borderRadius: 5}}/>
-                                          <View style={{backgroundColor: '#019AE8', height: 4,
-                                              width: item.code, position:'absolute', borderRadius: 5}}/>
-                                      </View>
-                                  </TouchableOpacity>
-                              )}
-                          />
-                      </ScrollView>
-                  </View>
+                    <View style={{flex: 6, backgroundColor: '#F7F7F7'}}>
+                        <ScrollView>
+                            <GridView
+                                itemDimension={130}
+                                items={items}
+                                style={styles.gridView}
+                                renderItem={(item, index) => (
+                                    <TouchableOpacity
+                                        onPress={() => {
+                                            this._onPressCard(index);
+                                        }}
+                                        style={[styles.itemContainer, {backgroundColor: '#ffffff'}]}>
+                                        <Image style={styles.drawImage}
+                                               source={imageGrid}
+                                        />
+                                        <Text style={styles.itemName}>{item.name}</Text>
+                                        {/*<Text style={styles.itemCode}>{item.code}</Text>*/}
+                                        <View style={styles.progressGray}>
+                                            <View style={{
+                                                backgroundColor: '#ebecef', height: 4,
+                                                width: '90%', borderRadius: 5
+                                            }}/>
+                                            <View style={{
+                                                backgroundColor: '#019AE8', height: 4,
+                                                width: item.code, position: 'absolute', borderRadius: 5
+                                            }}/>
+                                        </View>
+                                    </TouchableOpacity>
+                                )}
+                            />
+                        </ScrollView>
+                    </View>
 
-                  <View style={styles.positionAbsolute}>
-                      <View style={[styles.cardMain, {backgroundColor: '#ffffff'}]}>
-                          <View style={{flexDirection: 'row', flex: 1}}>
+                    <View style={styles.positionAbsolute}>
+                        <View style={[styles.cardMain, {backgroundColor: '#ffffff'}]}>
+                            <View style={{flexDirection: 'row', flex: 1}}>
 
-                              <View style={{flexDirection: 'column', marginLeft: 10}}>
-                                  <Text style={{color: '#0099DA',
-                                      fontStyle: 'italic',
-                                      fontSize: 16}}>Your Result</Text>
-                                  <View style={{flexDirection:'row', marginTop: 10, alignItems:'center'}}>
-                                      <View style={[styles.iconDoc, {backgroundColor: '#FFBA9C'}]}/>
-                                      <Text style={{color: '#888888', marginLeft: 10,
-                                          fontSize: 12
-                                      }}>{this.state.myProfile.correctAnswer} Questions</Text>
-                                  </View>
-                                  <View style={{flexDirection:'row', marginTop: 10, alignItems:'center'}}>
-                                      <View style={[styles.iconDoc, {backgroundColor: '#BC9CFF'}]}/>
-                                      <Text style={{color: '#888888', marginLeft: 10,
-                                          fontSize: 12
-                                      }}>Time spent: {this.state.myProfile.timeSpent} min</Text>
-                                  </View>
-                              </View>
+                                <View style={{flexDirection: 'column', marginLeft: 10}}>
+                                    <Text style={{
+                                        color: '#0099DA',
+                                        fontStyle: 'italic',
+                                        fontSize: 16
+                                    }}>Your Result</Text>
+                                    <View style={{flexDirection: 'row', marginTop: 10, alignItems: 'center'}}>
+                                        <View style={[styles.iconDoc, {backgroundColor: '#FFBA9C'}]}/>
+                                        <Text style={{
+                                            color: '#888888', marginLeft: 10,
+                                            fontSize: 12
+                                        }}>{this.state.totalCorrectAnswer} Questions</Text>
+                                    </View>
+                                    <View style={{flexDirection: 'row', marginTop: 10, alignItems: 'center'}}>
+                                        <View style={[styles.iconDoc, {backgroundColor: '#BC9CFF'}]}/>
+                                        <Text style={{
+                                            color: '#888888', marginLeft: 10,
+                                            fontSize: 12
+                                        }}>Time spent: {this.state.totalTimeSpend} min</Text>
+                                    </View>
+                                </View>
 
-                              <View style={{flex: 1}}>
-                                  <TouchableOpacity style={{marginLeft: 20, alignItems:'center',
-                                      justifyContent:'center', flex: 1}}
-                                      onPress={async () => {
-                                        await sharedQuizService.initQuickTest(30, 3, 5000);
-                                        navigation.navigate('Questions');
-                                      }}>
-                                      <View style={{
-                                          backgroundColor: '#F50057', alignItems: 'center',
-                                          justifyContent: 'center', borderRadius: 30, height: 45,
-                                          width: 130, position: 'absolute'
-                                      }}
-                                      >
-                                          <Image style={{alignItems: 'center',
-                                              justifyContent: 'center', borderRadius: 30, height: 45,
-                                              width: 130,}} source={require('../../assets/images/rectangle.jpg')}
-                                          />
-                                          <Text style={{position:'absolute', color: '#ffffff', fontWeight:'bold'}}>Begin Test</Text>
-                                      </View>
-                                  </TouchableOpacity>
-                              </View>
-                          </View>
-                      </View>
-                  </View>
+                                <View style={{flex: 1}}>
+                                    <TouchableOpacity style={{
+                                        marginLeft: 20, alignItems: 'center',
+                                        justifyContent: 'center', flex: 1
+                                    }}
+                                                      onPress={async () => {
+                                                          await sharedQuizService.initQuickTest(30, 3, 5000);
+                                                          navigation.navigate('Questions');
+                                                      }}>
+                                        <View style={{
+                                            backgroundColor: '#F50057', alignItems: 'center',
+                                            justifyContent: 'center', borderRadius: 30, height: 45,
+                                            width: 130, position: 'absolute'
+                                        }}
+                                        >
+                                            <Image style={{
+                                                alignItems: 'center',
+                                                justifyContent: 'center', borderRadius: 30, height: 45,
+                                                width: 130,
+                                            }} source={require('../../assets/images/rectangle.jpg')}
+                                            />
+                                            <Text style={{position: 'absolute', color: '#ffffff', fontWeight: 'bold'}}>Begin
+                                                Test</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
 
-              </ScrollView>
-          </Container>
-      );
-  }
+                </ScrollView>
+            </Container>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
@@ -289,10 +311,10 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#ecf5fd',
     },
-    imageInfo:{
-        height: 60, 
-        width: 60, 
-        borderRadius: 20, 
+    imageInfo: {
+        height: 60,
+        width: 60,
+        borderRadius: 20,
         borderColor: '#ffffff',
         borderWidth: 2,
         marginTop: 20
@@ -319,21 +341,21 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: '#5B5B5B',
     },
-    drawImage:{
-        height:30,
+    drawImage: {
+        height: 30,
         width: 30,
-        borderRadius:75,
+        borderRadius: 75,
     },
-    cardMain:{
+    cardMain: {
         borderRadius: 10,
         padding: 10,
         height: 100,
     },
-    iconDoc:{
-        height:10,
+    iconDoc: {
+        height: 10,
         width: 10,
-        borderRadius:60,
-        justifyContent:'center',
+        borderRadius: 60,
+        justifyContent: 'center',
     },
     LinearGradientStyle: {
         height: 40,
@@ -347,17 +369,17 @@ const styles = StyleSheet.create({
         fontSize: 18,
         textAlign: 'center',
         margin: 7,
-        color : '#fff',
+        color: '#fff',
         backgroundColor: 'transparent'
 
     },
-    positionAbsolute:{
-        position:'absolute',
+    positionAbsolute: {
+        position: 'absolute',
         left: 25,
         right: 25,
         top: 150,
     },
-    progressGray:{
+    progressGray: {
         height: 4,
         width: 150,
         marginTop: 15,
