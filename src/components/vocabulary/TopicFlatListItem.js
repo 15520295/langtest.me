@@ -111,8 +111,8 @@ const styles = StyleSheet.create({
     vc_component: {
         flex: 0,
         justifyContent: 'center',
-        marginHorizontal: 10,
-        marginVertical: 4
+        marginHorizontal: 6,
+        marginVertical: 3
     },
     vc_card: {
         flex: 1,
@@ -189,14 +189,14 @@ const styles = StyleSheet.create({
         // backgroundColor: 'grey',
     },
     txt_topicName: {
-        fontSize: 22,
+        fontSize: 20,
         color: '#38bfd6',
         paddingLeft: 14,
         fontFamily:'Roboto_medium',
         // fontWeight: 'bold',
     },
     txt_topicCount: {
-        fontSize: 16,
+        fontSize: 14,
         fontFamily: 'System',
             color: '#6d6d6d',
         paddingLeft: 14,

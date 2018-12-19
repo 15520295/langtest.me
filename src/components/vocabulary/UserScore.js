@@ -10,16 +10,26 @@ import {
     Text
 } from 'react-native';
 import {Icon} from 'native-base';
+import DataHelper from "../../helper/DataHelper";
 
 
 export default class UserScore extends Component {
+    state = {
+        avatarRequired:DataHelper._getUserAvatar()
+    };
+
     render() {
         return (
             <View style={styles.vc_component}>
                 <View style={styles.vc_icon}>
-                    <Icon type="MaterialCommunityIcons"
-                          name="face"
-                          style={{fontSize: 80,color: '#4F4F4F',padding:0}}
+                    <Image source={this.state.avatarRequired}
+                           style={{
+                               height: 80,
+                               width: 80,
+                               borderRadius: 20,
+                               borderColor: '#ffffff',
+                               borderWidth: 2,
+                           }}
                     />
                 </View>
                 <View style={styles.vc_totalScore}>
@@ -76,7 +86,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 0,
-        marginRight: 2,
+        marginHorizontal: 2,
         // backgroundColor: 'blue',
     },
     vc_detail: {
@@ -98,14 +108,14 @@ const styles = StyleSheet.create({
     },
     // Component
     txt_totalScore: {
-        fontSize: 22,
+        fontSize: 20,
         fontFamily:'Roboto_medium',
         color: '#6d6d6d',
         // paddingLeft: 8,
 
     },
     txt_totalScoreValue: {
-        fontSize: 28,
+        fontSize: 22,
         fontFamily:'Roboto_medium',
         color: '#6d6d6d',
         // paddingLeft: 8,

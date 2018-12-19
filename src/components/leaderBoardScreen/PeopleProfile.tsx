@@ -6,15 +6,21 @@ import { widthPercentageToDP } from '../../helper/ratioHelper';
 import { AntDesign } from '@expo/vector-icons';
 import { systemWeights } from 'react-native-typography';
 import { getNumberWithOrdinal } from '../../helper/numberHelper';
+import DataHelper from '../../helper/DataHelper';
 
 export interface PeopleProfileComponentProps{
     profile: Map<string, any>,
     style?: ViewStyle
 }
-
-export default class PeopleProfileComponent extends React.Component<PeopleProfileComponentProps>{
+interface State{
+    avatarRequire:number
+}
+export default class PeopleProfileComponent extends React.Component<PeopleProfileComponentProps, State>{
     constructor(props: PeopleProfileComponentProps){
         super(props);
+        this.state = {
+            avatarRequire: DataHelper._getUserAvatar(this.props.profile.get('avatar'))
+        };
     }
     
     render(){
@@ -25,7 +31,7 @@ export default class PeopleProfileComponent extends React.Component<PeopleProfil
                     {/* avatar */}
                     <View style={{flex: 1.5, flexDirection: 'row', alignItems:'center', justifyContent: 'center'}}>
                         <Image 
-                        source={require('../../../assets/images/joychou.jpg')}
+                        source={this.state.avatarRequire}
                         style={{width:widthPercentageToDP(15), height: widthPercentageToDP(15), borderRadius: widthPercentageToDP(15) / 2}}
                         resizeMode='center'/>
                     </View>

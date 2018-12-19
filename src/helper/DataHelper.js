@@ -188,8 +188,25 @@ class DataHelper {
 
     //region ----------------- User Profile
 
-    _getUserAvatar() {
-        return require('../../assets/images/settings.png');
+    _getUserAvatar(num) {
+        if (num == null &&
+            this.curUserProfile != null &&
+            this.curUserProfile.get('avatar') != null) {
+            num = this.curUserProfile.get('avatar');
+        }
+
+        switch (num) {
+            case 0:
+                return require('../../assets/avatar/avatar1.jpg');
+            case 1:
+                return require('../../assets/avatar/avatar2.jpg');
+            case 2:
+                return require('../../assets/avatar/avatar3.jpg');
+            case 3:
+                return require('../../assets/avatar/avatar4.jpg');
+            default:
+                return require('../../assets/avatar/avatar1.jpg');
+        }
     }
 
     curUserProfile = new Map();
