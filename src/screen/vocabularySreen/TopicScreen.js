@@ -27,6 +27,8 @@ import LocalStoreHelper from '../../helper/LocalStoreHelper';
 import {Provider, Subscribe} from 'unstated';
 import WordScreenStore from '../../store/WordScreenStore';
 import {withNavigation} from 'react-navigation';
+import DataHelper from "../../helper/DataHelper";
+import UtilHelper from "../../helper/UtilHelper";
 
 
 class TopicScreen extends React.Component {
@@ -42,6 +44,11 @@ class TopicScreen extends React.Component {
             totalAnswer: 0,
             correctAnswer: 0,
         };
+
+        DataHelper._getUserMapFromServer(() => {
+            UtilHelper._printMapConsole(DataHelper._getUsersData());
+            UtilHelper._printMapConsole(DataHelper._getSortedUsersData());
+        });
     }
 
     _refreshList = async () => {

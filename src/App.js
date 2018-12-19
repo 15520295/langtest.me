@@ -45,7 +45,10 @@ const firebaseConfig = {
     storageBucket: '',
     messagingSenderId: '935557755374'
 };
-const firebaseApp = firebase.initializeApp(firebaseConfig);
+
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
 
 const CustomDrawerContentComponent = (props) => (
     // <Container>

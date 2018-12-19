@@ -11,7 +11,6 @@ class LeaderBoardService implements ILeaderBoardService {
             correctAnswer: 2101,
             incorrectAnswer: 212,
             totalQuestion: 2602,
-            rank: 43,
             timeSpent: 1212
         };
 
