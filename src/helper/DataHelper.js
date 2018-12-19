@@ -10,8 +10,17 @@ class DataHelper {
 
     usersArr = new Map();
 
-    _getCurLeaderBoardProfile = () => {
-        return this.usersArr.get(this.UID);
+    _getCurLeaderBoardProfile = (callback) => {
+        if (this.usersArr.get(this.UID) == null) {
+             this._createCurServerProfile(curSeverProfile =>{
+                 this._putCurUserDataToServer();
+
+                 this.usersArr.set(this.UID, curSeverProfile);
+                 callback(curSeverProfile);
+             });
+        } else {
+            callback(this.usersArr.get(this.UID));
+        }
     };
 
     _getUsersData = () => {
@@ -32,7 +41,7 @@ class DataHelper {
 
     _getLeaderBoardDataRanked = () => {
         const sortedUsersData = this._getSortedUsersData();
-        let i = 0;
+        let i = 1;
         sortedUsersData.forEach(userProfile => {
             userProfile.set('rank', i);
             i++;
@@ -42,14 +51,14 @@ class DataHelper {
     };
 
     _putCurUserDataToServer = async () => {
-        this._getCurServerProfile(curServerProfile => {
+        this._createCurServerProfile(curServerProfile => {
             const objectData = UtilHelper._mapToObject(curServerProfile);
 
             firebase.database()
                 .ref('users/' + this.UID)
                 .set(objectData,
                     (result) => {
-                        console.log('CCS _upServerUserMap: ' + result);
+                        console.log('CCS _upServerUserMap - result : ' + result);
                     }
                 );
         });
@@ -139,7 +148,7 @@ class DataHelper {
         callback(testResult);
     };
 
-    _getCurServerProfile = (callback) => {
+    _createCurServerProfile = (callback) => {
         let _timeSpent = 0;
         let _totalQuestion = 0;
         let _correctAnswer = 0;
@@ -152,15 +161,16 @@ class DataHelper {
         });
 
         this._loadUserProfile(profile => {
-            const severProfile = new Map();
+            const curSeverProfile = new Map();
 
-            severProfile.set('name', profile.get('name'));
-            severProfile.set('timeSpent', _timeSpent);
-            severProfile.set('totalQuestion', _totalQuestion);
-            severProfile.set('correctAnswer', _correctAnswer);
-            severProfile.set('incorrectAnswer', _incorrectAnswer);
+            curSeverProfile.set('name', profile.get('name'));
+            curSeverProfile.set('avatar', profile.get('avatar'));
+            curSeverProfile.set('timeSpent', _timeSpent);
+            curSeverProfile.set('totalQuestion', _totalQuestion);
+            curSeverProfile.set('correctAnswer', _correctAnswer);
+            curSeverProfile.set('incorrectAnswer', _incorrectAnswer);
 
-            callback(severProfile);
+            callback(curSeverProfile);
         });
     };
 
