@@ -163,15 +163,16 @@ export default class HomeScreen extends PureComponent {
 
   render() {
       // Taken from https://flatuicolors.com/
+      const {myProfile} = this.state;
       const items = [
-        { name: 'Vocabulary', code: 10 },
-        { name: 'Photographs', code: 10 },
-        { name: 'Question-Response', code: 20 },
-        { name: 'Conversations', code: 30 },
-        { name: 'Talks', code: 40 },
-        { name: 'Incomplete Sentences', code: 50 }, 
-        { name: 'Text Completion:', code: 60 },
-        { name: 'Passages', code: 70 },
+        { name: 'Vocabulary', code: 0},
+        { name: 'Photographs', code: MyProfile.getPercent(1)},
+        { name: 'Question-Response', code: MyProfile.getPercent(2)},
+        { name: 'Conversations', code: MyProfile.getPercent(3)},
+        { name: 'Talks', code: MyProfile.getPercent(4)},
+        { name: 'Incomplete Sentences', code: MyProfile.getPercent(5)}, 
+        { name: 'Text Completion:', code: MyProfile.getPercent(6)},
+        { name: 'Passages', code: MyProfile.getPercent(7)},
       ];
       const {navigation} = this.props;
       return (

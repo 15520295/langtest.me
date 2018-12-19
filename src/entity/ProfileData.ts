@@ -115,6 +115,15 @@ export class ProfileData{
         this._testResultData.set(mode, testResult);
     }
 
+    public getPercent(mode: number): number{
+        let testResult: TestResultData =  this._testResultData.get(mode);
+        if(testResult !== undefined){
+            return Math.ceil(100 * testResult.correctAnswer / testResult.totalQuestion);
+        } else {
+            return 0;
+        }
+    }
+
     public async syncCloud(): Promise<void>{
 
     }
