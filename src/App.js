@@ -68,10 +68,10 @@ const CustomDrawerContentComponent = (props) => (
             height: 150, backgroundColor: 'white', alignItems: 'center',
             justifyContent: 'center'
         }}>
-            <TouchableOpacity style={{height: 120, width: 120, borderRadius: 60}}
+            <TouchableOpacity style={{height: 120, width: 120, }}
                               // onPress={()=> navigate('Profile')}
             >
-                <Image source={require('../assets/images/reading.jpg')}
+                <Image source={require('../assets/images/logo.jpg')}
                        style={{height: 120, width: 120, borderRadius: 60}}
                 />
             </TouchableOpacity>
@@ -184,9 +184,6 @@ const MyDrawerNavigator = createDrawerNavigator({
         },
         Profile: {
             screen: ProfileScreen
-        },
-        Question: {
-            screen: QuestionStack
         },
         Topic: {
             screen: TopicStack,

@@ -21,6 +21,7 @@ import DataHelper from "../../helper/DataHelper";
 import UtilHelper from "../../helper/UtilHelper";
 import {AppLoading} from "expo";
 import {AnswerState} from "../QuestionScreen/AnswerButton";
+import { AntDesign } from '@expo/vector-icons';
 
 export default class ProfileScreen extends React.Component {
 
@@ -64,6 +65,20 @@ export default class ProfileScreen extends React.Component {
     _saveProfile = () => {
         DataHelper._initUserProfile(this.state.name, this.state.avatar, this.state.place, this.state.phone);
         DataHelper._saveUserProfileLocal();
+    };
+
+    static navigationOptions = {
+        // header: null, // !!! Hide Header
+        drawerIcon: ({tintColor}) => (
+            <AntDesign name='user' color={tintColor} size= {24}/>
+        )
+        // title:'Home 1',
+        // // header: { visible:false },
+        //   drawerIcon: (
+        //       <Image source={require('../../assets/images/home.png')}
+        //              style={{height: 24, width: 24}}
+        //       />
+        //   )
     };
 
     renderHeader = () => {

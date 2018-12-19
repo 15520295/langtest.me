@@ -10,6 +10,7 @@ import {
     Dimensions,
     ScrollView,
     LayoutAnimation,
+    ImageBackground,
 
 } from 'react-native';
 import {WebBrowser} from 'expo';
@@ -85,33 +86,30 @@ export default class HomeScreen extends PureComponent {
         const {navigation} = this.props;
         switch (index) {
             case 0:
-                navigation.navigate('Topic');
-                break;
-            case 1:
                 sharedQuizService.initTest(QuestionType.part1, 5, 3, 5 * 60 * 1000);
                 navigation.navigate('Questions');
                 break;
-            case 2:
+            case 1:
                 sharedQuizService.initTest(QuestionType.part2, 10, 3, 8 * 60 * 1000);
                 navigation.navigate('Questions');
                 break;
-            case 3:
+            case 2:
                 sharedQuizService.initTest(QuestionType.part3, 15, 3, 10 * 60 * 1000);
                 navigation.navigate('Questions');
                 break;
-            case 4:
+            case 3:
                 sharedQuizService.initTest(QuestionType.part4, 15, 3, 10 * 60 * 1000);
                 navigation.navigate('Questions');
                 break;
-            case 5:
+            case 4:
                 sharedQuizService.initTest(QuestionType.part5, 15, 3, 10 * 60 * 1000);
                 navigation.navigate('Questions');
                 break;
-            case 6:
+            case 5:
                 sharedQuizService.initTest(QuestionType.part6, 10, 3, 7 * 60 * 1000);
                 navigation.navigate('Questions');
                 break;
-            case 7:
+            case 6:
                 sharedQuizService.initTest(QuestionType.part7, 10, 3, 7 * 60 * 1000);
                 navigation.navigate('Questions');
                 break;
@@ -121,7 +119,7 @@ export default class HomeScreen extends PureComponent {
     static navigationOptions = {
         header: null, // !!! Hide Header
         drawerIcon: ({tintColor}) => (
-            <Icon name='home' style={{fontSize: 24, color: tintColor}}/>
+            <Icon name='ios-home' style={{fontSize: 24, color: tintColor}}/>
         )
         // title:'Home 1',
         // // header: { visible:false },
@@ -132,48 +130,11 @@ export default class HomeScreen extends PureComponent {
         //   )
     };
 
-    // constructor(props) {
-    //   super(props);
-    //   this._renderItem = this._renderItem.bind(this)
-    // }
-    //
-    // _renderItem({ item }) {
-    //   return (
-    //     <View style={styles.viewCard}>
-    //       <Card>
-    //           <CardImage
-    //               source={{uri: 'http://bit.ly/2GfzooV'}}
-    //               title={item.name}
-    //           />
-    //           <CardTitle
-    //               subtitle="Number 6"
-    //           />
-    //           <CardContent text={item.sub} />
-    //           <CardAction
-    //               separator={true}
-    //               inColumn={false}>
-    //                   <CardButton
-    //                       onPress={() => {}}
-    //                       title="Test"
-    //                       color="#FEB557"
-    //                   />
-    //                   <CardButton
-    //                       onPress={() => {}}
-    //                       title="Chart"
-    //                       color="#FEB557"
-    //                   />
-    //           </CardAction>
-    //       </Card>
-    //   </View>
-    //   );
-    // }
-
     render() {
         // Taken from https://flatuicolors.com/
         const items = [
-            {name: 'Vocabulary', code: 0},
             {name: 'Photographs', code: DataHelper._getPercent(1)},
-            {name: 'Question-Response', code: DataHelper._getPercent(2)},
+            {name: 'Response', code: DataHelper._getPercent(2)},
             {name: 'Conversations', code: DataHelper._getPercent(3)},
             {name: 'Talks', code: DataHelper._getPercent(4)},
             {name: 'Incomplete Sentences', code: DataHelper._getPercent(5)},
@@ -191,9 +152,11 @@ export default class HomeScreen extends PureComponent {
                 </Header>
                 <ScrollView style={styles.container}>
 
-                    <View style={{
-                        flex: 3, backgroundColor: '#54C5F5', alignItems: 'center', height: 200,
-                    }}>
+                    <ImageBackground
+                        style={styles.headerBackgroundImage}
+                        blurRadius={0}
+                        source={require('../../assets/images/background.jpg')}
+                    >
                         <Image source={this.state.avatarRequired}
                                style={styles.imageInfo}
                         />
@@ -201,17 +164,18 @@ export default class HomeScreen extends PureComponent {
                             color: '#ffffff', fontWeight: 'bold',
                             marginTop: 10, fontSize: 16,
                         }}>{this.state.name}</Text>
-                        <View style={{flexDirection: 'row',}}>
+                        {/* <View style={{flexDirection: 'row',}}>
                             <Image style={{marginTop: 10,}} source={require('../../assets/images/location_on.png')}/>
                             <Text style={{color: '#ffffff', marginTop: 10, fontSize: 14, marginLeft: 5}}>Craiova</Text>
                             <Image style={{marginTop: 10, marginLeft: 15}}
                                    source={require('../../assets/images/work.png')}/>
                             <Text style={{color: '#ffffff', marginTop: 10, marginLeft: 5}}>Desiger</Text>
-                        </View>
+                        </View> */}
 
-                    </View>
 
-                    <View style={{flex: 6, backgroundColor: '#F7F7F7'}}>
+                    </ImageBackground>
+
+                    <View style={{flex: 6, backgroundColor: '#e7e7e7'}}>
                         <ScrollView>
                             <GridView
                                 itemDimension={130}
@@ -224,7 +188,7 @@ export default class HomeScreen extends PureComponent {
                                         }}
                                         style={[styles.itemContainer, {backgroundColor: '#ffffff'}]}>
                                         <Image style={styles.drawImage}
-                                               source={imageGrid}
+                                               source={require('../../assets/images/reading.png')}
                                         />
                                         <Text style={styles.itemName}>{item.name}</Text>
                                         {/*<Text style={styles.itemCode}>{item.code}</Text>*/}
@@ -317,7 +281,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         borderColor: '#ffffff',
         borderWidth: 2,
-        marginTop: 20
+        marginTop: 10
     },
     gridView: {
         marginTop: 50,
@@ -342,9 +306,9 @@ const styles = StyleSheet.create({
         color: '#5B5B5B',
     },
     drawImage: {
-        height: 30,
-        width: 30,
-        borderRadius: 75,
+        height: 35,
+        width: 35,
+        borderRadius: 30,
     },
     cardMain: {
         borderRadius: 10,
@@ -384,7 +348,14 @@ const styles = StyleSheet.create({
         width: 150,
         marginTop: 15,
         borderRadius: 5
-    }
+    },
+    headerBackgroundImage: {
+        paddingBottom: 20,
+        paddingTop: 35,
+        flex: 3,
+        alignItems: 'center',
+        height: 200,
+    },
 
     // viewCard: {
     //     // flex: 1

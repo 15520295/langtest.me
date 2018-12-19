@@ -29,6 +29,7 @@ import WordScreenStore from '../../store/WordScreenStore';
 import {withNavigation} from 'react-navigation';
 import DataHelper from "../../helper/DataHelper";
 import UtilHelper from "../../helper/UtilHelper";
+import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 class TopicScreen extends React.Component {
@@ -79,6 +80,19 @@ class TopicScreen extends React.Component {
         }
     }
 
+    static navigationOptions = {
+        // header: null, // !!! Hide Header
+        drawerIcon: ({tintColor}) => (
+            <MaterialCommunityIcons name='dictionary' color={tintColor} size= {24}/>
+        )
+        // title:'Home 1',
+        // // header: { visible:false },
+        //   drawerIcon: (
+        //       <Image source={require('../../assets/images/home.png')}
+        //              style={{height: 24, width: 24}}
+        //       />
+        //   )
+    };
 
     render() {
         return (
