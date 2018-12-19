@@ -21,6 +21,9 @@ import {Icon, Button, Header, Content, Left, Container} from 'native-base';
 import Carousel from 'react-native-snap-carousel';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-cards';
 import CardModal from '../components/CardModal';
+import MyProfile from '../entity/ProfileData';
+import sharedQuizService from '../services/QuizService';
+import { QuestionType } from '../entity/Question';
 
 var imageGrid = require('../../assets/images/reading.jpg');
 
@@ -46,16 +49,66 @@ export default class HomeScreen extends PureComponent {
         super(props);
         this.state = {
             scroll: true,
+            myProfile: MyProfile.profile
         };
+    }
+
+    componentDidMount(){
+        this.setState({
+            myProfile: MyProfile.profile
+        });
+        if (this.props.navigation != null) {
+            this.props.navigation.addListener(
+                'didFocus',
+                payload => {
+                    this.setState({
+                        myProfile: MyProfile.profile
+                    });
+                }
+            );
+        }
     }
 
     disableScroll() {
         this.setState({scroll: !this.state.scroll});
     }
 
-    _onPressCard(){
+    _onPressCard(index){
     // Toast.show('This is a long toast.', Toast.LONG)
-        Alert.alert('You tapped the button!');
+    const {navigation} = this.props;
+        switch(index){
+            case 0:
+                navigation.navigate('Topic');
+                break;
+            case 1:
+                sharedQuizService.initTest(QuestionType.part1, 5, 3, 5 * 60 * 1000);
+                navigation.navigate('Questions');
+                break;
+            case 2:
+                sharedQuizService.initTest(QuestionType.part2, 10, 3, 8 * 60 * 1000);
+                navigation.navigate('Questions');
+                break;
+            case 3:
+                sharedQuizService.initTest(QuestionType.part3, 15, 3, 10 * 60 * 1000);
+                navigation.navigate('Questions');
+                break;
+            case 4:
+                sharedQuizService.initTest(QuestionType.part4, 15, 3, 10 * 60 * 1000);
+                navigation.navigate('Questions');
+                break;
+            case 5:
+                sharedQuizService.initTest(QuestionType.part5, 15, 3, 10 * 60 * 1000);
+                navigation.navigate('Questions');
+                break;
+            case 6:
+                sharedQuizService.initTest(QuestionType.part6, 10, 3, 7 * 60 * 1000);
+                navigation.navigate('Questions');
+                break;
+            case 7:
+                sharedQuizService.initTest(QuestionType.part7, 10, 3, 7 * 60 * 1000);
+                navigation.navigate('Questions');
+                break;
+        }
     }
 
   static navigationOptions = {
@@ -110,75 +163,19 @@ export default class HomeScreen extends PureComponent {
 
   render() {
       // Taken from https://flatuicolors.com/
+      const {myProfile} = this.state;
       const items = [
-          { name: 'Grammar', code: 20 }, { name: 'Vocabulary', code: 50 },
-          { name: 'Listening', code: 30 }, { name: 'Writing', code: 20 },
-          { name: 'Speaking', code: 10 }, { name: 'Reading', code: 50 },
-          { name: 'Part 7', code: 30 },
+        { name: 'Vocabulary', code: 0},
+        { name: 'Photographs', code: MyProfile.getPercent(1)},
+        { name: 'Question-Response', code: MyProfile.getPercent(2)},
+        { name: 'Conversations', code: MyProfile.getPercent(3)},
+        { name: 'Talks', code: MyProfile.getPercent(4)},
+        { name: 'Incomplete Sentences', code: MyProfile.getPercent(5)}, 
+        { name: 'Text Completion:', code: MyProfile.getPercent(6)},
+        { name: 'Passages', code: MyProfile.getPercent(7)},
       ];
+      const {navigation} = this.props;
       return (
-          
-        //   <Container>
-        //       {/* <Header>
-        //     <Left>
-        //       <Icon name="ios-menu" onPress={()=>this.props.navigation.navigate('DrawerOpen')} />
-        //     </Left>
-        // </Header> */}
-        //       <GridView
-        //           itemDimension={130}
-        //           items={items}
-        //           style={styles.gridView}
-        //           renderItem={item => (
-        //               <View style={[styles.itemContainer, { backgroundColor: item.code }]}>
-        //                   <Image style={styles.drawImage}
-        //                       source={imageGrid}
-        //                       onPress={this._onPressCard} 
-        //                   />
-        //                   <Text style={styles.itemName}>{item.name}</Text>
-        //                   <Text style={styles.itemCode}>{item.code}</Text>
-        //               </View>
-        //           )}
-        //       />
-        //   </Container>
-
-        // <Container>
-        // <Header>
-        //      <Left>
-        //        <Icon name="ios-menu" onPress={()=>this.props.navigation.navigate('DrawerOpen')} />
-        //      </Left>
-        // </Header>
-        //     <ScrollView>
-        //     {/* <View style={styles.container}>
-        //         <Carousel
-        //             layout={'default'}
-        //             data={itemCarousel}
-        //             firstItem={FirstItem}
-        //             itemWidth={ItemWidth}
-        //             sliderWidth={SliderWidth}
-        //             activeSlideAlignment='center'
-        //             renderItem={this._renderItem}
-        //             backgroundColor= 'white'
-        //         />
-        //     </View> */}
-
-        //     {/* <GridView
-        //           itemDimension={130}
-        //           items={items}
-        //           style={styles.gridView}
-        //           renderItem={item => (
-        //               <View style={[styles.itemContainer, { backgroundColor: item.code }]}>
-        //                   <Image style={styles.drawImage}
-        //                       source={imageGrid}
-        //                       onPress={this._onPressCard}
-        //                   />
-        //                   <Text style={styles.itemName}>{item.name}</Text>
-        //                   <Text style={styles.itemCode}>{item.code}</Text>
-        //               </View>
-        //           )}
-        //       /> */}
-
-        // </ScrollView>
-        // </Container>
 
           <Container>
               <Header>
@@ -191,13 +188,13 @@ export default class HomeScreen extends PureComponent {
                   <View style={{
                       flex: 3, backgroundColor: '#54C5F5', alignItems: 'center', height: 200,
                   }}>
-                      <Image source={require('../../assets/images/info.jpg')}
+                      <Image source={this.state.myProfile.avatar}
                              style={styles.imageInfo}
                       />
                       <Text style={{
                           color: '#ffffff', fontWeight: 'bold',
                           marginTop: 10, fontSize: 16,
-                      }}>Chí Phèo</Text>
+                      }}>{this.state.myProfile.name}</Text>
                       <View style={{flexDirection: 'row',}}>
                           <Image style={{marginTop: 10,}} source={require('../../assets/images/location_on.png')}/>
                           <Text style={{color: '#ffffff', marginTop: 10, fontSize: 14, marginLeft: 5}}>Craiova</Text>
@@ -213,11 +210,12 @@ export default class HomeScreen extends PureComponent {
                               itemDimension={130}
                               items={items}
                               style={styles.gridView}
-                              renderItem={item => (
-                                  <View style={[styles.itemContainer, {backgroundColor: '#ffffff'}]}>
+                              renderItem={(item, index) => (
+                                  <TouchableOpacity 
+                                  onPress={() => {this._onPressCard(index);}}
+                                  style={[styles.itemContainer, {backgroundColor: '#ffffff'}]}>
                                       <Image style={styles.drawImage}
                                              source={imageGrid}
-                                             onPress={this._onPressCard}
                                       />
                                       <Text style={styles.itemName}>{item.name}</Text>
                                       {/*<Text style={styles.itemCode}>{item.code}</Text>*/}
@@ -227,7 +225,7 @@ export default class HomeScreen extends PureComponent {
                                           <View style={{backgroundColor: '#019AE8', height: 4,
                                               width: item.code, position:'absolute', borderRadius: 5}}/>
                                       </View>
-                                  </View>
+                                  </TouchableOpacity>
                               )}
                           />
                       </ScrollView>
@@ -245,19 +243,23 @@ export default class HomeScreen extends PureComponent {
                                       <View style={[styles.iconDoc, {backgroundColor: '#FFBA9C'}]}/>
                                       <Text style={{color: '#888888', marginLeft: 10,
                                           fontSize: 12
-                                      }}>1912 Questions</Text>
+                                      }}>{this.state.myProfile.correctAnswer} Questions</Text>
                                   </View>
                                   <View style={{flexDirection:'row', marginTop: 10, alignItems:'center'}}>
                                       <View style={[styles.iconDoc, {backgroundColor: '#BC9CFF'}]}/>
                                       <Text style={{color: '#888888', marginLeft: 10,
                                           fontSize: 12
-                                      }}>Time spent: 2112 min</Text>
+                                      }}>Time spent: {this.state.myProfile.timeSpent} min</Text>
                                   </View>
                               </View>
 
                               <View style={{flex: 1}}>
                                   <TouchableOpacity style={{marginLeft: 20, alignItems:'center',
-                                      justifyContent:'center', flex: 1}}>
+                                      justifyContent:'center', flex: 1}}
+                                      onPress={async () => {
+                                        await sharedQuizService.initQuickTest(30, 3, 5000);
+                                        navigation.navigate('Questions');
+                                      }}>
                                       <View style={{
                                           backgroundColor: '#F50057', alignItems: 'center',
                                           justifyContent: 'center', borderRadius: 30, height: 45,

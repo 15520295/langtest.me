@@ -7,5 +7,5 @@ export default interface IProfile{
     incorrectAnswer : number ,
     totalQuestion : number
     rank : number,
-    timeSpent : number 
+    timeSpent : number,
 };

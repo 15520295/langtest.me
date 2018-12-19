@@ -115,8 +115,9 @@ export default class AudioPlayer extends PureComponent {
 	            volume: status.volume,
 	        });
 	        if (status.didJustFinish) {
-	            this._advanceIndex(true);
-	            this._updatePlaybackInstanceForIndex(true);
+				this._onStopPressed();
+	            // this._advanceIndex(true);
+	            // this._updatePlaybackInstanceForIndex(true);
 	        }
 	    } else {
 	        if (status.error) {
@@ -146,7 +147,7 @@ export default class AudioPlayer extends PureComponent {
 
 	_onStopPressed = () => {
 	    if (this.playbackInstance != null) {
-	        this.playbackInstance.stopAsync();
+			this.playbackInstance.stopAsync();
 	    }
 	};
 
