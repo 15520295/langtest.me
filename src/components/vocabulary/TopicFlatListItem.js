@@ -94,7 +94,6 @@ class TopicFlatListItem extends Component {
                                 />
                             </View>
                         </View>
-
                     </Card>
                 </TouchableOpacity>
 
@@ -143,25 +142,24 @@ const styles = StyleSheet.create({
     vc_topic: {
         flex: 72,
         flexDirection: 'column',
+        justifyContent: 'space-around',
         // backgroundColor: 'green',
     },
     vc_topicName: {
-        flex: 20,
+        flex: 0,
         justifyContent: 'center',
         // backgroundColor: 'yellow',
 
     },
     vc_topicDetail: {
         flex: 20,
-        flexDirection: 'row',
-        // backgroundColor: 'white',
+        justifyContent: 'center',
 
     },
     vc_progress: {
         flex: 20,
         justifyContent: 'center',
-        paddingHorizontal: 10,
-        // backgroundColor: 'red',
+        paddingHorizontal: 14,
     },
     vc_progressValue: {
         flex: 1,
@@ -196,7 +194,7 @@ const styles = StyleSheet.create({
         // fontWeight: 'bold',
     },
     txt_topicCount: {
-        fontSize: 14,
+        fontSize: 16,
         fontFamily: 'System',
             color: '#6d6d6d',
         paddingLeft: 14,
@@ -241,12 +239,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         // backgroundColor:'red'
 
-    },
-    txt_pronun: {
-        fontSize: 14,
-        fontFamily: 'System',
-        opacity: 0.6,
-        paddingTop: 6
     },
     txt_ex: {
         fontSize: 14,

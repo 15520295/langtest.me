@@ -314,16 +314,23 @@ export default class LearnScreen extends React.Component {
                                         minimumTrackTintColor='#78E589'
                                     />
                                 </View>
-                                <Text
+                                <View
                                     style={{
                                         flex: 20,
-                                        textAlignVertical: 'center',
-                                        textAlign: 'center',
-                                        color: '#55BE66',
-                                        fontWeight:'bold'
+                                        justifyContent: 'center',
+                                        alignContent: 'center'
                                     }}>
-                                    {this.state.sliderValue}s
-                                </Text>
+                                    <Text
+                                        style={{
+                                            flex:0,
+                                            textAlignVertical: 'center',
+                                            textAlign: 'center',
+                                            color: '#55BE66',
+                                            fontWeight:'bold',
+                                        }}>
+                                        {this.state.sliderValue}s
+                                    </Text>
+                                </View>
                             </View>
 
                         </View>

@@ -84,7 +84,7 @@ class TopicScreen extends React.Component {
         return (
             <Container style={styles.container}>
                 <Header androidStatusBarColor="#0076BF"
-                        style={{backgroundColor: Platform.OS === 'android' ? '#019AE8' : '#FFFFFF'}}>
+                        style={{backgroundColor: Platform.OS === 'android' ? '#FFFFFF' : '#FFFFFF'}}>
                     <Left>
                         {/*<Button transparent>*/}
                         {/*<Icon android='md-arrow-back' ios='ios-arrow-back'/>*/}
@@ -136,7 +136,7 @@ export default withNavigation(TopicScreen);
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#FFFFFF',
         justifyContent: 'center'
     },
     navigationView: {

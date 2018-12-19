@@ -27,19 +27,10 @@ import sharedQuizService from '../services/QuizService';
 import {QuestionType} from '../entity/Question';
 import DataHelper from "../helper/DataHelper";
 
-var imageGrid = require('../../assets/images/reading.jpg');
-
-
-let FirstItem = 3;
-// FirstItem = 20;  // <----- UNCOMMENT THIS
-
-const SliderWidth = Dimensions.get('screen').width;
-const ItemWidth = 300.0;
-const ItemHeight = 300.0;
 
 const NumItems = 6;
 const Items = [];
-for (var i = 0; i < NumItems; i++) {
+for (let i = 0; i < NumItems; i++) {
     Items.push(i);
 }
 
@@ -133,13 +124,13 @@ export default class HomeScreen extends PureComponent {
     render() {
         // Taken from https://flatuicolors.com/
         const items = [
-            {name: 'Photographs', code: DataHelper._getPercent(1)},
-            {name: 'Response', code: DataHelper._getPercent(2)},
-            {name: 'Conversations', code: DataHelper._getPercent(3)},
-            {name: 'Talks', code: DataHelper._getPercent(4)},
-            {name: 'Incomplete Sentences', code: DataHelper._getPercent(5)},
-            {name: 'Text Completion:', code: DataHelper._getPercent(6)},
-            {name: 'Passages', code: DataHelper._getPercent(7)},
+            {name: 'Photographs', code: DataHelper._getPercent(1), icon:require('../../assets/icon/i1.png')},
+            {name: 'Response', code: DataHelper._getPercent(2), icon:require('../../assets/icon/i2.png')},
+            {name: 'Conversations', code: DataHelper._getPercent(3), icon:require('../../assets/icon/i3.png')},
+            {name: 'Talks', code: DataHelper._getPercent(4), icon:require('../../assets/icon/i4.png')},
+            {name: 'Incomplete Sentences', code: DataHelper._getPercent(5), icon:require('../../assets/icon/i5.png')},
+            {name: 'Text Completion', code: DataHelper._getPercent(6), icon:require('../../assets/icon/i6.png')},
+            {name: 'Passages', code: DataHelper._getPercent(7), icon:require('../../assets/icon/i7.png')},
         ];
         const {navigation} = this.props;
         return (
@@ -186,13 +177,22 @@ export default class HomeScreen extends PureComponent {
                                         onPress={() => {
                                             this._onPressCard(index);
                                         }}
-                                        style={[styles.itemContainer, {backgroundColor: '#ffffff'}]}>
-                                        <Image style={styles.drawImage}
-                                               source={require('../../assets/images/reading.png')}
+                                        style={[
+                                            styles.itemContainer,
+                                            {backgroundColor: '#ffffff'}
+                                        ]}>
+                                        <Image
+                                            style={styles.drawImage}
+                                            source={item.icon}
                                         />
                                         <Text style={styles.itemName}>{item.name}</Text>
                                         {/*<Text style={styles.itemCode}>{item.code}</Text>*/}
-                                        <View style={styles.progressGray}>
+                                        <View
+                                            style={{
+                                                height: 4,
+                                                width: '100%',
+                                                borderRadius: 5
+                                            }}>
                                             <View style={{
                                                 backgroundColor: '#ebecef', height: 4,
                                                 width: '90%', borderRadius: 5
@@ -210,22 +210,41 @@ export default class HomeScreen extends PureComponent {
 
                     <View style={styles.positionAbsolute}>
                         <View style={[styles.cardMain, {backgroundColor: '#ffffff'}]}>
-                            <View style={{flexDirection: 'row', flex: 1}}>
+                            <View
+                                style={{
+                                    flexDirection: 'row',
+                                    flex: 1
+                                }}>
 
-                                <View style={{flexDirection: 'column', marginLeft: 10}}>
-                                    <Text style={{
-                                        color: '#0099DA',
-                                        fontStyle: 'italic',
-                                        fontSize: 16
-                                    }}>Your Result</Text>
-                                    <View style={{flexDirection: 'row', marginTop: 10, alignItems: 'center'}}>
-                                        <View style={[styles.iconDoc, {backgroundColor: '#FFBA9C'}]}/>
-                                        <Text style={{
-                                            color: '#888888', marginLeft: 10,
-                                            fontSize: 12
-                                        }}>{this.state.totalCorrectAnswer} Questions</Text>
+                                <View
+                                    style={{
+                                        flex: 0,
+                                        flexDirection: 'column',
+                                        marginLeft: 10,
+                                    }}>
+                                    <Text
+                                        style={{
+                                            color: '#0099DA',
+                                            fontStyle: 'italic',
+                                            fontSize: 16
+                                        }}>Your Result</Text>
+                                    <View
+                                        style={{
+                                            flexDirection: 'row',
+                                            marginTop: 10,
+                                            alignItems: 'center'
+                                        }}>
+                                        <View
+                                            style={[styles.iconDoc, {backgroundColor: '#FFBA9C'}]}/>
+                                        <Text
+                                            style={{
+                                                color: '#888888',
+                                                marginLeft: 10,
+                                                fontSize: 12
+                                            }}>{this.state.totalCorrectAnswer} Questions</Text>
                                     </View>
-                                    <View style={{flexDirection: 'row', marginTop: 10, alignItems: 'center'}}>
+                                    <View
+                                        style={{flexDirection: 'row', marginTop: 10, alignItems: 'center'}}>
                                         <View style={[styles.iconDoc, {backgroundColor: '#BC9CFF'}]}/>
                                         <Text style={{
                                             color: '#888888', marginLeft: 10,
@@ -234,31 +253,55 @@ export default class HomeScreen extends PureComponent {
                                     </View>
                                 </View>
 
-                                <View style={{flex: 1}}>
-                                    <TouchableOpacity style={{
-                                        marginLeft: 20, alignItems: 'center',
-                                        justifyContent: 'center', flex: 1
-                                    }}
-                                                      onPress={async () => {
-                                                          await sharedQuizService.initQuickTest(30, 3, 5000);
-                                                          navigation.navigate('Questions');
-                                                      }}>
-                                        <View style={{
-                                            backgroundColor: '#F50057', alignItems: 'center',
-                                            justifyContent: 'center', borderRadius: 30, height: 45,
-                                            width: 130, position: 'absolute'
-                                        }}
-                                        >
-                                            <Image style={{
+                                <View
+                                    style={{
+                                        flex: 1,
+                                        flexDirection: 'row'
+                                    }}>
+                                    <View
+                                        style={{
+                                            flex: 9,
+                                        }}>
+                                        <TouchableOpacity
+                                            style={{
+                                                alignItems: 'flex-end',
+                                                justifyContent: 'center',
+                                                flex: 1
+                                            }}
+                                            onPress={async () => {
+                                                await sharedQuizService.initQuickTest(30, 3, 5000);
+                                                navigation.navigate('Questions');
+                                            }}>
+                                            <View style={{
+                                                backgroundColor: '#F50057',
                                                 alignItems: 'center',
-                                                justifyContent: 'center', borderRadius: 30, height: 45,
+                                                justifyContent: 'center',
+                                                borderRadius: 30,
+                                                height: 45,
                                                 width: 130,
-                                            }} source={require('../../assets/images/rectangle.jpg')}
-                                            />
-                                            <Text style={{position: 'absolute', color: '#ffffff', fontWeight: 'bold'}}>Begin
-                                                Test</Text>
-                                        </View>
-                                    </TouchableOpacity>
+                                                position: 'absolute'
+                                            }}
+                                            >
+                                                <Image style={{
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center', borderRadius: 30, height: 45,
+                                                    width: 130,
+                                                }} source={require('../../assets/images/rectangle.jpg')}
+                                                />
+                                                <Text style={{
+                                                    position: 'absolute',
+                                                    color: '#ffffff',
+                                                    fontWeight: 'bold'
+                                                }}>Begin
+                                                    Test</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <View
+                                        style={{
+                                            flex: 1,
+                                        }}>
+                                    </View>
                                 </View>
                             </View>
                         </View>
@@ -290,15 +333,21 @@ const styles = StyleSheet.create({
         marginRight: 15
     },
     itemContainer: {
+        justifyContent: 'space-around',
         borderRadius: 10,
         padding: 10,
+        paddingVertical:15,
         height: 150,
+        shadowColor: '#a9a9a9',
+        shadowOffset: { width: 2, height: 4 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 1,
     },
     itemName: {
         fontSize: 20,
         color: '#5B5B5B',
         fontWeight: '600',
-        marginTop: 20,
     },
     itemCode: {
         fontWeight: '600',
@@ -308,12 +357,17 @@ const styles = StyleSheet.create({
     drawImage: {
         height: 35,
         width: 35,
-        borderRadius: 30,
+        borderRadius: Platform.OS === 'android' ? 30 : 18,
     },
     cardMain: {
         borderRadius: 10,
         padding: 10,
         height: 100,
+        shadowColor: '#03affd',
+        shadowOffset: { width: 4, height: 6 },
+        shadowOpacity: 0.12,
+        shadowRadius: 4,
+        elevation: 1,
     },
     iconDoc: {
         height: 10,

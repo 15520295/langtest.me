@@ -38,25 +38,27 @@ export default class UserScore extends Component {
                     <Text style={styles.txt_totalScoreValue}>
                         {this.props.totalAnswer}</Text>
                 </View>
-                <View style={styles.vc_detail}>
-                    <View style={styles.vc_detailScore}>
-                        <Text style={styles.txt_correctTitle}>
-                            Correct</Text>
-                        <Text style={styles.txt_correctScoreValue}>
-                            {this.props.correctAnswer}</Text>
-                    </View>
-                    <View style={styles.vc_detailScore}>
-                        <Text style={styles.txt_separator}>
-                             </Text>
-                        <Text style={styles.txt_correctScoreValue}> </Text>
-                    </View>
-                    <View style={styles.vc_detailScore}>
-                        <Text style={styles.txt_wrongTitle}>
-                            Wrong</Text>
-                        <Text style={styles.txt_wrongScoreValue}>
-                            {this.props.totalAnswer - this.props.correctAnswer}</Text>
-                    </View>
+                <View style={styles.vc_detailScore}>
+                    <Text style={styles.txt_correctTitle}>
+                        Correct</Text>
+                    <Text style={styles.txt_correctScoreValue}>
+                        {this.props.correctAnswer}</Text>
                 </View>
+
+                <View style={styles.vc_detailScore}>
+                    <Text style={styles.txt_wrongTitle}>
+                        Wrong</Text>
+                    <Text style={styles.txt_wrongScoreValue}>
+                        {this.props.totalAnswer - this.props.correctAnswer}</Text>
+                </View>
+                {/*<View style={styles.vc_detail}>*/}
+                    {/**/}
+                    {/*/!*<View style={styles.vc_detailScore}>*!/*/}
+                        {/*/!*<Text style={styles.txt_separator}>*!/*/}
+                             {/*/!*</Text>*!/*/}
+                        {/*/!*<Text style={styles.txt_correctScoreValue}> </Text>*!/*/}
+                    {/*/!*</View>*!/*/}
+                {/*</View>*/}
             </View>
         );
     }

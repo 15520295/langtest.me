@@ -241,6 +241,10 @@ class QuizService implements IQuizService{
         return resQuestionList;
     }
 
+    async initTestVocabulary(questions: IQuestion[]): Promise<void> {
+        this._questionList = questions;
+    }
+
     //Since some question may come together, it better to take all of them to
     private addQuestionToArray(questionList: IQuestion[], question: IQuestion){
         if(this.contain(questionList, question.id)){

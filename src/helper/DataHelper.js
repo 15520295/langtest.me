@@ -139,10 +139,10 @@ class DataHelper {
     _loadTestResult = async (callback) => {
         const testResult = await LocalStoreHelper._getMapData(LocalStoreHelper.testResult);
         if (testResult != null && testResult instanceof Map) {
-            this._testResultData = new Map(testResult);
-
-            UtilHelper._printMapConsole(testResult);
-            UtilHelper._printMapConsole(this._testResultData);
+            // this._testResultData = new Map(testResult);
+            for (const [key, value] of testResult.entries()) {
+                this._testResultData.set(key, value);
+            }
         }
 
         callback(testResult);
@@ -197,15 +197,15 @@ class DataHelper {
 
         switch (num) {
             case 0:
-                return require('../../assets/avatar/avatar1.jpg');
+                return require('../../assets/icon/avatar1.jpg');
             case 1:
-                return require('../../assets/avatar/avatar2.jpg');
+                return require('../../assets/icon/avatar2.jpg');
             case 2:
-                return require('../../assets/avatar/avatar3.jpg');
+                return require('../../assets/icon/avatar3.jpg');
             case 3:
-                return require('../../assets/avatar/avatar4.jpg');
+                return require('../../assets/icon/avatar4.jpg');
             default:
-                return require('../../assets/avatar/avatar1.jpg');
+                return require('../../assets/icon/avatar1.jpg');
         }
     }
 
