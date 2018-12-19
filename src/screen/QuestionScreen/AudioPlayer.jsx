@@ -58,7 +58,12 @@ export default class AudioPlayer extends PureComponent {
 		}
 	}
 	componentWillUnmount() {
-		this._onStopPressed();
+		if (this.playbackInstance != null) {
+			this.playbackInstance.stopAsync();
+	        this.playbackInstance.unloadAsync();
+	        this.playbackInstance.setOnPlaybackStatusUpdate(null);
+	        this.playbackInstance = null;
+	    }
 	}
 	
 	
