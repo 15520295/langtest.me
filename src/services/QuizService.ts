@@ -204,7 +204,7 @@ class QuizService implements IQuizService{
         //Loop throught question until enough
         for(let i = 0; i < this._srcQuestionList.length; i++){
             const question = this._srcQuestionList[i];
-            if(question.difficultLevel === null){
+            if(question === null || question.difficultLevel === null){
                 this.addQuestionToArray(resQuestionList, question);
                 continue;
             }

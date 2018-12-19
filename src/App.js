@@ -206,6 +206,9 @@ const MyDrawerNavigator = createDrawerNavigator({
         LeaderBoard: {
             screen: LeaderBoardScreen
         },
+        Question: {
+            screen: QuestionStack
+        }
     },
     {
         contentComponent: CustomDrawerContentComponent,
