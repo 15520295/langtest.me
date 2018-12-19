@@ -25,7 +25,7 @@ class DataHelper {
                 .sort((a, b) => {
                     // a[0], b[0] is the key of the map
                     // a[1], b[1] is the value of the map
-                    return a[1].get('correctAnswer') - b[1].get('correctAnswer');
+                    return b[1].get('correctAnswer') - a[1].get('correctAnswer') ;
                 })
         );
     };

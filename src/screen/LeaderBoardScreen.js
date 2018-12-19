@@ -37,12 +37,12 @@ export default class LeaderBoardScreen extends React.Component {
                     console.log('LeaderBoardScreen - onResume');
 
                     DataHelper._loadUserMapFromServer(() => {
-                        UtilHelper._printMapConsole(DataHelper._getCurLeaderBoardProfile());
-                        UtilHelper._printMapConsole(DataHelper._getLeaderBoardDataRanked());
+                        let curLeaderBoardDataRanked = DataHelper._getCurLeaderBoardProfile();
+                        let listLeaderBoardDataRanked = DataHelper._getLeaderBoardDataRanked();
 
                         this.setState({
-                            myProfile: DataHelper._getCurLeaderBoardProfile(),
-                            peopleProfile: DataHelper._getLeaderBoardDataRanked()
+                            myProfile: curLeaderBoardDataRanked,
+                            peopleProfile: listLeaderBoardDataRanked
                         });
                         this.setState({
                             isLoading: false
@@ -58,8 +58,6 @@ export default class LeaderBoardScreen extends React.Component {
             return <AppLoading/>;
         }
 
-        console.log("People profile");
-        console.log(this.state.peopleProfile);
         return (
             <Container>
                 <View style={{height: Expo.Constants.statusBarHeight}}/>
@@ -68,7 +66,10 @@ export default class LeaderBoardScreen extends React.Component {
                                         profile={this.state.myProfile}/>
                     <View style={{flex: 1, backgroundColor: '#F6F6F6'}}>
                         {
-                            this.state.peopleProfile.map((value, index) => {
+                            Array.from(this.state.peopleProfile.values()).map((value, index) => {
+
+                                console.log("v");
+                                console.log(value);
                                 return (
                                     <PeopleProfileComponent key={index} style={{flex: 1, height: heightPercentageToDP(12), maxHeight: heightPercentageToDP(25)}}
                                                             profile={value}/>
