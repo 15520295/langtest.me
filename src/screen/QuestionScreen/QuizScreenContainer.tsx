@@ -88,6 +88,7 @@ interface States{
 }
 
 export default class QuizScreenContainer extends React.Component<QuizScreenContainerProps, States>{
+    audioPlayer: React.RefObject<AudioPlayer>;
     constructor(props: QuizScreenContainerProps){
         super(props);
         this.state = {
@@ -98,9 +99,19 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
             isNextQuestion: true,
             isOver: false
         };
+        this.audioPlayer = React.createRef();
     }
 
     async componentDidMount(){
+        if (this.props.navigation != null) {
+            this.props.navigation.addListener(
+                'willBlur',
+                _ => {
+                    console.log(this.audioPlayer);
+                    // this.audioPlayer.current._onStopPressed();
+                }
+            );
+        }
         await this.props.quizStore.init();
         this.setState({
             isLoading: false,
@@ -227,7 +238,7 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
         const question = this.props.quizStore.getCurrentQuestionInfo();
         if(question.audioAsset){
             return (
-                <AudioPlayer uri={question.audioAsset} name={question.id} styles = {{width: widthPercentageToDP(100)}}/>
+                <AudioPlayer red={this.audioPlayer} uri={question.audioAsset} name={question.id} styles = {{width: widthPercentageToDP(100)}}/>
             );
         }
         return null;
