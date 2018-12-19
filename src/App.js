@@ -115,7 +115,7 @@ export default class App extends React.Component {
             // 'Roboto_light': require('./../assets/fonts/Roboto-Light.ttf'),
             'Ionicons': require('@expo/vector-icons/fonts/Ionicons.ttf')
         });
-        await sharedQuizService.initQuickTest(5, 3);
+        await sharedQuizService.initQuickTest(30, 3);
         this.setState({loading: false});
     }
 

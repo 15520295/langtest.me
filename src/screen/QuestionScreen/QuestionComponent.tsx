@@ -18,7 +18,7 @@ interface QuestionComponentState{
     isImageZoom: boolean
 }
 
-const TWO_ROW_MAX_CHARACTER = 21;
+const TWO_ROW_MAX_CHARACTER = 10;
 
 export default class QuestionComponent extends React.Component<QuestionComponentProps, QuestionComponentState>{
     constructor(prop: QuestionComponentProps){
@@ -63,7 +63,13 @@ export default class QuestionComponent extends React.Component<QuestionComponent
     renderQuestion(){
         const {question} = this.props; 
         switch(question.type){
-            case QuestionType.part6:
+            case QuestionType.part3: case QuestionType.part4: case QuestionType.part2:
+            return(
+                <Text adjustsFontSizeToFit minimumFontScale={.5} style={styles.questionText}>	
+                    {question.id.slice(question.id.length - 3,question.id.length)}. {question.question}
+                </Text>
+            );
+            case QuestionType.part6: 
                 return(
                     <Text adjustsFontSizeToFit minimumFontScale={.5} style={styles.questionText}>	
                         Fill in the {question.id.slice(question.id.length - 3,question.id.length)} blank
@@ -189,14 +195,14 @@ const styles = StyleSheet.create({
     },
     answerContainerTwoRow: {
         flex: 1,
+        width: widthPercentageToDP(84),
+        maxWidth: widthPercentageToDP(84),
         flexDirection: 'row',
         marginLeft: widthPercentageToDP(8),
         marginRight: widthPercentageToDP(8),
-        justifyContent: 'center',
-        alignItems: 'stretch'
     },
     answerButton: {
-        flex: 1,
+        flex: 2,
         marginBottom: heightPercentageToDP(1),
         height: Platform.OS == 'ios' ? heightPercentageToDP(9.3) : heightPercentageToDP(9.3), 
         maxHeight: Platform.OS == 'ios' ? heightPercentageToDP(9.3) : heightPercentageToDP(9.3), 

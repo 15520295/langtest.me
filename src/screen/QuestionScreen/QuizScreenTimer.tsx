@@ -5,7 +5,7 @@ import * as Progress from 'react-native-progress';
 export interface Props extends Progress.BarPropTypes{
     interval: number,
     totalTime: number,
-    onTick?: (percent: number) => void,
+    onTick?: (timer: number) => void,
     onOver?: () => void
 }
 
@@ -31,10 +31,11 @@ export default class QuizScreenTimer extends React.Component<Props, State>{
             const process = this.state.process + interval;
             const percent = process / totalTime;
             if(onTick){
-                onTick(percent);
+                onTick(this.state.process);
             };
             if(process > totalTime && onOver){
                 onOver();
+                clearInterval(this._clockCall);
             }
             this.setState({
                 process: process,

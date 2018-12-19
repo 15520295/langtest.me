@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import {
     Dimensions,
     Image,
@@ -19,7 +19,7 @@ const LOADING_STRING = 'Loading...';
 const BUFFERING_STRING = 'Buffering...';
 const RATE_SCALE = 3.0;
 
-export default class AudioPlayer extends Component {
+export default class AudioPlayer extends PureComponent {
     constructor(props) {
         super(props);
         this.index = 0;
@@ -47,13 +47,20 @@ export default class AudioPlayer extends Component {
 	        shouldDuckAndroid: true,
 	        interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
 	        playThroughEarpieceAndroid: false
-	    });
-	    this._loadNewPlaybackInstance(false);
+		});
+		
+		this._loadNewPlaybackInstance(true);
 	}
 	
+	componentDidUpdate(prevProps, prevState, snapshot){
+		if(prevProps.uri !== this.props.uri){
+			this._loadNewPlaybackInstance(true);
+		}
+	}
 	componentWillUnmount() {
 		this._onStopPressed();
 	}
+	
 	
     async _loadNewPlaybackInstance(playing) {
 	    if (this.playbackInstance != null) {

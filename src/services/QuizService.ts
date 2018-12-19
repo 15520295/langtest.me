@@ -12,9 +12,13 @@ import QuestionDataPart6 from '../data/QuestionDataPart6';
 //For this app, we assume that 
 
 class QuizService implements IQuizService{
-
     _questionList : IQuestion[] = null;
     _srcQuestionList: IQuestion[] = null;
+    _lastMode: number = 0;
+    _lastDifficult: number = 0;
+    _lastTimer: number = 0;
+    _lastNumberOfQuestion: number = 0;
+
     readonly _typePercent: number[] = [3, 12.5, 19.5, 15, 15, 8, 27];
     readonly _chanceOfHigher1Difficult:  number = 30;
     readonly _chanceOfHigher2Difficult: number = 5;
@@ -39,19 +43,18 @@ class QuizService implements IQuizService{
     //Calculator the number of question for each type by percent
     //Because of the rounding, the total number of question may not true, so we trim down or scale random type of question
     //Then scan for the number of question of each type, the number of difficult level may increase by one two but not over
-    async initQuickTest(numberOfQuestion: number = 5, difficultLevel: number = 3): Promise<void> {
-        console.log("init quick test");
+    async initQuickTest(numberOfQuestion: number = 5, difficultLevel: number = 3, timer: number): Promise<void> {
+        this._lastTimer = timer;
+        this._lastMode = 0;
+        this._lastDifficult = difficultLevel;
+        this._lastNumberOfQuestion = numberOfQuestion;
+
         this.reset();
 
         var numberOfQuestionType: Array<number> = new Array();
         for(let i = 0; i < 7; i++){
             numberOfQuestionType.push(Math.ceil(numberOfQuestion * this._typePercent[i] / 100));
         }
-
-        console.log("Number of question type");
-        console.log(numberOfQuestionType);
-
-
 
         //Let crawling the question
         var questionListPart : IQuestion[][] = new Array();
@@ -62,7 +65,6 @@ class QuizService implements IQuizService{
         questionListPart[4] = this.crawlingQuestion(QuestionType.part5, numberOfQuestionType[4], difficultLevel);
         questionListPart[5] = this.crawlingQuestion(QuestionType.part6, numberOfQuestionType[5], difficultLevel);
         questionListPart[6] = this.crawlingQuestion(QuestionType.part7, numberOfQuestionType[6], difficultLevel);
-        console.log("Crawing the question")
 
         //Let trim the question so that it can fix the number of question
         const sumQuestion = function(questionList: IQuestion[][]) : number{
@@ -70,7 +72,6 @@ class QuizService implements IQuizService{
             for(let i = 0; i < questionList.length; i++){
                 sum += questionList[i].length
             }
-            console.log("Total number of question " + sum);
             return sum;
         }
         var sum: number = sumQuestion(questionListPart);
@@ -97,28 +98,45 @@ class QuizService implements IQuizService{
         for(let i = 0; i < 7; i++){
             resQuestionList =  resQuestionList.concat(questionListPart[i]);
         }
-        console.log("Result question list ");
-        console.log(resQuestionList);
 
         this._questionList = resQuestionList;
     }
-    async initTest(type: QuestionType, numberOfQuestion: number, difficultLevel: number): Promise<void> {
-        console.log("init quick test");
-        this.reset();
+    async initTest(type: QuestionType, numberOfQuestion: number, difficultLevel: number, timer: number): Promise<void> {
+        this._lastTimer = timer;
+        switch(type){
+            case QuestionType.part1: 
+                this._lastMode = 1;
+                break;
+            case QuestionType.part2: 
+                this._lastMode = 2;
+                break;
+            case QuestionType.part3: 
+                this._lastMode = 3;
+                break;
+            case QuestionType.part4: 
+                this._lastMode = 4;
+                break;
+            case QuestionType.part5: 
+                this._lastMode = 5;
+                break;
+            case QuestionType.part6: 
+                this._lastMode = 6;
+                break;
+            case QuestionType.part7: 
+                this._lastMode = 7;
+                break;
+        }
+        this._lastDifficult = difficultLevel;
+        this._lastNumberOfQuestion = numberOfQuestion;
 
         var numberOfQuestionType: Array<number> = new Array();
         for(let i = 0; i < 7; i++){
             numberOfQuestionType.push(Math.ceil(numberOfQuestion * this._typePercent[i] / 100));
         }
 
-        console.log("Number of question type");
-        console.log(numberOfQuestionType);
-
-
-
         //Let crawling the question
         var resQuestionList : IQuestion[] = this.crawlingQuestion(type, numberOfQuestionType[0], difficultLevel);
-        console.log("Crawing the question")
+
 
         //Let trim the question so that it can fix the number of question
         if(resQuestionList.length > numberOfQuestion){
@@ -130,13 +148,35 @@ class QuizService implements IQuizService{
 
         }
 
-
         this._questionList = resQuestionList;
     }
 
-    async initTestVocabulary(questions: IQuestion[]): Promise<void> {
-        this._questionList = questions;
+    initLastTest(): Promise<void> {
+        switch(this._lastMode){
+            case 0:
+                return this.initQuickTest(this._lastNumberOfQuestion, this._lastDifficult, this._lastTimer);
+            case 1:
+                return this.initTest(QuestionType.part1 ,this._lastNumberOfQuestion, this._lastDifficult, this._lastTimer);
+            case 2:
+                return this.initTest(QuestionType.part2 ,this._lastNumberOfQuestion, this._lastDifficult, this._lastTimer);
+            case 3:
+                return this.initTest(QuestionType.part3 ,this._lastNumberOfQuestion, this._lastDifficult, this._lastTimer);
+            case 4:
+                return this.initTest(QuestionType.part4 ,this._lastNumberOfQuestion, this._lastDifficult, this._lastTimer);
+            case 5:
+                return this.initTest(QuestionType.part5 ,this._lastNumberOfQuestion, this._lastDifficult, this._lastTimer);
+            case 6:
+                return this.initTest(QuestionType.part6 ,this._lastNumberOfQuestion, this._lastDifficult, this._lastTimer);
+            case 7:
+                return this.initTest(QuestionType.part7 ,this._lastNumberOfQuestion, this._lastDifficult, this._lastTimer);
+        }
+        return new Promise<void>(null);
     }
+
+    getMode(): number {
+        return this._lastMode;
+    }
+
 
     private crawlingQuestion(type: QuestionType, numberOfQuestion: number, difficult: number): IQuestion[] {
         switch(type){
@@ -207,7 +247,6 @@ class QuizService implements IQuizService{
     }
 
     //Since some question may come together, it better to take all of them to
-    //TODO: Fix contain
     private addQuestionToArray(questionList: IQuestion[], question: IQuestion){
         if(this.contain(questionList, question.id)){
             return;

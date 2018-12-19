@@ -109,11 +109,6 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
     }
 
     flipAnimation = () => {
-        if(this.state.isAnimation){
-            console.log("First");
-        } else {
-            console.log("Second");
-        }
         this.setState({isAnimation: !this.state.isAnimation});
         
     }
@@ -185,7 +180,13 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
             { cancelable: true }
           )
     }
+
+    saveQuizResult = () => {
+
+    }
+
     quizOver = () => {
+        this.saveQuizResult();
         const {quizStore, navigation} = this.props;
         const onQuizOver: (quizStore : QuizStore) => void = navigation.getParam('rightButtonClick', this.props.onQuizOver);
         if(onQuizOver){
@@ -193,7 +194,7 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
             return;
         }
         const tryAgainButton = async function (): Promise<void> {
-            await sharedQuizService.initQuickTest();
+            await sharedQuizService.initLastTest();
             navigation.navigate('Questions');
         }
         const homeFunc = async function(): Promise<void> {
@@ -206,6 +207,15 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
             leftButtonClick: tryAgainButton,
             rightButtonText: "Go Home",
             rightButtonClick: homeFunc})
+    }
+
+    renderAudio () {
+        const question = this.props.quizStore.getCurrentQuestionInfo();
+        if(question.audioAsset){
+            return (
+                <AudioPlayer uri={question.audioAsset} name={question.id} styles = {{width: widthPercentageToDP(100)}}/>
+            );
+        }
     }
 
     renderQuestion () {
@@ -285,6 +295,7 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
                         color="#019AE8"
                         borderColor="white"
                         borderRadius={0}
+                        onTick = {(timer) => {quizStore.setTimer(timer)}}
                         onOver = {() => {this.quizOver()}}/>
                         <View style={styles.navigationView}>
                             <TouchableOpacity onPress={() => {this.prevQuestion();}}>
@@ -304,11 +315,10 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
                             onRightSwipe={() => {this.nextQuestion()}}
                             style={{flex: 1}}>
                             {this.renderAnswerQuestion()}
-                        </GestureView>    
+                        </GestureView> 
+                        
                     </Content>
-                    {question.audioAsset && 
-                        <AudioPlayer uri={question.audioAsset} name={question.id.slice(question.id.length - 3,question.id.length)} styles = {{width: widthPercentageToDP(100)}}/>
-                    }
+                    {this.renderAudio()}   
                 </View>
             </Container>
         );

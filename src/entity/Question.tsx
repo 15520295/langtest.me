@@ -10,7 +10,7 @@ export default interface IQuestion {
     audioAsset?: number, // As the new format some audio question have i picture
     imageAsset?: number,
     comeWith?: string[] // There are some question that come together xD
-    difficultLevel?: number
+    difficultLevel: number
 }
 
 export enum QuestionType{

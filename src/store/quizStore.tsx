@@ -9,7 +9,8 @@ export interface quizStoreInterface {
     correctedAnswer: number,
     uncorrectedAnswer: number,
     selectedAnswer: Map<string, number>, //Array with id and selected answer
-    currentQuestion: number
+    currentQuestion: number,
+    doingTimer: number
 }
 
 export default class QuizStore extends Container<quizStoreInterface>{
@@ -28,7 +29,8 @@ export default class QuizStore extends Container<quizStoreInterface>{
             correctedAnswer: 0,
             uncorrectedAnswer: 0,
             selectedAnswer: new Map<string, number>(),
-            currentQuestion: 0
+            currentQuestion: 0,
+            doingTimer: 0
         }
 
     }
@@ -46,7 +48,8 @@ export default class QuizStore extends Container<quizStoreInterface>{
             correctedAnswer: 0,
             uncorrectedAnswer: 0,
             selectedAnswer:  new Map<string, number>(),
-            currentQuestion: 0
+            currentQuestion: 0,
+            doingTimer: 0
         })
     }
 
@@ -110,5 +113,11 @@ export default class QuizStore extends Container<quizStoreInterface>{
         }
 
         return answerState;
+    }
+
+    setTimer(timer: number){
+        this.setState({
+            doingTimer: timer
+        });
     }
 }
