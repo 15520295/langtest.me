@@ -166,12 +166,9 @@ export default class App extends React.Component {
 }
 
 
-const HomeStack = createSwitchNavigator({
-    Home: HomeScreen,
+const OtherScreen = createSwitchNavigator({
     Questions: QuizScreen,
     Results: ResultScreen
-}, {
-    initialRouteName: 'Home'
 });
 
 const TopicStack = createStackNavigator({
@@ -182,7 +179,7 @@ const TopicStack = createStackNavigator({
 
 const MyDrawerNavigator = createDrawerNavigator({
         Home: {
-            screen: HomeStack,
+            screen: HomeScreen,
             navigationOptions: {
                 drawerIcon: ({tintColor}) => (
                     <FontAwesome name='home' style={{fontSize: 24, color: tintColor}}/>
@@ -215,7 +212,24 @@ const MyDrawerNavigator = createDrawerNavigator({
     }
 );
 
-const MyApp = createAppContainer(MyDrawerNavigator);
+const AppNavigation = createStackNavigator({
+    Default:  {
+        screen : MyDrawerNavigator,
+        navigationOptions : {
+            gesturesEnabled: false
+        }
+    },
+    Other: {
+        screen : OtherScreen,
+        navigationOptions : {
+            gesturesEnabled: false
+        }
+    }
+}, {
+    headerMode: 'none',
+});
+
+const MyApp = createAppContainer(AppNavigation);
 
 const styles = StyleSheet.create({
     container: {
