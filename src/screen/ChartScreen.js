@@ -34,7 +34,7 @@ export default class ChartScreen extends React.Component {
             <Container>
                 <Header>
                     <Left>
-                        <Icon name="ios-menu" onPress={()=>('')} />
+                        <Icon name="ios-menu" onPress={()=>this.props.navigation.openDrawer()} />
                     </Left>
                 </Header>
                 <View style={styles.container}>
@@ -66,7 +66,9 @@ export default class ChartScreen extends React.Component {
                                       }}
                         >
                             {
-                                ['Grammar', 'Listening', 'Speaking', 'Vocabulary', 'Reading'].map((d, i) => {
+                                ['Photographs', 'Response', 'Conversations', 'Talks', 'Incomplete Sentences',
+                                    'Text Completion', 'Passages'
+                                ].map((d, i) => {
                                     return (
                                         <VictoryPolarAxis dependentAxis
                                                           key={i}
@@ -79,39 +81,41 @@ export default class ChartScreen extends React.Component {
                                 })
                             }
                             <VictoryBar
-                                style={{data: {fill: 'tomato', width: 25}}}
+                                style={{data: {fill: '#008bff', width: 25}}}
                                 data={[
-                                    {x: 0, y: 10},
+                                    {x: 0, y: 10}, // full: 40
                                     {x: 1, y: 25},
                                     {x: 2, y: 40},
-                                    {x: 3, y: 50},
-                                    {x: 4, y: 50}
+                                    {x: 3, y: 20},
+                                    {x: 4, y: 30},
+                                    {x: 5, y: 35},
+                                    {x: 6, y: 15}
                                 ]}
                             />
                         </VictoryChart>
 
-                        <VictoryChart
-                            // domainPadding will add space to each side of VictoryBar to
-                            // prevent it from overlapping the axis
-                            domainPadding={20}
-                        >
-                            <VictoryAxis
-                                // tickValues specifies both the number of ticks and where
-                                // they are placed on the axis
-                                tickValues={[1, 2, 3, 4]}
-                                tickFormat={['01/11', '02/11', '03/11', '04/11']}
-                            />
-                            <VictoryAxis
-                                dependentAxis
-                                // tickFormat specifies how ticks should be displayed
-                                tickFormat={(x) => (`${x / 1000}k`)}
-                            />
-                            <VictoryBar
-                                data={data}
-                                x="quarter"
-                                y="earnings"
-                            />
-                        </VictoryChart>
+                        {/*<VictoryChart*/}
+                            {/*// domainPadding will add space to each side of VictoryBar to*/}
+                            {/*// prevent it from overlapping the axis*/}
+                            {/*domainPadding={20}*/}
+                        {/*>*/}
+                            {/*<VictoryAxis*/}
+                                {/*// tickValues specifies both the number of ticks and where*/}
+                                {/*// they are placed on the axis*/}
+                                {/*tickValues={[1, 2, 3, 4]}*/}
+                                {/*tickFormat={['01/11', '02/11', '03/11', '04/11']}*/}
+                            {/*/>*/}
+                            {/*<VictoryAxis*/}
+                                {/*dependentAxis*/}
+                                {/*// tickFormat specifies how ticks should be displayed*/}
+                                {/*tickFormat={(x) => (`${x / 1000}k`)}*/}
+                            {/*/>*/}
+                            {/*<VictoryBar*/}
+                                {/*data={data}*/}
+                                {/*x="quarter"*/}
+                                {/*y="earnings"*/}
+                            {/*/>*/}
+                        {/*</VictoryChart>*/}
                     </ScrollView>
                 </View>
             </Container>
