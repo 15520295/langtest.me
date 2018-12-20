@@ -157,8 +157,8 @@ export default class ProfileScreen extends React.Component {
                         onPress={() => {
                             this._saveProfile();
                         }}
-                        backgroundColor={'#ff5e52'}
-                        borderColor={'#16a085'}
+                        backgroundColor={'#ff916e'}
+                        borderColor={'#019AE8'}
                         borderRadius={10}
                         shadowHeight={5}
                         containerStyle={styles.buttonContainer}
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
         }),
     },
     placeIcon: {
-        color: 'white',
+        color: '#FFBA9C',
         fontSize: 26,
     },
     scroll: {
@@ -238,13 +238,13 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
     },
     userCityText: {
-        color: '#A5A5A5',
+        color: '#FFBA9C',
         fontSize: 15,
         fontWeight: '600',
         textAlign: 'center',
     },
     userImage: {
-        borderColor: '#019AE8',
+        borderColor: '#ffffff',
         borderRadius: 85,
         borderWidth: 3,
         height: 170,

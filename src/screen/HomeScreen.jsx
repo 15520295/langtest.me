@@ -138,7 +138,7 @@ export default class HomeScreen extends PureComponent {
             <Container>
                 <Header>
                     <Left>
-                        <Icon name="ios-menu" onPress={() => ('')}/>
+                        <Icon name="ios-menu" onPress={() => this.props.navigation.openDrawer()}/>
                     </Left>
                 </Header>
                 <ScrollView style={styles.container}>
