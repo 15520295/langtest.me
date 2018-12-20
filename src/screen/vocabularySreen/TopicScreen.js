@@ -84,12 +84,19 @@ class TopicScreen extends React.Component {
         return (
             <Container style={styles.container}>
                 <Header androidStatusBarColor="#0076BF"
-                        style={{backgroundColor: Platform.OS === 'android' ? '#FFFFFF' : '#FFFFFF'}}>
-                    <Left>
-                        {/*<Button transparent>*/}
-                        {/*<Icon android='md-arrow-back' ios='ios-arrow-back'/>*/}
-                        {/*</Button>*/}
-                    </Left>
+                        style={{backgroundColor: Platform.OS === 'android' ? '#019AE8' : '#FFFFFF'}}>
+                   <Left>
+                {Platform.OS === 'ios'
+                ?
+                <Button transparent onPress={()=> {this.props.navigation.navigate('Home')}}>
+                    <Text>Finish</Text>
+                </Button>
+                    :
+                <Button transparent onPress={()=> {this.props.navigation.navigate('Home')}}>
+                    <Icon name = 'nothing' android='md-arrow-back' ios='ios-arrow-back'/>
+                </Button>
+                }
+            </Left>
                     <Body>
                     <Title>Topic Screen</Title>
                     </Body>

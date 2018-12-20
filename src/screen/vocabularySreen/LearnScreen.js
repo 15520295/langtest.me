@@ -192,7 +192,7 @@ export default class LearnScreen extends React.Component {
 
         return (
             <Container style={styles.container}>
-                <Header androidStatusBarColor="#0076BF"
+                {/* <Header androidStatusBarColor="#0076BF"
                         style={{backgroundColor: Platform.OS === 'android' ? '#019AE8' : '#FFFFFF'}}>
                     <Left>
                         <Button transparent>
@@ -203,6 +203,27 @@ export default class LearnScreen extends React.Component {
                     <Title>Learn Screen</Title>
                     </Body>
                     <Right>
+                    </Right>
+                </Header> */}
+                <Header androidStatusBarColor="#0076BF"
+                        style={{backgroundColor: Platform.OS === 'android' ? '#019AE8' : '#FFFFFF'}}>
+                   <Left>
+                {Platform.OS === 'ios'  
+                ? 
+                <Button transparent onPress={()=> {this.props.navigation.goBack()}}>
+                    <Text>{'<Back'}</Text>
+                </Button>
+                    :
+                <Button transparent onPress={()=> {this.props.navigation.goBack()}}>
+                    <Icon name = 'nothing' android='md-arrow-back' ios='ios-arrow-back'/>
+                </Button>
+                }
+            </Left>
+                    <Body>
+                    <Title>Learn Screen</Title>
+                    </Body>
+                    <Right>
+
                     </Right>
                 </Header>
                 <Content

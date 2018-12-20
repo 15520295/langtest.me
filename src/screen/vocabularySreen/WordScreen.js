@@ -190,7 +190,7 @@ class WordScreen extends React.Component {
     render() {
         return (
             <Container style={styles.container}>
-                <Header androidStatusBarColor="#0076BF"
+                {/* <Header androidStatusBarColor="#0076BF"
                         style={{backgroundColor: Platform.OS === 'android' ? '#019AE8' : '#FFFFFF'}}>
                     <Left>
                         <Button transparent>
@@ -200,6 +200,30 @@ class WordScreen extends React.Component {
                     <Body>
                     <Title>{this.topic.name}</Title>
                     </Body>
+                    <Right>
+
+                    </Right>
+                </Header> */}
+                <Header androidStatusBarColor="#0076BF"
+                        style={{backgroundColor: Platform.OS === 'android' ? '#019AE8' : '#FFFFFF'}}>
+                   <Left>
+                {Platform.OS === 'ios'  
+                ? 
+                <Button transparent onPress={()=> {this.props.navigation.goBack()}}>
+                    <Text>{'<Back'}</Text>
+                </Button>
+                    :
+                <Button transparent onPress={()=> {this.props.navigation.goBack()}}>
+                    <Icon name = 'nothing' android='md-arrow-back' ios='ios-arrow-back'/>
+                </Button>
+                }
+            </Left>
+                    <Body>
+                    <Title>{this.topic.name}</Title>
+                    </Body>
+                    <Right>
+
+                    </Right>
                 </Header>
                 <Content
                     contentContainerStyle={{flexGrow: 1}}>
