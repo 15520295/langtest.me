@@ -52,12 +52,11 @@ export default class AudioPlayer extends PureComponent {
 		});
 		
 		this.playbackInstance.setOnPlaybackStatusUpdate(this._onPlaybackStatusUpdate);
-		this._loadNewSound();
 	}
 	
 	componentDidUpdate(prevProps, prevState, snapshot){
 		if(prevProps.uri !== this.props.uri){
-			this._loadNewSound();
+			this._loadNewPlaybackInstance(true);
 		}
 	}
 	componentWillUnmount() {
@@ -70,12 +69,11 @@ export default class AudioPlayer extends PureComponent {
 	}
 	
 	
-    async _loadNewSound() {
-		const source = this.props.uri;
-		await this.playbackInstance.unloadAsync();
-		await this.playbackInstance.loadAsync(source);
-		await this.playbackInstance.playAsync();
-		this._updateScreenForLoading(false);
+    async _loadNewPlaybackInstance(playing) {
+	    const source = this.props.uri;
+	    await this.playbackInstance.loadAsync(source);
+
+	    this._updateScreenForLoading(false);
     }
 
     _updateScreenForLoading(isLoading) {

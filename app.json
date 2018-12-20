@@ -25,7 +25,7 @@
       "**/*"
     ],
     "packagerOpts": {
-      "assetExts": ["db"]
+      "assetExts": ["mp3", "png", "jpg"]
     },
     "ios": {
       "supportsTablet": true,
