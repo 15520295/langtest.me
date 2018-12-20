@@ -150,7 +150,7 @@ export default class HomeScreen extends PureComponent {
                             <Button transparent onPress={() => {
                                 this.props.navigation.openDrawer();
                             }}>
-                                <Text>Finish</Text>
+                                <Entypo name='menu' color='#000000' size= {24}/>
                             </Button>
                             :
                             <Button transparent onPress={() => {

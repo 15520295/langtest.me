@@ -40,13 +40,13 @@ export default class ChartScreen extends React.Component {
                             <Button transparent onPress={() => {
                                 this.props.navigation.openDrawer();
                             }}>
-                                <Text>Finish</Text>
+                                <Entypo name='menu' color='#000000' size= {24}/>
                             </Button>
                             :
                             <Button transparent onPress={() => {
                                 this.props.navigation.openDrawer();
                             }}>
-                                <Entypo name='menu' color='#ffffff' size={24}/>
+                                <Entypo name='menu' color='#ffffff' size= {24}/>
                             </Button>
                         }
                     </Left>
