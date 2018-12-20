@@ -54,6 +54,12 @@ export default class AudioPlayer extends PureComponent {
 	
 	componentDidUpdate(prevProps, prevState, snapshot){
 		if(prevProps.uri !== this.props.uri){
+			if (this.playbackInstance != null) {
+				this.playbackInstance.stopAsync();
+				this.playbackInstance.unloadAsync();
+				this.playbackInstance.setOnPlaybackStatusUpdate(null);
+				this.playbackInstance = null;
+			}
 			this._loadNewPlaybackInstance(true);
 		}
 	}
