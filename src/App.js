@@ -70,9 +70,9 @@ const CustomDrawerContentComponent = (props) => (
             justifyContent: 'center'
         }}>
             <TouchableOpacity style={{height: 120, width: 120, }}
-                              // onPress={()=> navigate('Profile')}
+                              // onPress={()=> this.props.navigation.navigate('Profile')}
             >
-                <Image source={require('../assets/images/logo.jpg')}
+                <Image source={require('../assets/splash.png')}
                        style={{height: 120, width: 120, borderRadius: 60}}
                 />
             </TouchableOpacity>

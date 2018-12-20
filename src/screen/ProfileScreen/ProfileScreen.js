@@ -65,6 +65,7 @@ export default class ProfileScreen extends React.Component {
     _saveProfile = () => {
         DataHelper._initUserProfile(this.state.name, this.state.avatar, this.state.place, this.state.phone);
         DataHelper._saveUserProfileLocal();
+        this.props.navigation.navigate('Home');
     };
 
     static navigationOptions = {
