@@ -72,6 +72,7 @@ export default class AudioPlayer extends PureComponent {
 	
     async _loadNewSound() {
 		const source = this.props.uri;
+		this._updateScreenForLoading(true);
 		await this.playbackInstance.unloadAsync();
 		await this.playbackInstance.loadAsync(source);
 		await this.playbackInstance.playAsync();
