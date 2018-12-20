@@ -29,7 +29,7 @@ import WordScreenStore from '../../store/WordScreenStore';
 import {withNavigation} from 'react-navigation';
 import DataHelper from "../../helper/DataHelper";
 import UtilHelper from "../../helper/UtilHelper";
-import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
+import {AntDesign, MaterialCommunityIcons} from '@expo/vector-icons';
 
 
 class TopicScreen extends React.Component {
@@ -53,7 +53,7 @@ class TopicScreen extends React.Component {
 
         this.setState({
             refresh: !this.state.refresh,
-            topicResult : topicResult,
+            topicResult: topicResult,
             totalAnswer: score.get('totalAnswer'),
             correctAnswer: score.get('correctAnswer')
         });
@@ -64,7 +64,7 @@ class TopicScreen extends React.Component {
 
         const topicResult = this.state.topicResult;
         if (topicResult != null) {
-            result = topicResult.get(item.id)  != null ? topicResult.get(item.id) : 0.0;
+            result = topicResult.get(item.id) != null ? topicResult.get(item.id) : 0.0;
         }
         return result;
     }
@@ -85,18 +85,22 @@ class TopicScreen extends React.Component {
             <Container style={styles.container}>
                 <Header androidStatusBarColor="#0076BF"
                         style={{backgroundColor: Platform.OS === 'android' ? '#019AE8' : '#FFFFFF'}}>
-                   <Left>
-                {Platform.OS === 'ios'
-                ?
-                <Button transparent onPress={()=> {this.props.navigation.navigate('Home')}}>
-                    <Text>Finish</Text>
-                </Button>
-                    :
-                <Button transparent onPress={()=> {this.props.navigation.navigate('Home')}}>
-                    <Icon name = 'nothing' android='md-arrow-back' ios='ios-arrow-back'/>
-                </Button>
-                }
-            </Left>
+                    <Left>
+                        {Platform.OS === 'ios'
+                            ?
+                            <Button transparent onPress={() => {
+                                this.props.navigation.navigate('Home');
+                            }}>
+                                <Text>Finish</Text>
+                            </Button>
+                            :
+                            <Button transparent onPress={() => {
+                                this.props.navigation.navigate('Home');
+                            }}>
+                                <Icon name='nothing' android='md-arrow-back' ios='ios-arrow-back'/>
+                            </Button>
+                        }
+                    </Left>
                     <Body>
                     <Title>Topic Screen</Title>
                     </Body>
@@ -107,8 +111,8 @@ class TopicScreen extends React.Component {
                 <Content
                     contentContainerStyle={{flexGrow: 1}}>
                     <UserScore
-                        totalAnswer = {this.state.totalAnswer != null ? this.state.totalAnswer : 0}
-                        correctAnswer = {this.state.correctAnswer != null ? this.state.correctAnswer : 0}
+                        totalAnswer={this.state.totalAnswer != null ? this.state.totalAnswer : 0}
+                        correctAnswer={this.state.correctAnswer != null ? this.state.correctAnswer : 0}
                     />
                     <View style={{
                         flex: 1,
