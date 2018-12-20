@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, ScrollView, Platform} from 'react-native';
+import {StyleSheet, View, ScrollView, Platform, Text} from 'react-native';
 import {
     VictoryBar,
     VictoryChart,
@@ -8,9 +8,9 @@ import {
     VictoryPolarAxis,
 } from 'victory-native';
 
-import {Button, Header, Content, Left, Container, Icon} from 'native-base';
+import {Button, Header, Content, Left, Container, Icon, Right} from 'native-base';
 
-import { AntDesign, MaterialCommunityIcons, } from '@expo/vector-icons';
+import {AntDesign, Entypo, MaterialCommunityIcons,} from '@expo/vector-icons';
 
 const data = [
     {quarter: 1, earnings: 13000},
@@ -24,18 +24,35 @@ export default class ChartScreen extends React.Component {
     static navigationOptions = {
         header: null, // !!! Hide Header
         drawerIcon: ({tintColor}) => (
-            <MaterialCommunityIcons name='chart-arc' color={tintColor} size= {24}/>
+            <MaterialCommunityIcons name='chart-arc' color={tintColor} size={24}/>
         )
-       
+
     };
 
     render() {
         return (
             <Container>
-                <Header>
+                <Header androidStatusBarColor="#0076BF"
+                        style={{backgroundColor: Platform.OS === 'android' ? '#019AE8' : '#FFFFFF'}}>
                     <Left>
-                        <Icon name="ios-menu" onPress={()=>this.props.navigation.openDrawer()} />
+                        {Platform.OS === 'ios'
+                            ?
+                            <Button transparent onPress={() => {
+                                this.props.navigation.openDrawer();
+                            }}>
+                                <Text>Finish</Text>
+                            </Button>
+                            :
+                            <Button transparent onPress={() => {
+                                this.props.navigation.openDrawer();
+                            }}>
+                                <Entypo name='menu' color='#ffffff' size={24}/>
+                            </Button>
+                        }
                     </Left>
+                    <Right>
+
+                    </Right>
                 </Header>
                 <View style={styles.container}>
                     <ScrollView
@@ -95,26 +112,26 @@ export default class ChartScreen extends React.Component {
                         </VictoryChart>
 
                         {/*<VictoryChart*/}
-                            {/*// domainPadding will add space to each side of VictoryBar to*/}
-                            {/*// prevent it from overlapping the axis*/}
-                            {/*domainPadding={20}*/}
+                        {/*// domainPadding will add space to each side of VictoryBar to*/}
+                        {/*// prevent it from overlapping the axis*/}
+                        {/*domainPadding={20}*/}
                         {/*>*/}
-                            {/*<VictoryAxis*/}
-                                {/*// tickValues specifies both the number of ticks and where*/}
-                                {/*// they are placed on the axis*/}
-                                {/*tickValues={[1, 2, 3, 4]}*/}
-                                {/*tickFormat={['01/11', '02/11', '03/11', '04/11']}*/}
-                            {/*/>*/}
-                            {/*<VictoryAxis*/}
-                                {/*dependentAxis*/}
-                                {/*// tickFormat specifies how ticks should be displayed*/}
-                                {/*tickFormat={(x) => (`${x / 1000}k`)}*/}
-                            {/*/>*/}
-                            {/*<VictoryBar*/}
-                                {/*data={data}*/}
-                                {/*x="quarter"*/}
-                                {/*y="earnings"*/}
-                            {/*/>*/}
+                        {/*<VictoryAxis*/}
+                        {/*// tickValues specifies both the number of ticks and where*/}
+                        {/*// they are placed on the axis*/}
+                        {/*tickValues={[1, 2, 3, 4]}*/}
+                        {/*tickFormat={['01/11', '02/11', '03/11', '04/11']}*/}
+                        {/*/>*/}
+                        {/*<VictoryAxis*/}
+                        {/*dependentAxis*/}
+                        {/*// tickFormat specifies how ticks should be displayed*/}
+                        {/*tickFormat={(x) => (`${x / 1000}k`)}*/}
+                        {/*/>*/}
+                        {/*<VictoryBar*/}
+                        {/*data={data}*/}
+                        {/*x="quarter"*/}
+                        {/*y="earnings"*/}
+                        {/*/>*/}
                         {/*</VictoryChart>*/}
                     </ScrollView>
                 </View>

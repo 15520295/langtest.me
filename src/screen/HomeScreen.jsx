@@ -17,7 +17,7 @@ import {WebBrowser} from 'expo';
 import GridView from 'react-native-super-grid';
 import NavigationBar from 'react-native-navbar';
 
-import {Icon, Button, Header, Content, Left, Container} from 'native-base';
+import {Icon, Button, Header, Content, Left, Container, Body, Title, Right} from 'native-base';
 
 import Carousel from 'react-native-snap-carousel';
 import {Card, CardTitle, CardContent, CardAction, CardButton, CardImage} from 'react-native-cards';
@@ -26,6 +26,7 @@ import CardModal from '../components/CardModal';
 import sharedQuizService from '../services/QuizService';
 import {QuestionType} from '../entity/Question';
 import DataHelper from "../helper/DataHelper";
+import {AntDesign, MaterialCommunityIcons, Entypo} from '@expo/vector-icons';
 
 
 const NumItems = 6;
@@ -124,22 +125,44 @@ export default class HomeScreen extends PureComponent {
     render() {
         // Taken from https://flatuicolors.com/
         const items = [
-            {name: 'Photographs', code: DataHelper._getPercent(1), icon:require('../../assets/icon/i1.png')},
-            {name: 'Response', code: DataHelper._getPercent(2), icon:require('../../assets/icon/i2.png')},
-            {name: 'Conversations', code: DataHelper._getPercent(3), icon:require('../../assets/icon/i3.png')},
-            {name: 'Talks', code: DataHelper._getPercent(4), icon:require('../../assets/icon/i4.png')},
-            {name: 'Incomplete Sentences', code: DataHelper._getPercent(5), icon:require('../../assets/icon/i5.png')},
-            {name: 'Text Completion', code: DataHelper._getPercent(6), icon:require('../../assets/icon/i6.png')},
-            {name: 'Passages', code: DataHelper._getPercent(7), icon:require('../../assets/icon/i7.png')},
+            {name: 'Photographs', code: DataHelper._getPercent(1), icon: require('../../assets/icon/i1.png')},
+            {name: 'Response', code: DataHelper._getPercent(2), icon: require('../../assets/icon/i2.png')},
+            {name: 'Conversations', code: DataHelper._getPercent(3), icon: require('../../assets/icon/i3.png')},
+            {name: 'Talks', code: DataHelper._getPercent(4), icon: require('../../assets/icon/i4.png')},
+            {name: 'Incomplete Sentences', code: DataHelper._getPercent(5), icon: require('../../assets/icon/i5.png')},
+            {name: 'Text Completion', code: DataHelper._getPercent(6), icon: require('../../assets/icon/i6.png')},
+            {name: 'Passages', code: DataHelper._getPercent(7), icon: require('../../assets/icon/i7.png')},
         ];
         const {navigation} = this.props;
         return (
 
             <Container>
-                <Header>
+                {/*<Header>*/}
+                {/*<Left>*/}
+                {/*<Icon name="menu" onPress={() => this.props.navigation.openDrawer()}/>*/}
+                {/*</Left>*/}
+                {/*</Header>*/}
+                <Header androidStatusBarColor="#0076BF"
+                        style={{backgroundColor: Platform.OS === 'android' ? '#019AE8' : '#FFFFFF'}}>
                     <Left>
-                        <Icon name="ios-menu" onPress={() => this.props.navigation.openDrawer()}/>
+                        {Platform.OS === 'ios'
+                            ?
+                            <Button transparent onPress={() => {
+                                this.props.navigation.openDrawer();
+                            }}>
+                                <Text>Finish</Text>
+                            </Button>
+                            :
+                            <Button transparent onPress={() => {
+                                this.props.navigation.openDrawer();
+                            }}>
+                                <Entypo name='menu' color='#ffffff' size= {24}/>
+                            </Button>
+                        }
                     </Left>
+                    <Right>
+
+                    </Right>
                 </Header>
                 <ScrollView style={styles.container}>
 
@@ -336,10 +359,10 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         borderRadius: 10,
         padding: 10,
-        paddingVertical:15,
+        paddingVertical: 15,
         height: 150,
         shadowColor: '#a9a9a9',
-        shadowOffset: { width: 2, height: 4 },
+        shadowOffset: {width: 2, height: 4},
         shadowOpacity: 0.1,
         shadowRadius: 4,
         elevation: 1,
@@ -364,7 +387,7 @@ const styles = StyleSheet.create({
         padding: 10,
         height: 100,
         shadowColor: '#03affd',
-        shadowOffset: { width: 4, height: 6 },
+        shadowOffset: {width: 4, height: 6},
         shadowOpacity: 0.12,
         shadowRadius: 4,
         elevation: 1,
