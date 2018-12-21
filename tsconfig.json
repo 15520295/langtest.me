@@ -15,7 +15,9 @@
         "noUnusedParameters": true,
         "noImplicitReturns": true,
         "skipLibCheck": true,
-        "moduleResolution":"Node"
+        "moduleResolution":"Node",
+        "sourceRoot": "src",
+        "inlineSourceMap": true,
     },
     "filesGlob": [
         "typings/index.d.ts",

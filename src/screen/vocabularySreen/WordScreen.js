@@ -25,7 +25,6 @@ import ActionButton from 'react-native-action-button';
 import wordMap from '../../data/VocabularyList';
 import WordFlatListItem from '../../components/vocabulary/WordFlatListItem';
 import sharedQuizService from '../../services/QuizService';
-import VocabularyTestData from '../../data/VocabularyTestData';
 import {NavigationScreenConfig, withNavigation} from 'react-navigation';
 import {QuestionType} from '../../entity/Question';
 import LocalStoreHelper from '../../helper/LocalStoreHelper';

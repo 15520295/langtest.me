@@ -25,13 +25,17 @@
       "**/*"
     ],
     "packagerOpts": {
-      "assetExts": ["mp3", "png", "jpg"]
+      "assetExts": [
+        "mp3",
+        "png",
+        "jpg"
+      ]
     },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.rabbit.toeicfast"
     },
-    "android":{
+    "android": {
       "package": "com.rabbit.toeicfast"
     },
     "androidStatusBar": {
