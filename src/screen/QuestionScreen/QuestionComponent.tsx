@@ -6,6 +6,7 @@ import { systemWeights } from 'react-native-typography';
 import AnswerButton, { AnswerState } from './AnswerButton';
 import { widthPercentageToDP, heightPercentageToDP } from '../../helper/ratioHelper';
 import ImageZoom from 'react-native-image-pan-zoom';
+import posed from 'react-native-pose';
 
 export interface QuestionComponentProps{
     question: IQuestion,
@@ -19,6 +20,15 @@ interface QuestionComponentState{
 }
 
 const TWO_ROW_MAX_CHARACTER = 10;
+
+const ImageBox = posed.View({
+    normal: {
+        height: heightPercentageToDP(25)
+    },
+    zoomed: {
+        height: heightPercentageToDP(80)
+    }
+});
 
 export default class QuestionComponent extends React.Component<QuestionComponentProps, QuestionComponentState>{
     constructor(prop: QuestionComponentProps){
@@ -137,6 +147,7 @@ export default class QuestionComponent extends React.Component<QuestionComponent
             <View style={styles.container}>
                 {question.imageAsset && 
                 <Card >
+                    <ImageBox pose={this.state.isImageZoom ? 'zoomed' : 'normal'}>
                         <ImageZoom 
                         cropWidth={widthPercentageToDP(100)}
                         cropHeight={this.state.isImageZoom ? heightPercentageToDP(80) : heightPercentageToDP(25)}
@@ -150,6 +161,7 @@ export default class QuestionComponent extends React.Component<QuestionComponent
                                     source={question.imageAsset}
                                     resizeMode='contain'/>
                         </ImageZoom>
+                    </ImageBox>
                 </Card>
                 }
                 <Text adjustsFontSizeToFit minimumFontScale={.5} style={styles.questionText}>	
