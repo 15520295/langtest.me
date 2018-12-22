@@ -15,63 +15,8 @@ import sharedQuizService from '../../services/QuizService';
 import QuestionComponent from './QuestionComponent';
 // import MyProfile from '../../entity/ProfileData';
 import DataHelper from '../../helper/DataHelper';
+import Swiper from 'react-native-swiper';
 
-const BoxAndroid = posed.View({
-    before: {
-        x: widthPercentageToDP(100),
-        y: 0,
-        scale: 0.5,
-        transition: {
-            default: { ease: 'linear', duration: 50 }
-        }
-    },
-    enter: {
-        x: 0,
-        y: 0,
-        scale: 1,
-        transition: {
-            default: { ease: 'linear', duration: 50 }
-        }
-    },
-    exit: {
-        x: -widthPercentageToDP(100),
-        y: 0,
-        scale: 0.5,
-        transition: {
-            default: { ease: 'linear', duration: 50 }
-        }
-    }
-});
-
-const BoxiOS = posed.View({
-    before: {
-        x: 50,
-        y: 0,
-        opacity: 0,
-        scale: 0.7,
-        transition: {
-            default: { ease: 'linear', duration: 200 }
-        }
-    },
-    enter: {
-        x: 0,
-        y: 0,
-        scale: 1,
-        opacity: 1,
-        transition: {
-            default: { ease: 'linear', duration: 200 }
-        }
-    },
-    exit: {
-        x: -50,
-        y: 0,
-        scale: 0.7,
-        opacity: 0,
-        transition: {
-            default: { ease: 'linear', duration: 200 }
-        }
-    }
-});
 
 export interface QuizScreenContainerProps extends NavigationScreenProps<NavigationParams, any>{ 
     quizStore: QuizStore,
@@ -79,31 +24,30 @@ export interface QuizScreenContainerProps extends NavigationScreenProps<Navigati
 }
 
 interface States{
-    answerState: AnswerState[],
+    answerState: AnswerState[][],
     isWaiting: boolean,
-    isAnimation: boolean,
     isLoading: boolean,
-    isNextQuestion: boolean,
     isOver: boolean,
     flashCorrect: boolean,
     flashIncorrect: boolean
 }
 
 export default class QuizScreenContainer extends React.Component<QuizScreenContainerProps, States>{
-    audioPlayer: React.RefObject<AudioPlayer>;
+    _audioPlayer: React.RefObject<AudioPlayer>;
+    _questionDisplay: React.RefObject<Swiper>;
     constructor(props: QuizScreenContainerProps){
         super(props);
         this.state = {
-            answerState: [AnswerState.normal, AnswerState.normal, AnswerState.normal, AnswerState.normal],
+            answerState: null,
             isWaiting: false,
-            isAnimation: false,
             isLoading: true,
-            isNextQuestion: true,
             isOver: false,
             flashCorrect: false,
             flashIncorrect: false
         };
-        this.audioPlayer = React.createRef();
+        this._audioPlayer = React.createRef();
+        this._questionDisplay = React.createRef();
+
     }
 
     async componentDidMount(){
@@ -111,7 +55,7 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
             this.props.navigation.addListener(
                 'willBlur',
                 _ => {
-                    console.log(this.audioPlayer);
+                    console.log(this._audioPlayer);
                     // this.audioPlayer.current._onStopPressed();
                 }
             );
@@ -119,53 +63,43 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
         await this.props.quizStore.init();
         this.setState({
             isLoading: false,
-            answerState: [AnswerState.normal, AnswerState.normal, AnswerState.normal, AnswerState.normal],
+            answerState: this.props.quizStore.state.questionList.map((_, __) => {
+                return [AnswerState.normal, AnswerState.normal, AnswerState.normal, AnswerState.normal];
+            }),
             isWaiting: false,
-            isAnimation: false,
             isOver: false});
     }
 
-    flipAnimation = () => {
-        this.setState({isAnimation: !this.state.isAnimation});
-        
-    }
 
     componentWillUnmount(){
         this.setState({
             isLoading: false,
-            answerState: [AnswerState.normal, AnswerState.normal, AnswerState.normal, AnswerState.normal],
+            answerState: this.props.quizStore.state.questionList.map((_, __) => {
+                return [AnswerState.normal, AnswerState.normal, AnswerState.normal, AnswerState.normal];
+            }),
             isWaiting: false,
-            isAnimation: false,
             isOver: false});
     }
 
 
     nextQuestion = async () => {
-        this.flipAnimation();
         const {quizStore} = this.props;
-        // Wait a bit for disapperance animation
         await this.setState({
             isWaiting: false,
-            isNextQuestion: true
         });
+        let oldIndex = quizStore.state.currentQuestion;
         await quizStore.nextQuestion();
-        await this.setState({
-            answerState: quizStore.getCurrentAnswerState()
-        })
+        this._questionDisplay.current.scrollBy(quizStore.state.currentQuestion - oldIndex, true);
     }
 
     prevQuestion = async () => {
-        this.flipAnimation();
         const {quizStore} = this.props;
-        //Wait a bit for disapperance animation
         await this.setState({
             isWaiting: false,
-            isNextQuestion: false
         });
+        let oldIndex = quizStore.state.currentQuestion;
         await quizStore.prevQuestion();
-        await this.setState({
-            answerState: quizStore.getCurrentAnswerState()
-        })
+        this._questionDisplay.current.scrollBy(quizStore.state.currentQuestion - oldIndex, true);
     }
 
     chooseAnswer = (idAnswer: number) => {
@@ -179,8 +113,10 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
         } else {
             this.setState({flashIncorrect: true});
         }
+        let answerState = this.state.answerState;
+        answerState[this.props.quizStore.state.currentQuestion] = this.props.quizStore.getCurrentAnswerState()
         this.setState({
-            answerState: this.props.quizStore.getCurrentAnswerState()
+            answerState: answerState
         })
         if(this.props.quizStore.isOver()){
             setTimeout(() => {
@@ -214,12 +150,6 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
 
     saveQuizResult = () => {
         const {quizStore} = this.props;
-        // MyProfile.updateTestData(
-        //     sharedQuizService.getMode(),
-        //     quizStore.getTotalQuestionNumber(),
-        //     quizStore.state.currentQuestion,
-        //     quizStore.state.uncorrectedAnswer,
-        //     Math.ceil(quizStore.state.doingTimer / 60000));
 
         DataHelper._updateTestResult(sharedQuizService.getMode(),
             quizStore.getTotalQuestionNumber(),
@@ -256,7 +186,7 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
         const question = this.props.quizStore.getCurrentQuestionInfo();
         if(question.audioAsset){
             return (
-                <AudioPlayer red={this.audioPlayer} uri={question.audioAsset} name={question.id} styles = {{width: widthPercentageToDP(100)}}/>
+                <AudioPlayer red={this._audioPlayer} uri={question.audioAsset} name={question.id} styles = {{width: widthPercentageToDP(100)}}/>
             );
         }
         return null;
@@ -265,54 +195,33 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
     renderQuestion () {
         const {quizStore} = this.props;
         const question = quizStore.getCurrentQuestionInfo();
-        return (
-            <QuestionComponent
-                question={question} 
-                         answerState={this.state.answerState} 
-                         onChooseAnswer={(index) => this.chooseAnswer(index)}
-                         style={{flex: 1 ,width: widthPercentageToDP(84)}}/>
-        );
+        // return (
+        //     <QuestionComponent
+        //         question={question} 
+        //                  answerState={this.state.answerState} 
+        //                  onChooseAnswer={(index) => this.chooseAnswer(index)}
+        //                  style={{flex: 1 ,width: widthPercentageToDP(84)}}/>
+        // );
+        return(
+            <Swiper 
+            ref = {this._questionDisplay}
+            loop = {true}
+            onIndexChanged={(index) => {quizStore.setState({currentQuestion: index})}}>
+            {quizStore.state.questionList.map((question, index) => {
+                return (
+                    <QuestionComponent
+                        key={index}
+                        question={question} 
+                        answerState={this.state.answerState[index]} 
+                        onChooseAnswer={(index) => this.chooseAnswer(index)}
+                        style={{flex: 1}}/>
+                );
+            })}
+          </Swiper>
+        )
     }
 
-    renderAnswerQuestion () {
-        return (
-            <View style={{flex: 1}}>
-                {Platform.OS === 'ios'
-                ?
-                <Transition preEnterPose={this.state.isNextQuestion ? 'before' : 'exit'} 
-                            exitPose={this.state.isNextQuestion ? 'exit' : 'before'} style={{position: 'absolute'}}>
-                {
-                    this.state.isAnimation 
-                    ?
-                    <BoxiOS key='question'>
-                        {this.renderQuestion()}
-                    </BoxiOS>
-                    :
-                    <BoxiOS key='question2'>
-                        {this.renderQuestion()}
-                    </BoxiOS>
-                }
-                </Transition>
-                :
-                <Transition preEnterPose={this.state.isNextQuestion ? 'before' : 'exit'} 
-                exitPose={this.state.isNextQuestion ? 'exit' : 'before'}
-                enterAfterExit={true}>
-                {
-                    this.state.isAnimation 
-                    ?
-                    <BoxAndroid key='question'>
-                        {this.renderQuestion()}
-                    </BoxAndroid>
-                    :
-                    <BoxAndroid key='question2'>
-                        {this.renderQuestion()}
-                    </BoxAndroid>
-                }
-                </Transition>
-                }
-            </View>
-        );
-    }
+
 
     render() {
         if (this.state.isLoading || this.state.isOver){
@@ -357,12 +266,7 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
                                 <Icon name='arrow-forward' style={{color: '#019AE8'}} android="md-arrow-forward" ios="ios-arrow-forward" /> 
                             </TouchableOpacity>
                         </View>
-                        <GestureView onLeftSwipe={()=> {this.prevQuestion()}}
-                            onRightSwipe={() => {this.nextQuestion()}}
-                            style={{flex: 1}}>
-                            {this.renderAnswerQuestion()}
-                        </GestureView> 
-                        
+                        {this.renderQuestion()}
                     </Content>
                     {this.renderAudio()}   
                 </View>

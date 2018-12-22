@@ -15,6 +15,13 @@ export interface Props {
 }
 
 export default class AnswerButton extends React.Component<Props>{
+    shouldComponentUpdate(nextProps : Props, nextState : {}) : boolean{
+        if(this.props.answerState !== nextProps.answerState){
+            return true;
+        }
+        
+        return false;
+    }
     render(){
         let result = null;
 

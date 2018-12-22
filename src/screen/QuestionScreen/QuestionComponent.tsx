@@ -38,18 +38,31 @@ export default class QuestionComponent extends React.Component<QuestionComponent
             isImageZoom: false
         }
     }
-
+    
+    shouldComponentUpdate(nextProps : QuestionComponentProps, nextState : QuestionComponentState) : boolean{
+        //render only when image zoomed and change answer state
+        if(this.state.isImageZoom !== nextState.isImageZoom){
+            return true;
+        }
+        for(let i = 0; i < this.props.answerState.length; i++){
+            if(this.props.answerState[i] != nextProps.answerState[i]){
+                return true;
+            }
+        }
+        return false;
+    }
+    
     toggleImageZoom = () : void => {
         this.setState({
             isImageZoom : !this.state.isImageZoom
         });
     }
 
-    renderAnswerButton(index: number, value: string) {
+    renderAnswerButton(index: number, value: string, half: boolean) {
         const {onChooseAnswer, answerState, style} = this.props;
 
         return (
-            <View key={index} style={[styles.answerButton as ViewStyle, style]}>
+            <View key={index} style={[half ? styles.answerButtonHalf : styles.answerButton as ViewStyle, style]}>
                 <AnswerButton answerState={answerState[index]} 
                     onPress = {() => onChooseAnswer(index)}
                     text={value}/>
@@ -98,45 +111,45 @@ export default class QuestionComponent extends React.Component<QuestionComponent
         switch(question.type){
             case QuestionType.part1:
             return(
-                <View>
+                <View style={{flex: 1, flexDirection: 'column', justifyContent: 'flex-start'}}>
                     <View style={styles.answerContainerTwoRow}>
-                        {this.renderAnswerButton(0, question.answer[0])}
-                        {this.renderAnswerButton(1, question.answer[1])}
+                        {this.renderAnswerButton(0, question.answer[0], true)}
+                        {this.renderAnswerButton(1, question.answer[1], true)}
                     </View>
-
                     <View style={styles.answerContainerTwoRow}>
-                        {this.renderAnswerButton(2, question.answer[2])}
-                        {this.renderAnswerButton(3, question.answer[3])}
+                        {this.renderAnswerButton(2, question.answer[2], true)}
+                        {this.renderAnswerButton(3, question.answer[3], true)}
                     </View>
-                </View>);
+                </View>
+            );
             case QuestionType.part2:
             return(
                 <View style={styles.answerContainer}>
-                    {this.renderAnswerButton(0, question.answer[0])}
-                    {this.renderAnswerButton(1, question.answer[1])}
-                    {this.renderAnswerButton(2, question.answer[2])}
+                    {this.renderAnswerButton(0, question.answer[0], false)}
+                    {this.renderAnswerButton(1, question.answer[1], false)}
+                    {this.renderAnswerButton(2, question.answer[2], false)}
                 </View>);
             default:
                 if(this.shouldRenderTwoRow()){
                     return(
-                    <View>
-                        <View style={styles.answerContainerTwoRow}>
-                            {this.renderAnswerButton(0, question.answer[0])}
-                            {this.renderAnswerButton(1, question.answer[1])}
+                        <View style={{flex: 1, flexDirection: 'column', justifyContent: 'flex-start'}}>
+                            <View style={styles.answerContainerTwoRow}>
+                                {this.renderAnswerButton(0, question.answer[0], true)}
+                                {this.renderAnswerButton(1, question.answer[1], true)}
+                            </View>
+                            <View style={styles.answerContainerTwoRow}>
+                                {this.renderAnswerButton(2, question.answer[2], true)}
+                                {this.renderAnswerButton(3, question.answer[3], true)}
+                            </View>
                         </View>
-
-                        <View style={styles.answerContainerTwoRow}>
-                            {this.renderAnswerButton(2, question.answer[2])}
-                            {this.renderAnswerButton(3, question.answer[3])}
-                        </View>
-                    </View>);
+                    );
                 } else {
                     return(
                         <View style={styles.answerContainer}>
-                            {this.renderAnswerButton(0, question.answer[0])}
-                            {this.renderAnswerButton(1, question.answer[1])}
-                            {this.renderAnswerButton(2, question.answer[2])}
-                            {this.renderAnswerButton(3, question.answer[3])}
+                            {this.renderAnswerButton(0, question.answer[0], false)}
+                            {this.renderAnswerButton(1, question.answer[1], false)}
+                            {this.renderAnswerButton(2, question.answer[2], false)}
+                            {this.renderAnswerButton(3, question.answer[3], false)}
                         </View>);
                 }
         }
@@ -146,18 +159,19 @@ export default class QuestionComponent extends React.Component<QuestionComponent
         return (
             <View style={styles.container}>
                 {question.imageAsset && 
-                <Card >
+                <Card style={{margin: 0}}>
+                {/* TODO: Render zoom icon for the first time */}
                     <ImageBox pose={this.state.isImageZoom ? 'zoomed' : 'normal'}>
                         <ImageZoom 
-                        cropWidth={widthPercentageToDP(100)}
+                        cropWidth={widthPercentageToDP(95)}
                         cropHeight={this.state.isImageZoom ? heightPercentageToDP(80) : heightPercentageToDP(25)}
-                        imageWidth={widthPercentageToDP(100)}
+                        imageWidth={widthPercentageToDP(95)}
                         imageHeight={this.state.isImageZoom ? heightPercentageToDP(80) : heightPercentageToDP(25)}
                         minScale={0.2}
                         enableDoubleClickZoom={false}
                         onDoubleClick={this.toggleImageZoom}
                         style={styles.imageView as ImageStyle}>
-                            <Image style={{width: widthPercentageToDP(100), height: this.state.isImageZoom ? heightPercentageToDP(80) : heightPercentageToDP(25)}}
+                            <Image style={{width: widthPercentageToDP(95), height: this.state.isImageZoom ? heightPercentageToDP(80) : heightPercentageToDP(25)}}
                                     source={question.imageAsset}
                                     resizeMode='contain'/>
                         </ImageZoom>
@@ -195,6 +209,8 @@ const styles = StyleSheet.create({
         marginLeft: widthPercentageToDP(8),
         justifyContent: 'center',
         alignItems: 'stretch',
+        width: widthPercentageToDP(84),
+        maxWidth: widthPercentageToDP(84),
         maxHeight: heightPercentageToDP(15),
         marginBottom: heightPercentageToDP(2),
         ...systemWeights.light
@@ -206,16 +222,24 @@ const styles = StyleSheet.create({
         marginRight: widthPercentageToDP(8),
     },
     answerContainerTwoRow: {
-        flex: 1,
-        width: widthPercentageToDP(84),
-        maxWidth: widthPercentageToDP(84),
         flexDirection: 'row',
+        flexWrap: 'nowrap',
         marginLeft: widthPercentageToDP(8),
         marginRight: widthPercentageToDP(8),
     },
     answerButton: {
         flex: 2,
         marginBottom: heightPercentageToDP(1),
+        width: widthPercentageToDP(84),
+        maxWidth: widthPercentageToDP(84),
+        height: Platform.OS == 'ios' ? heightPercentageToDP(9.3) : heightPercentageToDP(9.3), 
+        maxHeight: Platform.OS == 'ios' ? heightPercentageToDP(9.3) : heightPercentageToDP(9.3), 
+        shadowRadius: 0
+    },
+    answerButtonHalf: {
+        flex: 1,
+        marginBottom: heightPercentageToDP(1),
+        width: widthPercentageToDP(46),
         height: Platform.OS == 'ios' ? heightPercentageToDP(9.3) : heightPercentageToDP(9.3), 
         maxHeight: Platform.OS == 'ios' ? heightPercentageToDP(9.3) : heightPercentageToDP(9.3), 
         shadowRadius: 0

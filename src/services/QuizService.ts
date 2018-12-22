@@ -267,14 +267,9 @@ class QuizService implements IQuizService{
 
     private contain(questionList: IQuestion[], question_id: string) : boolean {
             //Check whether we already have the question in the question List yet !
-            
             for(var i = 0; i < questionList.length; i++) {
-                console.log("Check whether " + questionList[i].id + " equal " + question_id);
                 if (questionList[i].id === question_id) {
-                    console.log("true");
                     return true;
-                } else {
-                    console.log("false");
                 }
             }
             return false;
