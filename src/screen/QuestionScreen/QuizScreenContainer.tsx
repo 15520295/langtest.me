@@ -83,8 +83,10 @@ interface States{
     isWaiting: boolean,
     isAnimation: boolean,
     isLoading: boolean,
-    isNextQuestion: boolean
-    isOver: boolean
+    isNextQuestion: boolean,
+    isOver: boolean,
+    flashCorrect: boolean,
+    flashIncorrect: boolean
 }
 
 export default class QuizScreenContainer extends React.Component<QuizScreenContainerProps, States>{
@@ -97,7 +99,9 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
             isAnimation: false,
             isLoading: true,
             isNextQuestion: true,
-            isOver: false
+            isOver: false,
+            flashCorrect: false,
+            flashIncorrect: false
         };
         this.audioPlayer = React.createRef();
     }
@@ -170,14 +174,28 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
             return;
         }
         this.setState({isWaiting: true});
-        this.props.quizStore.answerQuestion(idAnswer);
+        if(this.props.quizStore.answerQuestion(idAnswer) === true){
+            this.setState({flashCorrect: true});
+        } else {
+            this.setState({flashIncorrect: true});
+        }
         this.setState({
             answerState: this.props.quizStore.getCurrentAnswerState()
         })
         if(this.props.quizStore.isOver()){
-            setTimeout(() => {this.quizOver();}, 500);
+            setTimeout(() => {
+                this.setState({
+                    flashCorrect: false,
+                    flashIncorrect: false
+                });
+                this.quizOver();}, 500);
         } else {
-            setTimeout(() => {this.nextQuestion();}, 500);
+            setTimeout(() => {
+                this.setState({
+                    flashCorrect: false,
+                    flashIncorrect: false
+                });
+                this.nextQuestion();}, 500);
         }
         
     }
@@ -311,12 +329,14 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
                             correctAnswer={quizStore.state.correctedAnswer}
                             uncorrectedAnswer={quizStore.state.uncorrectedAnswer}
                             onFinishButton={this.finishQuiz}
+                            flashCorrect={this.state.flashCorrect}
+                            flashIncorrect={this.state.flashIncorrect}
                     />
                     <Content scrollEnabled={false}>
                         <QuizScreenTimer interval={500} 
                         totalTime={5 * 60 * 1000} 
                         style={styles.timer} 
-                        height={heightPercentageToDP(0.75)} 
+                        height={heightPercentageToDP(0.4)} 
                         width={widthPercentageToDP(100)}
                         color="#019AE8"
                         borderColor="white"

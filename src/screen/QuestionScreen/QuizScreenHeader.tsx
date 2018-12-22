@@ -8,10 +8,49 @@ export interface Props{
     title: String,
     correctAnswer: number,
     uncorrectedAnswer : number,
-    onFinishButton : () => void
+    onFinishButton : () => void,
+    flashCorrect: boolean,
+    flashIncorrect: boolean
 }
 
 export default class QuizScreenHeader extends React.Component<Props>{
+
+    getIconColorSmile() : string {
+        const {flashCorrect} = this.props;
+
+        if(Platform.OS === 'ios'){
+            if(flashCorrect){
+                return '#46C00D';
+            }
+            else
+                return 'black';
+        } else {
+            if(flashCorrect){
+                return '#46C00D';
+            }
+            else
+                return 'white';
+        }
+    }
+
+    getIconColorUnsmile() : string {
+        const {flashIncorrect} = this.props;
+
+        if(Platform.OS === 'ios'){
+            if(flashIncorrect){
+                return '#EF2121';
+            }
+            else
+                return 'black';
+        } else {
+            if(flashIncorrect){
+                return '#EF2121';
+            }
+            else
+                return 'white';
+        }
+    }
+
     render() {
         const {correctAnswer, uncorrectedAnswer, title, onFinishButton} = this.props;
 
@@ -35,11 +74,11 @@ export default class QuizScreenHeader extends React.Component<Props>{
             <Right>
                 <Button transparent>
                     <Title style={{paddingRight: 10, alignContent: 'center'}}>{correctAnswer}</Title>
-                    <AntDesign name='smileo' color={Platform.OS === 'ios' ? 'black' : 'white'} size={widthPercentageToDP(7)}/>
+                    <AntDesign name='smileo' color={this.getIconColorSmile()} size={widthPercentageToDP(7)}/>
                 </Button>
                 <Button transparent>
                     <Title style={{paddingRight: 10, alignContent: 'center'}}>{uncorrectedAnswer}</Title>
-                    <AntDesign name='frowno' color={Platform.OS === 'ios' ? 'black' : 'white'}  size={widthPercentageToDP(7)}/>
+                    <AntDesign name='frowno' color={this.getIconColorUnsmile()}  size={widthPercentageToDP(7)}/>
                 </Button>
             </Right>
         </Header>
