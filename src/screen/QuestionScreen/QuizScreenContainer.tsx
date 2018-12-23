@@ -16,6 +16,8 @@ import QuestionComponent from './QuestionComponent';
 // import MyProfile from '../../entity/ProfileData';
 import DataHelper from '../../helper/DataHelper';
 import Swiper from 'react-native-swiper';
+import Carousel from 'react-native-snap-carousel';
+
 
 
 export interface QuizScreenContainerProps extends NavigationScreenProps<NavigationParams, any>{ 
@@ -34,7 +36,7 @@ interface States{
 
 export default class QuizScreenContainer extends React.Component<QuizScreenContainerProps, States>{
     _audioPlayer: React.RefObject<AudioPlayer>;
-    _questionDisplay: React.RefObject<Swiper>;
+    _questionDisplay: React.RefObject<Carous>;
     constructor(props: QuizScreenContainerProps){
         super(props);
         this.state = {
@@ -89,7 +91,7 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
         });
         let oldIndex = quizStore.state.currentQuestion;
         await quizStore.nextQuestion();
-        this._questionDisplay.current.scrollBy(quizStore.state.currentQuestion - oldIndex, true);
+        // this._questionDisplay.current.scrollBy(quizStore.state.currentQuestion - oldIndex, true);
     }
 
     prevQuestion = async () => {
@@ -99,7 +101,7 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
         });
         let oldIndex = quizStore.state.currentQuestion;
         await quizStore.prevQuestion();
-        this._questionDisplay.current.scrollBy(quizStore.state.currentQuestion - oldIndex, true);
+        // this._questionDisplay.current.scrollBy(quizStore.state.currentQuestion - oldIndex, true);
     }
 
     chooseAnswer = (idAnswer: number) => {
@@ -192,6 +194,17 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
         return null;
     }
 
+    _renderQuestionItem = ({item, index}) => {
+        return (
+            <QuestionComponent
+                        key={index}
+                        question={item} 
+                        answerState={this.state.answerState[index]} 
+                        onChooseAnswer={(index) => this.chooseAnswer(index)}
+                        style={{flex: 1}}/>
+        );
+    }
+
     renderQuestion () {
         const {quizStore} = this.props;
         const question = quizStore.getCurrentQuestionInfo();
@@ -203,21 +216,13 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
         //                  style={{flex: 1 ,width: widthPercentageToDP(84)}}/>
         // );
         return(
-            <Swiper 
-            ref = {this._questionDisplay}
-            loop = {true}
-            onIndexChanged={(index) => {quizStore.setState({currentQuestion: index})}}>
-            {quizStore.state.questionList.map((question, index) => {
-                return (
-                    <QuestionComponent
-                        key={index}
-                        question={question} 
-                        answerState={this.state.answerState[index]} 
-                        onChooseAnswer={(index) => this.chooseAnswer(index)}
-                        style={{flex: 1}}/>
-                );
-            })}
-          </Swiper>
+        <Carousel 
+            data = {quizStore.state.questionList}
+            renderItem = {this._renderQuestionItem}
+            sliderWidth={widthPercentageToDP(100)}
+            itemWidth={widthPercentageToDP(100)}
+            >
+          </Carousel>
         )
     }
 
@@ -253,8 +258,8 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
                         onTick = {(timer) => {quizStore.setTimer(timer)}}
                         onOver = {() => {this.quizOver()}}/>
                         <View style={styles.navigationView}>
-                            <TouchableOpacity onPress={() => {this.prevQuestion();}}>
-                                <Icon name='arrow-back' style={{color: '#019AE8'}} android="md-arrow-back" ios="ios-arrow-back" /> 
+                            <TouchableOpacity  onPress={() => {this.prevQuestion();}}>
+                                <Icon style={[styles.navigationBackButton, {color: '#019AE8'}]} name='arrow-back' android="md-arrow-back" ios="ios-arrow-back" /> 
                             </TouchableOpacity>
                             <View style={{flexDirection: 'row'}}>
                                 <TouchableOpacity>
@@ -263,7 +268,7 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
                                 <Text style={{fontSize: 18}}>/{quizStore.getTotalQuestionNumber()}</Text>
                             </View>
                             <TouchableOpacity onPress={() => {this.nextQuestion();}} >
-                                <Icon name='arrow-forward' style={{color: '#019AE8'}} android="md-arrow-forward" ios="ios-arrow-forward" /> 
+                                <Icon style={[styles.navigationNextButton, {color: '#019AE8'}]}  name='arrow-forward' android="md-arrow-forward" ios="ios-arrow-forward" /> 
                             </TouchableOpacity>
                         </View>
                         {this.renderQuestion()}
@@ -288,8 +293,16 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'space-between',
         flexDirection: 'row',
+        alignItems: 'center',
         marginLeft: widthPercentageToDP(8),
         marginRight: widthPercentageToDP(8),
-        marginTop: heightPercentageToDP(1)
+    },
+    navigationBackButton: {
+        paddingRight: widthPercentageToDP(10),
+        paddingHorizontal: widthPercentageToDP(2)
+    },
+    navigationNextButton: {
+        paddingLeft: widthPercentageToDP(10),
+        paddingHorizontal: widthPercentageToDP(2)
     }
 });
