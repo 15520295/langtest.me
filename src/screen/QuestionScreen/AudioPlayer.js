@@ -267,12 +267,7 @@ export default class AudioPlayer extends PureComponent {
 						<TouchableOpacity
 							style={[styles.buttonsContainerBase, styles.buttonsContainerTopRow]}
 	                        onPress={this._onPlayPausePressed}>
-	                                <MaterialIcons
-	                                    name="pause"
-	                                    size={40}
-	                                    color="#56D5FA"
-	                                />
-	                            {/* {this.state.isPlaying ? (
+	                            {this.state.isPlaying ? (
 	                                <MaterialIcons
 	                                    name="pause"
 	                                    size={40}
@@ -284,7 +279,7 @@ export default class AudioPlayer extends PureComponent {
 	                                    size={40}
 	                                    color="#56D5FA"
 	                                />
-	                            )} */}
+	                            )}
 	                    </TouchableOpacity>
 					<Slider
 							style={styles.playbackSlider}
