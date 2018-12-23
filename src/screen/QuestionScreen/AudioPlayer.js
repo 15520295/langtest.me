@@ -6,11 +6,14 @@ import {
     Text,
     TouchableHighlight,
     View,
+	TouchableOpacity,
 } from 'react-native';
 import Slider from 'react-native-slider';
 import { Asset, Audio, Font } from 'expo';
 import { MaterialIcons } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
+import { heightPercentageToDP } from '../../helper/ratioHelper';
+import { Button } from 'native-base';
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get('window');
 const BACKGROUND_COLOR = '#FFFFFF';
 const DISABLED_OPACITY = 0.5;
@@ -244,8 +247,8 @@ export default class AudioPlayer extends PureComponent {
 
 	render() {
 	    return(
-	        <View style={styles.container}>
-				            <View
+	        <View style={[styles.container, this.props.style]}>
+				{/* <View
 	                style={[
 	                    {
 	                        opacity: this.state.isLoading
@@ -253,37 +256,23 @@ export default class AudioPlayer extends PureComponent {
 	                            : 1.0,
 	                    },
 	                ]}
-	            >
-	                <Slider
-	                    style={styles.playbackSlider}
-	                    value={this._getSeekSliderPosition()}
-	                    onValueChange={this._onSeekSliderValueChange}
-	                    onSlidingComplete={this._onSeekSliderSlidingComplete}
-	                    thumbTintColor="#000000"
-	                    minimumTrackTintColor="#4CCFF9"
-	                    disabled={this.state.isLoading}
-	                />
-	            </View>
-	            <View style={styles.infoContainer}>
-	                <View
-	                    style={[
-	                        styles.buttonsContainerBase,
-	                        styles.buttonsContainerTopRow,
-	                        {
-	                            opacity: this.state.isLoading
-	                                ? DISABLED_OPACITY
-	                                : 1.0,
-	                        },
-	                    ]}
-	                >
-	                    <TouchableHighlight
-	                        underlayColor={BACKGROUND_COLOR}
-	                        style={styles.wrapper}
-	                        onPress={this._onPlayPausePressed}
-	                        disabled={this.state.isLoading}
-	                    >
-	                        <View>
-	                            {this.state.isPlaying ? (
+	            > */}
+				<View style={{flex: 1, 
+								flexDirection: 'row',
+								alignItems: 'center',
+								alignContent: 'center',
+								opacity: this.state.isLoading
+	                            ? DISABLED_OPACITY
+	                            : 1.0,}}>
+						<TouchableOpacity
+							style={[styles.buttonsContainerBase, styles.buttonsContainerTopRow]}
+	                        onPress={this._onPlayPausePressed}>
+	                                <MaterialIcons
+	                                    name="pause"
+	                                    size={40}
+	                                    color="#56D5FA"
+	                                />
+	                            {/* {this.state.isPlaying ? (
 	                                <MaterialIcons
 	                                    name="pause"
 	                                    size={40}
@@ -295,14 +284,23 @@ export default class AudioPlayer extends PureComponent {
 	                                    size={40}
 	                                    color="#56D5FA"
 	                                />
-	                            )}
-	                        </View>
-	                    </TouchableHighlight>
-	                </View>
-	                <View style={styles.detailsContainer}>
-	                    <Text style={[styles.text]}>
-	                        {this.state.playbackInstanceName}
-	                    </Text>
+	                            )} */}
+	                    </TouchableOpacity>
+					<Slider
+							style={styles.playbackSlider}
+							value={this._getSeekSliderPosition()}
+							onValueChange={this._onSeekSliderValueChange}
+							onSlidingComplete={this._onSeekSliderSlidingComplete}
+							thumbTintColor="#000000"
+							minimumTrackTintColor="#4CCFF9"
+							disabled={this.state.isLoading}
+					/>
+	
+
+				</View>
+{/* 
+	            </View> */}
+	            <View style={styles.infoContainer}>
 	                    <Text style={[styles.text]}>
 	                        {this.state.isBuffering ? (
 	                            BUFFERING_STRING
@@ -310,7 +308,9 @@ export default class AudioPlayer extends PureComponent {
 	                            this._getTimestamp()
 	                        )}
 	                    </Text>
-	                </View>
+						<Text style={[styles.textSmall]}>
+	                        {this.state.playbackInstanceName}
+	                    </Text>
 	            </View>
 	        </View>
 	    );
@@ -322,14 +322,16 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         backgroundColor: BACKGROUND_COLOR,
-        maxHeight: 90
     },
     infoContainer: {
         flex: 1,
-        flexDirection: 'row'
+		flexDirection: 'column',
+		alignContent: 'center',
+		justifyContent: 'center',
+		marginTop: -heightPercentageToDP(2)
     },
     detailsContainer: {
-        height: 40,
+        height: heightPercentageToDP(6.25),
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
@@ -340,18 +342,26 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     playbackSlider: {
-        alignSelf: 'stretch',
-        marginLeft: 10,
+		flex: 1,
+        marginLeft: 4,
         marginRight: 10,
     },
     text: {
         fontSize: FONT_SIZE,
         minHeight: FONT_SIZE,
         textAlign: 'center'
+	},
+	textSmall: {
+        fontSize: 10,
+        minHeight: 10,
+		textAlign: 'center',
+		color: '#9f9f9f'
     },
     buttonsContainerBase: {
         flex: 1,
-        flexDirection: 'row',
+		flexDirection: 'row',
+		alignItems: 'center',
+		alignContent: 'center'
     },
     buttonsContainerTopRow: {
         maxHeight: 40,

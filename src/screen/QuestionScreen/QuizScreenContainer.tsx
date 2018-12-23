@@ -88,7 +88,7 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
         let oldIndex = quizStore.state.currentQuestion;
         await quizStore.nextQuestion();
         // this._questionDisplay.current.scrollBy(quizStore.state.currentQuestion - oldIndex, true);
-        this._questionDisplay.snapToItem(quizStore.state.currentQuestion, true, false);
+        this._questionDisplay.current.snapToItem(quizStore.state.currentQuestion, true, false);
     }
 
     prevQuestion = async () => {
@@ -99,7 +99,7 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
         let oldIndex = quizStore.state.currentQuestion;
         await quizStore.prevQuestion();
         // this._questionDisplay.current.scrollBy(quizStore.state.currentQuestion - oldIndex, true);
-        this._questionDisplay.snapToItem(quizStore.state.currentQuestion, true, false);
+        this._questionDisplay.current.snapToItem(quizStore.state.currentQuestion, true, false);
     }
 
     chooseAnswer = (idAnswer: number) => {
@@ -186,7 +186,11 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
         const question = this.props.quizStore.getCurrentQuestionInfo();
         if (question.audioAsset) {
             return (
-                <AudioPlayer red={this._audioPlayer} uri={question.audioAsset} name={question.id} styles = {{width: widthPercentageToDP(100)}}/>
+                     <AudioPlayer 
+                        ref={this._audioPlayer} 
+                        uri={question.audioAsset} 
+                        name={question.id}
+                        style={{width: widthPercentageToDP(100), alignSelf : 'flex-end', maxHeight: heightPercentageToDP(10)}}/>
             );
         }
         return undefined;
@@ -198,8 +202,7 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
                         key={index}
                         question={item}
                         answerState={this.state.answerState[index]}
-                        onChooseAnswer={(answerIndex) => this.chooseAnswer(answerIndex)}
-                        style={{flex: 1}}/>
+                        onChooseAnswer={(answerIndex) => this.chooseAnswer(answerIndex)}/>
         );
     }
 
@@ -214,17 +217,18 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
         //                  style={{flex: 1 ,width: widthPercentageToDP(84)}}/>
         // );
         return(
-        <Carousel
-            data = {quizStore.state.questionList}
-            renderItem = {this._renderQuestionItem}
-            sliderWidth={widthPercentageToDP(100)}
-            itemWidth={widthPercentageToDP(100)}
-            onSnapToItem = {(slideIndex) => {
-                quizStore.setState({currentQuestion: slideIndex});
-            }}
-            ref = {this._questionDisplay}
-            >
-          </Carousel>
+            <Carousel
+                data = {quizStore.state.questionList}
+                renderItem = {this._renderQuestionItem}
+                sliderWidth={widthPercentageToDP(100)}
+                sliderHeight={heightPercentageToDP(100)}
+                itemWidth={widthPercentageToDP(100)}
+                onSnapToItem = {(slideIndex) => {
+                    quizStore.setState({currentQuestion: slideIndex});
+                }}
+                ref = {this._questionDisplay}
+                style = {{flex: 1}}>
+            </Carousel>
         );
     }
 
@@ -246,7 +250,7 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
                             flashCorrect={this.state.flashCorrect}
                             flashIncorrect={this.state.flashIncorrect}
                     />
-                    <Content scrollEnabled={false}>
+                    <Content style={{flex: 1, flexDirection: 'column'}} scrollEnabled={false}>
                         <QuizScreenTimer interval={500}
                         totalTime={5 * 60 * 1000}
                         style={styles.timer}
@@ -290,7 +294,7 @@ const styles = StyleSheet.create({
         marginTop: heightPercentageToDP(0)
     },
     navigationView: {
-        flex: 1,
+        flex: 5,
         justifyContent: 'space-between',
         flexDirection: 'row',
         alignItems: 'center',

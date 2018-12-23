@@ -155,9 +155,9 @@ export default class QuestionComponent extends React.Component<QuestionComponent
         }
     }
     render() {
-        const {question} = this.props;  
+        const {question, style} = this.props;  
         return (
-            <View style={styles.container}>
+            <View style={[styles.container, style]}>
                 {question.imageAsset && 
                 <Card style={{margin: 0}}>
                 {/* TODO: Render zoom icon for the first time */}
