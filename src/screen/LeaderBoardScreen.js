@@ -10,7 +10,7 @@ import IProfile from '../entity/Profile';
 import DataHelper from '../helper/DataHelper';
 import UtilHelper from '../helper/UtilHelper';
 import {AppLoading} from 'expo';
-import {NetInfo, Platform} from 'react-native';
+import {NetInfo, Platform, TouchableOpacity} from 'react-native';
 import * as Progress from 'react-native-progress';
 import { AntDesign, MaterialCommunityIcons, FontAwesome, Entypo } from '@expo/vector-icons';
 
@@ -104,9 +104,9 @@ export default class LeaderBoardScreen extends React.Component {
 
         return (
             <Container>
-                {/* <View style={{height: Platform.OS === 'android' ? 0 : Expo.Constants.statusBarHeight}}/>
-                 */}
-                 <Header androidStatusBarColor="#0076BF" style={{backgroundColor: Platform.OS ==='android' ? '#019AE8' : '#019AE8'}}>
+                <View style={{height: Platform.OS === 'android' ? 0 : Expo.Constants.statusBarHeight}}/>
+                
+                 {/* <Header androidStatusBarColor="#0076BF" style={{backgroundColor: Platform.OS ==='android' ? '#019AE8' : '#019AE8'}}>
                 <Left>
                     <Button transparent onPress={() => {
                                 this.props.navigation.openDrawer();
@@ -115,13 +115,20 @@ export default class LeaderBoardScreen extends React.Component {
                     </Button>
                 </Left>
                 <Body>
-                    {/* <Title style={{color: '#ffffff'}}>Leaderboard</Title> */}
+                    <Title style={{color: '#ffffff'}}>Leaderboard</Title>
                 </Body>
                 <Right>
 
                 </Right>
-            </Header>
+            </Header> */}
                 <Content style={{flex: 1, backgroundColor: '#F6F6F6'}}>
+                <View style={{flex: 1, backgroundColor: '#019AE8', height: heightPercentageToDP(5), alignItems: 'center', justifyContent: 'center'}}>
+                    <Button style={{marginLeft: 5}} transparent onPress={() => {
+                                this.props.navigation.openDrawer();
+                            }}>
+                                <Entypo name='menu' color='#ffffff' size= {24}/>
+                    </Button>
+                </View>
                     <MyProfileComponent
                         style={{flex: 1, height: heightPercentageToDP(22), maxHeight: heightPercentageToDP(25)}}
                         profile={this.state.myProfile}/>
