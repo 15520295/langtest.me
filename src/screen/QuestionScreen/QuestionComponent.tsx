@@ -24,13 +24,13 @@ const TWO_ROW_MAX_CHARACTER = 10;
 
 const ImageBox = posed.View({
     normal: {
-        scale: 0.3,
+        height: heightPercentageToDP(25),
         transition: {
             default: { ease: 'linear', duration: 500 }
         }
     },
     zoomed: {
-        scale: 1,
+        height: heightPercentageToDP(80),
         transition: {
             default: { ease: 'linear', duration: 500 }
         }
@@ -225,21 +225,23 @@ const styles = StyleSheet.create({
         shadowRadius: 1.5,
         flex: 1,
         marginTop: heightPercentageToDP(2),
-        marginBottom: heightPercentageToDP(2),
         justifyContent: 'center',
         alignItems: 'stretch',
     },
     questionText: {
         color: '#4F4F4F',
-        fontSize: Platform.OS == 'ios' ? 20 : 18,
-        marginLeft: widthPercentageToDP(8),
+        fontSize: Platform.OS == 'ios' ? 16 : 16,
+        marginLeft: widthPercentageToDP(10),
+        marginRight: widthPercentageToDP(10),
         justifyContent: 'center',
         alignItems: 'stretch',
-        width: widthPercentageToDP(84),
-        maxWidth: widthPercentageToDP(84),
+        textAlign: 'left',
+        textAlignVertical: 'center',
+        maxWidth: widthPercentageToDP(80),
         maxHeight: heightPercentageToDP(15),
+        marginTop: heightPercentageToDP(2),
         marginBottom: heightPercentageToDP(2),
-        ...systemWeights.light
+        ...systemWeights.regular
     },
     answerContainer: {
         flex: 1,

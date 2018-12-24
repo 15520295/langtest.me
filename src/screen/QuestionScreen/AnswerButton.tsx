@@ -34,7 +34,7 @@ export default class AnswerButton extends React.Component<Props>{
             result = (
                 <Button light style={stylesCorrect.answerButton as ViewStyle} onPress={this.props.onPress}>
                     <View style={stylesCorrect.answerCircle}>
-                        <Ionicons  name="md-checkmark" size={widthPercentageToDP(5)}  color="white" />
+                        <Ionicons  name="md-checkmark" size={widthPercentageToDP(4)}  color="white" />
                     </View>
                     <Text uppercase={false} allowFontScaling={true} style={stylesCorrect.answerText}>{this.props.text}</Text>
                 </Button>);
@@ -44,7 +44,7 @@ export default class AnswerButton extends React.Component<Props>{
             result =  (            
                 <Button style={stylesIncorrect.answerButton as ViewStyle}  light onPress={this.props.onPress}>
                     <View style={stylesIncorrect.answerCircle}>
-                        <FontAwesome name="remove" size={widthPercentageToDP(5)} color="white" />    
+                        <FontAwesome name="remove" size={widthPercentageToDP(4)} color="white" />    
                     </View>
                     <Text uppercase={false} allowFontScaling={true} style={stylesIncorrect.answerText}>{this.props.text}</Text>
                 </Button>);
@@ -77,7 +77,7 @@ const stylesNormal = StyleSheet.create({
         ...systemWeights.light
     },
     answerCircle: {
-        height: '70%',
+        height: '60%',
         borderRadius: 25,
         aspectRatio: 1,
         marginTop: 10,
@@ -104,7 +104,7 @@ const stylesCorrect = StyleSheet.create({
         ...systemWeights.regular
     },
     answerCircle: {
-        height: '70%',
+        height: '60%',
         borderRadius: 25,
         aspectRatio: 1,
         marginTop: 10,
@@ -135,7 +135,7 @@ const stylesIncorrect = StyleSheet.create({
         ...systemWeights.regular
     },
     answerCircle: {
-        height: '70%',
+        height: '60%',
         borderRadius: 25,
         aspectRatio: 1,
         marginTop: 10,

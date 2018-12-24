@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Container, Content, Text, View, Button, Header} from 'native-base';
+import {Container, Content, Text, View, Button, Header, Right, Left, Title, Body} from 'native-base';
 import * as Expo from 'expo';
 import MyProfileComponent from '../components/leaderBoardScreen/MyProfile';
 import sharedLeaderBoardService from '../services/LoaderBoardService';
@@ -12,7 +12,7 @@ import UtilHelper from '../helper/UtilHelper';
 import {AppLoading} from 'expo';
 import {NetInfo, Platform} from 'react-native';
 import * as Progress from 'react-native-progress';
-import { AntDesign, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
+import { AntDesign, MaterialCommunityIcons, FontAwesome, Entypo } from '@expo/vector-icons';
 
 
 export default class LeaderBoardScreen extends React.Component {
@@ -104,7 +104,23 @@ export default class LeaderBoardScreen extends React.Component {
 
         return (
             <Container>
-                <View style={{height: Platform.OS === 'android' ? 0 : Expo.Constants.statusBarHeight}}/>
+                {/* <View style={{height: Platform.OS === 'android' ? 0 : Expo.Constants.statusBarHeight}}/>
+                 */}
+                 <Header androidStatusBarColor="#0076BF" style={{backgroundColor: Platform.OS ==='android' ? '#019AE8' : '#019AE8'}}>
+                <Left>
+                    <Button transparent onPress={() => {
+                                this.props.navigation.openDrawer();
+                            }}>
+                                <Entypo name='menu' color='#ffffff' size= {24}/>
+                    </Button>
+                </Left>
+                <Body>
+                    {/* <Title style={{color: '#ffffff'}}>Leaderboard</Title> */}
+                </Body>
+                <Right>
+
+                </Right>
+            </Header>
                 <Content style={{flex: 1, backgroundColor: '#F6F6F6'}}>
                     <MyProfileComponent
                         style={{flex: 1, height: heightPercentageToDP(22), maxHeight: heightPercentageToDP(25)}}
