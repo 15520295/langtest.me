@@ -85,10 +85,12 @@ export default class QuestionComponent extends React.Component<QuestionComponent
     }
 
     renderAnswerButton(index: number, value: string, half: boolean) {
-        const {onChooseAnswer, answerState, style} = this.props;
+        const {onChooseAnswer, answerState, question} = this.props;
 
         return (
-            <View key={index} style={[half ? styles.answerButtonHalf : styles.answerButton as ViewStyle, style]}>
+            <View key={index} 
+                style={[half ? styles.answerButtonHalf : styles.answerButton, 
+                question.audioAsset && question.imageAsset && {height: heightPercentageToDP(8)}]}>
                 <AnswerButton answerState={answerState[index]} 
                     onPress = {() => onChooseAnswer(index)}
                     text={value}/>
@@ -204,7 +206,7 @@ export default class QuestionComponent extends React.Component<QuestionComponent
                     </ImageBox>
                 </Card>
                 }
-                <Text adjustsFontSizeToFit minimumFontScale={.5} style={styles.questionText}>	
+                <Text adjustsFontSizeToFit minimumFontScale={.3} style={styles.questionText}>	
                         {this.renderQuestion()}
                 </Text>
                 {this.renderAnswer()}

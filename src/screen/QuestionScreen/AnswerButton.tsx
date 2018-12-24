@@ -74,7 +74,9 @@ const stylesNormal = StyleSheet.create({
         color: '#4F4F4F',
         fontSize: 14,
         flex: 1,
-        ...systemWeights.light
+        ...systemWeights.light,
+        paddingLeft: 10,
+        paddingRight: 10
     },
     answerCircle: {
         height: '60%',
@@ -101,7 +103,9 @@ const stylesCorrect = StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 14,
         flex: 1,
-        ...systemWeights.regular
+        ...systemWeights.light,
+        paddingLeft: 10,
+        paddingRight: 10
     },
     answerCircle: {
         height: '60%',
@@ -132,7 +136,9 @@ const stylesIncorrect = StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 14,
         flex: 1,
-        ...systemWeights.regular
+        ...systemWeights.light,
+        paddingLeft: 10,
+        paddingRight: 10
     },
     answerCircle: {
         height: '60%',
