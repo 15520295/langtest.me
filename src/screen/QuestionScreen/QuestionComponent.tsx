@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {View, Text, Card} from 'native-base';
-import {StyleSheet, ViewStyle, Image, ImageStyle, Platform} from "react-native";
+import {StyleSheet, ViewStyle, Image, ImageStyle, Platform, Animated} from "react-native";
 import IQuestion, { QuestionType } from '../../entity/Question';
 import { systemWeights } from 'react-native-typography';
 import AnswerButton, { AnswerState } from './AnswerButton';
@@ -16,17 +16,24 @@ export interface QuestionComponentProps{
 }
 
 interface QuestionComponentState{
-    isImageZoom: boolean
+    isImageZoom: boolean,
+    imageHeight: Animated.AnimatedValue
 }
 
 const TWO_ROW_MAX_CHARACTER = 10;
 
 const ImageBox = posed.View({
     normal: {
-        height: heightPercentageToDP(25)
+        scale: 0.3,
+        transition: {
+            default: { ease: 'linear', duration: 500 }
+        }
     },
     zoomed: {
-        height: heightPercentageToDP(80)
+        scale: 1,
+        transition: {
+            default: { ease: 'linear', duration: 500 }
+        }
     }
 });
 
@@ -35,7 +42,8 @@ export default class QuestionComponent extends React.Component<QuestionComponent
         super(prop);
 
         this.state = {
-            isImageZoom: false
+            isImageZoom: false,
+            imageHeight: new Animated.Value(heightPercentageToDP(25))
         }
     }
     
@@ -49,10 +57,28 @@ export default class QuestionComponent extends React.Component<QuestionComponent
                 return true;
             }
         }
-        return false;
+        return true;
     }
     
     toggleImageZoom = () : void => {
+        if(this.state.isImageZoom){
+            Animated.timing(                            // Animate over time
+                this.state.imageHeight,                      // The animated value to drive
+                {
+                  toValue: heightPercentageToDP(25),  
+                  duration: 500                       
+                }
+              ).start();   
+        } else {
+            Animated.timing(                            // Animate over time
+                this.state.imageHeight,                      // The animated value to drive
+                {
+                  toValue: heightPercentageToDP(80),  
+                  duration: 500                       
+                }
+              ).start(); 
+        }
+
         this.setState({
             isImageZoom : !this.state.isImageZoom
         });
@@ -161,7 +187,7 @@ export default class QuestionComponent extends React.Component<QuestionComponent
                 {question.imageAsset && 
                 <Card style={{margin: 0}}>
                 {/* TODO: Render zoom icon for the first time */}
-                    <ImageBox pose={this.state.isImageZoom ? 'zoomed' : 'normal'}>
+                    <ImageBox pose={this.state.isImageZoom ? 'zoomed' : 'normal'} style={{height: heightPercentageToDP(80),}}>
                         <ImageZoom 
                         cropWidth={widthPercentageToDP(95)}
                         cropHeight={this.state.isImageZoom ? heightPercentageToDP(80) : heightPercentageToDP(25)}
@@ -171,7 +197,7 @@ export default class QuestionComponent extends React.Component<QuestionComponent
                         enableDoubleClickZoom={false}
                         onDoubleClick={this.toggleImageZoom}
                         style={styles.imageView as ImageStyle}>
-                            <Image style={{width: widthPercentageToDP(95), height: this.state.isImageZoom ? heightPercentageToDP(80) : heightPercentageToDP(25)}}
+                            <Animated.Image style={{width: widthPercentageToDP(95), height: this.state.imageHeight}}
                                     source={question.imageAsset}
                                     resizeMode='contain'/>
                         </ImageZoom>
