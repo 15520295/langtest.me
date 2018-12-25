@@ -8,15 +8,8 @@ import { systemWeights } from 'react-native-typography';
 import { getNumberWithOrdinal } from '../../helper/numberHelper';
 import DataHelper from '../../helper/DataHelper';
 
-export interface PeopleProfileComponentProps{
-    profile: Map<string, any>,
-    style?: ViewStyle
-}
-interface State{
-    avatarRequire:number
-}
-export default class PeopleProfileComponent extends React.Component<PeopleProfileComponentProps, State>{
-    constructor(props: PeopleProfileComponentProps){
+export default class PeopleProfileComponent extends React.Component{
+    constructor(props){
         super(props);
         this.state = {
             avatarRequire: DataHelper._getUserAvatar(this.props.profile.get('avatar'))
@@ -30,10 +23,11 @@ export default class PeopleProfileComponent extends React.Component<PeopleProfil
                 <View style={{flex: 3, flexDirection: 'row', justifyContent: 'flex-start'}}>
                     {/* avatar */}
                     <View style={{flex: 1.5, flexDirection: 'row', alignItems:'center', justifyContent: 'center'}}>
+                    {/* TODO: uncomment
                         <Image 
                         source={this.state.avatarRequire}
                         style={{width:widthPercentageToDP(15), height: widthPercentageToDP(15), borderRadius: widthPercentageToDP(15) / 2}}
-                        resizeMode='center'/>
+                        resizeMode='center'/> */}
                     </View>
                     {/* Time, time spend */}
                     <View style={{flex: 5, flexDirection: 'column', justifyContent: 'center'}}>

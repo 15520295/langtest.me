@@ -33,6 +33,6 @@
         "no-unused-labels":[
             "off"
         ],
-        "no-use-before-define": ["error", { "variables": false }]
+        "no-use-before-define": ["error", { "variables": false }],
     }
 }

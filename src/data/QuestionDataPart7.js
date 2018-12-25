@@ -1,6 +1,6 @@
-import IQuestion, { QuestionType } from "../entity/Question";
+import { QuestionType } from "../entity/Question";
 
-const QuestionDataPart7 : IQuestion[] = [{
+const QuestionDataPart7 = [{
     id: 'p7_1_147',
     type: QuestionType.part7,
     question: 'Where is the notice most likely posted?',

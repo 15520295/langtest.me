@@ -1,6 +1,6 @@
-import IQuestion, { QuestionType } from "../entity/Question";
+import { QuestionType } from "../entity/Question";
 
-const QuestionDataPart3 : IQuestion[] = [{
+const QuestionDataPart3 = [{
     id: 'p3_1_032',
     type: QuestionType.part3,
     question: 'What are the speakers discussing?',

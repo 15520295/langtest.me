@@ -108,7 +108,7 @@ export default class QuizStore extends Container<quizStoreInterface>{
         var answerState: AnswerState[] = [AnswerState.normal, AnswerState.normal, AnswerState.normal, AnswerState.normal]
         var question: IQuestion = this.getCurrentQuestionInfo();
         if(this.isCurrentQuestionAnswered()){
-            answerState[this.state.selectedAnswer.get(question.id)] = AnswerState.uncorrected;
+            answerState[this.state.selectedAnswer.get(question.id) as number] = AnswerState.uncorrected;
             answerState[question.correctAnswer] = AnswerState.corrected;
         }
 

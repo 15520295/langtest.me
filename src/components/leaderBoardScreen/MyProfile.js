@@ -1,22 +1,17 @@
 import * as React from 'react';
 import {View, Text, Row} from 'native-base';
 import IProfile from '../../entity/Profile';
-import {Image, ViewStyle, Platform} from 'react-native';
+import {Image, ViewStyle, Platform, PlatformIOSStatic} from 'react-native';
 import {widthPercentageToDP} from '../../helper/ratioHelper';
 import {AntDesign} from '@expo/vector-icons';
 import {systemWeights} from 'react-native-typography';
 import {getNumberWithOrdinal} from '../../helper/numberHelper';
 import DataHelper from '../../helper/DataHelper';
 
-export interface MyProfileComponentProps {
-    profile: Map<string, any>,
-    style?: ViewStyle
-}
-interface State{
-    avatarRequire:number
-}
-export default class MyProfileComponent extends React.Component<MyProfileComponentProps,State> {
-    constructor(props: MyProfileComponentProps) {
+
+
+export default class MyProfileComponent extends React.Component {
+    constructor(props) {
         super(props);
         this.state = {
             avatarRequire: DataHelper._getUserAvatar()
@@ -31,10 +26,11 @@ export default class MyProfileComponent extends React.Component<MyProfileCompone
                 <View style={{flex: 3, flexDirection: 'row', justifyContent: 'flex-start'}}>
                     {/* avatar */}
                     <View style={{marginLeft: widthPercentageToDP(3), flex: 2, flexDirection: 'row', alignItems: 'center'}}>
+                        {/* TODO: Uncomment
                         <Image
-                            source={this.state.avatarRequire}
+                            source={uri: this.state.avatarRequire}
                             style={{width: widthPercentageToDP(20), height: widthPercentageToDP(20), borderRadius: widthPercentageToDP(20) / 2}}
-                            resizeMode='center'/>
+                            resizeMode='center'/> */}
                     </View>
                     {/* Time, time spend */}
                     <View style={{flex: 5, flexDirection: 'column', justifyContent: 'center'}}>

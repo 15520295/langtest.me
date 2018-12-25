@@ -1,7 +1,7 @@
-import IQuestion, { QuestionType } from "../entity/Question";
+import { QuestionType } from "../entity/Question";
 
-const QUESTION_PHASE: string = 'Choose the best response'
-const QuestionDataPart2 : IQuestion[] = [{
+const QUESTION_PHASE = 'Choose the best response'
+const QuestionDataPart2 = [{
     id: 'p2_1_007',
     type: QuestionType.part2,
     question: QUESTION_PHASE,

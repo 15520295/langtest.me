@@ -3,6 +3,7 @@
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "scripts": {
+    "web": "react-app-rewired start",
     "start": "rimraf node_modules/.bin/expo* && expo start",
     "android": "rimraf node_modules/.bin/expo* && expo start --android",
     "ios": "rimraf node_modules/.bin/expo* && expo start --ios",
@@ -15,9 +16,12 @@
     "babel-plugin-transform-react-jsx-source": "^6.22.0",
     "expo": "^31.0.4",
     "firebase": "^5.7.0",
-    "native-base": "^2.8.1",
+    "native-base": "2.8.2",
+    "native-base-web": "codejamninja/native-base-web#npm",
     "prop-types": "^15.6.2",
     "react": "16.5.0",
+    "react-art": "^16.7.0",
+    "react-dom": "^16.7.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.1.tar.gz",
     "react-native-action-button": "^2.8.5",
     "react-native-cards": "^1.1.4",
@@ -37,7 +41,9 @@
     "react-native-swiper": "^1.5.14",
     "react-native-typography": "^1.4.0",
     "react-native-vector-icons": "^6.1.0",
+    "react-native-web": "^0.9.10",
     "react-navigation": "^3.0.2",
+    "react-scripts": "2.1.1",
     "tslib": "^1.9.3",
     "unstated": "^2.1.1",
     "victory-native": "^31.0.0"
@@ -51,17 +57,23 @@
     "@types/react-native": "^0.57.7",
     "@types/react-navigation": "^2.13.0",
     "@types/react-test-renderer": "^16.0.3",
-    "babel-eslint": "^10.0.1",
     "babel-plugin-module-resolver": "^3.1.1",
+    "babel-preset-expo": "^5.0.0",
     "concurrently": "^4.0.1",
-    "eslint": "^5.7.0",
     "eslint-plugin-json": "^1.2.1",
     "eslint-plugin-react": "^7.11.1",
     "eslint-plugin-react-native": "^3.5.0",
+    "react-app-rewired": "^1.6.2",
     "rimraf": "^2.6.2",
     "ts-jest": "^23.10.4",
     "tslint": "^5.11.0",
     "tslint-eslint-rules": "^5.4.0",
     "typescript": "^3.2.2"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
