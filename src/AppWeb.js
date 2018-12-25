@@ -1,10 +1,10 @@
 import React from "react"
-import {View, Text} from 'native-base'
-import { Platform, Alert } from "react-native";
+import { Platform, Alert, View, Text } from "react-native";
 
 class App extends React.Component {
   render() {
-    // Alert("aswdads", "ASdasdsa");
+    console.log(require('react-native'));
+    Alert.alert("eqwe", "qweqw")
     return (
       <View>
         <Text>Hello from {Platform.OS}</Text>
