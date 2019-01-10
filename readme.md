@@ -23,5 +23,5 @@ I assume you already have a [working expo setup](https://facebook.github.io/reac
 
 * Clone this project
 * `yarn install` or `npm install`
-* Running the project by `yarn watchAndStart`
+* Running the project by `yarn start`
 
