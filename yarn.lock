@@ -5656,6 +5656,20 @@ react-native-cards@^1.1.4:
   dependencies:
     prop-types "^15.5.10"
 
+react-native-drag@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-drag/-/react-native-drag-1.0.2.tgz#a1c6a7b3f93f981824b304b73afe47ef5006090d"
+  integrity sha512-DJyIvFD1MAl0zjGDsbPDofX9EoNtrYa6Wq22j3MxgEm3aJDVKV4BTNBmrxPNS22dTjINGuIzHrrS7hbW0T4lEA==
+  dependencies:
+    prop-types "^15.6.1"
+
+react-native-draggable-holder@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-draggable-holder/-/react-native-draggable-holder-1.0.0.tgz#dee41cc7805a60dd62a5ea8db5f5227f7c15f8c8"
+  integrity sha512-F+HUWqn+zIBcBw4/Je9JiCJ/je67O+8JRUw3SYKmBp4DMgM+QFjXspAyzzTsB2JeLXFUGVSG+WOm2RGLzZJwnA==
+  dependencies:
+    prop-types "^15.6.0"
+
 react-native-drawer@2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/react-native-drawer/-/react-native-drawer-2.5.0.tgz#022cba5c0516126a9fc9cce3185cb46c644b51c4"

@@ -7,7 +7,7 @@ import AnswerButton, { AnswerState } from './AnswerButton';
 import { widthPercentageToDP, heightPercentageToDP } from '../../helper/ratioHelper';
 import ImageZoom from 'react-native-image-pan-zoom';
 import posed from 'react-native-pose';
-
+import {AntDesign, MaterialCommunityIcons, Feather} from '@expo/vector-icons';
 export interface QuestionComponentProps{
     question: IQuestion,
     answerState: AnswerState[],
@@ -187,29 +187,41 @@ export default class QuestionComponent extends React.Component<QuestionComponent
         return (
             <View style={[styles.container, style]}>
                 {question.imageAsset && 
-                <Card style={{margin: 0}}>
+                <Card style={{margin: 0, position: this.state.isImageZoom ? 'absolute' : 'relative'}}>
+                    <View style={{opacity: 0.3, flex:1, flexDirection:"row", justifyContent: "space-between"}}>
+                        <Feather name='arrow-up-left' color='#000000' size= {16}/>
+                        <Feather name='arrow-up-right' color='#000000' size= {16}/>
+                    </View>
                 {/* TODO: Render zoom icon for the first time */}
-                    <ImageBox pose={this.state.isImageZoom ? 'zoomed' : 'normal'} style={{height: heightPercentageToDP(80),}}>
+                    <ImageBox pose={this.state.isImageZoom ? 'zoomed' : 'normal'} style={{height: heightPercentageToDP(80), marginTop: -14, padding: 0}}>
                         <ImageZoom 
-                        cropWidth={widthPercentageToDP(95)}
+                        cropWidth={widthPercentageToDP(100)}
                         cropHeight={this.state.isImageZoom ? heightPercentageToDP(80) : heightPercentageToDP(25)}
-                        imageWidth={widthPercentageToDP(95)}
+                        imageWidth={widthPercentageToDP(100)}
                         imageHeight={this.state.isImageZoom ? heightPercentageToDP(80) : heightPercentageToDP(25)}
                         minScale={0.2}
                         enableDoubleClickZoom={false}
                         onDoubleClick={this.toggleImageZoom}
                         style={styles.imageView as ImageStyle}>
-                            <Animated.Image style={{width: widthPercentageToDP(95), height: this.state.imageHeight}}
+                            <Animated.Image style={{width: widthPercentageToDP(100), height: this.state.imageHeight}}
                                     source={question.imageAsset}
                                     resizeMode='contain'/>
                         </ImageZoom>
+
                     </ImageBox>
+
+                    <View style={{opacity: 0.3, flex:1, flexDirection:"row", justifyContent: "space-between"}}>
+                        <Feather name='arrow-down-left' color='#000000' size= {16}/>
+                        <Feather name='arrow-down-right' color='#000000' size= {16}/>
+                    </View>
                 </Card>
                 }
+                <View style={{opacity: this.state.isImageZoom ? 0.2 : 1}}>
                 <Text adjustsFontSizeToFit minimumFontScale={.3} style={styles.questionText}>	
                         {this.renderQuestion()}
                 </Text>
                 {this.renderAnswer()}
+                </View>
             </View>
         );
     }

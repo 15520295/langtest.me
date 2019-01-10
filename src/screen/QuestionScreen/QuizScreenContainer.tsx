@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Icon, View, Text, Content} from 'native-base';
-import {StyleSheet, TouchableOpacity, Alert, Platform} from 'react-native';
+import {StyleSheet, TouchableOpacity, Alert, Platform, Button} from 'react-native';
 import {AppLoading} from 'expo';
 import { AnswerState } from './AnswerButton';
 import posed, { Transition } from 'react-native-pose';
@@ -17,7 +17,14 @@ import QuestionComponent from './QuestionComponent';
 import DataHelper from '../../helper/DataHelper';
 import Swiper from 'react-native-swiper';
 import Carousel from 'react-native-snap-carousel';
-
+import ActionButton from 'react-native-action-button';
+import Draggable from 'react-native-draggable-holder';
+const config = {
+    draggable: true,
+    dragging: { scale: 1.2 },
+    dragEnd: { scale: 1 }
+  };
+const PosedComponent = posed()(config);
 export interface QuizScreenContainerProps extends NavigationScreenProps<NavigationParams, any> {
     quizStore: QuizStore,
     onQuizOver?: (quizStore: QuizStore) => void
@@ -276,8 +283,12 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
                             </TouchableOpacity>
                         </View>
                         {this.renderQuestion()}
+                    <Draggable reverse={false}>
+                        <ActionButton onPress={}/>
+                    </Draggable>
                     </Content>
                     {this.renderAudio()}
+
                 </View>
             </Container>
         );
