@@ -1,6 +1,6 @@
 import React from 'react';
-import { Container, Icon, View, Text, Content} from 'native-base';
-import {StyleSheet, TouchableOpacity, Alert, Platform, Button} from 'react-native';
+import { Container, Icon, View, Text, Content, Button, Fab} from 'native-base';
+import {StyleSheet, TouchableOpacity, Alert, Platform} from 'react-native';
 import {AppLoading} from 'expo';
 import { AnswerState } from './AnswerButton';
 import posed, { Transition } from 'react-native-pose';
@@ -19,6 +19,10 @@ import Swiper from 'react-native-swiper';
 import Carousel from 'react-native-snap-carousel';
 import ActionButton from 'react-native-action-button';
 import Draggable from 'react-native-draggable-holder';
+import Modal from "react-native-modal";
+import Chat from "./Chat";
+import {AntDesign, MaterialCommunityIcons, FontAwesome, Entypo} from '@expo/vector-icons';
+
 const config = {
     draggable: true,
     dragging: { scale: 1.2 },
@@ -36,7 +40,8 @@ interface States {
     isLoading: boolean,
     isOver: boolean,
     flashCorrect: boolean,
-    flashIncorrect: boolean
+    flashIncorrect: boolean,
+    showChat: boolean
 }
 
 export default class QuizScreenContainer extends React.Component<QuizScreenContainerProps, States> {
@@ -50,7 +55,8 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
             isLoading: true,
             isOver: false,
             flashCorrect: false,
-            flashIncorrect: false
+            flashIncorrect: false,
+            showChat: false
         };
         this._audioPlayer = React.createRef();
         this._questionDisplay = React.createRef();
@@ -87,6 +93,11 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
             isOver: false});
     }
 
+    toggleChat = () => {
+        this.setState({
+            showChat: !this.state.showChat
+        })
+    }
     nextQuestion = async () => {
         const {quizStore} = this.props;
         await this.setState({
@@ -257,6 +268,21 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
                             flashCorrect={this.state.flashCorrect}
                             flashIncorrect={this.state.flashIncorrect}
                     />
+                    <Draggable reverse={false}>
+                    <Button onPress={this.toggleChat} 
+                        style={{opacity: this.state.showChat ? 0 : 1, flex: 1, justifyContent: 'center', alignContent: 'center', width: 50, height: 50, borderRadius: 25, backgroundColor: '#019AE8' }}>
+                        <Entypo name="help" color="white" size={16}/>
+                    </Button>
+                    </Draggable>
+                            <Modal isVisible={this.state.showChat}>
+                            <Chat/>
+                            <Draggable offsetX={300}  reverse={false}>
+                                <Button onPress={this.toggleChat} 
+                                    style={{flex: 1, justifyContent: 'center', alignContent: 'center', width: 50, height: 50, borderRadius: 25, backgroundColor: '#EF2121' }}>
+                                    <FontAwesome name="remove" size={widthPercentageToDP(4)} color="white" />    
+                                </Button>
+                            </Draggable>
+                    </Modal>
                     <Content style={{flex: 1, flexDirection: 'column'}} scrollEnabled={false}>
                         <QuizScreenTimer interval={500}
                         totalTime={5 * 60 * 1000}
@@ -283,9 +309,7 @@ export default class QuizScreenContainer extends React.Component<QuizScreenConta
                             </TouchableOpacity>
                         </View>
                         {this.renderQuestion()}
-                    <Draggable reverse={false}>
-                        <ActionButton onPress={}/>
-                    </Draggable>
+
                     </Content>
                     {this.renderAudio()}
 

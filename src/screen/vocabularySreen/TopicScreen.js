@@ -29,7 +29,7 @@ import WordScreenStore from '../../store/WordScreenStore';
 import {withNavigation} from 'react-navigation';
 import DataHelper from "../../helper/DataHelper";
 import UtilHelper from "../../helper/UtilHelper";
-import {AntDesign, MaterialCommunityIcons} from '@expo/vector-icons';
+import {AntDesign, MaterialCommunityIcons, Entypo} from '@expo/vector-icons';
 
 
 class TopicScreen extends React.Component {
@@ -89,15 +89,15 @@ class TopicScreen extends React.Component {
                         {Platform.OS === 'ios'
                             ?
                             <Button transparent onPress={() => {
-                                this.props.navigation.navigate('Home');
+                                this.props.navigation.openDrawer();
                             }}>
-                                <Text>Finish</Text>
+                                <Entypo name='menu' color='#000000' size= {24}/>
                             </Button>
                             :
                             <Button transparent onPress={() => {
-                                this.props.navigation.navigate('Home');
+                                this.props.navigation.openDrawer();
                             }}>
-                                <Icon name='nothing' android='md-arrow-back' ios='ios-arrow-back'/>
+                                <Entypo name='menu' color='#ffffff' size= {24}/>
                             </Button>
                         }
                     </Left>

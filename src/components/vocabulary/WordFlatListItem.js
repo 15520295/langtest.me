@@ -13,7 +13,7 @@ import {
     Icon
 } from 'react-native-elements';
 import FlipCard from './FlipCard';
-
+import Highlighter from 'react-native-highlight-words';
 
 export default class WordFlatListItem extends Component {
     constructor(props) {
@@ -70,9 +70,9 @@ export default class WordFlatListItem extends Component {
                                         onPress={this.playSound}
                                     />
                                 </View>
-                                <View style={styles.vc_exampleTitle}>
+                                {/* <View style={styles.vc_exampleTitle}>
                                     <Text style={styles.txt_exTitle}>Example:</Text>
-                                </View>
+                                </View> */}
                             </View>
                             <View style={styles.vc_topRight}>
                                 <Image style={styles.img}
@@ -82,9 +82,20 @@ export default class WordFlatListItem extends Component {
                             </View>
                         </View>
                         <View style={styles.vc_bottom}>
-                            <Text style={styles.txt_ex}>Example line</Text>
+                        <Highlighter
+                            highlightStyle={{textDecorationLine: 'underline'}}
+                            searchWords={[this.props.item.word]}
+                            textToHighlight={this.props.item.ex}/>
                         </View>
-
+                        <View style={{flexDirection:"row", flex: 1, justifyContent: "flex-end"}}>
+                            <Icon
+                                        name='arrow-forward'
+                                        type='MaterialIcons'
+                                        size={12}
+                                        color='#517fa4'
+                                        onPress={this.playSound}
+                                    />
+                        </View>
                     </Card>
                     {/* Back Side */}
                     <Card>
@@ -111,7 +122,7 @@ const styles = StyleSheet.create({
     },
     cardView: {
         borderRadius: 3,
-        paddingHorizontal: 16,
+        paddingHorizontal: 5,
         paddingVertical: 14
     },
     img: {

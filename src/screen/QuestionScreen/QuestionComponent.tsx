@@ -216,7 +216,7 @@ export default class QuestionComponent extends React.Component<QuestionComponent
                     </View>
                 </Card>
                 }
-                <View style={{opacity: this.state.isImageZoom ? 0.2 : 1}}>
+                <View style={{opacity: this.state.isImageZoom ? 0.4 : 1}}>
                 <Text adjustsFontSizeToFit minimumFontScale={.3} style={styles.questionText}>	
                         {this.renderQuestion()}
                 </Text>

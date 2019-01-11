@@ -125,13 +125,13 @@ const styles = StyleSheet.create({
     },
     txt_correctTitle: {
         fontSize: 19,
-        color: '#49c90e',
+        color: '#46C00D',
         fontFamily:'Roboto_medium',
 
     },
     txt_wrongTitle: {
         fontSize: 19,
-        color: '#FF5252',
+        color: '#EF2121',
         fontFamily:'Roboto_medium',
     },
     txt_separator: {
