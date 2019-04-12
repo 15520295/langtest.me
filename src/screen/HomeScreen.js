@@ -125,13 +125,13 @@ export default class HomeScreen extends PureComponent {
     render() {
         // Taken from https://flatuicolors.com/
         const items = [
-            {name: 'Photographs', code: DataHelper._getPercent(1), icon: require('../../assets/icon/i1.png')},
-            {name: 'Response', code: DataHelper._getPercent(2), icon: require('../../assets/icon/i2.png')},
-            {name: 'Conversations', code: DataHelper._getPercent(3), icon: require('../../assets/icon/i3.png')},
-            {name: 'Talks', code: DataHelper._getPercent(4), icon: require('../../assets/icon/i4.png')},
-            {name: 'Incomplete Sentences', code: DataHelper._getPercent(5), icon: require('../../assets/icon/i5.png')},
-            {name: 'Text Completion', code: DataHelper._getPercent(6), icon: require('../../assets/icon/i6.png')},
-            {name: 'Passages', code: DataHelper._getPercent(7), icon: require('../../assets/icon/i7.png')},
+            {name: 'Step 1', code: DataHelper._getPercent(1), icon: require('../../assets/icon/i1.png')},
+            {name: 'Step 2', code: DataHelper._getPercent(2), icon: require('../../assets/icon/i2.png')},
+            // {name: 'Conversations', code: DataHelper._getPercent(3), icon: require('../../assets/icon/i3.png')},
+            // {name: 'Talks', code: DataHelper._getPercent(4), icon: require('../../assets/icon/i4.png')},
+            // {name: 'Incomplete Sentences', code: DataHelper._getPercent(5), icon: require('../../assets/icon/i5.png')},
+            // {name: 'Text Completion', code: DataHelper._getPercent(6), icon: require('../../assets/icon/i6.png')},
+            // {name: 'Passages', code: DataHelper._getPercent(7), icon: require('../../assets/icon/i7.png')},
         ];
         const {navigation} = this.props;
         return (
@@ -150,13 +150,13 @@ export default class HomeScreen extends PureComponent {
                             <Button transparent onPress={() => {
                                 this.props.navigation.openDrawer();
                             }}>
-                                <Entypo name='menu' color='#000000' size= {24}/>
+                                <Entypo name='menu' color='#000000' size={24}/>
                             </Button>
                             :
                             <Button transparent onPress={() => {
                                 this.props.navigation.openDrawer();
                             }}>
-                                <Entypo name='menu' color='#ffffff' size= {24}/>
+                                <Entypo name='menu' color='#ffffff' size={24}/>
                             </Button>
                         }
                     </Left>
@@ -241,7 +241,7 @@ export default class HomeScreen extends PureComponent {
 
                                 <View
                                     style={{
-                                        flex: 0,
+                                        flex: 1,
                                         flexDirection: 'column',
                                         marginLeft: 10,
                                     }}>
@@ -276,56 +276,69 @@ export default class HomeScreen extends PureComponent {
                                     </View>
                                 </View>
 
-                                <View
-                                    style={{
-                                        flex: 1,
-                                        flexDirection: 'row'
-                                    }}>
-                                    <View
-                                        style={{
-                                            flex: 9,
-                                        }}>
-                                        <TouchableOpacity
-                                            style={{
-                                                alignItems: 'flex-end',
-                                                justifyContent: 'center',
-                                                flex: 1
-                                            }}
-                                            onPress={async () => {
-                                                await sharedQuizService.initQuickTest(30, 3, 5000);
-                                                navigation.navigate('Questions');
-                                            }}>
-                                            <View style={{
-                                                backgroundColor: '#F50057',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                                borderRadius: 30,
-                                                height: 45,
-                                                width: 130,
-                                                position: 'absolute'
-                                            }}
-                                            >
-                                                <Image style={{
-                                                    alignItems: 'center',
-                                                    justifyContent: 'center', borderRadius: 30, height: 45,
-                                                    width: 130,
-                                                }} source={require('../../assets/images/rectangle.jpg')}
-                                                />
-                                                <Text style={{
-                                                    position: 'absolute',
-                                                    color: '#ffffff',
-                                                    fontWeight: 'bold'
-                                                }}>Begin
-                                                    Test</Text>
-                                            </View>
-                                        </TouchableOpacity>
-                                    </View>
-                                    <View
-                                        style={{
-                                            flex: 1,
-                                        }}>
-                                    </View>
+                                <View style={{
+                                    flex: 1,
+                                    alignContent: 'center',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                }}>
+                                    <Image style={{
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                    }} source={require('../../assets/images/cup_icon_48.png')}
+                                    />
                                 </View>
+
+                                {/*<View*/}
+                                {/*    style={{*/}
+                                {/*        flex: 1,*/}
+                                {/*        flexDirection: 'row'*/}
+                                {/*    }}>*/}
+                                {/*    <View*/}
+                                {/*        style={{*/}
+                                {/*            flex: 9,*/}
+                                {/*        }}>*/}
+                                {/*        <TouchableOpacity*/}
+                                {/*            style={{*/}
+                                {/*                alignItems: 'flex-end',*/}
+                                {/*                justifyContent: 'center',*/}
+                                {/*                flex: 1*/}
+                                {/*            }}*/}
+                                {/*            onPress={async () => {*/}
+                                {/*                await sharedQuizService.initQuickTest(30, 3, 5000);*/}
+                                {/*                navigation.navigate('Questions');*/}
+                                {/*            }}>*/}
+                                {/*            <View style={{*/}
+                                {/*                backgroundColor: '#F50057',*/}
+                                {/*                alignItems: 'center',*/}
+                                {/*                justifyContent: 'center',*/}
+                                {/*                borderRadius: 30,*/}
+                                {/*                height: 45,*/}
+                                {/*                width: 130,*/}
+                                {/*                position: 'absolute'*/}
+                                {/*            }}*/}
+                                {/*            >*/}
+                                {/*                <Image style={{*/}
+                                {/*                    alignItems: 'center',*/}
+                                {/*                    justifyContent: 'center', borderRadius: 30, height: 45,*/}
+                                {/*                    width: 130,*/}
+                                {/*                }} source={require('../../assets/images/cup_icon_32.png')}*/}
+                                {/*                />*/}
+                                {/*                /!*<Text style={{*!/*/}
+                                {/*                /!*    position: 'absolute',*!/*/}
+                                {/*                /!*    color: '#ffffff',*!/*/}
+                                {/*                /!*    fontWeight: 'bold'*!/*/}
+                                {/*                /!*}}>Begin*!/*/}
+                                {/*                /!*    Test</Text>*!/*/}
+                                {/*            </View>*/}
+                                {/*        </TouchableOpacity>*/}
+                                {/*    </View>*/}
+                                {/*    <View*/}
+                                {/*        style={{*/}
+                                {/*            flex: 1,*/}
+                                {/*        }}>*/}
+                                {/*    </View>*/}
+                                {/*</View>*/}
                             </View>
                         </View>
                     </View>
