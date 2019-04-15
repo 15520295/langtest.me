@@ -19,16 +19,11 @@ import {
     Platform, FlatList,
     AsyncStorage
 } from 'react-native';
-import TopicFlatList from '../../components/vocabulary/TopicFlatList';
 import UserScore from '../../components/vocabulary/UserScore';
 import flatListData from '../../data/TopicData';
 import TopicFlatListItem from '../../components/vocabulary/TopicFlatListItem';
 import LocalStoreHelper from '../../helper/LocalStoreHelper';
-import {Provider, Subscribe} from 'unstated';
-import WordScreenStore from '../../store/WordScreenStore';
 import {withNavigation} from 'react-navigation';
-import DataHelper from "../../helper/DataHelper";
-import UtilHelper from "../../helper/UtilHelper";
 import {AntDesign, MaterialCommunityIcons, Entypo} from '@expo/vector-icons';
 
 
@@ -90,6 +85,7 @@ class TopicScreen extends React.Component {
                             ?
                             <Button transparent onPress={() => {
                                 this.props.navigation.openDrawer();
+
                             }}>
                                 <Entypo name='menu' color='#000000' size= {24}/>
                             </Button>
@@ -102,7 +98,7 @@ class TopicScreen extends React.Component {
                         }
                     </Left>
                     <Body>
-                    <Title>Topic Screen</Title>
+                        <Title>Topic</Title>
                     </Body>
                     <Right>
 

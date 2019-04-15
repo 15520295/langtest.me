@@ -15,13 +15,15 @@ import {
     Alert,
 } from 'react-native';
 
+import {Body, Container, Header, Left, Right, Title} from 'native-base'
+
 import Button from 'react-native-flat-button';
 import LocalStoreHelper from "../../helper/LocalStoreHelper";
 import DataHelper from "../../helper/DataHelper";
 import UtilHelper from "../../helper/UtilHelper";
 import {AppLoading} from "expo";
 import {AnswerState} from "../QuestionScreen/AnswerButton";
-import { AntDesign, FontAwesome } from '@expo/vector-icons';
+import {AntDesign, Entypo, FontAwesome} from '@expo/vector-icons';
 
 export default class ProfileScreen extends React.Component {
 
@@ -69,9 +71,9 @@ export default class ProfileScreen extends React.Component {
     };
 
     static navigationOptions = {
-        // header: null, // !!! Hide Header
+        header: null, // !!! Hide Header
         drawerIcon: ({tintColor}) => (
-            <FontAwesome name='user' color={tintColor} size= {24}/>
+            <FontAwesome name='user' color={tintColor} size={24}/>
         )
         // title:'Home 1',
         // // header: { visible:false },
@@ -88,12 +90,12 @@ export default class ProfileScreen extends React.Component {
                 <ImageBackground
                     style={styles.headerBackgroundImage}
                     blurRadius={10}
-                    source={require('../../../assets/images/info.jpg')}
+                    source={require('../../../assets/images/profile.jpg')}
                 >
                     <View style={styles.headerColumn}>
                         <Image
                             style={styles.userImage}
-                            source={require('../../../assets/images/info.jpg')}
+                            source={require('../../../assets/images/profile.jpg')}
                         />
                         <Text style={styles.userNameText}>{this.state.name}</Text>
                         <View style={styles.userAddressRow}>
@@ -168,7 +170,6 @@ export default class ProfileScreen extends React.Component {
                         Save
                     </Button>
                 </View>
-
             </View>
         );
     };
@@ -179,13 +180,42 @@ export default class ProfileScreen extends React.Component {
         }
 
         return (
-            <ScrollView style={styles.scroll}>
-                <View style={styles.container}>
-                    <Card containerStyle={styles.cardContainer}>
-                        {this.renderHeader()}
-                    </Card>
-                </View>
-            </ScrollView>
+            <Container>
+                <Header androidStatusBarColor="#0076BF"
+                        style={{backgroundColor: Platform.OS === 'android' ? '#019AE8' : '#FFFFFF'}}>
+                    <Left>
+                        {Platform.OS === 'ios'
+                            ?
+                            <Button transparent onPress={() => {
+                                this.props.navigation.openDrawer();
+
+                            }}>
+                                <Entypo name='menu' color='#000000' size={24}/>
+                            </Button>
+                            :
+                            <Button transparent onPress={() => {
+                                this.props.navigation.openDrawer();
+                            }}>
+                                <Entypo name='menu' color='#ffffff' size={24}/>
+                            </Button>
+                        }
+                    </Left>
+                    <Body>
+                        <Title>Profile</Title>
+                    </Body>
+                    <Right>
+
+                    </Right>
+                </Header>
+                <ScrollView style={styles.scroll}>
+                    <View style={styles.container}>
+                        <Card containerStyle={styles.cardContainer}>
+                            {this.renderHeader()}
+                        </Card>
+                    </View>
+                </ScrollView>
+            </Container>
+
         );
     }
 }

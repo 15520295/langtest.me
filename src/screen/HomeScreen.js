@@ -160,6 +160,9 @@ export default class HomeScreen extends PureComponent {
                             </Button>
                         }
                     </Left>
+                    <Body>
+                        <Title>Home</Title>
+                    </Body>
                     <Right>
 
                     </Right>
@@ -189,7 +192,7 @@ export default class HomeScreen extends PureComponent {
 
                     </ImageBackground>
 
-                    <View style={{flex: 6, backgroundColor: '#e7e7e7'}}>
+                    <View style={{flex: 1, backgroundColor: '#e7e7e7'}}>
                         <ScrollView>
                             <GridView
                                 itemDimension={130}
@@ -208,6 +211,7 @@ export default class HomeScreen extends PureComponent {
                                             style={styles.drawImage}
                                             source={item.icon}
                                         />
+                                        {/*<Image source={item.icon} style={{borderRadius: Platform.OS === 'android' ? 30 : 18}}/>*/}
                                         <Text style={styles.itemName}>{item.name}</Text>
                                         {/*<Text style={styles.itemCode}>{item.code}</Text>*/}
                                         <View
@@ -366,7 +370,8 @@ const styles = StyleSheet.create({
         marginTop: 50,
         flex: 1,
         marginLeft: 15,
-        marginRight: 15
+        marginRight: 15,
+        padding: 10,
     },
     itemContainer: {
         justifyContent: 'space-around',

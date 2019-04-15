@@ -8,7 +8,7 @@ import {
     VictoryPolarAxis,
 } from 'victory-native';
 
-import {Button, Header, Content, Left, Container, Icon, Right} from 'native-base';
+import {Button, Header, Content, Left, Container, Icon, Right, Body, Title} from 'native-base';
 
 import {AntDesign, Entypo, MaterialCommunityIcons,} from '@expo/vector-icons';
 
@@ -39,6 +39,7 @@ export default class ChartScreen extends React.Component {
                             ?
                             <Button transparent onPress={() => {
                                 this.props.navigation.openDrawer();
+
                             }}>
                                 <Entypo name='menu' color='#000000' size= {24}/>
                             </Button>
@@ -50,6 +51,9 @@ export default class ChartScreen extends React.Component {
                             </Button>
                         }
                     </Left>
+                    <Body>
+                        <Title>Chart</Title>
+                    </Body>
                     <Right>
 
                     </Right>

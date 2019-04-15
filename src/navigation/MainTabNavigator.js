@@ -9,6 +9,7 @@ import ResultScreen from '../screen/QuestionScreen/ResultScreen';
 import TopicScreen from '../screen/vocabularySreen/TopicScreen';
 import ChartScreen from '../screen/ChartScreen';
 import WordScreen from '../screen/vocabularySreen/WordScreen';
+import ProfileScreen from "../screen/ProfileScreen/ProfileScreen";
 
 const HomeStack = createStackNavigator({
     Home: HomeScreen,
@@ -79,4 +80,5 @@ export default createBottomTabNavigator({
     QuestionStack,
     TopicStack,
     ChartStack,
+    ProfileScreen,
 });
