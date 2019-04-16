@@ -193,9 +193,9 @@ export default class HomeScreen extends PureComponent {
                     </ImageBackground>
 
                     <View style={{flex: 1, backgroundColor: '#e7e7e7'}}>
-                        <ScrollView>
+                        <ScrollView style={{flex: 1}}>
                             <GridView
-                                itemDimension={130}
+                                itemDimension={180}
                                 items={items}
                                 style={styles.gridView}
                                 renderItem={(item, index) => (
@@ -204,30 +204,16 @@ export default class HomeScreen extends PureComponent {
                                             this._onPressCard(index);
                                         }}
                                         style={[
-                                            styles.itemContainer,
+                                            styles.viewContainer,
                                             {backgroundColor: '#ffffff'}
                                         ]}>
-                                        <Image
-                                            style={styles.drawImage}
-                                            source={item.icon}
-                                        />
-                                        {/*<Image source={item.icon} style={{borderRadius: Platform.OS === 'android' ? 30 : 18}}/>*/}
-                                        <Text style={styles.itemName}>{item.name}</Text>
-                                        {/*<Text style={styles.itemCode}>{item.code}</Text>*/}
-                                        <View
-                                            style={{
-                                                height: 4,
-                                                width: '100%',
-                                                borderRadius: 5
-                                            }}>
-                                            <View style={{
-                                                backgroundColor: '#ebecef', height: 4,
-                                                width: '90%', borderRadius: 5
-                                            }}/>
-                                            <View style={{
-                                                backgroundColor: '#019AE8', height: 4,
-                                                width: item.code, position: 'absolute', borderRadius: 5
-                                            }}/>
+                                        <View style={styles.itemContainer}>
+                                            <Text style={styles.itemName}>{item.name}</Text>
+                                            <Text style={{
+                                                fontSize: 16,
+                                                color: '#5B5B5B',
+                                                fontWeight: '600', fontStyle: 'italic'
+                                            }}>Reading - Listening</Text>
                                         </View>
                                     </TouchableOpacity>
                                 )}
@@ -245,7 +231,7 @@ export default class HomeScreen extends PureComponent {
 
                                 <View
                                     style={{
-                                        flex: 1,
+                                        flex: 0,
                                         flexDirection: 'column',
                                         marginLeft: 10,
                                     }}>
@@ -279,70 +265,6 @@ export default class HomeScreen extends PureComponent {
                                         }}>Time spent: {this.state.totalTimeSpend} min</Text>
                                     </View>
                                 </View>
-
-                                <View style={{
-                                    flex: 1,
-                                    alignContent: 'center',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                }}>
-                                    <Image style={{
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                    }} source={require('../../assets/images/cup_icon_48.png')}
-                                    />
-                                </View>
-
-                                {/*<View*/}
-                                {/*    style={{*/}
-                                {/*        flex: 1,*/}
-                                {/*        flexDirection: 'row'*/}
-                                {/*    }}>*/}
-                                {/*    <View*/}
-                                {/*        style={{*/}
-                                {/*            flex: 9,*/}
-                                {/*        }}>*/}
-                                {/*        <TouchableOpacity*/}
-                                {/*            style={{*/}
-                                {/*                alignItems: 'flex-end',*/}
-                                {/*                justifyContent: 'center',*/}
-                                {/*                flex: 1*/}
-                                {/*            }}*/}
-                                {/*            onPress={async () => {*/}
-                                {/*                await sharedQuizService.initQuickTest(30, 3, 5000);*/}
-                                {/*                navigation.navigate('Questions');*/}
-                                {/*            }}>*/}
-                                {/*            <View style={{*/}
-                                {/*                backgroundColor: '#F50057',*/}
-                                {/*                alignItems: 'center',*/}
-                                {/*                justifyContent: 'center',*/}
-                                {/*                borderRadius: 30,*/}
-                                {/*                height: 45,*/}
-                                {/*                width: 130,*/}
-                                {/*                position: 'absolute'*/}
-                                {/*            }}*/}
-                                {/*            >*/}
-                                {/*                <Image style={{*/}
-                                {/*                    alignItems: 'center',*/}
-                                {/*                    justifyContent: 'center', borderRadius: 30, height: 45,*/}
-                                {/*                    width: 130,*/}
-                                {/*                }} source={require('../../assets/images/cup_icon_32.png')}*/}
-                                {/*                />*/}
-                                {/*                /!*<Text style={{*!/*/}
-                                {/*                /!*    position: 'absolute',*!/*/}
-                                {/*                /!*    color: '#ffffff',*!/*/}
-                                {/*                /!*    fontWeight: 'bold'*!/*/}
-                                {/*                /!*}}>Begin*!/*/}
-                                {/*                /!*    Test</Text>*!/*/}
-                                {/*            </View>*/}
-                                {/*        </TouchableOpacity>*/}
-                                {/*    </View>*/}
-                                {/*    <View*/}
-                                {/*        style={{*/}
-                                {/*            flex: 1,*/}
-                                {/*        }}>*/}
-                                {/*    </View>*/}
-                                {/*</View>*/}
                             </View>
                         </View>
                     </View>
@@ -366,24 +288,30 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         marginTop: 10
     },
+    imageBackgroundOfStep: {
+        borderRadius: 10,
+        height: 150,
+    },
     gridView: {
         marginTop: 50,
         flex: 1,
         marginLeft: 15,
         marginRight: 15,
-        padding: 10,
+        flexDirection: 'column',
     },
     itemContainer: {
         justifyContent: 'space-around',
         borderRadius: 10,
-        padding: 10,
-        paddingVertical: 15,
         height: 150,
-        shadowColor: '#a9a9a9',
-        shadowOffset: {width: 2, height: 4},
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
         elevation: 1,
+        flex: 1,
+    },
+    viewContainer: {
+        borderRadius: 10,
+        padding: 10,
+        paddingVertical: 10,
+        height: 150,
+        flex: 1,
     },
     itemName: {
         fontSize: 20,
