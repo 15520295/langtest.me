@@ -228,7 +228,6 @@ export default class HomeScreen extends PureComponent {
                                     flexDirection: 'row',
                                     flex: 1
                                 }}>
-
                                 <View
                                     style={{
                                         flex: 0,
@@ -239,7 +238,7 @@ export default class HomeScreen extends PureComponent {
                                         style={{
                                             color: '#0099DA',
                                             fontStyle: 'italic',
-                                            fontSize: 16
+                                            fontSize: 16 
                                         }}>Your Result</Text>
                                     <View
                                         style={{
@@ -264,6 +263,18 @@ export default class HomeScreen extends PureComponent {
                                             fontSize: 12
                                         }}>Time spent: {this.state.totalTimeSpend} min</Text>
                                     </View>
+                                </View>
+                                <View style={{
+                                    flex: 1,
+                                    alignContent: 'center',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                }}>
+                                    <Image style={{
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                    }} source={require('../../assets/images/cup_icon_48.png')}
+                                    />
                                 </View>
                             </View>
                         </View>
@@ -305,6 +316,8 @@ const styles = StyleSheet.create({
         height: 150,
         elevation: 1,
         flex: 1,
+        alignContent: 'center',
+        alignItems: 'center',
     },
     viewContainer: {
         borderRadius: 10,
