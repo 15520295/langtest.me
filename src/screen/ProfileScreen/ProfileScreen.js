@@ -14,6 +14,7 @@ import {
     TouchableOpacity,
     Alert,
 } from 'react-native';
+import {withNavigation} from "react-navigation";
 
 import {Body, Container, Header, Left, Right, Title} from 'native-base'
 
@@ -25,7 +26,9 @@ import {AppLoading} from "expo";
 import {AnswerState} from "../QuestionScreen/AnswerButton";
 import {AntDesign, Entypo, FontAwesome} from '@expo/vector-icons';
 
-export default class ProfileScreen extends React.Component {
+// import {withNavigation} from "react-navigation";
+
+class ProfileScreen extends React.Component {
 
     componentDidMount() {
         if (this.props.navigation != null) {
@@ -83,6 +86,51 @@ export default class ProfileScreen extends React.Component {
         //       />
         //   )
     };
+
+    render() {
+        if (this.state.isLoading) {
+            return <AppLoading/>;
+        }
+
+        return (
+            <Container>
+                <Header androidStatusBarColor="#0076BF"
+                        style={{backgroundColor: Platform.OS === 'android' ? '#019AE8' : '#FFFFFF'}}>
+                    <Left>
+                        {Platform.OS === 'ios'
+                            ?
+                            <Button transparent onPress={() => {
+                                this.props.navigation.openDrawer();
+
+                            }}>
+                                <Entypo name='menu' color='#000000' size={24}/>
+                            </Button>
+                            :
+                            <Button transparent onPress={() => {
+                                this.props.navigation.openDrawer();
+                            }}>
+                                <Entypo name='menu' color='#ffffff' size={24}/>
+                            </Button>
+                        }
+                    </Left>
+                    <Body>
+                        <Title>Profile</Title>
+                    </Body>
+                    <Right>
+
+                    </Right>
+                </Header>
+                <ScrollView style={styles.scroll}>
+                    <View style={styles.container}>
+                        <Card containerStyle={styles.cardContainer}>
+                            {this.renderHeader()}
+                        </Card>
+                    </View>
+                </ScrollView>
+            </Container>
+
+        );
+    }
 
     renderHeader = () => {
         return (
@@ -173,52 +221,9 @@ export default class ProfileScreen extends React.Component {
             </View>
         );
     };
-
-    render() {
-        if (this.state.isLoading) {
-            return <AppLoading/>;
-        }
-
-        return (
-            <Container>
-                <Header androidStatusBarColor="#0076BF"
-                        style={{backgroundColor: Platform.OS === 'android' ? '#019AE8' : '#FFFFFF'}}>
-                    <Left>
-                        {Platform.OS === 'ios'
-                            ?
-                            <Button transparent onPress={() => {
-                                this.props.navigation.openDrawer();
-
-                            }}>
-                                <Entypo name='menu' color='#000000' size={24}/>
-                            </Button>
-                            :
-                            <Button transparent onPress={() => {
-                                this.props.navigation.openDrawer();
-                            }}>
-                                <Entypo name='menu' color='#ffffff' size={24}/>
-                            </Button>
-                        }
-                    </Left>
-                    <Body>
-                        <Title>Profile</Title>
-                    </Body>
-                    <Right>
-
-                    </Right>
-                </Header>
-                <ScrollView style={styles.scroll}>
-                    <View style={styles.container}>
-                        <Card containerStyle={styles.cardContainer}>
-                            {this.renderHeader()}
-                        </Card>
-                    </View>
-                </ScrollView>
-            </Container>
-
-        );
-    }
 }
+
+export default withNavigation(ProfileScreen);
 
 const styles = StyleSheet.create({
     cardContainer: {

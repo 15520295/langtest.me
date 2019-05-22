@@ -187,7 +187,12 @@ const MyDrawerNavigator = createDrawerNavigator({
             }
         },
         Profile: {
-            screen: ProfileScreen
+            screen: ProfileScreen,
+            navigationOptions: {
+                drawerIcon: ({tintColor}) => (
+                    <FontAwesome name='home' style={{fontSize: 24, color: tintColor}}/>
+                )
+            }
         },
         Topic: {
             screen: TopicStack,
@@ -222,6 +227,12 @@ const AppNavigation = createStackNavigator({
     Other: {
         screen : OtherScreen,
         navigationOptions : {
+            gesturesEnabled: false
+        }
+    },
+    ProfileScreen: {
+        screen: ProfileScreen,
+        navigationOptions: {
             gesturesEnabled: false
         }
     }

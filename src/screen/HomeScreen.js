@@ -73,6 +73,11 @@ export default class HomeScreen extends PureComponent {
         this.setState({scroll: !this.state.scroll});
     }
 
+    _openProfileScreen() {
+        const {navigation} = this.props;
+        navigation.navigate('ProfileScreen');
+    }
+
     _onPressCard(index) {
         // Toast.show('This is a long toast.', Toast.LONG)
         const {navigation} = this.props;
@@ -174,9 +179,13 @@ export default class HomeScreen extends PureComponent {
                         blurRadius={0}
                         source={require('../../assets/images/background.jpg')}
                     >
-                        <Image source={this.state.avatarRequired}
-                               style={styles.imageInfo}
-                        />
+                        <TouchableOpacity onPress={() => {
+                            this._openProfileScreen();
+                        }}>
+                            <Image source={this.state.avatarRequired}
+                                   style={styles.imageInfo}
+                            />
+                        </TouchableOpacity>
                         <Text style={{
                             color: '#ffffff', fontWeight: 'bold',
                             marginTop: 10, fontSize: 16,

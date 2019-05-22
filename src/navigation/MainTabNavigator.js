@@ -29,7 +29,15 @@ HomeStack.navigationOptions = {
     ),
 };
 
-const QuestionStack = createSwitchNavigator({
+const ProfileScreenStack = createStackNavigator({
+    ProfileScreens: ProfileScreen,
+});
+
+ProfileScreenStack.navigationOptions = {
+    tabBarLabel: 'ProfileScreens',
+};
+
+const QuestionStack = createStackNavigator({
     Questions: QuizScreen,
     Results: ResultScreen
 }, {
@@ -46,7 +54,7 @@ QuestionStack.navigationOptions = {
     ),
 };
 
-const TopicStack = createSwitchNavigator({
+const TopicStack = createStackNavigator({
     Topic: TopicScreen,
     Word: WordScreen,
 });
@@ -75,7 +83,7 @@ ChartStack.navigationOptions = {
     ),
 };
 
-export default createBottomTabNavigator({
+export default createStackNavigator({
     HomeStack,
     QuestionStack,
     TopicStack,
