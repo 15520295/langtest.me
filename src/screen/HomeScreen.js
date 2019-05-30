@@ -78,40 +78,53 @@ export default class HomeScreen extends PureComponent {
         navigation.navigate('ProfileScreen');
     }
 
-    _onPressCard(index) {
-        // Toast.show('This is a long toast.', Toast.LONG)
+    _openStep1(index) {
+        // Toast.show('This is a long toast.', Toast.LONG);
         const {navigation} = this.props;
         switch (index) {
             case 0:
-                sharedQuizService.initTest(QuestionType.part1, 5, 3, 5 * 60 * 1000);
-                navigation.navigate('Questions');
+                navigation.navigate('Step1');
                 break;
             case 1:
-                sharedQuizService.initTest(QuestionType.part2, 10, 3, 8 * 60 * 1000);
-                navigation.navigate('Questions');
-                break;
-            case 2:
-                sharedQuizService.initTest(QuestionType.part3, 15, 3, 10 * 60 * 1000);
-                navigation.navigate('Questions');
-                break;
-            case 3:
-                sharedQuizService.initTest(QuestionType.part4, 15, 3, 10 * 60 * 1000);
-                navigation.navigate('Questions');
-                break;
-            case 4:
-                sharedQuizService.initTest(QuestionType.part5, 15, 3, 10 * 60 * 1000);
-                navigation.navigate('Questions');
-                break;
-            case 5:
-                sharedQuizService.initTest(QuestionType.part6, 10, 3, 7 * 60 * 1000);
-                navigation.navigate('Questions');
-                break;
-            case 6:
-                sharedQuizService.initTest(QuestionType.part7, 10, 3, 7 * 60 * 1000);
-                navigation.navigate('Questions');
+                navigation.navigate('ProfileScreen');
                 break;
         }
     }
+
+    // _onPressCard(index) {
+    //     // Toast.show('This is a long toast.', Toast.LONG)
+    //     const {navigation} = this.props;
+    //     switch (index) {
+    //         case 0:
+    //             sharedQuizService.initTest(QuestionType.part1, 5, 3, 5 * 60 * 1000);
+    //             navigation.navigate('Questions');
+    //             break;
+    //         case 1:
+    //             sharedQuizService.initTest(QuestionType.part2, 10, 3, 8 * 60 * 1000);
+    //             navigation.navigate('Questions');
+    //             break;
+    //         case 2:
+    //             sharedQuizService.initTest(QuestionType.part3, 15, 3, 10 * 60 * 1000);
+    //             navigation.navigate('Questions');
+    //             break;
+    //         case 3:
+    //             sharedQuizService.initTest(QuestionType.part4, 15, 3, 10 * 60 * 1000);
+    //             navigation.navigate('Questions');
+    //             break;
+    //         case 4:
+    //             sharedQuizService.initTest(QuestionType.part5, 15, 3, 10 * 60 * 1000);
+    //             navigation.navigate('Questions');
+    //             break;
+    //         case 5:
+    //             sharedQuizService.initTest(QuestionType.part6, 10, 3, 7 * 60 * 1000);
+    //             navigation.navigate('Questions');
+    //             break;
+    //         case 6:
+    //             sharedQuizService.initTest(QuestionType.part7, 10, 3, 7 * 60 * 1000);
+    //             navigation.navigate('Questions');
+    //             break;
+    //     }
+    // }
 
     static navigationOptions = {
         header: null, // !!! Hide Header
@@ -197,38 +210,7 @@ export default class HomeScreen extends PureComponent {
                                    source={require('../../assets/images/work.png')}/>
                             <Text style={{color: '#ffffff', marginTop: 10, marginLeft: 5}}>Desiger</Text>
                         </View> */}
-
-
                     </ImageBackground>
-
-                    <View style={{flex: 1, backgroundColor: '#e7e7e7'}}>
-                        <ScrollView style={{flex: 1}}>
-                            <GridView
-                                itemDimension={180}
-                                items={items}
-                                style={styles.gridView}
-                                renderItem={(item, index) => (
-                                    <TouchableOpacity
-                                        onPress={() => {
-                                            this._onPressCard(index);
-                                        }}
-                                        style={[
-                                            styles.viewContainer,
-                                            {backgroundColor: '#ffffff'}
-                                        ]}>
-                                        <View style={styles.itemContainer}>
-                                            <Text style={styles.itemName}>{item.name}</Text>
-                                            <Text style={{
-                                                fontSize: 16,
-                                                color: '#5B5B5B',
-                                                fontWeight: '600', fontStyle: 'italic'
-                                            }}>Reading - Listening</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                )}
-                            />
-                        </ScrollView>
-                    </View>
 
                     <View style={styles.positionAbsolute}>
                         <View style={[styles.cardMain, {backgroundColor: '#ffffff'}]}>
@@ -247,7 +229,7 @@ export default class HomeScreen extends PureComponent {
                                         style={{
                                             color: '#0099DA',
                                             fontStyle: 'italic',
-                                            fontSize: 16 
+                                            fontSize: 16
                                         }}>Your Result</Text>
                                     <View
                                         style={{
@@ -287,6 +269,35 @@ export default class HomeScreen extends PureComponent {
                                 </View>
                             </View>
                         </View>
+                    </View>
+
+                    <View style={{flex: 1, backgroundColor: '#e7e7e7'}}>
+                        <ScrollView style={{flex: 1}}>
+                            <GridView
+                                itemDimension={180}
+                                items={items}
+                                style={styles.gridView}
+                                renderItem={(item, index) => (
+                                    <TouchableOpacity
+                                        onPress={() => {
+                                            this._openStep1(index);
+                                        }}
+                                        style={[
+                                            styles.viewContainer,
+                                            {backgroundColor: '#ffffff'}
+                                        ]}>
+                                        <View style={styles.itemContainer}>
+                                            <Text style={styles.itemName}>{item.name}</Text>
+                                            <Text style={{
+                                                fontSize: 16,
+                                                color: '#5B5B5B',
+                                                fontWeight: '600', fontStyle: 'italic'
+                                            }}>Reading - Listening</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                )}
+                            />
+                        </ScrollView>
                     </View>
 
                 </ScrollView>

@@ -14,7 +14,7 @@ import {Root} from 'native-base';
 import {AppLoading, Asset, Font, Icon} from 'expo';
 import {Expo} from 'expo';
 
-import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
+import {AntDesign, MaterialCommunityIcons} from '@expo/vector-icons';
 import * as firebase from 'firebase';
 
 import {
@@ -69,8 +69,8 @@ const CustomDrawerContentComponent = (props) => (
             height: 150, backgroundColor: 'white', alignItems: 'center',
             justifyContent: 'center'
         }}>
-            <TouchableOpacity style={{height: 120, width: 120, }}
-                              // onPress={()=> this.props.navigation.navigate('Profile')}
+            <TouchableOpacity style={{height: 120, width: 120,}}
+                // onPress={()=> this.props.navigation.navigate('Profile')}
             >
                 <Image source={require('../assets/splash.png')}
                        style={{height: 120, width: 120, borderRadius: 60}}
@@ -115,6 +115,7 @@ import LeaderBoardScreen from './screen/LeaderBoardScreen';
 import LearnScreen from './screen/vocabularySreen/LearnScreen';
 import ProfileScreen from './screen/ProfileScreen/ProfileScreen';
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import Step1Question from "./screen/Step1/Step1Question";
 
 const AppContainer = createAppContainer(AppNavigator);
 
@@ -160,7 +161,8 @@ export default class App extends React.Component {
             //     <AppContainer />
             // </View>
             <MyApp/>
-            // <ProfileScreen/>
+            // {/*<ProfileScreen/>*/}
+            //<Step1Question/>
         );
     }
 }
@@ -198,7 +200,7 @@ const MyDrawerNavigator = createDrawerNavigator({
             screen: TopicStack,
             navigationOptions: {
                 drawerIcon: ({tintColor}) => (
-                    <MaterialCommunityIcons name='dictionary' color={tintColor} size= {24}/>
+                    <MaterialCommunityIcons name='dictionary' color={tintColor} size={24}/>
                 )
             }
         },
@@ -207,7 +209,7 @@ const MyDrawerNavigator = createDrawerNavigator({
         },
         LeaderBoard: {
             screen: LeaderBoardScreen
-        }
+        },
     },
     {
         contentComponent: CustomDrawerContentComponent,
@@ -218,15 +220,15 @@ const MyDrawerNavigator = createDrawerNavigator({
 );
 
 const AppNavigation = createStackNavigator({
-    Default:  {
-        screen : MyDrawerNavigator,
-        navigationOptions : {
+    Default: {
+        screen: MyDrawerNavigator,
+        navigationOptions: {
             gesturesEnabled: false
         }
     },
     Other: {
-        screen : OtherScreen,
-        navigationOptions : {
+        screen: OtherScreen,
+        navigationOptions: {
             gesturesEnabled: false
         }
     },
@@ -235,6 +237,9 @@ const AppNavigation = createStackNavigator({
         navigationOptions: {
             gesturesEnabled: false
         }
+    },
+    Step1: {
+        screen: Step1Question,
     }
 }, {
     headerMode: 'none',
